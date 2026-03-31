@@ -47,23 +47,10 @@ harvest source=(HARVEST_FILE):
 process:
 	@./process_harvest.sh
 
-process-help:
-	@echo "PROCESS - Run domain processing"
-	@echo ""
-	@echo "USAGE:"
-	@echo "  just process"
-	@echo ""
-	@echo "WHAT IT DOES:"
-	@echo "  Runs process_harvest.sh to transform/mark data"
-	@echo ""
-	@echo "WHEN:"
-	@echo "  After harvest, before flush"
-
 # === HELP ===
 
 # Detailed help - the safety rail
 # Usage: just help [recipe]
-# What: Shows usage info for all recipes or specific one
 help target="":
 	@if [ "{{target}}" = "" ]; then \
 		echo "============================================================"; \
@@ -94,15 +81,53 @@ help target="":
 		echo ""; \
 		echo "============================================================"; \
 	elif [ "{{target}}" = "harvest" ]; then \
-		just harvest-help; \
+		echo "HARVEST - Ingest and validate data"; \
+		echo ""; \
+		echo "USAGE: just harvest [source=harvest.jsonl]"; \
+		echo ""; \
+		echo "WHAT IT DOES:"; \
+		echo "  1. Confirms prerequisites (verify)"; \
+		echo "  2. Reads source file"; \
+		echo "  3. Validates against schema.json"; \
+		echo "  4. Writes valid entries to data.jsonl"; \
+		echo "  5. Writes invalid entries to quarantine.jsonl"; \
+		echo "  6. Shows stats"; \
 	elif [ "{{target}}" = "status" ]; then \
-		just status-help; \
+		echo "STATUS - Pipeline observability dashboard"; \
+		echo ""; \
+		echo "USAGE: just status"; \
+		echo ""; \
+		echo "WHAT IT SHOWS:"; \
+		echo "  AGENTS      - Who owns which stage"; \
+		echo "  STAGES      - DONE/RUNNING/PENDING per stage"; \
+		echo "  THROUGHPUT  - Active/Quarantined/Archived counts"; \
+		echo "  STUCK       - Stages idle > 60 minutes"; \
+		echo "  ALERTS      - Critical moisture readings"; \
 	elif [ "{{target}}" = "stuck" ]; then \
-		just stuck-help; \
+		echo "STUCK - Detect stalled stages"; \
+		echo ""; \
+		echo "USAGE: just stuck [minutes=60]"; \
+		echo ""; \
+		echo "WHAT IT DOES:"; \
+		echo "  Shows stages that completed more than N minutes ago"; \
+		echo "  (Implies no subsequent stage ran - pipeline stalled)"; \
 	elif [ "{{target}}" = "process" ]; then \
-		just process-help; \
+		echo "PROCESS - Run domain processing"; \
+		echo ""; \
+		echo "USAGE: just process"; \
+		echo ""; \
+		echo "WHAT IT DOES:"; \
+		echo "  Runs process_harvest.sh to transform/mark data"; \
+		echo ""; \
+		echo "WHEN: After harvest, before flush"; \
 	elif [ "{{target}}" = "flush" ]; then \
-		just flush-help; \
+		echo "FLUSH - Archive processed data"; \
+		echo ""; \
+		echo "USAGE: just flush"; \
+		echo ""; \
+		echo "WHAT IT DOES:"; \
+		echo "  Moves processed entries to final_output.jsonl"; \
+		echo "  Keeps pending entries in data.jsonl"; \
 	else \
 		echo "Unknown: {{target}}"; \
 	fi
@@ -149,68 +174,6 @@ stuck threshold:
 # Audit trail
 audit:
 	@./{{SCRIPTS_DIR}}/status_audit.sh
-
-# Granular help for key commands - progressive disclosure
-harvest-help:
-	@echo "HARVEST - Ingest and validate data"
-	@echo ""
-	@echo "USAGE:"
-	@echo "  just harvest [source=harvest.jsonl]"
-	@echo ""
-	@echo "WHAT IT DOES:"
-	@echo "  1. Confirms prerequisites (verify)"
-	@echo "  2. Reads source file"
-	@echo "  3. Validates against schema.json"
-	@echo "  4. Writes valid entries to data.jsonl"
-	@echo "  5. Writes invalid entries to quarantine.jsonl"
-	@echo "  6. Shows stats"
-	@echo ""
-	@echo "EXAMPLE:"
-	@echo "  just harvest                    # Use default harvest.jsonl"
-	@echo "  just harvest new_data.jsonl    # Use specific file"
-
-status-help:
-	@echo "STATUS - Pipeline observability dashboard"
-	@echo ""
-	@echo "USAGE:"
-	@echo "  just status"
-	@echo ""
-	@echo "WHAT IT SHOWS:"
-	@echo "  AGENTS      - Who owns which stage"
-	@echo "  STAGES      - DONE/RUNNING/PENDING per stage"
-	@echo "  THROUGHPUT  - Active/Quarantined/Archived counts"
-	@echo "  STUCK       - Stages idle > 60 minutes"
-	@echo "  ALERTS      - Critical moisture readings"
-	@echo ""
-	@echo "THIS IS THE MAIN COMMAND. Run this anytime."
-
-stuck-help:
-	@echo "STUCK - Detect stalled stages"
-	@echo ""
-	@echo "USAGE:"
-	@echo "  just stuck [minutes=60]"
-	@echo ""
-	@echo "WHAT IT DOES:"
-	@echo "  Shows stages that completed more than N minutes ago"
-	@echo "  (Implies no subsequent stage ran - pipeline stalled)"
-	@echo ""
-	@echo "EXAMPLE:"
-	@echo "  just stuck          # Check for stages stuck > 60m"
-	@echo "  just stuck 30       # Check for stages stuck > 30m"
-	@echo "  just stuck 5        # Check for stages stuck > 5m"
-
-flush-help:
-	@echo "FLUSH - Archive processed data"
-	@echo ""
-	@echo "USAGE:"
-	@echo "  just flush"
-	@echo ""
-	@echo "WHAT IT DOES:"
-	@echo "  Moves processed entries to final_output.jsonl"
-	@echo "  Keeps pending entries in data.jsonl"
-	@echo ""
-	@echo "WHEN:"
-	@echo "  After processing, to archive completed work"
 
 # 4. Check: extract critical moisture alerts
 alerts:
