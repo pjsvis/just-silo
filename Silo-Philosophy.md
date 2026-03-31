@@ -4,6 +4,24 @@
 
 ---
 
+## The Reveal
+
+**You don't pre-define the vocabulary. You just say what you want.**
+
+```
+"I want to monitor grain moisture and alert when it's too high"
+→ just harvest, just alert, just threshold...
+
+"I want to review PRs and flag risky changes"
+→ just scan, just score, just flag...
+```
+
+**You say the words. Just-silo makes them executable.**
+
+Ask your AI: "Make up the vocabulary for [what I want]". Done.
+
+---
+
 ## The Core Insight
 
 Every turn, an agent loses its context. Every turn, you have to re-explain the domain.

@@ -22,9 +22,24 @@
 
 **The sweet spot:** Bounded context. Enough to act, no more.
 
-**A silo is a scoped lexicon** — vocabulary and grammar that lives in the filesystem.
+## The Reveal
 
-Agents lose their context every turn. A silo persists knowledge across sessions.
+**You don't pre-define the vocabulary. You just say what you want.**
+
+```
+"I want to monitor grain moisture and alert when it's too high"
+→ just harvest, just alert, just threshold...
+
+"I want to review PRs and flag risky changes"
+→ just scan, just score, just flag...
+
+"I want to triage alerts and route to on-call"
+→ just triage, just route, just escalate...
+```
+
+**You say the words. Just-silo makes them executable.**
+
+Ask your AI: "Make up the vocabulary for [what I want]". Done.
 
 ## What Is A Silo?
 
