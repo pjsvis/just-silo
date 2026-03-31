@@ -4,6 +4,31 @@
 
 ---
 
+## The Idea
+
+**You don't pre-define the vocabulary. You just say what you want.**
+
+```
+"I want to monitor grain moisture..."
+→ just harvest, just alert, just threshold...
+```
+
+**You define the verbs. The silo emerges.**
+
+## Pocket Universe
+
+```
+input ──→ [ SILO ] ──→ output
+          ┌─────────┐
+          │ vocab   │  ← You define these
+          │ grammar │  ← What data looks like
+          │ rules   │  ← What you can do
+          │ state   │  ← Working memory
+          └─────────┘
+```
+
+**When they're in, they can only do what you allow. That's the point.**
+
 ## Files Required
 
 | File | Purpose |
@@ -12,7 +37,7 @@
 | `README.md` | Domain description |
 | `schema.json` | JSON Schema validation |
 | `queries.json` | Named jq filters |
-| `justfile` | CLI interface |
+| `justfile` | Vocabulary (your verbs) |
 | `process.sh` | Domain script |
 
 ## Recipe Order
@@ -20,83 +45,89 @@
 Recipes ordered by workflow:
 
 ```
-1. Mount  → verify
-2. Sieve  → harvest
-3. Process → process
-4. Check  → alerts, stats, query, report
-5. Flush  → flush, compact
-Maint.    → install-deps, self-test, clean
+Mount  → verify
+Sieve  → harvest
+Do     → <your-verb>
+Observe → status, who, stuck, throughput, audit, alerts
+Flush  → flush
+Help   → help, help <verb>
+```
+
+## The Pattern
+
+```
+just <verb>        → just fcuking do it
+just help <verb>  → what will it do?
+just help          → what verbs exist?
+just status        → aggregate health
 ```
 
 ## justfile Template
 
 ```just
-# High-Integrity Environment (COG-12)
 set shell := ["bash", "-o", "pipefail", "-c"]
 set export := true
-set -euo pipefail
 
 DATA_FILE      := "data.jsonl"
 HARVEST_FILE   := "harvest.jsonl"
-QUARANTINE_FILE := "quarantine.jsonl"
-OUTPUT_FILE    := "final_output.jsonl"
 SCHEMA_FILE    := "schema.json"
 QUERIES_FILE   := "queries.json"
+PIPELINE_FILE  := "pipeline.json"
+MARKERS_DIR    := "markers"
+SCRIPTS_DIR    := "scripts"
 
 default:
     @just --list
 
+# Help
+help target="":
+    @if [ "{{target}}" = "" ]; then \
+        echo "Just fcuking do it."; \
+        echo "just help <verb> for command help"; \
+    fi
+
+# Core
 verify:
     @test -f {{SCHEMA_FILE}} && echo "  schema ok"
-    @test -f {{QUERIES_FILE}} && echo "  queries ok"
-    @command -v jq >/dev/null 2>&1 && echo "  jq ok"
 
 harvest source=(HARVEST_FILE):
-    @> {{DATA_FILE}} && > {{QUARANTINE_FILE}}
+    @just verify
     @cat {{source}} | jq -c ... >> {{DATA_FILE}}
-    @just stats
 
-process:
-    @./process.sh
+# Observability
+status:
+    @echo "=== PIPELINE STATUS ==="
+    @./{{SCRIPTS_DIR}}/status_stages.sh
+    @./{{SCRIPTS_DIR}}/status_throughput.sh
+    @./{{SCRIPTS_DIR}}/status_stuck.sh
 
-alerts:
-    @jq -c 'select(.<field> > <threshold>)' {{DATA_FILE}}
-
-stats:
-    @echo "Active: $(jq -s 'length' {{DATA_FILE}})"
-
-flush:
-    @jq -c 'select(.status == "processed")' {{DATA_FILE}} >> {{OUTPUT_FILE}}
-    @jq -c 'select(.status != "processed")' {{DATA_FILE}} > {{DATA_FILE}}.tmp
-    @mv {{DATA_FILE}}.tmp {{DATA_FILE}}
-```
-
-## process.sh Template
-
-```bash
-#!/bin/bash
-# Deductive Minimalism (COG-12)
-set -euo pipefail
-
-for line in $(cat data.jsonl); do
-    echo "$line" | jq '.status = "processed"'
-done >> final_output.jsonl
+# Your verbs
+<your-verb>:
+    @./<your-script>.sh
 ```
 
 ## Checklist
 
 - [ ] `.silo` manifest with domain name
-- [ ] `README.md` with workflow diagram
+- [ ] `README.md` with pocket universe framing
 - [ ] `schema.json` with required fields
-- [ ] `queries.json` with 2+ named filters
-- [ ] `justfile` with all recipes
-- [ ] `process.sh` executable
-- [ ] `just verify` passes
-- [ ] `just self-test` passes
+- [ ] `queries.json` with named filters
+- [ ] `justfile` with your verbs
+- [ ] `pipeline.json` with stage definitions
+- [ ] `scripts/` with observability helpers
+- [ ] `just help` works
+- [ ] `just status` works
 
 ## Anti-Patterns
 
-- ❌ Don't put logic in justfile
+- ❌ Don't pre-define vocabulary — let it emerge
 - ❌ Don't skip schema validation
 - ❌ Don't skip `just flush`
 - ❌ Don't hardcode jq — use queries.json
+- ❌ Don't over-engineer — simple job, get stuff, turn into things
+
+## Remember
+
+**The tool is called `just`. The usage is `just fcuking do it`.**
+
+Constraints create capability. The rules are the rails.

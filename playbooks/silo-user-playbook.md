@@ -1,68 +1,94 @@
 # Silo User Playbook
 
-**For humans processing data through a silo.**
+**For humans who want the AI to just fcuking do it.**
 
 ---
+
+## The Idea
+
+You have a job. You want it done. You drop into a silo, the AI reads the rules, and just fcuking does it.
+
+**You define what you want. The vocabulary emerges. You just do it.**
 
 ## Quick Start
 
 ```bash
-cd silo_<domain>/
-just verify          # Check ready
-just harvest         # Ingest data
-just process         # Run script
-just alerts          # See critical items
-just stats           # See counts
-just flush           # Compact output
+cp -r template my-silo && cd my-silo && just help
+```
+
+## The Pattern
+
+```
+just <verb>        → just fcuking do it
+just help <verb>  → what will it do?
+just help          → what verbs exist?
+just status        → pipeline observability
 ```
 
 ## Workflow
 
 ```
-Mount → Sieve → Process → Check → Flush
+Mount → Sieve → <verb> → Observe → Flush
 ```
 
 ### Mount
 ```bash
-cd silo_<domain>/
-just verify
-just --list
+cd my-silo/
+just help          # What can I do here?
 ```
 
 ### Sieve
 ```bash
-just harvest
+just verify        # Check prerequisites
+just harvest       # Ingest data
 ```
 
-### Process
+### Do the Thing
 ```bash
-just process
+just <your-verb>  # Whatever verbs you defined
 ```
 
-### Check
+### Observe
 ```bash
-just alerts          # Critical items
-just stats           # File counts
-just query <name>    # Named filter
-just report          # Full summary
+just status        # Everything at once
+just who           # Who's doing what
+just stuck         # Anything stalled?
 ```
 
 ### Flush
 ```bash
-just flush           # Compact to final_output.jsonl
+just flush         # Archive completed work
 ```
+
+## Pocket Universe Rules
+
+**When you're in, you can only do what the silo allows.**
+
+The rules are the rails. Constraints create capability.
 
 ## Files
 
-| File | Created by |
-|------|------------|
-| `data.jsonl` | `just harvest` |
-| `quarantine.jsonl` | `just harvest` (bad entries) |
-| `final_output.jsonl` | `just flush` |
+| File | Purpose |
+|------|---------|
+| `justfile` | Your vocabulary (verbs you define) |
+| `schema.json` | What valid data looks like |
+| `data.jsonl` | Working state |
+| `final_output.jsonl` | Archived results |
+
+## Observability Commands
+
+```bash
+just status        # Aggregate pipeline health (THE main command)
+just who           # Agent assignments
+just stages        # Stage-by-stage
+just stuck         # Detect stalled stages
+just throughput    # Processing metrics
+just audit         # Completion history
+```
 
 ## Reset
 ```bash
-just clean           # Remove state files
+just clean         # Remove state files
 ```
 
 ## Troubleshooting
@@ -72,3 +98,9 @@ just clean           # Remove state files
 | "No justfile" | `cd` into silo directory |
 | "jq parse error" | Check JSONL validity |
 | Entries in quarantine | Review failed validation |
+
+## Remember
+
+**Just ask your AI:** "Make the words just happen."
+
+The tool is called `just`. The usage is `just fcuking do it`.
