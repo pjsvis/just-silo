@@ -4,7 +4,7 @@
 
 A **directory-based skill framework** for AI agents. Mount a silo to get domain-specific capabilities without session context.
 
-**Tagline:** *"just-silo or just-forget-it"*
+**Tagline:** *"just-silo it or just-forget it"*
 
 **Core insight:** Agents lose context every turn. A "silo" persists domain knowledge in the filesystem.
 

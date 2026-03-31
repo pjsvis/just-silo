@@ -1,6 +1,6 @@
 # just-silo
 
-*"just-silo or just-forget-it"*
+*"just-silo it or just-forget it"*
 
 A directory-based skill for AI agents. Mount a silo, just harvest.
 
@@ -27,7 +27,7 @@ Agents lose their context every turn. A silo persists knowledge across sessions.
 | Inconsistent processing | Reproducible workflow |
 | Ad-hoc jq | Named, validated filters |
 
-*"just-silo or just-forget-it"* — because without structure, you'll just forget to do it right.
+*"just-silo it or just-forget it"* — because without structure, you'll just forget to do it right.
 
 ## Prerequisites
 
