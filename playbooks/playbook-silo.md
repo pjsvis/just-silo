@@ -308,10 +308,52 @@ specific Outposts as needed.
   cheap; debugging bad data in the active state is expensive.
 - ❌ **Don't** hardcode jq filters in the `justfile` — use `queries.json`.
   The `justfile` should call `jq` with named filters, not inline expressions.
-- ❌ **Don't** skip `just flush` — a silo that never compacts accumulates
+- ❌ **Don't** skip `just flush** — a silo that never compacts accumulates
   high-entropy state that degrades agent performance.
 - ❌ **Don't** use `just` features (shebang recipes, etc.) that require the
   latest `just` version — keep it compatible with `just 1.48+`.
+
+---
+
+## Principles
+
+### 1. High-Integrity Environment (COG-12)
+
+**Deductive Minimalism** means reducing the "Search Space" of potential errors.
+
+Including `set -euo pipefail` at the top of your `justfile` ensures every recipe
+runs in a high-integrity shell environment:
+
+```just
+set shell := ["bash", "-c"]
+set export := true
+set strict := true
+```
+
+**What this guarantees:**
+- `set -e` — Recipe stops on first error (no silent failures)
+- `set -u` — Recipe fails on undefined variables (no typos)
+- `set -o pipefail` — Pipeline fails if any component fails
+
+**Why it matters:** It turns the "Just Container" into a high-integrity environment.
+Every single recipe is wrapped in this safety logic by default. The agent cannot
+wander into an undefined state.
+
+### 2. Sleeve Before Substrate
+
+Read the schema and queries *before* touching the data.
+
+### 3. Mentational Hygiene
+
+Keep `data.jsonl` lean. Flush early and often.
+
+### 4. Occupy the Territory
+
+Don't install capabilities — `cd` into the silo.
+
+### 5. Idempotency by Default
+
+Every recipe should be safe to run twice.
 
 ---
 
@@ -462,6 +504,156 @@ status:
 3. **TTL prevents staleness** — Crashed agents don't block forever
 4. **Idempotency by design** — Check completed/ before working
 5. **Manifest is source of truth** — Verify against filesystem on startup
+
+---
+
+## Use Cases
+
+The Silo pattern applies whenever you need an agent (or human) to process
+structured data with zero prior context.
+
+### Use Case 1: Code Review Queue
+
+**Problem:** Track and prioritize PRs for review.
+
+```
+silo_code_review/
+├── schema.json        # {pr_number, repo, author, changed_files, lines, status}
+├── queries.json       # {large_prs, stale_prs, by_team}
+├── justfile
+└── output/
+    ├── needs_review/
+    ├── blocked/
+    └── done/
+```
+
+**Workflow:**
+1. Agent A: `just harvest` (pulls open PRs from GitHub API)
+2. Agent B: `just process` (scores PRs by complexity)
+3. Agent C: `just alerts` (notifies authors of large PRs)
+
+**Key insight:** Silo normalizes heterogeneous PR data into uniform schema.
+
+---
+
+### Use Case 2: Log Analysis Pipeline
+
+**Problem:** Ingest, filter, and archive logs from multiple services.
+
+```
+silo_logs/
+├── schema.json        # {timestamp, level, service, message, trace_id}
+├── queries.json       # {errors, warnings, by_service, critical}
+├── justfile
+└── quarantine/        # Malformed log lines
+```
+
+**Workflow:**
+1. `just harvest` (ingest from /var/logs)
+2. `just alerts` (surface ERROR/FATAL)
+3. `just flush` (archive to S3)
+
+**Key insight:** High-volume → batch by hour, compact aggressively.
+
+---
+
+### Use Case 3: Webhook Normalizer (API Gateway Pattern)
+
+**Problem:** Normalize heterogeneous webhook payloads.
+
+```
+silo_webhooks/
+├── schema.json        # {event_type, payload, received_at, source}
+├── queries.json       # {github_events, stripe_events, by_type}
+├── justfile
+└── normalized/       # Standardized output
+```
+
+**Workflow:**
+1. Agent receives webhook → writes to `harvest.jsonl`
+2. `just harvest` normalizes to canonical schema
+3. `just process` routes to appropriate handler
+
+**Key insight:** Silo acts as an API gateway, standardizing before routing.
+
+---
+
+### Use Case 4: Health Metrics Aggregator
+
+**Problem:** Collect and alert on infrastructure metrics.
+
+```
+silo_health/
+├── schema.json        # {host, metric, value, timestamp, threshold}
+├── queries.json       # {critical_cpu, low_memory, disk_full}
+├── justfile
+└── alerts/
+```
+
+**Workflow:**
+1. Cron: `just harvest` (collects metrics)
+2. Agent: `just alerts` (pages if threshold exceeded)
+3. `just flush` (archives to timeseries DB)
+
+**Key insight:** Aggregator pattern — collect before alerting to avoid spam.
+
+---
+
+### Use Case 5: Content Moderation Queue
+
+**Problem:** Route content for human review.
+
+```
+silo_moderation/
+├── schema.json        # {content_id, content, user, flags, status}
+├── queries.json       # {pending_review, auto_flagged, escalate}
+├── justfile
+└── output/
+    ├── approved/
+    ├── rejected/
+    └── escalated/
+```
+
+**Workflow:**
+1. `just harvest` (ingest flagged content)
+2. Agent A: reviews auto-flagged
+3. Agent B: reviews escalated
+4. `just flush` (moves to appropriate output)
+
+**Key insight:** Router pattern — classify and route to handlers.
+
+---
+
+### Use Case 6: Backup Verification
+
+**Problem:** Verify backups completed successfully.
+
+```
+silo_backups/
+├── schema.json        # {backup_id, timestamp, size, status, checksum}
+├── queries.json       # {failed, stale, by_host}
+├── justfile
+└── quarantine/       # Checksum mismatches
+```
+
+**Workflow:**
+1. Cron: `just harvest` (parses backup logs)
+2. `just alerts` (notify on failures)
+3. `just flush` (archive to audit log)
+
+**Key insight:** Deduplicator pattern — one-in, unique-out.
+
+---
+
+### Cross-Cutting Patterns
+
+| Pattern | Use Cases | Mechanism |
+|---------|-----------|-----------|
+| **Silo as API Gateway** | Webhooks | Normalize before routing |
+| **Silo as Queue** | Moderation | Route to handlers |
+| **Silo as Aggregator** | Health, Logs | Collect before alert |
+| **Silo as Archival** | Logs, Backups | Compact before S3 |
+| **Silo as Deduplicator** | Webhooks | Dedup by event_id |
 
 ---
 
