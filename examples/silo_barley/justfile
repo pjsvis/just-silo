@@ -47,45 +47,65 @@ harvest source=(HARVEST_FILE):
 process:
 	@./process_harvest.sh
 
+process-help:
+	@echo "PROCESS - Run domain processing"
+	@echo ""
+	@echo "USAGE:"
+	@echo "  just process"
+	@echo ""
+	@echo "WHAT IT DOES:"
+	@echo "  Runs process_harvest.sh to transform/mark data"
+	@echo ""
+	@echo "WHEN:"
+	@echo "  After harvest, before flush"
+
 # === HELP ===
 
 # Detailed help - the safety rail
 # Usage: just help [recipe]
 # What: Shows usage info for all recipes or specific one
-# Example: just help
-# Example: just help harvest
-help topic="":
-	@echo "============================================================"
-	@echo "  SILO BARLEY - HELP"
-	@echo "============================================================"
-	@echo ""
-	@echo "WORKFLOW: Mount -> Sieve -> Process -> Observe -> Flush"
-	@echo ""
-	@echo "COMMANDS:"
-	@echo "  just verify         Check prerequisites (schema, jq)"
-	@echo "  just harvest        Ingest and validate data"
-	@echo "  just process        Run domain processing"
-	@echo "  just status         Aggregate pipeline health *"
-	@echo "  just flush          Archive processed data"
-	@echo ""
-	@echo "MONITORING (just status):"
-	@echo "  just who            Which agents on which stages"
-	@echo "  just stages         Stage-by-stage status"
-	@echo "  just stuck 60       Detect stalled stages (default: 60m)"
-	@echo "  just throughput     Active/Quarantined/Archived counts"
-	@echo "  just audit          Chronological completion history"
-	@echo "  just alerts         Critical moisture readings"
-	@echo ""
-	@echo "COORDINATION (multi-agent):"
-	@echo "  just claim <stage>  Claim a stage for processing"
-	@echo "  just wait <marker>  Wait for a stage to complete"
-	@echo "  just done <marker>  Mark stage complete"
-	@echo "  just heartbeat      Keep claim alive"
-	@echo ""
-	@echo "[*] just status shows all monitoring at once"
-	@echo ""
-	@echo "For full documentation, see: README.md"
-	@echo "============================================================"
+help target="":
+	@if [ "{{target}}" = "" ]; then \
+		echo "============================================================"; \
+		echo "  SILO BARLEY - HELP"; \
+		echo "============================================================"; \
+		echo ""; \
+		echo "  just harvest  -> just f*cking harvest"; \
+		echo "  just help harvest -> what will harvest do?"; \
+		echo ""; \
+		echo "  just status   -> just f*cking show status"; \
+		echo "  just help status -> what does status show?"; \
+		echo ""; \
+		echo "  just help      -> this overview"; \
+		echo "  just help <cmd> -> help for specific command"; \
+		echo ""; \
+		echo "============================================================"; \
+		echo "WORKFLOW: Mount -> Sieve -> Process -> Observe -> Flush"; \
+		echo ""; \
+		echo "COMMANDS:"; \
+		echo "  just verify         Check prerequisites"; \
+		echo "  just harvest        Ingest and validate data"; \
+		echo "  just process        Run domain processing"; \
+		echo "  just status         Aggregate pipeline health"; \
+		echo "  just flush          Archive processed data"; \
+		echo ""; \
+		echo "MONITORING: just who, stages, stuck, throughput, audit, alerts"; \
+		echo "COORDINATION: just claim, wait, done, heartbeat"; \
+		echo ""; \
+		echo "============================================================"; \
+	elif [ "{{target}}" = "harvest" ]; then \
+		just harvest-help; \
+	elif [ "{{target}}" = "status" ]; then \
+		just status-help; \
+	elif [ "{{target}}" = "stuck" ]; then \
+		just stuck-help; \
+	elif [ "{{target}}" = "process" ]; then \
+		just process-help; \
+	elif [ "{{target}}" = "flush" ]; then \
+		just flush-help; \
+	else \
+		echo "Unknown: {{target}}"; \
+	fi
 
 # === OBSERVE: Pipeline Observability ===
 
@@ -178,6 +198,19 @@ stuck-help:
 	@echo "  just stuck          # Check for stages stuck > 60m"
 	@echo "  just stuck 30       # Check for stages stuck > 30m"
 	@echo "  just stuck 5        # Check for stages stuck > 5m"
+
+flush-help:
+	@echo "FLUSH - Archive processed data"
+	@echo ""
+	@echo "USAGE:"
+	@echo "  just flush"
+	@echo ""
+	@echo "WHAT IT DOES:"
+	@echo "  Moves processed entries to final_output.jsonl"
+	@echo "  Keeps pending entries in data.jsonl"
+	@echo ""
+	@echo "WHEN:"
+	@echo "  After processing, to archive completed work"
 
 # 4. Check: extract critical moisture alerts
 alerts:
