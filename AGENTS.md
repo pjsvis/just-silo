@@ -4,6 +4,8 @@
 
 A **directory-based skill framework** for AI agents. Mount a silo to get domain-specific capabilities without session context.
 
+**A silo is a scoped lexicon — vocabulary and grammar that lives in the filesystem.**
+
 **Tagline:** *"just-silo it or just-forget it"*
 
 **Core insight:** Agents lose context every turn. A "silo" persists domain knowledge in the filesystem.
@@ -123,7 +125,8 @@ just-silo-dev/
 
 | File | Purpose |
 |------|---------|
-| `Silo-Manual.md` | Full documentation, philosophy, patterns |
+| `Silo-Philosophy.md` | The why (read this first) |
+| `Silo-Manual.md` | Technical implementation |
 | `template/justfile` | All recipes, copy to new silos |
 | `skills/skill-use-silo.md` | How to use an existing silo |
 | `skills/skill-build-silo.md` | How to create a new silo |

@@ -4,6 +4,8 @@
 
 A directory-based skill for AI agents. Mount a silo, just harvest.
 
+**A silo is a scoped lexicon — vocabulary and grammar that lives in the filesystem.** See [Silo-Philosophy.md](Silo-Philosophy.md) for the why.
+
 **The core insight:** Every turn, the context window is scrubbed. Give agents just enough context to act — and no more. That's what silos do.
 
 ```bash
@@ -147,7 +149,8 @@ just audit           # Full pipeline history
 
 | Document | Purpose |
 |----------|---------|
-| [Silo-Manual.md](Silo-Manual.md) | Why and how |
+| [Silo-Philosophy.md](Silo-Philosophy.md) | The why and what (read this first) |
+| [Silo-Manual.md](Silo-Manual.md) | Technical implementation |
 | [Playbooks](playbooks/) | By role |
 | [Skills](skills/) | Agent instructions |
 | [Examples](examples/silo_barley/) | Working silo |
