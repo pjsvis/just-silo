@@ -43,7 +43,23 @@ Ask your AI: "Make up the vocabulary for [what I want]". Done.
 
 ## What Is A Silo?
 
-A contained workspace with its own language:
+**A pocket universe with its own rules.**
+
+```
+input ──→ [ SILO ] ──→ output
+          ┌─────────┐
+          │ vocab   │
+          │ grammar │
+          │ state   │
+          │ rules   │
+          └─────────┘
+```
+
+**Input comes in. Output goes out. Rules stay in.**
+
+Any agent can drop in, read the rules, and just f*cking do it.
+
+You want different rules? Change them. It's your pocket universe.
 
 ```
 my-silo/

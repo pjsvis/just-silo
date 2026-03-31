@@ -4,6 +4,26 @@
 
 ---
 
+## Pocket Universe
+
+```
+input ──→ [ SILO ] ──→ output
+          ┌─────────┐
+          │ vocab   │
+          │ grammar │
+          │ state   │
+          │ rules   │
+          └─────────┘
+```
+
+**Input comes in. Output goes out. Rules stay in.**
+
+Any agent can drop in, read the rules, and just f*cking do it.
+
+You want different rules? Change them. It's your pocket universe.
+
+---
+
 ## The Reveal
 
 **You don't pre-define the vocabulary. You just say what you want.**
