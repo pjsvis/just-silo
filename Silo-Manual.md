@@ -48,6 +48,75 @@ Agent: (reads .silo, schema.json, queries.json, justfile)
       "Running harvest, 15 entries, 7 critical alerts, flush complete"
 ```
 
+---
+
+## So What? Real Use Cases
+
+The simple grain elevator example is easy to understand. Here's where it gets interesting.
+
+---
+
+**Imagine you had to review 50 pull requests a day.**
+
+You could open each one manually. Or you could have a silo that:
+```bash
+just harvest    # Pulls all open PRs from GitHub API
+just process    # Scores complexity, flags risky changes
+just alerts    # Notifies authors of large PRs
+just flush     # Archives to review queue
+```
+
+*With just-silo, you hand an agent "silo_code_review" and it knows the workflow.*
+
+---
+
+**Imagine you had to triage 200 production alerts before lunch.**
+
+Most are noise. You want the signal. A silo does:
+```bash
+just harvest    # Ingests alerts from monitoring systems
+just alerts     # Surfaces critical (CPU > 90%, error rate > 5%)
+just process    # Categorizes by service, routes to on-call
+just flush     # Archives to incident tracker
+```
+
+*Multiple agents can work the silo — one harvests, one triages, one notifies.*
+
+---
+
+**Imagine you had to migrate 10,000 customer records from legacy to new system.**
+
+You need validation, rollback capability, and audit trail. A silo provides:
+```bash
+just harvest    # Reads legacy records
+just alerts     # Flags incomplete or suspicious records
+just process    # Transforms and loads to new system
+just flush     # Commits to audit log
+just cleanup   # Rolls back failed migrations
+```
+
+*Schema validation prevents bad data from entering the new system.*
+
+---
+
+**Imagine you had to find one suspicious API call in 2 million log entries.**
+
+You can't grep 2M lines. A silo does:
+```bash
+just harvest    # Batch-ingests logs by hour
+just alerts     # Surfaces ERROR and WARNING patterns
+just query suspicious_users  # Filters by threat indicators
+just flush     # Archives to S3
+```
+
+*Named jq filters turn ad-hoc grep into reproducible queries.*
+
+---
+
+**The common thread:** You have structured data, you need repeatable processing, you want agents that know what to do without being told every time.
+
+---
+
 ### Deductive Minimalism (COG-12)
 
 `set -euo pipefail` reduces the "Search Space" of potential errors. The script cannot wander into an undefined state.
