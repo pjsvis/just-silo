@@ -1,6 +1,6 @@
 # {{silo-name}}
 
-{{description}}
+Copy this template and customize for your domain.
 
 ## Quick Start
 
@@ -11,39 +11,21 @@ just process         # Run domain script
 just self-test       # Smoke test
 ```
 
-## Prerequisites
+## Customize
 
-- [`just`](https://github.com/casey/just) — `brew install just`
-- [`jq`](https://github.com/jqlang/jq) — `brew install jq`
+Edit these files:
+
+- `justfile` — Replace `<FIELD>` and `<THRESHOLD>` with your values
+- `schema.json` — Define your data structure
+- `queries.json` — Add your named jq filters
+- `process.sh` — Implement your domain logic
+- `harvest.jsonl` — Add your test data
+- `.silo` — Update name and description
 
 ## Workflow
 
-1. **Mount** — `cd {{silo-name}}/`
-2. **Sieve** — `just harvest`
-3. **Process** — `just process`
-4. **Check** — `just alerts`, `just stats`
-5. **Flush** — `just flush`
-
-## Recipes
+```
+Mount → Sieve → Process → Check → Flush
+```
 
 Run `just --list` to see all recipes.
-
-## Customization
-
-Edit these files for your domain:
-
-- `schema.json` — Define expected data structure
-- `queries.json` — Add named jq filters
-- `process.sh` — Implement domain logic
-- `harvest.jsonl` — Add your test data
-
-## Files
-
-| File | Purpose |
-|------|---------|
-| `.silo` | Silo manifest |
-| `schema.json` | Data schema |
-| `queries.json` | Named filters |
-| `justfile` | CLI interface |
-| `process.sh` | Domain script |
-| `harvest.jsonl` | Test data |
