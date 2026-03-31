@@ -170,8 +170,12 @@ brew install just jq
 
 ## Resources
 
-- [Playbook](playbooks/playbook-silo.md) — Patterns, SOPs, anti-patterns
-- [HN Announcement](HN-ANNOUNCEMENT.md) — Background and motivation
+| Document | Purpose |
+|----------|--------|
+| [Playbook](playbooks/playbook-silo.md) | Quick reference for agents |
+| [Manual](manual/manual-silo.md) | Detailed why and how |
+| [Examples](../examples/silo_barley/) | Working silo |
+| [Skills](../skills/) | Agent instructions |
 
 ## Compare
 
