@@ -315,6 +315,156 @@ specific Outposts as needed.
 
 ---
 
+## Multi-Agent Patterns
+
+Multiple agents can work in the same silo by following stage-gated workflows.
+
+### Pattern 1: Cooperative Multi-Stage Workflow
+
+Agents work on different stages of the same pipeline:
+
+```
+silo/
+├── raw/                    # Input (Stage 1 ingests here)
+├── ingested/               # After harvest (Stage 2 reads from here)
+├── processed/              # After process
+├── completed/              # After flush
+└── markers/
+    ├── harvest.done        # Stage 1 complete
+    └── process.done        # Stage 2 complete
+```
+
+**Agent A (Stage 1):**
+```bash
+just harvest
+just lock harvest.done
+```
+
+**Agent B (Stage 2):**
+```bash
+while ! just is-locked harvest.done; do sleep 5; done
+just process
+just lock process.done
+```
+
+**No conflicts because:**
+- Agent A writes to `raw/` → `ingested/`
+- Agent B reads from `ingested/` → writes to `processed/`
+- Different directories = no race condition
+
+### Pattern 2: Stage Manifest
+
+Define stages in `.silo-manifest`:
+
+```json
+{
+  "name": "my-silo",
+  "stages": [
+    {"id": 1, "agent": "ingestor", "recipe": "harvest", "output": "ingested/"},
+    {"id": 2, "agent": "processor", "recipe": "process", "depends_on": [1], "output": "processed/"}
+  ]
+}
+```
+
+Agent workflow:
+1. Read manifest
+2. Find unclaimed stage where dependencies satisfied
+3. Claim stage (update manifest)
+4. Execute recipe
+5. Mark done
+
+### Pattern 3: Agent Role Assignment
+
+Agent reads `.silo` to know its role:
+
+```json
+{
+  "name": "my-silo",
+  "agent_role": "processor",
+  "agent_stage": 2,
+  "depends_on": ["harvest.done"]
+}
+```
+
+### Edge Cases and Mitigations
+
+| Edge Case | Problem | Fix |
+|-----------|---------|-----|
+| **Crash mid-stage** | Stale lock, workflow stalls | TTL + `just cleanup --stale` |
+| **Race on claim** | Two agents claim same stage | Atomic `mv` or filesystem lock on manifest |
+| **State drift** | Manifest vs filesystem disagree | Verify filesystem matches manifest on startup |
+| **Duplicate process** | Re-processing completed item | Check `completed/` before working |
+| **Re-harvest** | Second harvest overwrites | `just harvest --force` or manifest `allow_reharvest: true` |
+| **Orphaned claims** | Agent died, claim persists | Heartbeat + TTL, cleanup stale |
+| **Circular deps** | Deadlock | Validate manifest for cycles on load |
+| **Backpressure** | Stage 2 faster than Stage 1 | Retry until input appears, explicit error |
+
+### Manifest Schema for Multi-Agent
+
+```json
+{
+  "name": "my-silo",
+  "stages": [
+    {
+      "id": 1,
+      "name": "ingest",
+      "recipe": "harvest",
+      "depends_on": [],
+      "allow_reharvest": false
+    },
+    {
+      "id": 2,
+      "name": "process",
+      "recipe": "process",
+      "depends_on": [1],
+      "allow_reharvest": false
+    }
+  ],
+  "claims": {
+    "1": {"agent_id": "agent-a", "status": "done", "claimed_at": "2026-03-31T10:00:00Z"},
+    "2": {"agent_id": "agent-b", "status": "claimed", "claimed_at": "2026-03-31T10:05:00Z"}
+  }
+}
+```
+
+### Claim/Coordination Recipes
+
+```just
+# Claim next available stage
+claim:
+    @AGENT_ID=$$(hostname) && just manifest-claim $$AGENT_ID
+
+# Wait for dependency
+wait depends=(harvest.done):
+    @while [ ! -f {{depends}} ]; do sleep 5; done
+    @echo "{{depends}} ready"
+
+# Mark stage complete
+done stage=(1):
+    @just manifest-complete {{stage}}
+    @touch markers/stage-{{stage}}.done
+
+# Cleanup stale claims (>1 hour old)
+cleanup:
+    @find markers/ -name "*.lock" -mmin +60 -delete
+    @echo "Cleaned stale locks"
+
+# Check status
+status:
+    @echo "=== STAGE STATUS ===" && ls markers/*.done 2>/dev/null || echo "  No stages complete"
+    @cat manifest.json | jq '.claims'
+```
+
+### Principles
+
+1. **Agents share the silo, not the work** — Each agent has a defined stage
+2. **Dependencies prevent chaos** — Stage 2 waits for Stage 1
+3. **TTL prevents staleness** — Crashed agents don't block forever
+4. **Idempotency by design** — Check completed/ before working
+5. **Manifest is source of truth** — Verify against filesystem on startup
+
+---
+
 ## Future Work
 
 ### Completed
