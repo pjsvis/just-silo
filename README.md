@@ -55,7 +55,9 @@ Any substrate worth its chips should be able to do it.
 
 **You say the words. Just-silo makes them executable.**
 
-Ask your AI: "Make up the vocabulary for [what I want]". Done.
+Just ask your AI: "Make the words just happen."
+
+Just. The tool is called *just*. And the word is *just*. Fcuking do it. Just.
 
 ## What Is A Silo?
 
