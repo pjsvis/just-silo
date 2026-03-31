@@ -16,14 +16,22 @@ SCRIPTS_DIR    := "scripts"
 default:
 	@echo "Silo Barley Recipes:"
 	@just --list --justfile {{justfile()}} 2>&1 | grep -v "^#" | grep -v "Available recipes" | grep -v "^$"
+	@echo ""
+	@echo "Run 'just help' for detailed usage"
 
 # 1. Mount: confirm silo is ready
+# Usage: just verify
+# What: Checks schema, queries, and jq are present
+# When: First thing to run when entering a silo
 verify:
 	@test -f {{SCHEMA_FILE}} && echo "  schema ok" || (echo "  MISSING schema.json"; exit 1)
 	@test -f {{QUERIES_FILE}} && echo "  queries ok" || (echo "  MISSING queries.json"; exit 1)
 	@command -v jq >/dev/null 2>&1 && echo "  jq ok" || echo "  jq MISSING"
 
 # 2. Sieve: validate grain elevator data
+# Usage: just harvest [source=harvest.jsonl]
+# What: Validates data against schema, splits valid/quarantined
+# When: Before processing - ingest fresh data
 harvest source=(HARVEST_FILE):
 	@just verify
 	@if [ ! -f "{{source}}" ]; then echo "ERROR: '{{source}}' not found"; exit 1; fi
@@ -33,12 +41,59 @@ harvest source=(HARVEST_FILE):
 	@just stats
 
 # 3. Process: mark entries as processed
+# Usage: just process
+# What: Runs domain script to transform/mark data
+# When: After harvest, before flush
 process:
 	@./process_harvest.sh
+
+# === HELP ===
+
+# Detailed help - the safety rail
+# Usage: just help [recipe]
+# What: Shows usage info for all recipes or specific one
+# Example: just help
+# Example: just help harvest
+help topic="":
+	@echo "============================================================"
+	@echo "  SILO BARLEY - HELP"
+	@echo "============================================================"
+	@echo ""
+	@echo "WORKFLOW: Mount -> Sieve -> Process -> Observe -> Flush"
+	@echo ""
+	@echo "COMMANDS:"
+	@echo "  just verify         Check prerequisites (schema, jq)"
+	@echo "  just harvest        Ingest and validate data"
+	@echo "  just process        Run domain processing"
+	@echo "  just status         Aggregate pipeline health *"
+	@echo "  just flush          Archive processed data"
+	@echo ""
+	@echo "MONITORING (just status):"
+	@echo "  just who            Which agents on which stages"
+	@echo "  just stages         Stage-by-stage status"
+	@echo "  just stuck 60       Detect stalled stages (default: 60m)"
+	@echo "  just throughput     Active/Quarantined/Archived counts"
+	@echo "  just audit          Chronological completion history"
+	@echo "  just alerts         Critical moisture readings"
+	@echo ""
+	@echo "COORDINATION (multi-agent):"
+	@echo "  just claim <stage>  Claim a stage for processing"
+	@echo "  just wait <marker>  Wait for a stage to complete"
+	@echo "  just done <marker>  Mark stage complete"
+	@echo "  just heartbeat      Keep claim alive"
+	@echo ""
+	@echo "[*] just status shows all monitoring at once"
+	@echo ""
+	@echo "For full documentation, see: README.md"
+	@echo "============================================================"
 
 # === OBSERVE: Pipeline Observability ===
 
 # Aggregate pipeline health - THE MAIN COMMAND
+# Usage: just status
+# What: Shows agents, stages, throughput, stuck, alerts
+# When: Anytime you want to know what's happening
+# Example: cd silo && just status
 status:
 	@echo "============================================================"
 	@echo "  PIPELINE STATUS"
@@ -75,6 +130,55 @@ stuck threshold:
 audit:
 	@./{{SCRIPTS_DIR}}/status_audit.sh
 
+# Granular help for key commands - progressive disclosure
+harvest-help:
+	@echo "HARVEST - Ingest and validate data"
+	@echo ""
+	@echo "USAGE:"
+	@echo "  just harvest [source=harvest.jsonl]"
+	@echo ""
+	@echo "WHAT IT DOES:"
+	@echo "  1. Confirms prerequisites (verify)"
+	@echo "  2. Reads source file"
+	@echo "  3. Validates against schema.json"
+	@echo "  4. Writes valid entries to data.jsonl"
+	@echo "  5. Writes invalid entries to quarantine.jsonl"
+	@echo "  6. Shows stats"
+	@echo ""
+	@echo "EXAMPLE:"
+	@echo "  just harvest                    # Use default harvest.jsonl"
+	@echo "  just harvest new_data.jsonl    # Use specific file"
+
+status-help:
+	@echo "STATUS - Pipeline observability dashboard"
+	@echo ""
+	@echo "USAGE:"
+	@echo "  just status"
+	@echo ""
+	@echo "WHAT IT SHOWS:"
+	@echo "  AGENTS      - Who owns which stage"
+	@echo "  STAGES      - DONE/RUNNING/PENDING per stage"
+	@echo "  THROUGHPUT  - Active/Quarantined/Archived counts"
+	@echo "  STUCK       - Stages idle > 60 minutes"
+	@echo "  ALERTS      - Critical moisture readings"
+	@echo ""
+	@echo "THIS IS THE MAIN COMMAND. Run this anytime."
+
+stuck-help:
+	@echo "STUCK - Detect stalled stages"
+	@echo ""
+	@echo "USAGE:"
+	@echo "  just stuck [minutes=60]"
+	@echo ""
+	@echo "WHAT IT DOES:"
+	@echo "  Shows stages that completed more than N minutes ago"
+	@echo "  (Implies no subsequent stage ran - pipeline stalled)"
+	@echo ""
+	@echo "EXAMPLE:"
+	@echo "  just stuck          # Check for stages stuck > 60m"
+	@echo "  just stuck 30       # Check for stages stuck > 30m"
+	@echo "  just stuck 5        # Check for stages stuck > 5m"
+
 # 4. Check: extract critical moisture alerts
 alerts:
 	@if [ -f {{DATA_FILE}} ]; then jq -c 'select(.moisture > 15)' {{DATA_FILE}} || echo "  (no alerts)"; else echo "  (no data)"; fi
@@ -95,6 +199,9 @@ report:
 	@just stats && just alerts
 
 # 5. Flush: compact to final output
+# Usage: just flush
+# What: Moves processed entries to final_output.jsonl
+# When: After processing, to archive completed work
 flush:
 	@if [ ! -f {{DATA_FILE}} ]; then echo "Nothing to flush"; exit 0; fi
 	@jq -c 'select(.status == "processed")' {{DATA_FILE}} >> {{OUTPUT_FILE}} 2>/dev/null || true
