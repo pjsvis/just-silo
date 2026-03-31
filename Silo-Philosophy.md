@@ -24,6 +24,24 @@ You want different rules? Change them. It's your pocket universe.
 
 ---
 
+## The Pragmatism
+
+```
+We don't need a SOTA model.
+We need a model that will just f*cking do it.
+
+No framework friction.
+Get stuff.
+Turn it into things.
+Done.
+
+Any substrate worth its chips should be able to do it.
+```
+
+Not rocket science. Simple job. Get stuff, turn into things.
+
+---
+
 ## The Reveal
 
 **You don't pre-define the vocabulary. You just say what you want.**

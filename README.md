@@ -4,6 +4,22 @@
 
 ---
 
+## The Tone
+
+```
+We don't need a SOTA model.
+We need a model that will just f*cking do it.
+
+No framework friction.
+Get stuff.
+Turn it into things.
+Done.
+
+Any substrate worth its chips should be able to do it.
+```
+
+---
+
 ## The Problem
 
 **Too little context:**
