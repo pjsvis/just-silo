@@ -21,16 +21,29 @@ just help              # What can I do here?
 
 ## Why Bounded Context Matters
 
-Agents lose their context every turn. A silo persists knowledge across sessions.
+**Too little context:**
+- Agents don't know what to do
+- Every turn requires re-explanation
+- Context injection becomes ritual
+
+**Too much context:**
+- Context window fills with noise
+- Signal gets drowned
+- Performance degrades
+
+**The sweet spot:** Bounded context. Enough to act, no more.
 
 | Without Silo | With Silo |
 |--------------|------------|
 | Prompt every time | `cd silo && just harvest` |
 | Explain domain each time | Domain embedded in filesystem |
-| Inconsistent processing | Reproducible workflow |
+| Context grows unbounded | Context scoped to directory |
 | Ad-hoc jq | Named, validated filters |
+| "What was I doing?" | Fresh context every session |
 
-*"just-silo it or just-forget it"* — because without structure, you'll just forget to do it right.
+> *"More context doesn't mean better results. Past a threshold, the noise drowns the signal."*
+
+*"just-silo it or just-forget it"* — because without bounded vocabulary, you just forget to do it right.
 
 ## Prerequisites
 
