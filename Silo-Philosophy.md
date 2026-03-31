@@ -16,7 +16,10 @@ input ──→ [ SILO ] ──→ output
           └─────────┘
 ```
 
-**Input comes in. Output goes out. Rules stay in.**
+**When you're in, you can only do what it allows.**
+
+The rules are the rails. Constraints create capability.
+You can't do anything the silo doesn't allow. That's the point.
 
 Any agent can drop in, read the rules, and just fcuking do it.
 
