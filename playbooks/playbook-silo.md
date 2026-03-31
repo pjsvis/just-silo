@@ -674,6 +674,127 @@ silo_backups/
 
 ---
 
+## Polyglot Pipeline Pattern
+
+The Silo pattern can replace heavyweight processing harnesses with simple directories.
+
+**Principle:** Each processing stage is a separate script in any language. The justfile
+orchestrates. Data flows via JSONL files or stdin/stdout.
+
+### Structure
+
+```
+silo_polyglot/
+├── .silo
+├── justfile
+├── schema.json
+├── scripts/
+│   ├── fetch.ts       # TypeScript - fetch data
+│   ├── transform.py    # Python - transform data
+│   └── enrich.ts      # TypeScript - enrich data
+└── stages/
+    ├── raw/           # After harvest
+    ├── fetched/       # After fetch.ts
+    ├── transformed/   # After transform.py
+    └── enriched/      # After enrich.ts
+```
+
+### justfile Orchestrator
+
+```just
+# High-Integrity Environment (COG-12)
+set shell := ["bash", "-o", "pipefail", "-c"]
+set export := true
+set -euo pipefail
+
+FETCH_OUT   := "stages/fetched/data.jsonl"
+TRANS_OUT   := "stages/transformed/data.jsonl"
+ENRICH_OUT  := "stages/enriched/data.jsonl"
+
+install-deps:
+    @npm install
+    @pip install -r requirements.txt
+    @echo "Dependencies ready"
+
+stage1_fetch:
+    @npx tsx scripts/fetch.ts > {{FETCH_OUT}}
+
+stage2_transform:
+    @python scripts/transform.py < {{FETCH_OUT}} > {{TRANS_OUT}}
+
+stage3_enrich:
+    @npx tsx scripts/enrich.ts < {{TRANS_OUT}} > {{ENRICH_OUT}}
+
+pipeline:
+    @just verify
+    @just stage1_fetch
+    @just stage2_transform
+    @just stage3_enrich
+    @just flush
+```
+
+### TypeScript Script (fetch.ts)
+
+```typescript
+#!/usr/bin/env tsx
+// Deductive Minimalism (COG-12)
+import { readFileSync } from "fs";
+
+const input = readFileSync(0, "utf-8");  // stdin
+for (const line of input.trim().split("\n")) {
+    const entry = JSON.parse(line);
+    // Fetch external data, enrich
+    console.log(JSON.stringify({
+        ...entry,
+        fetched_at: new Date().toISOString()
+    }));
+}
+```
+
+### Python Script (transform.py)
+
+```python
+#!/usr/bin/env python3
+# Deductive Minimalism (COG-12)
+import sys
+import json
+from datetime import datetime
+
+for line in sys.stdin:
+    entry = json.loads(line)
+    entry["transformed_at"] = datetime.utcnow().isoformat()
+    print(json.dumps(entry))
+```
+
+### Key Patterns
+
+| Pattern | Implementation |
+|---------|----------------|
+| **Runtime isolation** | Each stage is a separate script |
+| **Data flow** | JSONL via stdin/stdout or intermediate files |
+| **Dependency management** | `just install-deps` runs all install steps |
+| **Pipeline orchestration** | `just pipeline` chains stages |
+| **Failure isolation** | `set -euo pipefail` stops on first error |
+| **Language agnostic** | Use any runtime: Node, Python, Go, Rust, etc. |
+
+### When to Use
+
+- **Replace:** Airflow DAGs, Makefiles, custom pipelines
+- **For:** Data transformation, ETL, API enrichment, ML inference
+- **Why:** Zero infrastructure, portable, agent-readable
+
+### Comparison
+
+| | Heavyweight Harness | Silo |
+|--|--|--|
+| Setup | Complex | `cp -r template` |
+| Agents | Limited | Native |
+| Portability | Docker/K8s | Git clone |
+| Readability | Config files | README + justfile |
+| Debugging | Logs | Human-readable output |
+
+---
+
 ## Future Work
 
 ### Completed
