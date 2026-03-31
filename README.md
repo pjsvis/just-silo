@@ -44,12 +44,7 @@ my-silo/
 ## Quick Start
 
 ```bash
-cp -r template my-silo
-cd my-silo
-just help              # What can I do here?
-just <verb>           # Just f*cking do it
-just status           # See what's happening
-just help <verb>      # What will this verb do?
+cp -r template my-silo && cd my-silo && just help
 ```
 
 ## The Pattern
