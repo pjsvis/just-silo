@@ -8,7 +8,7 @@
 
 **Naming and cache expiry are the two hard problems in computing.**
 
-We follow a simple convention to keep things predictable:
+We follow a simple naming convention to keep things predictable, and possibly enable cache expiry, who knows?:
 
 | Pattern | Example | Purpose |
 |---------|---------|---------|
