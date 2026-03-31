@@ -26,7 +26,7 @@ just flush       # Compact to final output
 ## Core Workflow
 
 ```
-Mount → Sieve → Process → Check → Flush
+Mount → Sieve → Process → Observe → Flush
 ```
 
 | Step | Command | Purpose |
@@ -34,7 +34,7 @@ Mount → Sieve → Process → Check → Flush
 | Mount | `cd my-silo/` | Agent reads rules from filesystem |
 | Sieve | `just harvest` | Validate data against schema.json |
 | Process | `just process` | Run domain script |
-| Check | `just alerts` / `just stats` | Surface critical items |
+| Observe | `just status` / `just who` | Monitor pipeline |
 | Flush | `just flush` | Compact processed items to output |
 
 ## Anatomy of a Silo
@@ -86,6 +86,23 @@ just wait harvest
 just process
 just done process
 ```
+
+## Observe the Territory (Seriously Cool)
+
+**Your pipeline IS your dashboard.** No separate observability layer — the filesystem that runs the pipeline shows you what's happening.
+
+```bash
+cd my-silo/
+just status          # What's running, stuck, done
+just who             # Which agents on which stages
+just stuck 60        # Stages idle > 60 minutes
+just throughput      # Items/hour trend
+just audit           # Full pipeline history
+```
+
+> *"Observe the territory you occupy. Don't log into a separate dashboard."*
+
+See `briefs/2026-03-31-pipeline-observability-via-filesystem.md` for implementation plan.
 
 ## File Structure
 

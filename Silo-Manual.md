@@ -163,6 +163,46 @@ just done process.done
 3. **Mentational Hygiene** — Lean data keeps agents fast
 4. **occupy the Territory** — `cd` into the silo, don't install
 5. **Idempotency** — Safe to run twice
+6. **Observe the Territory** — The filesystem IS your dashboard
+
+---
+
+## Observe the Territory
+
+**The filesystem that runs your pipeline IS your observability layer.** No dashboards. No metrics APIs. No separate monitoring infrastructure.
+
+```bash
+cd pipeline_silo/
+just status          # What's running, stuck, done
+just who             # Which agents on which stages
+just stuck 60        # Stages idle > 60 minutes
+just throughput      # Items/hour trend
+just audit           # Full pipeline history
+```
+
+### Why This Is Seriously Cool
+
+| Traditional Monitoring | Silo-Native |
+|------------------------|-------------|
+| Login to dashboard | `cd pipeline_silo/` |
+| Click through menus | `just --list` |
+| Query metrics API | `just stats` |
+| Check logs per service | `just who` |
+| Alerts in separate system | `just alerts` |
+
+**The insight:** Your agents already read and write this filesystem. Why query a separate system when the territory shows you everything?
+
+### The Principle
+
+> *"Observe the territory you occupy. Don't log into a separate dashboard."*
+
+### What You Need
+
+- **`markers/`** — Agent coordination (already exists)
+- **`pipeline.json`** — Stage definitions
+- **Status recipes** — Aggregate from markers
+
+See [briefs/2026-03-31-pipeline-observability-via-filesystem.md](briefs/2026-03-31-pipeline-observability-via-filesystem.md) for implementation details.
 
 ---
 

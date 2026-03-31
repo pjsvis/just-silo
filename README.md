@@ -60,7 +60,7 @@ my-silo/
 ## Workflow
 
 ```
-Mount → Sieve → Process → Check → Flush
+Mount → Sieve → Process → Observe → Flush
 ```
 
 | Step | Command | Purpose |
@@ -68,7 +68,7 @@ Mount → Sieve → Process → Check → Flush
 | Mount | `cd my-silo/` | Agent reads rules |
 | Sieve | `just harvest` | Validate data |
 | Process | `just process` | Run script |
-| Check | `just alerts` | Surface critical |
+| Observe | `just status` / `just who` | Monitor pipeline |
 | Flush | `just flush` | Compact output |
 
 ## Core Recipes
@@ -108,13 +108,36 @@ Agents coordinate via marker files:
 ```bash
 # Agent A
 just harvest
-just done harvest.done
+just done harvest
 
 # Agent B
-just wait harvest.done
+just wait harvest
 just process
-just done process.done
+just done process
 ```
+
+## Observe the Territory
+
+**Seriously cool:** Your pipeline IS your dashboard. No separate observability layer — the filesystem that runs the pipeline shows you what's happening.
+
+```bash
+cd my-silo/
+just status          # What's running, stuck, done
+just who             # Which agents on which stages
+just stuck 60        # Stages idle > 60 minutes
+just throughput      # Items/hour trend
+just audit           # Full pipeline history
+```
+
+| Command | Purpose |
+|---------|---------|
+| `just status` | Aggregate pipeline health |
+| `just who` | Active agents per stage |
+| `just stuck` | Detect stalled stages |
+| `just throughput` | Processing rate |
+| `just audit` | Chronological history |
+
+> *"Observe the territory you occupy. Don't log into a separate dashboard."*
 
 ## Examples
 
