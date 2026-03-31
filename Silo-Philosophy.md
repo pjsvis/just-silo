@@ -18,7 +18,7 @@ input ──→ [ SILO ] ──→ output
 
 **Input comes in. Output goes out. Rules stay in.**
 
-Any agent can drop in, read the rules, and just f*cking do it.
+Any agent can drop in, read the rules, and just fcuking do it.
 
 You want different rules? Change them. It's your pocket universe.
 
@@ -28,7 +28,7 @@ You want different rules? Change them. It's your pocket universe.
 
 ```
 We don't need a SOTA model.
-We need a model that will just f*cking do it.
+We need a model that will just fcuking do it.
 
 No framework friction.
 Get stuff.
@@ -144,7 +144,7 @@ just help <verb> → what does this verb do?
 
 **The pattern:**
 ```
-just <verb>        → just f*cking do it
+just <verb>        → just fcuking do it
 just help <verb>   → what will it do?
 just help          → what verbs exist?
 ```
@@ -258,7 +258,7 @@ The filesystem **is** the context. The justfile **is** the prompt.
 just           → what can I do?
 just help      → how does this silo work?
 just help X    → what does X do?
-just X         → just f*cking do X
+just X         → just fcuking do X
 ```
 
 No docs to read. No man pages. Just `just help`.
@@ -310,7 +310,7 @@ A **just-silo** stores language. It keeps vocabulary scoped, contained, and exec
 
 ## The Promise
 
-> *"Just f*cking do it."*
+> *"Just fcuking do it."*
 
 The vocabulary demands action. There's no passive voice in a silo.
 
@@ -321,7 +321,7 @@ just help harvest → describe the harvest
 
 The command is the imperative. The directory is the scope. The justfile is the grammar.
 
-**Just f*cking do it, or just forget it.**
+**Just fcuking do it, or just forget it.**
 
 ---
 

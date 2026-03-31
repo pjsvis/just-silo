@@ -8,7 +8,7 @@
 
 ```
 We don't need a SOTA model.
-We need a model that will just f*cking do it.
+We need a model that will just fcuking do it.
 
 No framework friction.
 Get stuff.
@@ -73,7 +73,7 @@ input ──→ [ SILO ] ──→ output
 
 **Input comes in. Output goes out. Rules stay in.**
 
-Any agent can drop in, read the rules, and just f*cking do it.
+Any agent can drop in, read the rules, and just fcuking do it.
 
 You want different rules? Change them. It's your pocket universe.
 
@@ -97,7 +97,7 @@ cp -r template my-silo && cd my-silo && just help
 ## The Pattern
 
 ```
-just <verb>        → just f*cking do it
+just <verb>        → just fcuking do it
 just help <verb>   → what will it do?
 just help          → what verbs exist?
 just status        → pipeline observability
