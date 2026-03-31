@@ -29,74 +29,60 @@ We follow a simple naming convention to keep things predictable, and possibly en
 
 ---
 
-## Why Bounded Context Matters
+## The Rule: Enough Is Enough
 
-Every turn, the context window is scrubbed. But there are two problems:
+**More context doesn't mean better results.** Past a threshold, the noise drowns the signal.
 
-| Problem | Symptom | Agent Experience |
-|---------|---------|------------------|
-| **Agent forgets** | Reinvention, inconsistency | "What was I doing?"
-| **Agent remembers too much** | Bloat, degraded performance | "There's too much here..."
+### What We Learned (The Hard Way)
 
-### The U-Shaped Curve
+We tried unbounded context. Here's what broke:
 
-**Determinism is not linear with context size.**
+| Failure Mode | What Happened |
+|--------------|---------------|
+| **Context accumulates** | After 50 turns, agent performance degrades |
+| **Ad-hoc jq proliferates** | "I'll just grep for this" → inconsistent results |
+| **Data rots** | Unprocessed entries pile up, nobody knows what's done |
+| **Agents get confused** | "Which data should I process?" |
+| **Handoffs break** | Agent A doesn't know what Agent B did |
 
-```
-Determinism
-     ^
-     |        /\
-     |       /  \
-     |      /    \
-     |     /      \
-     |----/--------\------------------>
-          Small   Optimal   Large
-                  Context
-```
+### The Fix
 
-| Range | Agent Behavior |
-|-------|----------------|
-| **Too small** | Guessing, non-deterministic — missing critical info |
-| **Optimal** | Clear signal, deterministic — just enough |
-| **Too large** | Confused, non-deterministic — noise dominates |
-
-**The insight:** More context doesn't mean more clarity. Past a threshold, signal decays.
-
-### Example: The Growing data.jsonl
-
-```
-Turn 1: data.jsonl has 10 entries → Agent processes cleanly
-Turn 50: data.jsonl has 500 entries → Agent starts slow, confused
-Turn 100: data.jsonl has 5000 entries → Agent performance degrades
-```
-
-**Without compaction:** Context bloat → non-determinism
-**With `just flush`:** Active state stays lean → deterministic
+**Enough context for the task. No context when the task is done.**
 
 ```bash
-just harvest       # 100 entries
-just process       # All marked processed
-just flush         # 100 → final_output.jsonl
-just stats         # Active: 0
+# Spin up agent for task
+just harvest       # Get data
+just process       # Do work
+just flush        # Archive, clear active state
 
-# Turn 2: Clean slate
-just harvest       # 50 new entries
-just process       # Clean processing
-just flush         # Done
+# Task done, context clean
+# Next task: spin up fresh
+just harvest       # Fresh context
+just process       # Clean slate
 ```
 
-### The Silo Principle
+### The Principle
 
-> "The silo decides what's worth keeping."
+> "Enough is enough. Too much is too much."
 
-Two mechanisms:
-1. **Bounded ingestion** — Schema validation keeps data clean
-2. **Compaction** — `just flush` archives, not accumulates
+For a summarization job, you might want the full history.
+For a data processing job, you need the current working set.
 
-**The silo maintains determinism by:**
-- Letting the agent forget (context resets each turn)
-- Controlling what gets remembered (schema + queries)
-- Keeping active state lean (flush, don't accumulate)
+**The silo decides:**
+- What gets ingested (schema validation)
+- What stays active (data.jsonl)
+- What gets archived (final_output.jsonl)
+
+### How to Apply It
+
+| Task Type | Context Strategy |
+|----------|----------------|
+| **Data processing** | Lean: flush after each batch |
+| **Code review** | Focused: just the PR, not the whole repo history |
+| **Log investigation** | Bounded: query by time window, not all logs |
+| **Summarization** | Full: keep context until done, then archive |
+
+**The rule doesn't change:** Enough is enough. Too much is too much.
 
 See also: **Mentational Efficiency (PHI-10)** — Reduce cognitive load by bounding context.
 See also: **Mentational Hygiene (PHI-11)** — Keep context lean to maintain performance.
@@ -198,14 +184,7 @@ just flush     # Archives to review queue
 
 *With just-silo, you hand an agent "silo_code_review" and it knows the workflow.*
 
-**Determinism curve:**
-```
-Without silo: More PRs reviewed = more context = less clarity
-With silo:    Each PR isolated, flushes after review = consistent
-```
-
-The silo prevents "reviewer fatigue" — an agent that's seen 500 PRs this week
-gets slower and inconsistent. Each review starts fresh from the silo.
+**What we learned:** Without bounded context, agents start conflating old PRs with new ones. "This looks like the auth refactor from last month" → bad advice. With the silo, each PR gets fresh context. Done is done. Next is next.
 
 ---
 
@@ -221,14 +200,7 @@ just flush     # Archives to incident tracker
 
 *Multiple agents can work the silo — one harvests, one triages, one notifies.*
 
-**Determinism curve:**
-```
-Without silo: Alerts accumulate in context = noise drowns signal
-With silo:    Batch by hour, flush, start fresh = clear prioritization
-```
-
-The silo prevents "alert fatigue" — agents that see 10,000 past alerts
-lose the ability to prioritize. A lean silo surfaces the 5 critical ones.
+**What we learned:** Without the silo, agents accumulate alert history. After 1000 alerts, they start treating everything as critical. The silo keeps only the current batch. When it's flushed, it's gone. Fresh eyes every time.
 
 ---
 
@@ -245,14 +217,7 @@ just cleanup   # Rolls back failed migrations
 
 *Schema validation prevents bad data from entering the new system.*
 
-**Determinism curve:**
-```
-Without silo: More records migrated = more context = validation drifts
-With silo:    Batch by 100, flush each batch, quarantine bad = consistent
-```
-
-The silo prevents "migration drift" — as records pile up, validation
-criteria drift. Each batch starts fresh from schema.
+**What we learned:** Without bounded batches, validation drifts. After 5000 records, you start accepting records you rejected at the start. The silo batches by 100. Flush after 100. Next batch starts fresh. Consistent all the way through.
 
 ---
 
@@ -268,14 +233,7 @@ just flush     # Archives to S3
 
 *Named jq filters turn ad-hoc grep into reproducible queries.*
 
-**Determinism curve:**
-```
-Without silo: More logs searched = more false positives = analyst confused
-With silo:    Named filters on batched data = precise, reproducible
-```
-
-The silo prevents "investigation drift" — as analysts scan more logs,
-they start seeing threats everywhere. A named filter is precise.
+**What we learned:** Without named filters, each grep is ad-hoc. "I'll just search for this pattern" → different results each time. The silo has named queries. `just query suspicious_users` is always the same filter. Reproducible, shareable, testable.
 
 ---
 
