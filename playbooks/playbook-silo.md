@@ -78,8 +78,21 @@ mkdir silo_<domain>/ && cd silo_<domain>/
 - Include edge cases: critical threshold crossings, malformed entries
 
 ### Step 7 — Write `process_harvest.sh` (or equivalent)
+
+**High-Integrity (COG-12):** Use `set -euo pipefail` to reduce the search space.
+
+```bash
+#!/bin/bash
+# Deductive Minimalism (COG-12): Reduce search space of potential errors
+set -euo pipefail
+
+for line in $(cat data.jsonl); do
+  # Process each entry
+  echo "$line" | jq '.status = "processed"'
+done >> final_output.jsonl
+```
+
 - Must be idempotent
-- Use `set -euo pipefail`
 - Report progress clearly
 
 ### Step 8 — Write `justfile`
@@ -90,8 +103,12 @@ See the **justfile template** below.
 ## justfile Template
 
 ```just
+# High-Integrity Environment (Deductive Minimalism, COG-12)
+# set -euo pipefail reduces the "Search Space" of potential errors
+# by ensuring the recipe cannot wander into an undefined state.
 set shell := ["bash", "-c"]
 set export := true
+set -euo pipefail
 
 DATA_FILE      := "data.jsonl"
 HARVEST_FILE   := "harvest.jsonl"
