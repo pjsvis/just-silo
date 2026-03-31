@@ -104,9 +104,9 @@ See the **justfile template** below.
 
 ```just
 # High-Integrity Environment (Deductive Minimalism, COG-12)
-# set -euo pipefail reduces the "Search Space" of potential errors
-# by ensuring the recipe cannot wander into an undefined state.
-set shell := ["bash", "-c"]
+# Reduces the "Search Space" of potential errors.
+# Recipe cannot wander into an undefined state.
+set shell := ["bash", "-o", "pipefail", "-c"]
 set export := true
 set -euo pipefail
 
