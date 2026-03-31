@@ -276,6 +276,9 @@ cleanup:
 
 ## Resources
 
-- [Playbook](playbook-silo.md) — Quick reference
-- [Examples](../examples/silo_barley/) — Working silo
-- [Skills](../skills/) — Agent instructions
+- [README](README.md) — Project overview
+- [Playbooks](playbooks/) — By role: user, builder, agent, operator
+- [Skills](skills/) — Agent instructions
+- [Examples](examples/silo_barley/) — Working silo
+- [Briefs](briefs/) — Project briefs
+- [Debriefs](debriefs/) — Retrospectives
