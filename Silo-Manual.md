@@ -29,6 +29,29 @@ We follow a simple convention to keep things predictable:
 
 ---
 
+## Why Bounded Context Matters
+
+Every turn, the context window is scrubbed. Agents start fresh.
+
+**The problem:**
+- You explain the domain
+- Agent processes
+- Next turn: agent forgets
+- You explain again
+- Inconsistency creeps in
+
+**The silo solution:**
+- Domain knowledge lives in the filesystem
+- Agent `cd`s in, reads rules
+- Workflow is embedded, not prompted
+- Reproducible every turn
+
+**The principle:** Give agents just enough context to act — and no more.
+
+See also: **Mentational Efficiency (PHI-10)** — Reduce cognitive load by bounding context.
+
+---
+
 ## Why Silo?
 
 ### The Cold Start Problem
@@ -47,6 +70,62 @@ User: "cd silo_barley && just harvest"
 Agent: (reads .silo, schema.json, queries.json, justfile)
       "Running harvest, 15 entries, 7 critical alerts, flush complete"
 ```
+
+---
+
+## Best Practices
+
+### Give Agents Just Enough Context
+
+| Do | Don't |
+|-----|--------|
+| Read `.silo` and `README.md` first | Prompt every detail |
+| Use named queries from `queries.json` | Write ad-hoc jq |
+| Trust the schema | Skip validation |
+| Follow workflow order | Skip steps |
+
+### Keep Data Lean
+
+| Do | Don't |
+|-----|--------|
+| Flush early, flush often | Let `data.jsonl` grow unbounded |
+| Archive to `final_output.jsonl` | Keep everything in active state |
+| Compact after processing | Accumulate processing metadata |
+
+### Trust the Schema
+
+Validation at ingestion is cheap. Debugging bad data downstream is expensive.
+
+```bash
+just harvest    # Validates, routes bad to quarantine
+just alerts    # Operates on clean data
+just flush    # Archives, doesn't accumulate
+```
+
+### Multi-Agent: Share the Silo, Not the Work
+
+Each agent owns a stage. Stages coordinate via markers.
+
+```bash
+# Agent A: harvest stage
+just lock harvest.done
+just harvest
+just done harvest.done
+
+# Agent B: process stage
+just wait harvest.done
+just lock process.done
+just process
+just done process.done
+```
+
+### Lessons from Experience
+
+1. **Cold Start** — Agents can mount a silo and act without prior context
+2. **Named Filters** — Prevents "Script Hallucination" (ad-hoc jq)
+3. **Mentational Hygiene** — Lean data keeps agents fast
+4. **occupy the Territory** — `cd` into the silo, don't install
+5. **Idempotency** — Safe to run twice
 
 ---
 
