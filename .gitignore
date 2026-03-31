@@ -5,9 +5,16 @@ final_output.jsonl
 alerts.jsonl
 metrics.txt
 
+# Markers — multi-agent coordination
+markers/*.lock
+markers/*.done
+
 # Temp files
 *.tmp
 *.bak
 
 # OS
 .DS_Store
+
+# Drafts
+HN-ANNOUNCEMENT.md

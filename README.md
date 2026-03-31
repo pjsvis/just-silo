@@ -172,7 +172,7 @@ brew install just jq
 
 | Document | Purpose |
 |----------|--------|
-| [Manual](manual.md) | Detailed why and how |
+| [Silo-Manual.md](Silo-Manual.md) | Detailed why and how |
 | [Playbooks](playbooks/) | user, builder, agent, operator |
 | [Skills](skills/) | Agent instructions |
 | [Examples](examples/silo_barley/) | Working silo |

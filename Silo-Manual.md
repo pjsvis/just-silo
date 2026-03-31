@@ -4,6 +4,31 @@
 
 ---
 
+## Naming Convention
+
+**Naming and cache expiry are the two hard problems in computing.**
+
+We follow a simple convention to keep things predictable:
+
+| Pattern | Example | Purpose |
+|---------|---------|---------|
+| **Directories** | `silo_<domain>` | Lowercase, underscores, descriptive |
+| **Playbooks** | `silo-<role>-playbook.md` | Kebab-case, describes audience |
+| **Briefs** | `YYYY-MM-DD-topic.md` | Date-first, searchable |
+| **Debriefs** | `YYYY-MM-DD-topic.md` | Date-first, matches brief |
+| **Skills** | `skill-<name>.md` | Kebab-case, action verb |
+| **Recipes** | `just <verb>` | Imperative, action verb |
+
+**Principles:**
+
+1. **Flat is better than nested** — `Silo-Manual.md` not `manual/silo-manual.md`
+2. **Date-first for chronology** — `2026-03-31-just-silo.md` sorts naturally
+3. **Role-prefix for playbooks** — `silo-builder-playbook.md` shows audience
+4. **Underscores for directories** — `silo_barley/` not `siloBarley`
+5. **Lowercase generally** — except title-case for docs like `Silo-Manual.md`
+
+---
+
 ## Why Silo?
 
 ### The Cold Start Problem
