@@ -31,24 +31,75 @@ We follow a simple naming convention to keep things predictable, and possibly en
 
 ## Why Bounded Context Matters
 
-Every turn, the context window is scrubbed. Agents start fresh.
+Every turn, the context window is scrubbed. But there are two problems:
 
-**The problem:**
-- You explain the domain
-- Agent processes
-- Next turn: agent forgets
-- You explain again
-- Inconsistency creeps in
+| Problem | Symptom | Agent Experience |
+|---------|---------|------------------|
+| **Agent forgets** | Reinvention, inconsistency | "What was I doing?"
+| **Agent remembers too much** | Bloat, degraded performance | "There's too much here..."
 
-**The silo solution:**
-- Domain knowledge lives in the filesystem
-- Agent `cd`s in, reads rules
-- Workflow is embedded, not prompted
-- Reproducible every turn
+### The U-Shaped Curve
 
-**The principle:** Give agents just enough context to act — and no more.
+**Determinism is not linear with context size.**
+
+```
+Determinism
+     ^
+     |        /\
+     |       /  \
+     |      /    \
+     |     /      \
+     |----/--------\------------------>
+          Small   Optimal   Large
+                  Context
+```
+
+| Range | Agent Behavior |
+|-------|----------------|
+| **Too small** | Guessing, non-deterministic — missing critical info |
+| **Optimal** | Clear signal, deterministic — just enough |
+| **Too large** | Confused, non-deterministic — noise dominates |
+
+**The insight:** More context doesn't mean more clarity. Past a threshold, signal decays.
+
+### Example: The Growing data.jsonl
+
+```
+Turn 1: data.jsonl has 10 entries → Agent processes cleanly
+Turn 50: data.jsonl has 500 entries → Agent starts slow, confused
+Turn 100: data.jsonl has 5000 entries → Agent performance degrades
+```
+
+**Without compaction:** Context bloat → non-determinism
+**With `just flush`:** Active state stays lean → deterministic
+
+```bash
+just harvest       # 100 entries
+just process       # All marked processed
+just flush         # 100 → final_output.jsonl
+just stats         # Active: 0
+
+# Turn 2: Clean slate
+just harvest       # 50 new entries
+just process       # Clean processing
+just flush         # Done
+```
+
+### The Silo Principle
+
+> "The silo decides what's worth keeping."
+
+Two mechanisms:
+1. **Bounded ingestion** — Schema validation keeps data clean
+2. **Compaction** — `just flush` archives, not accumulates
+
+**The silo maintains determinism by:**
+- Letting the agent forget (context resets each turn)
+- Controlling what gets remembered (schema + queries)
+- Keeping active state lean (flush, don't accumulate)
 
 See also: **Mentational Efficiency (PHI-10)** — Reduce cognitive load by bounding context.
+See also: **Mentational Hygiene (PHI-11)** — Keep context lean to maintain performance.
 
 ---
 
