@@ -263,7 +263,7 @@ The filesystem **is** the context. The justfile **is** the prompt.
 just           → what can I do?
 just help      → how does this silo work?
 just help X    → what does X do?
-just X         → just fcuking do X
+just X         → just do X
 ```
 
 No docs to read. No man pages. Just `just help`.
