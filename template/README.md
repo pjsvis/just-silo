@@ -1,56 +1,49 @@
-# Silo Barley — Grain Elevator Sensor Monitor
+# {{silo-name}}
 
-## Purpose
-Tracks moisture levels from grain elevator sensors. Critical alert threshold:
-**moisture > 15%** must be flagged immediately.
+{{description}}
 
-## Silo Anatomy
-| File | Role |
-|------|------|
-| `schema.json` | Defines the canonical JSON entry structure |
-| `queries.json` | Named `jq` filters — the "Context Shield" |
-| `harvest.jsonl` | Raw sensor readings — the "Substrate" |
-| `process_harvest.sh` | Appends `status: processed` to each entry |
-| `data.jsonl` | Active processing state (created by `just harvest`) |
-| `quarantine.jsonl` | Entries that failed schema validation |
-| `final_output.jsonl` | Compacted results after `just flush` |
-| `.silo` | Silo manifest / metadata |
+## Quick Start
 
-## Engine Interface (`just`)
 ```bash
-just --list          # Discover available recipes
-just verify         # Confirm silo is mounted and schema is present
-just harvest         # Run the harvest pipeline on harvest.jsonl
-just stats           # Print silo metrics
-just flush           # Compact completed items to final_output.jsonl
-just self-test       # Smoke-test the silo
-just install-deps    # Ensure required tools (jq, just) are available
+just verify          # Check prerequisites
+just harvest         # Ingest data
+just process         # Run domain script
+just self-test       # Smoke test
 ```
 
-## Workflow (The Handshake)
+## Prerequisites
 
-```mermaid
-flowchart LR
-    A["Mount\ncd silo_barley/"] --> B["Sieve\njust harvest"]
-    B --> C["Process\njust process"]
-    C --> D["Check\nalerts | stats | query"]
-    D --> E["Flush\njust flush"]
-    E --> F["Hygiene\nclean | ready"]
-    
-    B -->|bad entry| Q["Quarantine\nquarantine.jsonl"]
-    E -->|completed| O["Output\nfinal_output.jsonl"]
-    F -->|next| B
-```
+- [`just`](https://github.com/casey/just) — `brew install just`
+- [`jq`](https://github.com/jqlang/jq) — `brew install jq`
 
-| Step | Command | Output |
-|------|---------|--------|
-| Mount | `cd silo_barley/` | Agent reads README, discovers rules |
-| Sieve | `just harvest` | Validates against schema |
-| Process | `just process` | Marks entries as processed |
-| Check | `just alerts/stats/query` | Surfaces critical items |
-| Flush | `just flush` | Moves to final_output.jsonl |
-| Hygiene | `just clean` | Resets for next harvest |
+## Workflow
 
-## Alert Protocol
-> **CRITICAL:** Any entry with `moisture > 15` triggers a high-priority alert.
-> Use `jq -c 'select(.moisture > 15)' data.jsonl` to surface alerts at any time.
+1. **Mount** — `cd {{silo-name}}/`
+2. **Sieve** — `just harvest`
+3. **Process** — `just process`
+4. **Check** — `just alerts`, `just stats`
+5. **Flush** — `just flush`
+
+## Recipes
+
+Run `just --list` to see all recipes.
+
+## Customization
+
+Edit these files for your domain:
+
+- `schema.json` — Define expected data structure
+- `queries.json` — Add named jq filters
+- `process.sh` — Implement domain logic
+- `harvest.jsonl` — Add your test data
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| `.silo` | Silo manifest |
+| `schema.json` | Data schema |
+| `queries.json` | Named filters |
+| `justfile` | CLI interface |
+| `process.sh` | Domain script |
+| `harvest.jsonl` | Test data |
