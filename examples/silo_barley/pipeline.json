@@ -1,0 +1,33 @@
+{
+  "name": "silo_barley",
+  "version": "1.0.0",
+  "description": "Grain elevator moisture monitoring pipeline",
+  "stages": [
+    {
+      "id": "harvest",
+      "description": "Ingest moisture readings from sensors",
+      "agent": "sensor_harvester",
+      "marker": "harvest",
+      "depends_on": []
+    },
+    {
+      "id": "process",
+      "description": "Mark readings and flag critical moisture levels",
+      "agent": "processor",
+      "marker": "process",
+      "depends_on": ["harvest"]
+    },
+    {
+      "id": "flush",
+      "description": "Archive processed readings",
+      "agent": "archiver",
+      "marker": "flush",
+      "depends_on": ["process"]
+    }
+  ],
+  "critical_threshold": {
+    "field": "moisture",
+    "value": 15,
+    "unit": "percent"
+  }
+}

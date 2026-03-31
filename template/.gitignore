@@ -1,3 +1,15 @@
+# State files - generated, not committed
 data.jsonl
 quarantine.jsonl
 final_output.jsonl
+
+# Markers - multi-agent coordination
+markers/*.lock
+markers/*.done
+
+# Temp files
+*.tmp
+*.bak
+
+# OS
+.DS_Store

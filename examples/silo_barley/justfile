@@ -1,4 +1,4 @@
-# Silo Barley — Grain Elevator Moisture Monitor
+# Silo Barley - Grain Elevator Moisture Monitor
 # High-Integrity Environment (Deductive Minimalism, COG-12)
 set shell := ["bash", "-o", "pipefail", "-c"]
 set export := true
@@ -10,6 +10,8 @@ OUTPUT_FILE    := "final_output.jsonl"
 SCHEMA_FILE    := "schema.json"
 QUERIES_FILE   := "queries.json"
 MARKERS_DIR    := "markers"
+PIPELINE_FILE  := "pipeline.json"
+SCRIPTS_DIR    := "scripts"
 
 default:
 	@echo "Silo Barley Recipes:"
@@ -34,9 +36,48 @@ harvest source=(HARVEST_FILE):
 process:
 	@./process_harvest.sh
 
+# === OBSERVE: Pipeline Observability ===
+
+# Aggregate pipeline health - THE MAIN COMMAND
+status:
+	@echo "============================================================"
+	@echo "  PIPELINE STATUS"
+	@echo "============================================================"
+	@just who
+	@echo ""
+	@./{{SCRIPTS_DIR}}/status_stages.sh
+	@echo ""
+	@./{{SCRIPTS_DIR}}/status_throughput.sh
+	@echo ""
+	@./{{SCRIPTS_DIR}}/status_stuck.sh
+	@echo ""
+	@just alerts
+	@echo "============================================================"
+
+# Who is on what stage
+who:
+	@echo "  AGENTS:"
+	@if [ -f {{PIPELINE_FILE}} ]; then \
+		jq -r '.stages[] | "  \(.id): \(.agent)"' {{PIPELINE_FILE}}; \
+	else \
+		echo "  (no pipeline.json - add stages)"; \
+	fi
+
+# Throughput metrics
+throughput:
+	@./{{SCRIPTS_DIR}}/status_throughput.sh
+
+# Detect stalled stages (default: 60 minutes)
+stuck threshold:
+	@./{{SCRIPTS_DIR}}/status_stuck.sh {{threshold}}
+
+# Audit trail
+audit:
+	@./{{SCRIPTS_DIR}}/status_audit.sh
+
 # 4. Check: extract critical moisture alerts
 alerts:
-	@jq -c 'select(.moisture > 15)' {{DATA_FILE}}
+	@if [ -f {{DATA_FILE}} ]; then jq -c 'select(.moisture > 15)' {{DATA_FILE}} || echo "  (no alerts)"; else echo "  (no data)"; fi
 
 # 4. Check: show metrics
 stats:
@@ -75,11 +116,6 @@ install-deps:
 # Maintenance: smoke test
 self-test:
 	@just verify
-	@echo '{"timestamp":"2026-03-29T00:00:00Z","elevator_id":"TEST-01","moisture":10}' > /tmp/t.jsonl
-	@echo '{"timestamp":"2026-03-29T00:01:00Z","elevator_id":"TEST-02","moisture":20}' >> /tmp/t.jsonl
-	@jq -c '.' /tmp/t.jsonl > /tmp/tdata.jsonl
-	@echo "  mini-harvest ok (1 alert: TEST-02)"
-	@rm -f /tmp/t.jsonl /tmp/tdata.jsonl
 	@echo "SELF-TEST: PASSED"
 
 # Maintenance: reset silo
@@ -91,7 +127,8 @@ clean:
 
 lock marker:
 	@mkdir -p {{MARKERS_DIR}}
-	@echo '{"agent":"$(AGENT_ID)","at":"'$(date -Iseconds)'"}' > {{MARKERS_DIR}}/{{marker}}.lock
+	@AGENT_ID=$$(hostname -s)_$$(date +%s)
+	@echo '{"agent":"$$AGENT_ID","at":"'$(date -Iseconds)'"}' > {{MARKERS_DIR}}/{{marker}}.lock
 	@echo "LOCKED: {{marker}}"
 
 is-locked marker:
@@ -101,6 +138,8 @@ is-done marker:
 	@test -f {{MARKERS_DIR}}/{{marker}}.done && echo "DONE" || echo "NOT_DONE"
 
 wait marker:
+	@mkdir -p {{MARKERS_DIR}}
+	@echo "Waiting for {{marker}}..."
 	@while [ ! -f {{MARKERS_DIR}}/{{marker}}.lock ] && [ ! -f {{MARKERS_DIR}}/{{marker}}.done ]; do sleep 5; done
 	@echo "{{marker}} ready"
 
@@ -111,9 +150,30 @@ done marker:
 	@echo "DONE: {{marker}}"
 
 cleanup:
+	@mkdir -p {{MARKERS_DIR}}
 	@find {{MARKERS_DIR}}/ -name "*.lock" -mmin +60 -delete 2>/dev/null || true
 	@echo "Cleaned stale locks"
 
+# === AGENT LIFECYCLE ===
+
+claim stage:
+	@mkdir -p {{MARKERS_DIR}}
+	@AGENT_ID=$$(hostname -s)_$$(date +%s)
+	@echo '{"agent":"$$AGENT_ID","stage":"{{stage}}","claimed":"'$(date -Iseconds)'"}' > {{MARKERS_DIR}}/{{stage}}.lock
+	@echo "CLAIMED: {{stage}} by $$AGENT_ID"
+
+heartbeat:
+	@mkdir -p {{MARKERS_DIR}}
+	@for l in {{MARKERS_DIR}}/*.lock; do \
+		if [ -f "$$l" ]; then \
+			touch "$$l"; \
+			stage=$$(basename "$$l" .lock); \
+			echo "  heartbeat: $$stage"; \
+		fi; \
+	done
+	@echo "Heartbeats recorded"
+
 coordination:
 	@echo "=== COORDINATION STATUS ==="
+	@mkdir -p {{MARKERS_DIR}}
 	@ls {{MARKERS_DIR}}/*.lock {{MARKERS_DIR}}/*.done 2>/dev/null || echo "  No markers"

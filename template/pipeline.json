@@ -1,0 +1,32 @@
+{
+  "name": "silo_pipeline",
+  "version": "1.0.0",
+  "description": "Pipeline stages and agent assignments",
+  "stages": [
+    {
+      "id": "harvest",
+      "description": "Ingest and validate data",
+      "agent": "harvester_agent",
+      "marker": "harvest",
+      "depends_on": []
+    },
+    {
+      "id": "process",
+      "description": "Run domain processing",
+      "agent": "processor_agent",
+      "marker": "process",
+      "depends_on": ["harvest"]
+    },
+    {
+      "id": "flush",
+      "description": "Compact and archive",
+      "agent": "archiver_agent",
+      "marker": "flush",
+      "depends_on": ["process"]
+    }
+  ],
+  "critical_threshold": {
+    "field": "FIELD",
+    "value": THRESHOLD
+  }
+}

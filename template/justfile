@@ -8,11 +8,11 @@ QUARANTINE_FILE := "quarantine.jsonl"
 OUTPUT_FILE    := "final_output.jsonl"
 SCHEMA_FILE    := "schema.json"
 QUERIES_FILE   := "queries.json"
+PIPELINE_FILE  := "pipeline.json"
 MARKERS_DIR    := "markers"
+SCRIPTS_DIR    := "scripts"
 
-# Replace these in your domain-specific justfile:
-# - FIELD: the main data field (e.g., moisture, price, status)
-# - THRESHOLD: the critical value (e.g., 15, 100, error)
+# === CORE WORKFLOW ===
 
 default:
 	@echo "Silo Recipes:"
@@ -37,25 +37,7 @@ harvest source=(HARVEST_FILE):
 process:
 	@./process.sh
 
-# 4. Check: extract critical alerts
-# TODO: Replace <FIELD> and <THRESHOLD> with your domain values
-alerts:
-	@jq -c 'select(.<FIELD> > <THRESHOLD>)' {{DATA_FILE}}
-
-# 4. Check: show metrics
-stats:
-	@echo "Active: $([ -f {{DATA_FILE}} ] && jq -s 'length' {{DATA_FILE}} || echo 0)"
-	@echo "Quarantine: $([ -f {{QUARANTINE_FILE}} ] && jq -s 'length' {{QUARANTINE_FILE}} || echo 0)"
-	@echo "Output: $([ -f {{OUTPUT_FILE}} ] && jq -s 'length' {{OUTPUT_FILE}} || echo 0)"
-
-# 4. Check: run named filter
-query filter:
-	@FILTER_JQ=$$(jq -r '.filters["{{filter}}"].jq' {{QUERIES_FILE}})
-	@jq -c "$$FILTER_JQ" {{DATA_FILE}}
-
-# 4. Check: human-readable report
-report:
-	@just stats && just alerts
+# 4. Observe: monitor pipeline health (see === OBSERVE === section)
 
 # 5. Flush: move completed to final_output.jsonl
 flush:
@@ -65,32 +47,92 @@ flush:
 	@mv {{DATA_FILE}}.tmp {{DATA_FILE}}
 	@just stats
 
-# 5. Compact: deep compaction
+# === OBSERVE: Pipeline Observability ===
+
+# Aggregate pipeline health - THE MAIN COMMAND
+status:
+	@echo "============================================================"
+	@echo "  PIPELINE STATUS"
+	@echo "============================================================"
+	@just who
+	@echo ""
+	@./{{SCRIPTS_DIR}}/status_stages.sh
+	@echo ""
+	@./{{SCRIPTS_DIR}}/status_throughput.sh
+	@echo ""
+	@./{{SCRIPTS_DIR}}/status_stuck.sh
+	@echo ""
+	@just alerts
+	@echo "============================================================"
+
+# Who is on what stage
+who:
+	@echo "  AGENTS:"
+	@if [ -f {{PIPELINE_FILE}} ]; then \
+		jq -r '.stages[] | "  \(.id): \(.agent)"' {{PIPELINE_FILE}}; \
+	else \
+		echo "  (no pipeline.json - add stages)"; \
+	fi
+
+# Stage-by-stage status
+stages:
+	@./{{SCRIPTS_DIR}}/status_stages.sh
+
+# Detect stalled stages (default: 60 minutes)
+stuck threshold:
+	@./{{SCRIPTS_DIR}}/status_stuck.sh {{threshold}}
+
+# Throughput metrics
+throughput:
+	@./{{SCRIPTS_DIR}}/status_throughput.sh
+
+# Audit trail
+audit:
+	@./{{SCRIPTS_DIR}}/status_audit.sh
+
+# === CHECK ===
+
+# TODO: Replace <FIELD> and <THRESHOLD> with your domain values
+alerts:
+	@if [ -f {{DATA_FILE}} ]; then jq -c 'select(.<FIELD> > <THRESHOLD>)' {{DATA_FILE}} || echo "  (no alerts)"; else echo "  (no data)"; fi
+
+stats:
+	@echo "Active: $([ -f {{DATA_FILE}} ] && jq -s 'length' {{DATA_FILE}} || echo 0)"
+	@echo "Quarantine: $([ -f {{QUARANTINE_FILE}} ] && jq -s 'length' {{QUARANTINE_FILE}} || echo 0)"
+	@echo "Output: $([ -f {{OUTPUT_FILE}} ] && jq -s 'length' {{OUTPUT_FILE}} || echo 0)"
+
+query filter:
+	@FILTER_JQ=$$(jq -r '.filters["{{filter}}"].jq' {{QUERIES_FILE}})
+	@jq -c "$$FILTER_JQ" {{DATA_FILE}}
+
+report:
+	@just stats && just alerts
+
+# === MAINTENANCE ===
+
+self-test:
+	@just verify
+	@echo "SELF-TEST: PASSED"
+
+clean:
+	@rm -f {{DATA_FILE}} {{QUARANTINE_FILE}} {{OUTPUT_FILE}}
+	@echo "done"
+
+install-deps:
+	@command -v jq >/dev/null 2>&1 && echo "  jq ok" || echo "  jq MISSING"
+	@command -v just >/dev/null 2>&1 && echo "  just ok" || echo "  just MISSING"
+
 compact:
 	@jq -c 'select(.status == "processed") | del(.internal_trace)' {{DATA_FILE}} >> {{OUTPUT_FILE}} 2>/dev/null
 	@jq -c 'select(.status != "processed")' {{DATA_FILE}} > {{DATA_FILE}}.tmp
 	@mv {{DATA_FILE}}.tmp {{DATA_FILE}}
 
-# Maintenance: check prerequisites
-install-deps:
-	@command -v jq >/dev/null 2>&1 && echo "  jq ok" || echo "  jq MISSING"
-	@command -v just >/dev/null 2>&1 && echo "  just ok" || echo "  just MISSING"
-
-# Maintenance: smoke test
-self-test:
-	@just verify
-	@echo "SELF-TEST: PASSED"
-
-# Maintenance: reset silo
-clean:
-	@rm -f {{DATA_FILE}} {{QUARANTINE_FILE}} {{OUTPUT_FILE}}
-	@echo "done"
-
-# === Multi-Agent Coordination ===
+# === MULTI-AGENT COORDINATION ===
 
 lock marker:
 	@mkdir -p {{MARKERS_DIR}}
-	@echo '{"agent":"$(AGENT_ID)","at":"'$(date -Iseconds)'"}' > {{MARKERS_DIR}}/{{marker}}.lock
+	@AGENT_ID=$$(hostname -s)_$$(date +%s)
+	@echo "{\"agent\":\"$$AGENT_ID\",\"at\":\"$$(date -Iseconds)\"}" > {{MARKERS_DIR}}/{{marker}}.lock
 	@echo "LOCKED: {{marker}}"
 
 is-locked marker:
@@ -100,6 +142,8 @@ is-done marker:
 	@test -f {{MARKERS_DIR}}/{{marker}}.done && echo "DONE" || echo "NOT_DONE"
 
 wait marker:
+	@mkdir -p {{MARKERS_DIR}}
+	@echo "Waiting for {{marker}}..."
 	@while [ ! -f {{MARKERS_DIR}}/{{marker}}.lock ] && [ ! -f {{MARKERS_DIR}}/{{marker}}.done ]; do sleep 5; done
 	@echo "{{marker}} ready"
 
@@ -109,10 +153,29 @@ done marker:
 	@touch {{MARKERS_DIR}}/{{marker}}.done
 	@echo "DONE: {{marker}}"
 
+claim stage:
+	@mkdir -p {{MARKERS_DIR}}
+	@AGENT_ID=$$(hostname -s)_$$(date +%s)
+	@echo "{\"agent\":\"$$AGENT_ID\",\"stage\":\"{{stage}}\",\"claimed\":\"$$(date -Iseconds)\"}" > {{MARKERS_DIR}}/{{stage}}.lock
+	@echo "CLAIMED: {{stage}} by $$AGENT_ID"
+
+heartbeat:
+	@mkdir -p {{MARKERS_DIR}}
+	@for l in {{MARKERS_DIR}}/*.lock; do \
+		if [ -f "$$l" ]; then \
+			touch "$$l"; \
+			stage=$$(basename "$$l" .lock); \
+			echo "  heartbeat: $$stage"; \
+		fi; \
+	done
+	@echo "Heartbeats recorded"
+
 cleanup:
+	@mkdir -p {{MARKERS_DIR}}
 	@find {{MARKERS_DIR}}/ -name "*.lock" -mmin +60 -delete 2>/dev/null || true
 	@echo "Cleaned stale locks"
 
 coordination:
 	@echo "=== COORDINATION STATUS ==="
+	@mkdir -p {{MARKERS_DIR}}
 	@ls {{MARKERS_DIR}}/*.lock {{MARKERS_DIR}}/*.done 2>/dev/null || echo "  No markers"

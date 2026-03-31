@@ -1,7 +1,7 @@
 # Brief: Pipeline Observability via Filesystem
 
 **Date:** 2026-03-31
-**Status:** Proposed
+**Status:** Implemented
 **Type:** Feature Extension
 **Priority:** High
 
@@ -140,11 +140,11 @@ heartbeat:
 
 ## Success Criteria
 
-- [ ] `cd pipeline_silo && just status` shows complete pipeline health
-- [ ] `just who` correctly identifies active agent per stage
-- [ ] `just stuck 30` detects stages idle > 30 minutes
-- [ ] `just audit` shows chronological pipeline history
-- [ ] No external dependencies (dashboards, APIs, databases)
+- [x] `cd pipeline_silo && just status` shows complete pipeline health
+- [x] `just who` correctly identifies active agent per stage
+- [x] `just stuck 30` detects stages idle > 30 minutes
+- [x] `just audit` shows chronological pipeline history
+- [x] No external dependencies (dashboards, APIs, databases)
 
 ## Open Questions
 
