@@ -6,14 +6,21 @@
 
 ## The Idea
 
-**You don't pre-define the vocabulary. You just say what you want.**
+**You have stuff. You want things. You create a silo.**
 
 ```
-"I want to monitor grain moisture..."
-→ just harvest, just alert, just threshold...
+STUFF ──→ [ SILO ] ──→ THINGS
 ```
 
-**You define the verbs. The silo emerges.**
+**You define the stuff. You define the things. The silo does the fcuking conversion.**
+
+```
+"I have grain moisture readings. I want alerts when it's too high."
+→ silo_barley created
+→ stuff: moisture readings
+→ things: alerts
+→ verbs: harvest, alert, threshold
+```
 
 ## Pocket Universe
 

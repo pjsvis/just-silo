@@ -61,25 +61,28 @@ The tool is called *just*. The usage is *just fcuking do it*.
 
 ## What Is A Silo?
 
-**A pocket universe with its own rules.**
+**Two things:**
+
+**1. Something you encounter.**
+Agent drops in, reads rules, just fcuking does the job.
+
+**2. Something you build.**
+You have stuff. You want things. You create a silo.
 
 ```
-input ──→ [ SILO ] ──→ output
-          ┌─────────┐
-          │ vocab   │
-          │ grammar │
-          │ state   │
-          │ rules   │
-          └─────────┘
+STUFF ──→ [ SILO ] ──→ THINGS
+          ┌──────────────────┐
+          │ I want this stuff │
+          │ turned into these │
+          │ things           │
+          └──────────────────┘
 ```
+
+**You define the stuff. You define the things. The silo does the conversion.**
 
 **When you're in, you can only do what it allows.**
 
 The rules are the rails. Constraints create capability.
-You can't do anything the silo doesn't allow. That's the point.
-
-Any agent can drop in, read the rules, and just fcuking do it.
-You want different rules? Change them. It's your pocket universe.
 
 You want different rules? Change them. It's your pocket universe.
 
