@@ -12,7 +12,7 @@
 STUFF ──→ [ SILO ] ──→ THINGS
 ```
 
-**You define the stuff. You define the things. The silo does the fcuking conversion.**
+**You define the stuff. You define the things. The silo does the conversion.**
 
 ```
 "I have grain moisture readings. I want alerts when it's too high."

@@ -21,7 +21,7 @@ input ──→ [ SILO ] ──→ output
 The rules are the rails. Constraints create capability.
 You can't do anything the silo doesn't allow. That's the point.
 
-Any agent can drop in, read the rules, and just fcuking do it.
+Any agent can drop in, read the rules, and do it.
 
 You want different rules? Change them. It's your pocket universe.
 

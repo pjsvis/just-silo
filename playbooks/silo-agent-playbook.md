@@ -6,7 +6,7 @@
 
 ## The Idea
 
-Drop into a silo. Read the rules. Just fcuking do it.
+Drop into a silo. Read the rules. Do it.
 
 **You can only do what the silo allows. That's the point.**
 
@@ -20,7 +20,7 @@ When told to "mount a silo":
 4. Run `just help`
 5. Run `just status`
 
-**You've read the rules. Now just fcuking do it.**
+**You've read the rules. Now do it.**
 
 ## Pocket Universe Rules
 

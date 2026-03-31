@@ -64,7 +64,7 @@ The tool is called *just*. The usage is *just fcuking do it*.
 **Two things:**
 
 **1. Something you encounter.**
-Agent drops in, reads rules, just fcuking does the job.
+Agent drops in, reads rules, does the job.
 
 **2. Something you build.**
 You have stuff. You want things. You create a silo.

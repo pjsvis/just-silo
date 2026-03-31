@@ -1,12 +1,12 @@
 # Silo User Playbook
 
-**For humans who want the AI to just fcuking do it.**
+**For humans who want the AI to just do it.**
 
 ---
 
 ## The Idea
 
-You have a job. You want it done. You drop into a silo, the AI reads the rules, and just fcuking does it.
+You have a job. You want it done. You drop into a silo, the AI reads the rules, and does it.
 
 **You define what you want. The vocabulary emerges. You just do it.**
 
