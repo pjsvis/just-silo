@@ -58,7 +58,7 @@ Not rocket science. Simple job. Get stuff, turn into things.
 
 Just ask your AI: "Make the words just happen."
 
-Just. The tool is called *just*. And the word is *just*. Fcuking do it. Just.
+The tool is called *just*. The usage is *just fcuking do it*.
 
 ---
 
