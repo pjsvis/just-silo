@@ -12,11 +12,12 @@ A directory-based skill for AI agents. Mount a silo, just harvest.
 # Quick start
 cp -r template my-silo
 cd my-silo
-just harvest           # Ingest data
-just process           # Run domain script
-just alerts            # Surface critical items
-just flush             # Compact to final output
+just <verb>            # Do the thing (you choose the verb!)
+just status            # See what's happening
+just help              # What can I do here?
 ```
+
+**Note:** `harvest`, `process`, `flush` are just example verbs. You define YOUR vocabulary.
 
 ## Why Bounded Context Matters
 
@@ -62,27 +63,46 @@ my-silo/
 ## Workflow
 
 ```
-Mount → Sieve → Process → Observe → Flush
+Mount → Sieve → <verb> → Observe → Flush
 ```
 
-| Step | Command | Purpose |
-|------|---------|---------|
+**You define the verbs.** Example workflow:
+
+| Step | Example Command | Purpose |
+|------|-----------------|---------|
 | Mount | `cd my-silo/` | Agent reads rules |
 | Sieve | `just harvest` | Validate data |
-| Process | `just process` | Run script |
-| Observe | `just status` / `just who` | Monitor pipeline |
+| Do | `just <your-verb>` | Run your script |
+| Observe | `just status` | Monitor pipeline |
 | Flush | `just flush` | Compact output |
 
 ## Core Recipes
 
+**You choose the verbs.** These are recommended:
+
 ```
-just verify      # Confirm ready
-just harvest     # Ingest + validate
-just process     # Run domain script
-just alerts      # Critical items
-just stats       # Counts
-just flush       # Compact output
-just self-test   # Smoke test
+# Do the thing (you define these!)
+just harvest     # Example: ingest data
+just process     # Example: run script
+just flush       # Example: archive output
+
+# See what's happening (recommended)
+just status      # Aggregate pipeline health (THE main command)
+just who         # Which agents on which stages
+just stages      # Stage-by-stage status
+just stuck       # Detect stalled stages
+just throughput  # Processing metrics
+just audit       # Completion history
+just alerts      # Surface critical items
+
+# Coordination (multi-agent)
+just claim       # Own a stage
+just wait        # Block until ready
+just done        # Mark complete
+
+# Safety rail
+just help        # What verbs exist?
+just help <verb> # What does this verb do?
 ```
 
 Run `just --list` for all recipes.

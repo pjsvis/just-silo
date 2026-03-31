@@ -32,8 +32,10 @@ The vocabulary is the silo. The silo is the vocabulary.
 - Global scope, low fidelity, always available
 
 **Scoped vocabulary:**
-- `just harvest`, `just process`, `just flush` — only work here, mean something specific here
+- `just status`, `just alerts`, `just harvest` — only work here, mean something specific here
 - Lexical scope, high fidelity, domain-native
+
+**The verbs are YOUR choice.** `harvest`, `process`, `flush` are just examples. You define the vocabulary.
 
 **Every directory can have its own language.**
 
@@ -42,9 +44,54 @@ grain_silo/     → harvest, process, flush, moisture, elevator_id
 code_review/    → scan, score, flag, notify, merge
 log_monitor/   → ingest, alert, archive, throttle
 incident/      → triage, escalate, resolve, postmortem
+monitoring/    → status, who, stuck, throughput, audit
 ```
 
-The vocabulary emerges from the domain. Not from the tool.
+**The vocabulary emerges from the domain. You choose the verbs. Not the tool.**
+
+---
+
+## Recommended Verbs
+
+You define your own vocabulary, but these are commonly useful:
+
+**Core (do the thing):**
+```
+just ingest      → bring data in
+just process     → transform data
+just flush       → archive output
+just clean       → reset state
+```
+
+**Observability (see what happened):**
+```
+just status      → aggregate health (THE main command)
+just who         → who is doing what
+just stages      → stage-by-stage status
+just stuck       → detect stalled stages
+just throughput  → processing metrics
+just audit       → completion history
+just alerts      → surface critical items
+just stats       → entry counts
+just report      → human-readable summary
+```
+
+**Coordination (multi-agent):**
+```
+just claim       → own a stage
+just wait        → block until ready
+just done        → mark complete
+just heartbeat   → keep claim alive
+just help        → what can I do?
+just help <verb> → what does this verb do?
+```
+
+**The pattern:**
+```
+just <verb>        → just f*cking do it
+just help <verb>   → what will it do?
+just help          → what verbs exist?
+```
 
 ---
 
