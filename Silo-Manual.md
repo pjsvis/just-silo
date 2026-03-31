@@ -198,6 +198,15 @@ just flush     # Archives to review queue
 
 *With just-silo, you hand an agent "silo_code_review" and it knows the workflow.*
 
+**Determinism curve:**
+```
+Without silo: More PRs reviewed = more context = less clarity
+With silo:    Each PR isolated, flushes after review = consistent
+```
+
+The silo prevents "reviewer fatigue" — an agent that's seen 500 PRs this week
+gets slower and inconsistent. Each review starts fresh from the silo.
+
 ---
 
 **Imagine you had to triage 200 production alerts before lunch.**
@@ -211,6 +220,15 @@ just flush     # Archives to incident tracker
 ```
 
 *Multiple agents can work the silo — one harvests, one triages, one notifies.*
+
+**Determinism curve:**
+```
+Without silo: Alerts accumulate in context = noise drowns signal
+With silo:    Batch by hour, flush, start fresh = clear prioritization
+```
+
+The silo prevents "alert fatigue" — agents that see 10,000 past alerts
+lose the ability to prioritize. A lean silo surfaces the 5 critical ones.
 
 ---
 
@@ -227,6 +245,15 @@ just cleanup   # Rolls back failed migrations
 
 *Schema validation prevents bad data from entering the new system.*
 
+**Determinism curve:**
+```
+Without silo: More records migrated = more context = validation drifts
+With silo:    Batch by 100, flush each batch, quarantine bad = consistent
+```
+
+The silo prevents "migration drift" — as records pile up, validation
+criteria drift. Each batch starts fresh from schema.
+
 ---
 
 **Imagine you had to find one suspicious API call in 2 million log entries.**
@@ -240,6 +267,15 @@ just flush     # Archives to S3
 ```
 
 *Named jq filters turn ad-hoc grep into reproducible queries.*
+
+**Determinism curve:**
+```
+Without silo: More logs searched = more false positives = analyst confused
+With silo:    Named filters on batched data = precise, reproducible
+```
+
+The silo prevents "investigation drift" — as analysts scan more logs,
+they start seeing threats everywhere. A named filter is precise.
 
 ---
 
