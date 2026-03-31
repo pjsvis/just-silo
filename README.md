@@ -172,13 +172,12 @@ brew install just jq
 
 | Document | Purpose |
 |----------|--------|
-| [README](README.md) | This file |
 | [Manual](manual.md) | Detailed why and how |
-| [Playbooks](playbooks/) | By role: user, builder, agent, operator |
+| [Playbooks](playbooks/) | user, builder, agent, operator |
 | [Skills](skills/) | Agent instructions |
 | [Examples](examples/silo_barley/) | Working silo |
 | [Briefs](briefs/) | Project briefs |
-| [Debriefs](debriefs/) | Project retrospectives |
+| [Debriefs](debriefs/) | Retrospectives |
 
 ## Compare
 
