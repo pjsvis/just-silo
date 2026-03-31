@@ -16,5 +16,5 @@ markers/*.done
 # OS
 .DS_Store
 
-# Drafts
-HN-ANNOUNCEMENT.md
+# Marketing — private drafts
+marketing/
