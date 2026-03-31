@@ -1,0 +1,13 @@
+# State files — generated, not committed
+data.jsonl
+quarantine.jsonl
+final_output.jsonl
+alerts.jsonl
+metrics.txt
+
+# Temp files
+*.tmp
+*.bak
+
+# OS
+.DS_Store

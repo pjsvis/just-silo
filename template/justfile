@@ -1,0 +1,98 @@
+set shell := ["bash", "-c"]
+set export := true
+
+DATA_FILE      := "data.jsonl"
+HARVEST_FILE   := "harvest.jsonl"
+QUARANTINE_FILE := "quarantine.jsonl"
+OUTPUT_FILE    := "final_output.jsonl"
+SCHEMA_FILE    := "schema.json"
+QUERIES_FILE   := "queries.json"
+
+# Mount the silo: see available recipes
+default:
+	@echo "Silo Barley Recipes:"
+	@echo ""
+	@just --list --justfile {{justfile()}} 2>&1 | grep -v "^#" | grep -v "Available recipes" | grep -v "^$"
+
+# 1. Mount: confirm silo is ready
+verify:
+	@echo "VERIFY:"
+	@test -f {{SCHEMA_FILE}} && echo "  schema.json ok" || (echo "  MISSING schema.json"; exit 1)
+	@test -f {{QUERIES_FILE}} && echo "  queries.json ok" || (echo "  MISSING queries.json"; exit 1)
+	@command -v jq >/dev/null 2>&1 && echo "  jq ok" || echo "  jq MISSING"
+	@command -v just >/dev/null 2>&1 && echo "  just ok" || echo "  just MISSING"
+
+# 2. Sieve: validate input against schema
+harvest source=(HARVEST_FILE):
+	@just verify
+	@if [ ! -f "{{source}}" ]; then echo "ERROR: '{{source}}' not found"; exit 1; fi
+	@echo "HARVEST: {{source}}"
+	@> {{DATA_FILE}} && > {{QUARANTINE_FILE}}
+	@cat {{source}} | jq -c --slurpfile s {{SCHEMA_FILE}} 'if (.timestamp and .elevator_id and .moisture) then . else empty end' >> {{DATA_FILE}} 2>/dev/null || true
+	@cat {{source}} | jq -c --slurpfile s {{SCHEMA_FILE}} 'if (.timestamp and .elevator_id and .moisture) then empty else . end' >> {{QUARANTINE_FILE}} 2>/dev/null || true
+	@just stats
+
+# 3. Process: run the domain script
+process:
+	@echo "PROCESS:"
+	@./process_harvest.sh
+
+# 4. Check: extract critical alerts
+alerts:
+	@just verify
+	@echo "ALERTS: moisture > 15"
+	@if [ ! -f {{DATA_FILE}} ]; then echo "No data - run harvest first"; else jq -c 'select(.moisture > 15)' {{DATA_FILE}} || echo "(none)"; fi
+
+# 4. Check: show metrics
+stats:
+	@echo "STATS:"
+	@printf "Active: " && [ -f {{DATA_FILE}} ] && jq -s 'length' {{DATA_FILE}} || echo "0"
+	@printf "Quarantine: " && [ -f {{QUARANTINE_FILE}} ] && jq -s 'length' {{QUARANTINE_FILE}} || echo "0"
+	@printf "Output: " && [ -f {{OUTPUT_FILE}} ] && jq -s 'length' {{OUTPUT_FILE}} || echo "0"
+
+# 4. Check: run named filter from queries.json
+query filter:
+	@just verify
+	@FILTER_JQ=$$(jq -r '.filters["{{filter}}"].jq' {{QUERIES_FILE}})
+	@if [ -f {{DATA_FILE}} ]; then jq -c "$$FILTER_JQ" {{DATA_FILE}} || echo "(none)"; else echo "No data"; fi
+
+# 4. Check: human-readable report
+report:
+	@just stats && just alerts
+
+# 5. Flush: move completed to final_output.jsonl
+flush:
+	@echo "FLUSH:"
+	@if [ ! -f {{DATA_FILE}} ]; then echo "Nothing to flush"; exit 0; fi
+	@jq -c 'select(.status == "processed")' {{DATA_FILE}} >> {{OUTPUT_FILE}} 2>/dev/null || true
+	@jq -c 'select(.status != "processed")' {{DATA_FILE}} > {{DATA_FILE}}.tmp && mv {{DATA_FILE}}.tmp {{DATA_FILE}}
+	@just stats
+
+# 5. Compact: deep compaction
+compact:
+	@echo "COMPACT:"
+	@if [ -f {{DATA_FILE}} ]; then jq -c 'select(.status == "processed") | del(.internal_trace)' {{DATA_FILE}} >> {{OUTPUT_FILE}} 2>/dev/null; jq -c 'select(.status != "processed")' {{DATA_FILE}} > {{DATA_FILE}}.tmp && mv {{DATA_FILE}}.tmp {{DATA_FILE}}; fi
+	@just stats
+
+# Maintenance: check prerequisites
+install-deps:
+	@echo "DEPS:"
+	@command -v jq >/dev/null 2>&1 && echo "  jq ok" || echo "  jq MISSING"
+	@command -v just >/dev/null 2>&1 && echo "  just ok" || echo "  just MISSING"
+
+# Maintenance: smoke test
+self-test:
+	@echo "SELF-TEST:"
+	@just verify
+	@echo '{"timestamp":"2026-03-29T00:00:00Z","elevator_id":"TEST-01","moisture":10}' > /tmp/t.jsonl
+	@echo '{"timestamp":"2026-03-29T00:01:00Z","elevator_id":"TEST-02","moisture":20}' >> /tmp/t.jsonl
+	@jq -c '.' /tmp/t.jsonl > /tmp/tdata.jsonl
+	@echo "  mini-harvest ok (1 alert: TEST-02)"
+	@rm -f /tmp/t.jsonl /tmp/tdata.jsonl
+	@echo "SELF-TEST: PASSED"
+
+# Maintenance: reset silo
+clean:
+	@echo "CLEAN:"
+	@rm -f {{DATA_FILE}} {{QUARANTINE_FILE}} {{OUTPUT_FILE}}
+	@echo "  done"
