@@ -155,6 +155,104 @@ Creation is not absolution. Deployment is not endorsement.
 
 ---
 
+## Canny Is the Order of the Day
+
+> **Who knows what is in a silo. Even if something really bad happened, the blast radius was contained. So canny is the order of the day.**
+
+The blast radius limits the blast. It does not eliminate risk.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│   BENEATH THE BLAST RADIUS                                      │
+│                                                                 │
+│   ┌─────────────────────────────────────────────────────────┐  │
+│   │                                                          │  │
+│   │   Silo: blast_radius = 1 (contained)                    │  │
+│   │                                                          │  │
+│   │   "Nothing escapes."                                    │  │
+│   │                                                          │  │
+│   │   BUT:                                                   │  │
+│   │   - The silo still has your data                        │  │
+│   │   - The silo still processes things                     │  │
+│   │   - The silo still has agents                           │  │
+│   │   - The silo still can be wrong                         │  │
+│   │   - The silo still can fail                             │  │
+│   │   - The silo still can surprise you                     │  │
+│   │                                                          │  │
+│   └─────────────────────────────────────────────────────────┘  │
+│                         │                                       │
+│                         ▼                                       │
+│            ┌─────────────────────────┐                        │
+│            │ "Contained" ≠ Harmless │                        │
+│            │ "Contained" ≠ Trusted  │                        │
+│            │ "Contained" ≠ Known    │                        │
+│            └─────────────────────────┘                        │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### The Three Questions
+
+**Even when blast radius holds, ask:**
+
+1. **What data is in there?**
+   - Production? PII? Credentials?
+   - Can it be recovered if the silo corrupts it?
+   - Can it leak if the silo is wrong?
+
+2. **What processing happens?**
+   - Financial calculations?
+   - Medical decisions?
+   - Safety-critical outputs?
+   - "Contained" mistakes still create wrong outputs
+
+3. **Who depends on it?**
+   - Other silos consume its outputs?
+   - Humans make decisions based on its results?
+   - Downstream systems trust its data?
+
+### Canny Means
+
+| Action | Canny Response |
+|--------|---------------|
+| "Deploy this silo" | "What's in it? What's it touch?" |
+| "Run just process" | "What will it produce?" |
+| "Agent is working" | "What did it read? What will it write?" |
+| "Outputs look fine" | "Expected fine or actually fine?" |
+| "Blast radius held" | "Good. What else?" |
+
+### The Silo Can Still Harm
+
+**Within blast radius:**
+- Corrupt its own data
+- Produce wrong outputs
+- Consume resources (CPU, memory)
+- Fill disk space
+- Generate noise
+- Make bad decisions
+- Surprise you
+
+**The blast doesn't reach out. But it can still mess things up inside.**
+
+### Knowledge Is Defense
+
+> **Who knows what is in a silo.**
+
+- Know the data
+- Know the processing
+- Know the outputs
+- Know the consumers
+- Watch the silo
+
+**Canny: careful, prudent, wary.**
+
+Not paranoid. Just informed.
+
+> *"Blast radius contained the blast. But canny keeps us watching."*
+
+---
+
 ## The Fat
 
 In *A Fire Upon the Deep*, "the fat" refers to dangerous, uncontrolled power. The parts that got civilizations burned.
