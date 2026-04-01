@@ -324,7 +324,6 @@ See [td Playbook](playbooks/td-playbook.md) for the full workflow.
 | `yazi` | `brew install yazi` | File picker |
 | `zoxide` | `brew install zoxide` | Smarter cd |
 | `hledger` | `brew install hledger` | Accounting |
-| `docker` | [docker.com](https://docker.com) | Containers |
 
 See `scripts/provision-arch-omarchy.sh` for Arch Linux equivalents.
 
