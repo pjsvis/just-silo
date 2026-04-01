@@ -104,7 +104,9 @@ harvest source=(HARVEST_FILE):
 	@just verify
 	@if [ ! -f "{{source}}" ]; then echo "ERROR: '{{source}}' not found"; exit 1; fi
 	@> {{DATA_FILE}} && > {{QUARANTINE_FILE}}
-	# TODO: Replace with your schema validation jq expression
+	# Reads each line, validates required fields, writes valid to data.jsonl
+	# Replace with your schema validation:
+	# Example: jq -c 'if .field1 and .field2 then . else empty end'
 	@cat {{source}} | jq -c '.' >> {{DATA_FILE}} 2>/dev/null || true
 	@just stats
 
@@ -164,7 +166,8 @@ audit:
 
 # === CHECK ===
 
-# TODO: Replace <FIELD> and <THRESHOLD> with your domain values
+# Surface entries exceeding your critical threshold
+# Example: just add this to alerts: select(.moisture > 15)
 alerts:
 	@if [ -f {{DATA_FILE}} ]; then jq -c 'select(.<FIELD> > <THRESHOLD>)' {{DATA_FILE}} || echo "  (no alerts)"; else echo "  (no data)"; fi
 
@@ -173,10 +176,13 @@ stats:
 	@echo "Quarantine: $([ -f {{QUARANTINE_FILE}} ] && jq -s 'length' {{QUARANTINE_FILE}} || echo 0)"
 	@echo "Output: $([ -f {{OUTPUT_FILE}} ] && jq -s 'length' {{OUTPUT_FILE}} || echo 0)"
 
+# Run a named filter from queries.json
+# Filters are defined in queries.json under .filters.<name>.jq
 query filter:
 	@FILTER_JQ=$$(jq -r '.filters["{{filter}}"].jq' {{QUERIES_FILE}})
 	@jq -c "$$FILTER_JQ" {{DATA_FILE}}
 
+# Human-readable summary: counts + any critical alerts
 report:
 	@just stats && just alerts
 
