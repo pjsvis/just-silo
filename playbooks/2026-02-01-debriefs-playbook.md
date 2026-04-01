@@ -1,3 +1,8 @@
+---
+date: 2026-04-01
+tags: [playbook, debrief, process]
+---
+
 # Debriefs Playbook
 
 ## Purpose

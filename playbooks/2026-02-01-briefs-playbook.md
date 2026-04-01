@@ -1,12 +1,26 @@
+---
+date: 2026-04-01
+tags: [playbook, brief, process]
+---
+
 # Briefs Playbook
 
 ## Purpose
 A brief is a concise document that outlines the objective, requirements, and plan for a specific task or feature. It serves as a contract between the user and the agent, ensuring alignment before work begins.
 
 ## File Naming
-- **Format:** `brief-[slug].md`
+- **Format:** `YYYY-MM-DD-[slug].md`
 - **Location:** `briefs/` directory
-- **Example:** `briefs/brief-sidebar-refinements.md`
+- **Example:** `briefs/2026-04-01-just-silo-ui-demo.md`
+
+## Frontmatter
+
+```yaml
+---
+date: YYYY-MM-DD
+tags: [brief]
+---
+```
 
 ## Template
 
