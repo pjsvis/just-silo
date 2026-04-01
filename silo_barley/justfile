@@ -24,13 +24,13 @@ default:
 workflow:
 	@echo "WORKFLOW:"
 	@echo ""
-	@echo "  Mount    just verify"
-	@echo "  Sieve   just harvest"
-	@echo "  Do      just process"
-	@echo "  Observe just status"
-	@echo "  Flush   just flush"
+	@echo "  just verify  : Check prerequisites"
+	@echo "  just harvest : Ingest and validate data"
+	@echo "  just process : Run domain processing"
+	@echo "  just status  : Pipeline observability"
+	@echo "  just flush   : Archive processed entries"
 	@echo ""
-	@echo "Run 'just help' for command details"
+	@echo "Run 'just help <verb>' for details"
 
 verify:
 	@test -f {{SCHEMA_FILE}} && echo "  schema ok" || (echo "  MISSING schema.json"; exit 1)

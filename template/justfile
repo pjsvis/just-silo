@@ -91,6 +91,17 @@ help target="":
 # Usage: just verify
 # What: Checks schema, queries, and jq are present
 # When: First thing to run when entering a silo
+# Show the workflow: verb : description
+workflow:
+	@echo "WORKFLOW:"
+	@echo ""
+	@echo "  just verify  : Check prerequisites"
+	@echo "  just harvest : Ingest and validate data"
+	@echo "  just process : Run domain processing"
+	@echo "  just status  : Pipeline observability"
+	@echo "  just flush   : Archive processed entries"
+	@echo ""
+	@echo "Run 'just help <verb>' for details"
 verify:
 	@test -f {{SCHEMA_FILE}} && echo "  schema ok" || (echo "  MISSING schema.json"; exit 1)
 	@test -f {{QUERIES_FILE}} && echo "  queries ok" || (echo "  MISSING queries.json"; exit 1)
