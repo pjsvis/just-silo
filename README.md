@@ -107,22 +107,25 @@ cp -r template my-silo && cd my-silo && just help
 
 **just** — the command runner that makes silos executable.
 
-`just` is what transforms a directory into a language. Without it, silos are just files. With it, silos are executable.
+`just` transforms a directory into a language. Without it, silos are just files.
 
-| Property | Description |
-|----------|-------------|
+| | |
+|---|---|
 | Creator | [Casey Rodarmor](https://github.com/casey) |
-| License | CC0 (public domain) |
+| License | CC0 |
 | Install | `brew install just` |
-| Website | [just.systems](https://just.systems) |
+| Repo | [github.com/casey/just](https://github.com/casey/just) |
 
-**Why just?**
-- Dead simple recipe syntax
-- Shell completion out of the box
-- No runtime dependencies
-- Cross-platform
+**Glow + Gum** — TUI magic from [Charm](https://charm.sh).
 
-The `just` pun is ours. The tool is Casey's. Go thank him.
+| | Glow | Gum |
+|---|---|---|
+| What | Markdown renderer | TUI components |
+| Used for | Render proposals | Select, confirm, input |
+| Install | `brew install glow` | `brew install gum` |
+| Repo | [charm.sh/glow](https://github.com/charmbracelet/glow) | [charm.sh/gum](https://github.com/charmbracelet/gum) |
+
+**Go thank them.** These tools make silos actually pleasant to use.
 
 ## The Pattern
 
@@ -253,4 +256,8 @@ MIT
 **Links:**
 - [GitHub](https://github.com/pjsvis/just-silo)
 - [Silo-Manual.md](Silo-Manual.md) — Full technical docs
-- [just](https://github.com/casey/just) — The command runner that makes it work
+
+**Dependencies:**
+- [just](https://github.com/casey/just) — Command runner
+- [glow](https://github.com/charmbracelet/glow) — Markdown renderer
+- [gum](https://github.com/charmbracelet/gum) — TUI components
