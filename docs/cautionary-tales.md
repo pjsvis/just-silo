@@ -290,9 +290,9 @@ Not paranoid. Just informed.
 
 ## The Fat
 
-In *A Fire Upon the Deep*, "the fat" refers to dangerous, uncontrolled power. The parts that got civilizations burned.
+In *A Fire Upon the Deep*, "the fate" of the Straumli Realm is the cautionary part — they wanted wonderful, they got destroyed.
 
-**The fat in silos:**
+**The risks in silos:**
 
 | Dangerous Element | Why It's Fat |
 |-------------------|-------------|
@@ -313,7 +313,7 @@ In Vinge's universe:
 |------|----------------|
 | **The Blight** | True AI, cannot be trusted, burns everything |
 | **The Unbound Forest** | Powerful AI, dangerous, requires containment |
-| **The Beyond** | Fast AI, controllable, but can become fat |
+| **The Beyond** | Fast AI, controllable, but dangerous |
 | **The Slow Zone** | Primitive, safe, no advanced AI possible |
 
 **We are in the Slow Zone of silo development.**
