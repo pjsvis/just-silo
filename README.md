@@ -241,3 +241,16 @@ just done process
 ## License
 
 MIT
+
+---
+
+## Open Source
+
+**If just-silo is useful, star it:**
+
+[![Star](https://img.shields.io/github/stars/pjsvis/just-silo?style=social)](https://github.com/pjsvis/just-silo)
+
+**Links:**
+- [GitHub](https://github.com/pjsvis/just-silo)
+- [Silo-Manual.md](Silo-Manual.md) — Full technical docs
+- [just](https://github.com/casey/just) — The command runner that makes it work
