@@ -271,6 +271,65 @@ Or manually:
 
 ---
 
+## Attribution
+
+**Essential tools we couldn't work without:**
+
+| Tool | Author | Why We Use It |
+|------|--------|---------------|
+| [td](https://github.com/Swatto/td) | [@Swatto](https://github.com/Swatto) | Local-first task management. Sessions, issues, handoffs, reviews. We miss it when it's not there. It's context, process, and agent coordination. |
+| [pi](https://github.com/badlogic/pi-mono) | [@badlogic](https://github.com/badlogic) (Mario Zechner) | Coding agent harness. Adapts to workflows, not the other way around. [pi.dev](https://pi.dev) |
+| [just](https://github.com/casey/just) | [@casey](https://github.com/casey) (Casey Rodarmor) | Command runner that makes silos executable. CC0 license. |
+| [glow](https://github.com/charmbracelet/glow) | [Charm](https://charm.sh) | Markdown renderer for the TUI |
+| [gum](https://github.com/charmbracelet/gum) | [Charm](https://charm.sh) | TUI components for scripts |
+
+### Sidecar Pattern
+
+The **sidecar** pattern is how we coordinate multiple agents:
+
+```
+session: explicit_sidecar-ws-just-silo-dev
+```
+
+- `explicit_sidecar` — marks this as a supporting session
+- `ws-just-silo` — workspace identifier
+- `dev` — current branch/context
+
+Multiple agents can work the same workspace. Handoffs pass context between sessions.
+
+See [td Playbook](playbooks/td-playbook.md) for the full workflow.
+
+---
+
+## Optional Dev Environment
+
+**Tools we use but don't require:**
+
+| Tool | Install | Purpose |
+|------|---------|---------|
+| `bun` | `curl -fsSL https://bun.sh/install` | Fast JS runtime |
+| `uv` | `curl -LsSf https://astral.sh/uv/install.sh | sh` | Fast Python package manager |
+| `fish` | `brew install fish` | Shell with better completions |
+| `fisher` | `curl -sL https://git.io/fisher | fish -c "source - | fish"` | Fish plugin manager |
+| `neovim` | `brew install neovim` | Editor (we use it over helix) |
+| `lazygit` | `brew install lazygit` | TUI git interface |
+| `aichat` | `brew install aichat` | CLI ChatGPT/Claude interface |
+| `aider` | `pip install aider-chat` | AI pair programming |
+| `ripgrep` | `brew install ripgrep` | Faster grep |
+| `fd` | `brew install fd` | Faster find |
+| `bat` | `brew install bat` | Cat with syntax highlighting |
+| `eza` | `brew install eza` | Better ls with git info |
+| `fzf` | `brew install fzf` | Fuzzy finder |
+| `gh` | `brew install gh` | GitHub CLI |
+| `yazi` | `brew install yazi` | File picker |
+| `zoxide` | `brew install zoxide` | Smarter cd |
+| `hledger` | `brew install hledger` | Accounting |
+| `docker` | [docker.com](https://docker.com) | Containers |
+
+See `scripts/provision-arch-omarchy.sh` for Arch Linux equivalents.
+
+---
+
 ## Open Source
 
 **If just-silo is useful, star it:**
