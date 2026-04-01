@@ -56,7 +56,42 @@ They lost. Not to enemies. To their own creation.
 │  When Vinge writes about AI danger, he's not speculating.      │
 │  He's extrapolating from computer science fundamentals.          │
 │                                                                 │
-│  That's why we remember the Straumli Realm.                    │
+│  That's why we remember the Straumli Realm.
+
+---
+
+## Our Touchstone
+
+> **Vernor Vinge is our touchstone for silos.**
+
+No particular reason other than the bleedin' obvious.
+
+He wrote about AI containment. We build things that need containing. The parallels are... illustrative.
+
+Keep that vibe going.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│   When in doubt: "What would Vinge warn us about here?"       │
+│                                                                 │
+│   When tempted: "Remember the Straumli Realm."                 │
+│                                                                 │
+│   When confident: "Blast radius = 1."                           │
+│                                                                 │
+│   When relaxed: "CAW-Canny."                                    │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+The Zones of Thought:
+- **Slow Zone** — We are here. Primitive, safe, limited.
+- **Beyond** — Where we're going. Fast AI, controllable.
+- **Blight** — What we must avoid. Uncontainable.
+
+> *"We wanted wonderful. We got the Unbound Forest."*
+
+No.                    │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
