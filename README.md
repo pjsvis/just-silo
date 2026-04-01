@@ -247,6 +247,30 @@ MIT
 
 ---
 
+## Provision
+
+**On a fresh machine, run:**
+
+```bash
+# Clone and provision
+git clone https://github.com/pjsvis/just-silo.git
+cd just-silo
+./scripts/provision.sh
+```
+
+Or manually:
+
+| Tool | Install |
+|------|---------|
+| `just` | `brew install just` |
+| `jq` | `brew install jq` |
+| `glow` | `brew install glow` |
+| `gum` | `brew install gum` |
+| `pi` | `npm install -g @mariozechner/pi-coding-agent` |
+| `agent-browser` | `npm install -g agent-browser` |
+
+---
+
 ## Open Source
 
 **If just-silo is useful, star it:**
