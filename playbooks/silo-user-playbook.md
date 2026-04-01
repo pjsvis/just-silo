@@ -4,11 +4,21 @@
 
 ---
 
-## The Idea
+## The Reveal
 
-You have a job. You want it done. You drop into a silo, the AI reads the rules, and does it.
+**You don't pre-define the vocabulary. You just say what you want.**
 
-**You define what you want. The vocabulary emerges. You just do it.**
+```
+"I want to monitor grain moisture and alert when it's too high"
+→ just harvest, just alert, just threshold...
+
+"I want to review PRs and flag risky changes"
+→ just scan, just score, just flag...
+```
+
+**You say the words. Just-silo makes them executable.**
+
+The tool is called `just`. The usage is `just do it`.
 
 ## Quick Start
 

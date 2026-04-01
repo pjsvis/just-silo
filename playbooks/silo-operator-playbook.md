@@ -4,6 +4,14 @@
 
 ---
 
+## The Reveal
+
+**Multi-agent silos are pocket universes with shared rules.**
+
+Agents coordinate via marker files. When agents are in, they can only do what the silo allows.
+
+**You say the words. Just-silo coordinates them.**
+
 ## Multi-Stage Pattern
 
 Agents work on different stages of the same pipeline:

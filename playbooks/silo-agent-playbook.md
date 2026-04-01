@@ -4,11 +4,21 @@
 
 ---
 
-## The Idea
+## The Reveal
 
-Drop into a silo. Read the rules. Do it.
+**You don't pre-define the vocabulary. You just say what you want.**
 
-**You can only do what the silo allows. That's the point.**
+```
+"Harvest grain moisture data"
+→ just harvest
+
+"Show me the pipeline status"
+→ just status
+```
+
+**You say the words. Just-silo makes them executable.**
+
+See `AGENTS.md` for Edinburgh Protocol (scout mindset) and full orientation.
 
 ## Mount Protocol
 
