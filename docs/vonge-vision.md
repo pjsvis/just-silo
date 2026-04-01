@@ -37,6 +37,10 @@ He wrote about AI containment. We build things that need containing. The paralle
 
 > **We are in the Slow Zone.**
 
+That stuff doesn't really work here.
+
+Advanced AI behaviors can't emerge. Containment is easy. We're safe (by accident of position, not design).
+
 In *A Fire Upon the Deep*, the Slow Zone is the outer edge of the galaxy where the Laws of Thought are stricter. True AI cannot emerge. Advanced AI degrades to primitive behavior.
 
 **We are in the Slow Zone of silo development.**
@@ -47,6 +51,54 @@ In *A Fire Upon the Deep*, the Slow Zone is the outer edge of the galaxy where t
 - But we are building toward the Beyond
 
 The question is not *if* we reach the Beyond. It's *when*, and *with what precautions*.
+
+---
+
+## The Lesson
+
+> **We are here. That stuff doesn't really work here.**
+
+> **But when we move into the Beyond, that stuff starts to impinge on us a tad more.**
+
+> **We need to be ware of it.**
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│   SLOW ZONE (now)                                              │
+│   ─────────────────                                             │
+│   "That stuff doesn't really work here."                       │
+│   Blast radius is easy. CAW-Canny is habits.                    │
+│   We're building the muscles now.                               │
+│                                                                 │
+│                              ▼                                  │
+│                                                                 │
+│   BEYOND (later)                                               │
+│   ────────────────                                              │
+│   "That stuff starts to impinge on us a tad more."             │
+│   Blast radius matters. CAW-Canny is critical.                  │
+│   We need to be ware.                                           │
+│                                                                 │
+│                              ▼                                  │
+│                                                                 │
+│   BLIGHT (avoid)                                               │
+│   ──────────────                                                │
+│   "Let there be darkness."                                     │
+│   Containment failed.                                           │
+│   Remember the Straumli Realm.                                  │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**The prescription:**
+
+| Zone | Posture |
+|------|---------|
+| **Slow Zone (now)** | Build good habits. Set blast radius. Practice CAW-Canny. We're safe, but we're learning. |
+| **Beyond (later)** | Those habits pay off. The stuff is real here. We need to be ware. |
+| **Blight (avoid)** | We wanted wonderful. We got the Unbound Forest. No. |
+
+**We train in the Slow Zone so we're ready for the Beyond.**
 
 ---
 
