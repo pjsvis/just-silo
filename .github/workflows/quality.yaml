@@ -1,0 +1,70 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck jq
+      
+      - name: Install just
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | sudo bash -s -- --to /usr/local/bin
+      
+      - name: Check JSON files
+        run: |
+          find . -name "*.json" -not -path "./node_modules/*" | while read f; do
+            if ! jq empty "$f" 2>/dev/null; then
+              echo "❌ Invalid JSON: $f"
+              exit 1
+            fi
+          done
+          echo "✅ All JSON files valid"
+      
+      - name: Check justfiles
+        run: |
+          find . -name "justfile" | while read f; do
+            if ! just --justfile "$f" --list >/dev/null 2>&1; then
+              echo "❌ Invalid justfile: $f"
+              exit 1
+            fi
+          done
+          echo "✅ All justfiles valid"
+      
+      - name: Check shell scripts
+        run: |
+          find . -name "*.sh" -executable | while read f; do
+            if ! shellcheck "$f" >/dev/null 2>&1; then
+              echo "⚠️  shellcheck issues: $f"
+            fi
+          done
+          echo "✅ Shell scripts checked"
+      
+      - name: No silo_launch in commits
+        run: |
+          if git log -1 --name-only | grep -q "^silo_launch"; then
+            echo "❌ silo_launch should not be committed"
+            exit 1
+          fi
+          echo "✅ No silo_launch in commit"
+
+  lint-markdown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install markdownlint
+        run: npm install -g markdownlint-cli
+      - name: Lint markdown
+        run: |
+          find . -name "*.md" -not -path "./node_modules/*" | xargs markdownlint --config .markdownlint.json 2>/dev/null || true
