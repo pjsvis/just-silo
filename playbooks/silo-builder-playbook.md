@@ -4,6 +4,50 @@
 
 ---
 
+## AI Harness: Pi
+
+**Use [pi](https://github.com/mariozechner/pi-coding-agent) to build silos.**
+
+Pi is a minimalistic coding agent that:
+- Reads files and executes commands
+- Works with any codebase
+- Has built-in `skill-builder` for just-silo
+
+### Quick Start with Pi
+
+```bash
+# Tell pi to build a silo
+pi -p "Create a silo for monitoring API latency. I want alerts when response > 500ms"
+
+# Or use the skill directly
+pi -p "Use skill-builder to create a new silo"
+```
+
+### Why Pi?
+
+| Feature | Pi | Other Agents |
+|---------|-----|-------------|
+| Context | Filesystem-native | Prompts |
+| Skills | Built-in just-silo | None |
+| Complexity | Minimal | Heavy |
+| Lock-in | None | Vendor |
+
+**Philosophy:** Like just-silo itself, pi is minimal. It reads the filesystem, not your memory.
+
+### The Pi + Silo Pattern
+
+```
+User: "Build a silo for X"
+  ↓
+Pi: cd into workspace, read skill-builder
+  ↓
+Pi: Uses just-silo template, creates silo
+  ↓
+Pi: Runs just verify, confirms it works
+```
+
+---
+
 ## The Reveal
 
 **You don't pre-define the vocabulary. You just say what you want.**
@@ -136,6 +180,7 @@ status:
 - [ ] `scripts/` with observability helpers
 - [ ] `just help` works
 - [ ] `just status` works
+- [ ] **Test with pi:** `pi -p "Test this silo: just verify && just status"`
 
 ## Scaling Philosophy
 
