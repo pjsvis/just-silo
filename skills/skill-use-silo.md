@@ -185,4 +185,9 @@ Processed: <N> items
 Alerts: <M> critical items
 Output: final_output.jsonl (<P> items)
 Remaining: <R> items in data.jsonl
+
+## Related Skills
+
+- [skill-jsonl.md](skill-jsonl.md) — JSONL patterns and traps
+- [skill-jq.md](skill-jq.md) — jq query patterns
 ```
