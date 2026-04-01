@@ -123,28 +123,29 @@ See `briefs/2026-03-31-pipeline-observability-via-filesystem.md` for implementat
 ## File Structure
 
 ```
-just-silo-dev/
+just-silo/
 ├── README.md              # Project overview
 ├── Silo-Manual.md         # Full philosophy + patterns
-├── HN-ANNOUNCEMENT.md     # Public positioning
-├── template/              # ⭐ Start here: copy to create new silos
+├── Silo-Philosophy.md     # The why
+├── template/             # ⭐ Start here: copy to create new silos
 ├── examples/silo_barley/  # Working example (grain moisture monitor)
-├── playbooks/             # By role: user, builder, agent, operator
-├── skills/                # Agent instructions
+├── playbooks/             # How-tos: user, builder, agent, operator, scout
+├── skills/                # Agent instructions (legacy, see playbooks)
 ├── briefs/                # Project briefs
 └── debriefs/              # Retrospectives
 ```
 
-## Key Files for Reference
+## Playbooks
 
-| File | Purpose |
-|------|---------|
-| `Silo-Philosophy.md` | The why (read this first) |
-| `Silo-Manual.md` | Technical implementation |
-| `template/justfile` | All recipes, copy to new silos |
-| `skills/skill-use-silo.md` | How to use an existing silo |
-| `skills/skill-build-silo.md` | How to create a new silo |
-| `examples/silo_barley/` | Complete working example |
+| Playbook | For |
+|----------|-----|
+| `playbooks/silo-user-playbook.md` | Using existing silos |
+| `playbooks/silo-builder-playbook.md` | Creating new silos |
+| `playbooks/silo-agent-playbook.md` | Mounting and using silos |
+| `playbooks/silo-operator-playbook.md` | Multi-agent coordination |
+| `playbooks/silo-scout-playbook.md` | Entering unknown silos |
+| `playbooks/jsonl-playbook.md` | JSONL patterns |
+| `playbooks/jq-playbook.md` | jq query patterns |
 
 ## Prerequisites
 
