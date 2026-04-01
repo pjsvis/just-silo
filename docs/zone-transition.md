@@ -382,6 +382,6 @@ High Probability    │ Monitor        │ Mitigate         │
 
 ## Related
 
-- [vonge-vision.md](./vonge-vision.md) — The Zones of Thought
+- [vinge-vision.md](./vinge-vision.md) — The Zones of Thought
 - [cautionary-tales.md](./cautionary-tales.md) — CAW-Canny and the cautionary tales
 - [speculative-multi-silo.md](./speculative-multi-silo.md) — Multi-silo architecture
