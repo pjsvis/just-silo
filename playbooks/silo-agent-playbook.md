@@ -120,6 +120,6 @@ Remaining: <R> in data.jsonl
 
 ## Remember
 
-**The tool is called `just`. The usage is `just fcuking do it`.**
+**The tool is called `just`. The usage is `just do it`.**
 
 Just read the rules. Just do what it allows. Done.

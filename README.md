@@ -8,7 +8,7 @@
 
 ```
 We don't need a SOTA model.
-We need a model that will just fcuking do it.
+We need a model that will just do it.
 
 No framework friction.
 Get stuff.
@@ -57,7 +57,7 @@ Any substrate worth its chips should be able to do it.
 
 Just ask your AI: "Make the words just happen."
 
-The tool is called *just*. The usage is *just fcuking do it*.
+The tool is called *just*. The usage is *just do it*.
 
 ## What Is A Silo?
 
@@ -106,7 +106,7 @@ cp -r template my-silo && cd my-silo && just help
 ## The Pattern
 
 ```
-just <verb>        → just fcuking do it
+just <verb>        → just do it
 just help <verb>   → what will it do?
 just help          → what verbs exist?
 just status        → pipeline observability

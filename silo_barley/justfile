@@ -19,19 +19,25 @@ default:
 	@echo ""
 	@echo "Run 'just help' for detailed usage"
 
-# 1. Mount: confirm silo is ready
-# Usage: just verify
-# What: Checks schema, queries, and jq are present
-# When: First thing to run when entering a silo
+# Check prerequisites (schema, jq)
+# Show the order of processing verbs
+workflow:
+	@echo "WORKFLOW:"
+	@echo ""
+	@echo "  Mount    just verify"
+	@echo "  Sieve   just harvest"
+	@echo "  Do      just process"
+	@echo "  Observe just status"
+	@echo "  Flush   just flush"
+	@echo ""
+	@echo "Run 'just help' for command details"
+
 verify:
 	@test -f {{SCHEMA_FILE}} && echo "  schema ok" || (echo "  MISSING schema.json"; exit 1)
 	@test -f {{QUERIES_FILE}} && echo "  queries ok" || (echo "  MISSING queries.json"; exit 1)
 	@command -v jq >/dev/null 2>&1 && echo "  jq ok" || echo "  jq MISSING"
 
-# 2. Sieve: validate grain elevator data
-# Usage: just harvest [source=harvest.jsonl]
-# What: Validates data against schema, splits valid/quarantined
-# When: Before processing - ingest fresh data
+# Ingest and validate grain elevator data
 harvest source=(HARVEST_FILE):
 	@just verify
 	@if [ ! -f "{{source}}" ]; then echo "ERROR: '{{source}}' not found"; exit 1; fi
@@ -40,10 +46,7 @@ harvest source=(HARVEST_FILE):
 	@cat {{source}} | jq -c --slurpfile s {{SCHEMA_FILE}} 'if (.timestamp and .elevator_id and .moisture) then empty else . end' >> {{QUARANTINE_FILE}} 2>/dev/null || true
 	@just stats
 
-# 3. Process: mark entries as processed
-# Usage: just process
-# What: Runs domain script to transform/mark data
-# When: After harvest, before flush
+# Mark entries as processed
 process:
 	@./process_harvest.sh
 
@@ -71,6 +74,7 @@ help target="":
 		echo ""; \
 		echo "COMMANDS:"; \
 		echo "  just verify         Check prerequisites"; \
+		echo "  just workflow       Show processing order"; \
 		echo "  just harvest        Ingest and validate data"; \
 		echo "  just process        Run domain processing"; \
 		echo "  just status         Aggregate pipeline health"; \
@@ -175,26 +179,26 @@ stuck threshold:
 audit:
 	@./{{SCRIPTS_DIR}}/status_audit.sh
 
-# 4. Check: extract critical moisture alerts
+# Surface critical moisture readings
 alerts:
 	@if [ -f {{DATA_FILE}} ]; then jq -c 'select(.moisture > 15)' {{DATA_FILE}} || echo "  (no alerts)"; else echo "  (no data)"; fi
 
-# 4. Check: show metrics
+# Show entry counts
 stats:
 	@echo "Active: $([ -f {{DATA_FILE}} ] && jq -s 'length' {{DATA_FILE}} || echo 0)"
 	@echo "Quarantine: $([ -f {{QUARANTINE_FILE}} ] && jq -s 'length' {{QUARANTINE_FILE}} || echo 0)"
 	@echo "Output: $([ -f {{OUTPUT_FILE}} ] && jq -s 'length' {{OUTPUT_FILE}} || echo 0)"
 
-# 4. Check: run named filter
+# Run a named filter from queries.json
 query filter:
 	@FILTER_JQ=$$(jq -r '.filters["{{filter}}"].jq' {{QUERIES_FILE}})
 	@jq -c "$$FILTER_JQ" {{DATA_FILE}}
 
-# 4. Check: human-readable report
+# Human-readable summary
 report:
 	@just stats && just alerts
 
-# 5. Flush: compact to final output
+# Archive processed entries to final_output.jsonl
 # Usage: just flush
 # What: Moves processed entries to final_output.jsonl
 # When: After processing, to archive completed work
@@ -205,7 +209,7 @@ flush:
 	@mv {{DATA_FILE}}.tmp {{DATA_FILE}}
 	@just stats
 
-# 5. Compact: deep compaction
+# Deep compaction: removes internal traces
 compact:
 	@jq -c 'select(.status == "processed") | del(.internal_trace)' {{DATA_FILE}} >> {{OUTPUT_FILE}} 2>/dev/null
 	@jq -c 'select(.status != "processed")' {{DATA_FILE}} > {{DATA_FILE}}.tmp

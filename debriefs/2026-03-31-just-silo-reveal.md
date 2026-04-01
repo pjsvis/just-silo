@@ -18,7 +18,7 @@ Refined the just-silo positioning from "directory-based skill framework" to some
 - Technical features listed
 
 ### After
-- "Just fcuking do it"
+- "Just do it"
 - "A pocket universe with its own rules"
 - "You say the words. Just-silo makes them executable."
 
@@ -33,7 +33,7 @@ You don't pre-define the vocabulary. You just say what you want. The silo emerge
 ```
 
 ### 2. The Pun
-The tool is called `just`. The usage is `just fcuking do it`.
+The tool is called `just`. The usage is `just do it`.
 
 ### 3. The Pocket Universe
 - Input comes in
@@ -45,7 +45,7 @@ The tool is called `just`. The usage is `just fcuking do it`.
 ### 4. The Tone
 ```
 We don't need a SOTA model.
-We need a model that will just fcuking do it.
+We need a model that will just do it.
 
 No framework friction.
 Get stuff.
@@ -88,15 +88,15 @@ Any substrate worth its chips should be able to do it.
 ## What Worked
 
 - Progressive disclosure structure
-- The pun (just = just fcuking do it)
+- The pun (just = just do it)
 - Pocket universe as metaphor
 - "You say the words, just-silo makes them executable"
 
 ## What Didn't Work
 
-- Had to fumble with sed to fix the fcuking spelling
+- Had to fumble with sed to fix the do it spelling
 - Some justfile complexity around parameter defaults
 
 ## Tags
 
-`positioning` `reveal` `pocket-universe` `scoped-lexicon` `just-fcuking-do-it`
+`positioning` `reveal` `pocket-universe` `scoped-lexicon` `just-do it-do-it`

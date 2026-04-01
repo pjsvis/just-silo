@@ -31,7 +31,7 @@ You want different rules? Change them. It's your pocket universe.
 
 ```
 We don't need a SOTA model.
-We need a model that will just fcuking do it.
+We need a model that will just do it.
 
 No framework friction.
 Get stuff.
@@ -61,7 +61,7 @@ Not rocket science. Simple job. Get stuff, turn into things.
 
 Just ask your AI: "Make the words just happen."
 
-The tool is called *just*. The usage is *just fcuking do it*.
+The tool is called *just*. The usage is *just do it*.
 
 ---
 
@@ -149,7 +149,7 @@ just help <verb> → what does this verb do?
 
 **The pattern:**
 ```
-just <verb>        → just fcuking do it
+just <verb>        → just do it
 just help <verb>   → what will it do?
 just help          → what verbs exist?
 ```
@@ -315,7 +315,7 @@ A **just-silo** stores language. It keeps vocabulary scoped, contained, and exec
 
 ## The Promise
 
-> *"Just fcuking do it."*
+> *"Just do it."*
 
 The vocabulary demands action. There's no passive voice in a silo.
 
@@ -326,7 +326,7 @@ just help harvest → describe the harvest
 
 The command is the imperative. The directory is the scope. The justfile is the grammar.
 
-**Just fcuking do it, or just forget it.**
+**Just do it, or just forget it.**
 
 ---
 

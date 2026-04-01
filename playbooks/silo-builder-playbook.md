@@ -63,7 +63,7 @@ Help   → help, help <verb>
 ## The Pattern
 
 ```
-just <verb>        → just fcuking do it
+just <verb>        → just do it
 just help <verb>  → what will it do?
 just help          → what verbs exist?
 just status        → aggregate health
@@ -89,7 +89,7 @@ default:
 # Help
 help target="":
     @if [ "{{target}}" = "" ]; then \
-        echo "Just fcuking do it."; \
+        echo "Just do it."; \
         echo "just help <verb> for command help"; \
     fi
 
@@ -135,6 +135,6 @@ status:
 
 ## Remember
 
-**The tool is called `just`. The usage is `just fcuking do it`.**
+**The tool is called `just`. The usage is `just do it`.**
 
 Constraints create capability. The rules are the rails.

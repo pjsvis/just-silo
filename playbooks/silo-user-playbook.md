@@ -19,7 +19,7 @@ cp -r template my-silo && cd my-silo && just help
 ## The Pattern
 
 ```
-just <verb>        → just fcuking do it
+just <verb>        → just do it
 just help <verb>  → what will it do?
 just help          → what verbs exist?
 just status        → pipeline observability
@@ -103,4 +103,4 @@ just clean         # Remove state files
 
 **Just ask your AI:** "Make the words just happen."
 
-The tool is called `just`. The usage is `just fcuking do it`.
+The tool is called `just`. The usage is `just do it`.
