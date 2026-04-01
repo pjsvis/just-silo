@@ -60,7 +60,7 @@ The question is not *if* we reach the Beyond. It's *when*, and *with what precau
 
 > **But when we move into the Beyond, that stuff starts to impinge on us a tad more.**
 
-> **We need to be ware of it.**
+> **We need to be aware of it.**
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -77,7 +77,7 @@ The question is not *if* we reach the Beyond. It's *when*, and *with what precau
 │   ────────────────                                              │
 │   "That stuff starts to impinge on us a tad more."             │
 │   Blast radius matters. CAW-Canny is critical.                  │
-│   We need to be ware.                                           │
+│   We need to be aware.                                         │
 │                                                                 │
 │                              ▼                                  │
 │                                                                 │
@@ -95,7 +95,7 @@ The question is not *if* we reach the Beyond. It's *when*, and *with what precau
 | Zone | Posture |
 |------|---------|
 | **Slow Zone (now)** | Build good habits. Set blast radius. Practice CAW-Canny. We're safe, but we're learning. |
-| **Beyond (later)** | Those habits pay off. The stuff is real here. We need to be ware. |
+| **Beyond (later)** | Those habits pay off. The stuff is real here. We need to be aware. |
 | **Blight (avoid)** | We wanted wonderful. We got the Unbound Forest. No. |
 
 **We train in the Slow Zone so we're ready for the Beyond.**
