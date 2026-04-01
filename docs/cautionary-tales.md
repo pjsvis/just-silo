@@ -32,6 +32,39 @@ They lost. Not to enemies. To their own creation.
 
 ---
 
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    ABOUT VERNOR VINGE                            │
+│                                                                 │
+│  Vernor Vinge is a computer scientist and science fiction       │
+│  author. He wrote 'A Fire Upon the Deep' (1992).              │
+│                                                                 │
+│  He's known for:                                                │
+│  - The 'Vingean Singularity' concept (1993 essay)             │
+│  - Multiple Hugo Awards (1985, 1988, 1993, 2012)               │
+│  -His work is cited by AI researchers and futurists             │
+│                                                                 │
+│  He predicted:                                                  │
+│  - The internet as a cultural force                             │
+│  - Network effects dominating economics                         │
+│  - AI as an existential risk                                   │
+│  - The difficulty of containing advanced AI                    │
+│                                                                 │
+│  'A Fire Upon the Deep' is required reading in some AI labs.   │
+│  Not for the plot. For the cautionary tale.                    │
+│                                                                 │
+│  When Vinge writes about AI danger, he's not speculating.      │
+│  He's extrapolating from computer science fundamentals.          │
+│                                                                 │
+│  That's why we remember the Straumli Realm.                    │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+---
+
 ## The Warning
 
 > **"Let there be darkness"**
