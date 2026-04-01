@@ -125,6 +125,36 @@ status:
 - [ ] `just help` works
 - [ ] `just status` works
 
+## Scaling Philosophy
+
+just-silo is a **rapid prototyping tool for workflows**, not enterprise infrastructure.
+
+**Comfortable operating range:**
+
+| Dimension | Comfortable | Warning | Danger |
+|-----------|-------------|---------|--------|
+| Silo count | 5-20 | 20-50 | 50+ |
+| Stages per silo | 3-7 | 7-15 | 15+ |
+| Lines per skill | 50-200 | 200-500 | 500+ |
+| Shared modules | 0-3 | 3-7 | 7+ |
+| External dependencies | 0 | 1-3 | 3+ |
+
+**Practical rule:** If you can't explain a silo to a colleague in 60 seconds, it's too complex.
+
+**When to graduate to heavier tools:**
+- Need distributed execution across machines → Temporal, Airflow
+- Need sub-second latency → dedicated service
+- Need 99.9% uptime SLA → managed workflow service
+- Managing 50+ silos → you're a platform team now
+
+**Architecture principles:**
+1. **Flat is fine** — One silo folder, minimal nesting
+2. **No shared modules until duplication screams** — Copy-paste is fine for silos
+3. **Bash + just is enough** — Add TypeScript only when complexity demands it
+4. **Zero external dependencies** — Bun stdlib is your ceiling
+
+**The philosophy:** Make it work. Make it right. Make it fast. In that order, only when needed.
+
 ## Anti-Patterns
 
 - ❌ Don't pre-define vocabulary — let it emerge

@@ -27,6 +27,6 @@
   ],
   "critical_threshold": {
     "field": "FIELD",
-    "value": THRESHOLD
+    "value": 15
   }
 }

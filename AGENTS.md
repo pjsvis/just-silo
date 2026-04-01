@@ -1,5 +1,19 @@
 # just-silo — AGENTS.md
 
+---
+
+## For Incoming Agents
+
+**Entry point:** `cd` into a silo, `just --list`, read `README.md`
+
+**The Reveal:** Don't pre-define the vocabulary. Say what you want. The silo emerges.
+
+**Scout mindset:** Assess first. Don't assume. Start from what's there. Recon before you act.
+
+**Philosophy docs:** `Silo-Philosophy.md` (why) → `Silo-Manual.md` (how)
+
+---
+
 ## What Is This?
 
 A **directory-based skill framework** for AI agents. Mount a silo to get domain-specific capabilities without session context.

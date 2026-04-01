@@ -1,4 +1,3 @@
-# Silo Barley - Grain Elevator Moisture Monitor
 # High-Integrity Environment (Deductive Minimalism, COG-12)
 set shell := ["bash", "-o", "pipefail", "-c"]
 set export := true
@@ -9,77 +8,26 @@ QUARANTINE_FILE := "quarantine.jsonl"
 OUTPUT_FILE    := "final_output.jsonl"
 SCHEMA_FILE    := "schema.json"
 QUERIES_FILE   := "queries.json"
-MARKERS_DIR    := "markers"
 PIPELINE_FILE  := "pipeline.json"
+MARKERS_DIR    := "markers"
 SCRIPTS_DIR    := "scripts"
 
+# === CORE WORKFLOW ===
+
 default:
-	@echo "Silo Barley Recipes:"
+	@echo "Silo Recipes:"
 	@just --list --justfile {{justfile()}} 2>&1 | grep -v "^#" | grep -v "Available recipes" | grep -v "^$"
 	@echo ""
-	@echo "Run 'just help' for detailed usage"
-
-# 1. Mount: confirm silo is ready
-# Usage: just verify
-# What: Checks schema, queries, and jq are present
-# When: First thing to run when entering a silo
-verify:
-	@test -f {{SCHEMA_FILE}} && echo "  schema ok" || (echo "  MISSING schema.json"; exit 1)
-	@test -f {{QUERIES_FILE}} && echo "  queries ok" || (echo "  MISSING queries.json"; exit 1)
-	@command -v jq >/dev/null 2>&1 && echo "  jq ok" || echo "  jq MISSING"
-
-# 2. Sieve: validate grain elevator data
-# Usage: just harvest [source=harvest.jsonl]
-# What: Validates data against schema, splits valid/quarantined
-# When: Before processing - ingest fresh data
-harvest source=(HARVEST_FILE):
-	@just verify
-	@if [ ! -f "{{source}}" ]; then echo "ERROR: '{{source}}' not found"; exit 1; fi
-	@> {{DATA_FILE}} && > {{QUARANTINE_FILE}}
-	@cat {{source}} | jq -c --slurpfile s {{SCHEMA_FILE}} 'if (.timestamp and .elevator_id and .moisture) then . else empty end' >> {{DATA_FILE}} 2>/dev/null || true
-	@cat {{source}} | jq -c --slurpfile s {{SCHEMA_FILE}} 'if (.timestamp and .elevator_id and .moisture) then empty else . end' >> {{QUARANTINE_FILE}} 2>/dev/null || true
-	@just stats
-
-# 3. Process: mark entries as processed
-# Usage: just process
-# What: Runs domain script to transform/mark data
-# When: After harvest, before flush
-process:
-	@./process_harvest.sh
+	@echo "Run 'just help' for overview"
 
 # === HELP ===
 
-# Detailed help - the safety rail
-# Usage: just help [recipe]
+# Progressive disclosure help - the safety rail
+# Usage: just help           -> overview (rendered with glow if available)
+#        just help <verb>    -> specific command help
 help target="":
 	@if [ "{{target}}" = "" ]; then \
-		echo "============================================================"; \
-		echo "  SILO BARLEY - HELP"; \
-		echo "============================================================"; \
-		echo ""; \
-		echo "  just harvest  -> just f*cking harvest"; \
-		echo "  just help harvest -> what will harvest do?"; \
-		echo ""; \
-		echo "  just status   -> just f*cking show status"; \
-		echo "  just help status -> what does status show?"; \
-		echo ""; \
-		echo "  just help      -> this overview"; \
-		echo "  just help <cmd> -> help for specific command"; \
-		echo ""; \
-		echo "============================================================"; \
-		echo "WORKFLOW: Mount -> Sieve -> Process -> Observe -> Flush"; \
-		echo ""; \
-		echo "COMMANDS:"; \
-		echo "  just verify         Check prerequisites"; \
-		echo "  just harvest        Ingest and validate data"; \
-		echo "  just process        Run domain processing"; \
-		echo "  just status         Aggregate pipeline health"; \
-		echo "  just flush          Archive processed data"; \
-		echo ""; \
-		echo "MONITORING: just who, stages, stuck, throughput, audit, alerts"; \
-		echo "COORDINATION: just claim, wait, done, heartbeat"; \
-		echo ""; \
-		echo "============================================================"; \
+		./{{SCRIPTS_DIR}}/help_render.sh; \
 	elif [ "{{target}}" = "harvest" ]; then \
 		echo "HARVEST - Ingest and validate data"; \
 		echo ""; \
@@ -102,7 +50,7 @@ help target="":
 		echo "  STAGES      - DONE/RUNNING/PENDING per stage"; \
 		echo "  THROUGHPUT  - Active/Quarantined/Archived counts"; \
 		echo "  STUCK       - Stages idle > 60 minutes"; \
-		echo "  ALERTS      - Critical moisture readings"; \
+		echo "  ALERTS      - Critical items"; \
 	elif [ "{{target}}" = "stuck" ]; then \
 		echo "STUCK - Detect stalled stages"; \
 		echo ""; \
@@ -111,48 +59,138 @@ help target="":
 		echo "WHAT IT DOES:"; \
 		echo "  Shows stages that completed more than N minutes ago"; \
 		echo "  (Implies no subsequent stage ran - pipeline stalled)"; \
-	elif [ "{{target}}" = "process" ]; then \
-		echo "PROCESS - Run domain processing"; \
+	elif [ "{{target}}" = "who" ]; then \
+		echo "WHO - Who is on what stage"; \
 		echo ""; \
-		echo "USAGE: just process"; \
+		echo "USAGE: just who"; \
 		echo ""; \
 		echo "WHAT IT DOES:"; \
-		echo "  Runs process_harvest.sh to transform/mark data"; \
+		echo "  Shows which agent owns which stage (from pipeline.json)"; \
+	elif [ "{{target}}" = "stages" ]; then \
+		echo "STAGES - Stage-by-stage status"; \
 		echo ""; \
-		echo "WHEN: After harvest, before flush"; \
+		echo "USAGE: just stages"; \
+		echo ""; \
+		echo "WHAT IT SHOWS:"; \
+		echo "  DONE/RUNNING/PENDING for each stage"; \
+		echo "  Shows age for DONE stages"; \
+	elif [ "{{target}}" = "throughput" ]; then \
+		echo "THROUGHPUT - Processing metrics"; \
+		echo ""; \
+		echo "USAGE: just throughput"; \
+		echo ""; \
+		echo "WHAT IT SHOWS:"; \
+		echo "  Active entries (data.jsonl count)"; \
+		echo "  Quarantined entries (quarantine.jsonl count)"; \
+		echo "  Archived entries (final_output.jsonl count)"; \
+	elif [ "{{target}}" = "audit" ]; then \
+		echo "AUDIT - Completion history"; \
+		echo ""; \
+		echo "USAGE: just audit"; \
+		echo ""; \
+		echo "WHAT IT SHOWS:"; \
+		echo "  Chronological list of completed stages"; \
+		echo "  Agent that completed each"; \
+		echo "  Timestamp of completion"; \
+	elif [ "{{target}}" = "alerts" ]; then \
+		echo "ALERTS - Surface critical items"; \
+		echo ""; \
+		echo "USAGE: just alerts"; \
+		echo ""; \
+		echo "WHAT IT DOES:"; \
+		echo "  Reads data.jsonl"; \
+		echo "  Filters for entries exceeding critical threshold"; \
+		echo "  Configured in justfile (edit .FIELD and .THRESHOLD)"; \
 	elif [ "{{target}}" = "flush" ]; then \
 		echo "FLUSH - Archive processed data"; \
 		echo ""; \
 		echo "USAGE: just flush"; \
 		echo ""; \
 		echo "WHAT IT DOES:"; \
-		echo "  Moves processed entries to final_output.jsonl"; \
-		echo "  Keeps pending entries in data.jsonl"; \
+		echo "  Moves entries with status=processed to final_output.jsonl"; \
+		echo "  Keeps non-processed entries in data.jsonl"; \
+		echo "  Shows updated stats"; \
+	elif [ "{{target}}" = "claim" ]; then \
+		echo "CLAIM - Own a stage (multi-agent)"; \
+		echo ""; \
+		echo "USAGE: just claim stage"; \
+		echo ""; \
+		echo "WHAT IT DOES:"; \
+		echo "  Creates stage.lock with agent ID"; \
+		echo "  Marks you as owner"; \
+	elif [ "{{target}}" = "wait" ]; then \
+		echo "WAIT - Block until ready (multi-agent)"; \
+		echo ""; \
+		echo "USAGE: just wait marker"; \
+		echo ""; \
+		echo "WHAT IT DOES:"; \
+		echo "  Blocks until marker.lock or marker.done exists"; \
+		echo "  Polls every 5 seconds"; \
+	elif [ "{{target}}" = "done" ]; then \
+		echo "DONE - Mark stage complete (multi-agent)"; \
+		echo ""; \
+		echo "USAGE: just done marker"; \
+		echo ""; \
+		echo "WHAT IT DOES:"; \
+		echo "  Converts marker.lock to marker.done"; \
+		echo "  Signals downstream agents"; \
+	elif [ "{{target}}" = "heartbeat" ]; then \
+		echo "HEARTBEAT - Keep claims alive"; \
+		echo ""; \
+		echo "USAGE: just heartbeat"; \
+		echo ""; \
+		echo "WHAT IT DOES:"; \
+		echo "  Touches all lock files"; \
+		echo "  Prevents cleanup from removing your claim"; \
 	else \
 		echo "Unknown: {{target}}"; \
+		echo "Run 'just help' for command list"; \
 	fi
+
+# Usage: just verify
+# What: Checks schema, queries, and jq are present
+# When: First thing to run when entering a silo
+verify:
+	@test -f {{SCHEMA_FILE}} && echo "  schema ok" || (echo "  MISSING schema.json"; exit 1)
+	@test -f {{QUERIES_FILE}} && echo "  queries ok" || (echo "  MISSING queries.json"; exit 1)
+	@command -v jq >/dev/null 2>&1 && echo "  jq ok" || echo "  jq MISSING"
+	@command -v glow >/dev/null 2>&1 && echo "  glow ok" || echo "  glow MISSING (optional)"
+	@command -v gum >/dev/null 2>&1 && echo "  gum ok" || echo "  gum MISSING (optional)"
+
+# 2. Sieve: validate input against schema
+# Usage: just harvest [source=harvest.jsonl]
+# What: Validates data against schema, splits valid/quarantined
+# When: Before processing - ingest fresh data
+harvest source=(HARVEST_FILE):
+	@just verify
+	@if [ ! -f "{{source}}" ]; then echo "ERROR: '{{source}}' not found"; exit 1; fi
+	@> {{DATA_FILE}} && > {{QUARANTINE_FILE}}
+	# Reads each line, validates required fields, writes valid to data.jsonl
+	# Replace with your schema validation:
+	# Example: jq -c 'if .field1 and .field2 then . else empty end'
+	@cat {{source}} | jq -c '.' >> {{DATA_FILE}} 2>/dev/null || true
+	@just stats
+
+# 3. Process: run the domain script
+# Usage: just process
+# What: Runs process.sh to transform data
+# When: After harvest, before flush
+process:
+	@./process.sh
 
 # === OBSERVE: Pipeline Observability ===
 
 # Aggregate pipeline health - THE MAIN COMMAND
+# Uses gum for pretty output if available
 # Usage: just status
 # What: Shows agents, stages, throughput, stuck, alerts
 # When: Anytime you want to know what's happening
-# Example: cd silo && just status
 status:
-	@echo "============================================================"
-	@echo "  PIPELINE STATUS"
-	@echo "============================================================"
-	@just who
-	@echo ""
-	@./{{SCRIPTS_DIR}}/status_stages.sh
-	@echo ""
-	@./{{SCRIPTS_DIR}}/status_throughput.sh
-	@echo ""
-	@./{{SCRIPTS_DIR}}/status_stuck.sh
-	@echo ""
-	@just alerts
-	@echo "============================================================"
+	@if command -v gum >/dev/null 2>&1; then \
+		./{{SCRIPTS_DIR}}/status_pretty.sh; \
+	else \
+		./{{SCRIPTS_DIR}}/status_plain.sh; \
+	fi
 
 # Who is on what stage
 who:
@@ -163,38 +201,46 @@ who:
 		echo "  (no pipeline.json - add stages)"; \
 	fi
 
-# Throughput metrics
-throughput:
-	@./{{SCRIPTS_DIR}}/status_throughput.sh
+# Stage-by-stage status (raw)
+stages:
+	@./{{SCRIPTS_DIR}}/status_stages.sh
 
 # Detect stalled stages (default: 60 minutes)
+# Usage: just stuck [minutes]
 stuck threshold:
 	@./{{SCRIPTS_DIR}}/status_stuck.sh {{threshold}}
+
+# Throughput metrics (raw)
+throughput:
+	@./{{SCRIPTS_DIR}}/status_throughput.sh
 
 # Audit trail
 audit:
 	@./{{SCRIPTS_DIR}}/status_audit.sh
 
-# 4. Check: extract critical moisture alerts
-alerts:
-	@if [ -f {{DATA_FILE}} ]; then jq -c 'select(.moisture > 15)' {{DATA_FILE}} || echo "  (no alerts)"; else echo "  (no data)"; fi
+# === CHECK ===
 
-# 4. Check: show metrics
+# Surface entries exceeding your critical threshold
+# Example: just add this to alerts: select(.moisture > 15)
+alerts:
+	@if [ -f {{DATA_FILE}} ]; then jq -c 'select(.<FIELD> > <THRESHOLD>)' {{DATA_FILE}} || echo "  (no alerts)"; else echo "  (no data)"; fi
+
 stats:
 	@echo "Active: $([ -f {{DATA_FILE}} ] && jq -s 'length' {{DATA_FILE}} || echo 0)"
 	@echo "Quarantine: $([ -f {{QUARANTINE_FILE}} ] && jq -s 'length' {{QUARANTINE_FILE}} || echo 0)"
 	@echo "Output: $([ -f {{OUTPUT_FILE}} ] && jq -s 'length' {{OUTPUT_FILE}} || echo 0)"
 
-# 4. Check: run named filter
+# Run a named filter from queries.json
+# Filters are defined in queries.json under .filters.<name>.jq
 query filter:
 	@FILTER_JQ=$$(jq -r '.filters["{{filter}}"].jq' {{QUERIES_FILE}})
 	@jq -c "$$FILTER_JQ" {{DATA_FILE}}
 
-# 4. Check: human-readable report
+# Human-readable summary: counts + any critical alerts
 report:
 	@just stats && just alerts
 
-# 5. Flush: compact to final output
+# 5. Flush: move completed to final_output.jsonl
 # Usage: just flush
 # What: Moves processed entries to final_output.jsonl
 # When: After processing, to archive completed work
@@ -205,33 +251,33 @@ flush:
 	@mv {{DATA_FILE}}.tmp {{DATA_FILE}}
 	@just stats
 
-# 5. Compact: deep compaction
+# === MAINTENANCE ===
+
+self-test:
+	@just verify
+	@echo "SELF-TEST: PASSED"
+
+clean:
+	@rm -f {{DATA_FILE}} {{QUARANTINE_FILE}} {{OUTPUT_FILE}}
+	@echo "done"
+
+install-deps:
+	@command -v jq >/dev/null 2>&1 && echo "  jq ok" || echo "  jq MISSING"
+	@command -v just >/dev/null 2>&1 && echo "  just ok" || echo "  just MISSING"
+	@command -v glow >/dev/null 2>&1 && echo "  glow ok" || echo "  glow MISSING (optional)"
+	@command -v gum >/dev/null 2>&1 && echo "  gum ok" || echo "  gum MISSING (optional)"
+
 compact:
 	@jq -c 'select(.status == "processed") | del(.internal_trace)' {{DATA_FILE}} >> {{OUTPUT_FILE}} 2>/dev/null
 	@jq -c 'select(.status != "processed")' {{DATA_FILE}} > {{DATA_FILE}}.tmp
 	@mv {{DATA_FILE}}.tmp {{DATA_FILE}}
 
-# Maintenance: check prerequisites
-install-deps:
-	@command -v jq >/dev/null 2>&1 && echo "  jq ok" || echo "  jq MISSING"
-	@command -v just >/dev/null 2>&1 && echo "  just ok" || echo "  just MISSING"
-
-# Maintenance: smoke test
-self-test:
-	@just verify
-	@echo "SELF-TEST: PASSED"
-
-# Maintenance: reset silo
-clean:
-	@rm -f {{DATA_FILE}} {{QUARANTINE_FILE}} {{OUTPUT_FILE}}
-	@echo "done"
-
-# === Multi-Agent Coordination ===
+# === MULTI-AGENT COORDINATION ===
 
 lock marker:
 	@mkdir -p {{MARKERS_DIR}}
 	@AGENT_ID=$$(hostname -s)_$$(date +%s)
-	@echo '{"agent":"$$AGENT_ID","at":"'$(date -Iseconds)'"}' > {{MARKERS_DIR}}/{{marker}}.lock
+	@echo "{\"agent\":\"$$AGENT_ID\",\"at\":\"$$(date -Iseconds)\"}" > {{MARKERS_DIR}}/{{marker}}.lock
 	@echo "LOCKED: {{marker}}"
 
 is-locked marker:
@@ -252,17 +298,10 @@ done marker:
 	@touch {{MARKERS_DIR}}/{{marker}}.done
 	@echo "DONE: {{marker}}"
 
-cleanup:
-	@mkdir -p {{MARKERS_DIR}}
-	@find {{MARKERS_DIR}}/ -name "*.lock" -mmin +60 -delete 2>/dev/null || true
-	@echo "Cleaned stale locks"
-
-# === AGENT LIFECYCLE ===
-
 claim stage:
 	@mkdir -p {{MARKERS_DIR}}
 	@AGENT_ID=$$(hostname -s)_$$(date +%s)
-	@echo '{"agent":"$$AGENT_ID","stage":"{{stage}}","claimed":"'$(date -Iseconds)'"}' > {{MARKERS_DIR}}/{{stage}}.lock
+	@echo "{\"agent\":\"$$AGENT_ID\",\"stage\":\"{{stage}}\",\"claimed\":\"$$(date -Iseconds)\"}" > {{MARKERS_DIR}}/{{stage}}.lock
 	@echo "CLAIMED: {{stage}} by $$AGENT_ID"
 
 heartbeat:
@@ -275,6 +314,11 @@ heartbeat:
 		fi; \
 	done
 	@echo "Heartbeats recorded"
+
+cleanup:
+	@mkdir -p {{MARKERS_DIR}}
+	@find {{MARKERS_DIR}}/ -name "*.lock" -mmin +60 -delete 2>/dev/null || true
+	@echo "Cleaned stale locks"
 
 coordination:
 	@echo "=== COORDINATION STATUS ==="

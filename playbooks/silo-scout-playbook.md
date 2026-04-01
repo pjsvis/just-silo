@@ -117,6 +117,32 @@ Input → Process → Output → Notify → Move On
 
 ---
 
+## Assessing Silo Complexity
+
+**Quick triage when entering an unknown silo:**
+
+```bash
+# 30-second assessment
+just help              # How many verbs? (< 10 is healthy)
+just status            # How many stages? (< 7 is healthy)
+ls -la | grep -c \.ts  # How much code? (< 5 .ts files is healthy)
+```
+
+**Complexity signals:**
+
+| Signal | Interpretation |
+|--------|----------------|
+| >10 verbs in `just --list` | Over-engineered |
+| >7 pipeline stages | Consider splitting |
+| Multiple .ts files in root | Complexity creeping |
+| External npm deps | Maintenance burden |
+| README >500 words | Documentation debt (they're explaining instead of simplifying) |
+
+**The scout's choice:**
+- Complex silo + complex task → Do your best, flag complexity
+- Simple silo + complex task → Suggest simplification first
+- Any silo + simple task → Just do it
+
 ## The Bucket List
 
 | Item | Status |

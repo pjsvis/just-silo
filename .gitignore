@@ -18,3 +18,6 @@ markers/*.done
 
 # Marketing — private drafts
 marketing/
+
+# Launch silo — working directory, not committed
+silo_launch/
