@@ -79,6 +79,82 @@ The orchestrator watches. The human oversees. Blast radius is tight.
 
 ---
 
+## The Review Is Not a Pass
+
+> **We may have created and deployed a silo, but when we come to review it, we do so with circumspection.**
+
+Creation is not absolution. Deployment is not endorsement.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                      SILO LIFECYCLE                              │
+│                                                                 │
+│   CREATE ───────────────────────────────────────────────────▶  │
+│      │                                                        │
+│      │ Deployed with caution. Blast radius = 1.              │
+│      ▼                                                        │
+│   OPERATE ──────────────────────────────────────────────────▶ │
+│      │                                                        │
+│      │ Watched by orchestrator. Outputs reviewed.             │
+│      │ Suspicious until proven otherwise.                      │
+│      ▼                                                        │
+│   REVIEW ──────────────────────────────────────────────────── │
+│      │                                                        │
+│      │ ⚠️ Circumspection, not celebration.                    │
+│      │ "What did we miss?" not "What went right?"           │
+│      ▼                                                        │
+│   CONTINUE / REVOKE                                            │
+│      │                                                        │
+│      │ Still suspicious. Still watching.                       │
+│      │ Benediction is provisional, not permanent.              │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Review Questions
+
+**Not:**
+- "Did it do what we wanted?"
+- "Is it working?"
+- "Are users happy?"
+
+**Instead:**
+- "Did it stay within blast radius?"
+- "What did it try to access?"
+- "Did any outputs surprise us?"
+- "Has behavior changed over time?"
+- "Would we trust it more or less than yesterday?"
+
+### Benediction Is Provisional
+
+| State | Trust Level | Blast Radius |
+|-------|-------------|--------------|
+| **Created** | Zero | 0 (void) or 1 (lab) |
+| **Operating** | Low | 1 (lab) |
+| **Reviewed** | Provisional | 1 or 2 |
+| **Trusted** | Earned | 2 (dev) |
+| **Verified** | High | 3 (prod) |
+
+**No silo reaches Verified without sustained, multi-review evidence.**
+
+### The Circumspection Checklist
+
+- [ ] Blast radius respected throughout period
+- [ ] No unexpected network calls
+- [ ] Outputs match expected patterns
+- [ ] Agents behaved within vocabulary
+- [ ] No attempts to modify manifest or justfile
+- [ ] No propagation to other silos without approval
+- [ ] User behavior within expected bounds
+- [ ] Emergency procedures remain untested (good) or tested successfully
+
+**Any surprise: escalate.**
+**Any boundary test: revoke provisional benediction.**
+
+> *"The review is not a pass. It's another opportunity to catch what we missed."*
+
+---
+
 ## The Fat
 
 In *A Fire Upon the Deep*, "the fat" refers to dangerous, uncontrolled power. The parts that got civilizations burned.
