@@ -62,7 +62,7 @@ We explored multi-silo architecture, the orchestrator, and the CAW-Canny princip
 
 | Document | Location | Purpose |
 |----------|----------|---------|
-| Speculative Design | docs/speculative-design.md | Full multi-silo architecture |
+| Speculative Design | docs/speculative-multi-silo.md | Full multi-silo architecture |
 | Pocket Universe | docs/silo-as-pocket-universe.md | Folder→Silo, provisioning |
 | Orchestrator | docs/orchestrator.md | The overlord design |
 | Cautionary Tales | docs/cautionary-tales.md | Straumli, CAW-Canny, review |

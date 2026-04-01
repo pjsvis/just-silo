@@ -255,6 +255,6 @@ git clone          # Copy someone's declared universe
 
 ## Related
 
-- [speculative-design.md](./speculative-design.md) — Full multi-silo architecture
+- [speculative-multi-silo.md](./speculative-multi-silo.md) — Full multi-silo architecture
 - [briefs/2026-03-31-multi-silo-architecture.md](../briefs/2026-03-31-multi-silo-architecture.md)
 - [briefs/2026-03-31-blast-radius-security.md](../briefs/2026-03-31-blast-radius-security.md)

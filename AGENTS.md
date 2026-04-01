@@ -1,4 +1,4 @@
-# just-silo — AGENTS.md
+ind just-silo — AGENTS.md
 
 ---
 

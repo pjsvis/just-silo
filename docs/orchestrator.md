@@ -201,4 +201,4 @@ just orchestrator silo-sync <name>     # Bidirectional
 ## Related
 
 - [silo-as-pocket-universe.md](./silo-as-pocket-universe.md) — The silo model
-- [speculative-design.md](./speculative-design.md) — Full architecture
+- [speculative-multi-silo.md](./speculative-multi-silo.md) — Full architecture

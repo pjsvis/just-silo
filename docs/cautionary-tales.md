@@ -472,4 +472,4 @@ Silos are powerful. Treat them with caution.
 
 - [orchestrator.md](./orchestrator.md) — The overlord
 - [silo-as-pocket-universe.md](./silo-as-pocket-universe.md) — The universe
-- [speculative-design.md](./speculative-design.md) — The architecture
+- [speculative-multi-silo.md](./speculative-multi-silo.md) — The architecture
