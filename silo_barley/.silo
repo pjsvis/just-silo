@@ -1,0 +1,36 @@
+{
+  "name": "silo_barley",
+  "version": "1.0.0",
+  "description": "Grain elevator moisture sensor monitor — the Barley Harvest Silo",
+  "created": "2026-03-29",
+  "owner": "ctx-cli",
+  "silo_type": "sensor_processor",
+  "critical_threshold": {
+    "field": "moisture",
+    "operator": "greater_than",
+    "value": 15,
+    "unit": "percent",
+    "alert_level": "CRITICAL"
+  },
+  "interface": {
+    "engine": "justfile",
+    "schema": "schema.json",
+    "queries": "queries.json",
+    "input": "harvest.jsonl",
+    "active_state": "data.jsonl",
+    "quarantine": "quarantine.jsonl",
+    "output": "final_output.jsonl"
+  },
+  "phases": [
+    "verify",
+    "harvest",
+    "process",
+    "flush",
+    "stats"
+  ],
+  "PHI_references": [
+    "PHI-13: Workflow Durability",
+    "PHI-14: Architectural Specialisation",
+    "COG-12: Deductive Minimalist"
+  ]
+}

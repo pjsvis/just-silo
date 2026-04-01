@@ -1,0 +1,35 @@
+{
+  "description": "Named jq filters — the Silo Context Shield. Use these instead of writing ad-hoc jq.",
+  "filters": {
+    "get_alerts": {
+      "description": "Find all entries where moisture > 15% (critical threshold)",
+      "jq": "select(.moisture > 15)",
+      "use_case": "Critical alert triage"
+    },
+    "check_done": {
+      "description": "Return true if ALL entries have status == processed",
+      "jq": "all(.status == \"processed\")",
+      "use_case": "Batch completion verification"
+    },
+    "pending_only": {
+      "description": "Return only entries with status pending",
+      "jq": "select(.status == \"pending\")",
+      "use_case": "Work queue extraction"
+    },
+    "by_elevator": {
+      "description": "Group readings by elevator_id",
+      "jq": "group_by(.elevator_id)",
+      "use_case": "Per-elevator analysis"
+    },
+    "high_moisture_summary": {
+      "description": "Summarize high-moisture readings with timestamp and elevator",
+      "jq": "map(select(.moisture > 15)) | map({timestamp, elevator_id, moisture})",
+      "use_case": "Alert summary for human notification"
+    },
+    "compact_output": {
+      "description": "Strip internal tracing fields for final output",
+      "jq": "del(.internal_trace, .processing_attempts)",
+      "use_case": "Pre-export cleanup"
+    }
+  }
+}

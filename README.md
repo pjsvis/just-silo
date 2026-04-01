@@ -205,7 +205,7 @@ just done process
 
 ## Examples
 
-- [silo_barley](examples/silo_barley/) — Grain elevator moisture monitor
+- [silo_barley/](silo_barley/) — Grain elevator moisture monitor (working example)
 
 ## Resources
 
@@ -215,7 +215,7 @@ just done process
 | [Silo-Manual.md](Silo-Manual.md) | Technical implementation |
 | [Playbooks](playbooks/) | By role |
 | [Skills](skills/) | Agent instructions |
-| [Examples](examples/silo_barley/) | Working silo |
+| [silo_barley/](silo_barley/) | Working silo |
 
 ## License
 

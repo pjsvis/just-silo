@@ -1,0 +1,8 @@
+# Generated state — not committed
+data.jsonl
+quarantine.jsonl
+final_output.jsonl
+
+# Agent coordination markers
+markers/*.lock
+markers/*.done
