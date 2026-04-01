@@ -82,10 +82,10 @@ Uses curl to:
 
 ## Success Criteria
 
-- [ ] `just scrape` captures page snapshots
-- [ ] `just fetch` retrieves GitHub metrics
-- [ ] `just intel` combines both
-- [ ] Output saved to scratchpad/
+- [x] `just scrape` captures page snapshots ✅
+- [x] `just fetch` retrieves GitHub metrics ✅
+- [x] `just intel` combines both ✅
+- [x] Output saved to scratchpad/ ✅
 
 ## Related
 
