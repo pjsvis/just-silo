@@ -237,8 +237,8 @@ just done process
 |----------|---------|
 | [Silo-Philosophy.md](Silo-Philosophy.md) | The why (read this first) |
 | [Silo-Manual.md](Silo-Manual.md) | Technical implementation |
-| [Playbooks](playbooks/) | By role |
 | [Playbooks](playbooks/) | Role-based guides |
+| [td Playbook](playbooks/td-playbook.md) | Local-first task management |
 | [silo_barley/](silo_barley/) | Working silo |
 
 ## License

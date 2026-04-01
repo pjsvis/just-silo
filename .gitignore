@@ -21,3 +21,4 @@ marketing/
 
 # Launch silo — working directory, not committed
 silo_launch/
+.todos/
