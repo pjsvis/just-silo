@@ -155,7 +155,9 @@ Creation is not absolution. Deployment is not endorsement.
 
 ---
 
-## Canny Is the Order of the Day
+## The CAW-Canny Principle
+
+> **C**ontained doesn't mean **A**ll is well. **W**atch anyway. Can**ny**.
 
 > **Who knows what is in a silo. Even if something really bad happened, the blast radius was contained. So canny is the order of the day.**
 
