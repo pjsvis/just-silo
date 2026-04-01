@@ -103,6 +103,27 @@ my-silo/
 cp -r template my-silo && cd my-silo && just help
 ```
 
+## Built On
+
+**just** — the command runner that makes silos executable.
+
+`just` is what transforms a directory into a language. Without it, silos are just files. With it, silos are executable.
+
+| Property | Description |
+|----------|-------------|
+| Creator | [Casey Rodarmor](https://github.com/casey) |
+| License | CC0 (public domain) |
+| Install | `brew install just` |
+| Website | [just.systems](https://just.systems) |
+
+**Why just?**
+- Dead simple recipe syntax
+- Shell completion out of the box
+- No runtime dependencies
+- Cross-platform
+
+The `just` pun is ours. The tool is Casey's. Go thank him.
+
 ## The Pattern
 
 ```
