@@ -1,6 +1,6 @@
 # Cautionary Tales
 
-**Treat silos with caution. Remember the fat.**
+**Treat silos with caution. Remember the fate of the Straumli Realm.**
 
 **Date: 2026-03-31 | Status: Thinking Out Loud**
 
@@ -42,6 +42,40 @@ Every silo is a potential Straumli Realm.
 - We give them vocabulary, capabilities, agents
 - We set blast radius = 1 (contained)
 - **But what if containment fails?**
+
+## The First Principle
+
+> **Silos are not benign until determined benign.**
+
+Trust is earned, not assumed.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│   DEFAULT STATE: SUSPICIOUS                                     │
+│                                                                 │
+│   ┌─────────────┐                                              │
+│   │    SILO     │ → Benign? → UNKNOWN                          │
+│   │             │         ↓                                     │
+│   │  blast=1    │     Prove it.                                │
+│   │  network=?  │     Monitor it.                              │
+│   │  agents=?   │     Watch outputs.                           │
+│   └─────────────┘     Restrict until trusted.                  │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Benediction (determining benign):**
+- [ ] Operates within blast radius for extended period
+- [ ] Outputs reviewed, nothing unexpected
+- [ ] Agents behave predictably
+- [ ] No attempted boundary crossings
+- [ ] CTX has reviewed the domain thoroughly
+- [ ] Emergency procedures tested
+
+**Until all checked: Suspicious.**
+
+The orchestrator watches. The human oversees. Blast radius is tight.
 
 ---
 
