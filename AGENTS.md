@@ -130,7 +130,7 @@ just-silo/
 ├── template/             # ⭐ Start here: copy to create new silos
 ├── examples/silo_barley/  # Working example (grain moisture monitor)
 ├── playbooks/             # How-tos: user, builder, agent, operator, scout
-├── skills/                # Agent instructions (legacy, see playbooks)
+
 ├── briefs/                # Project briefs
 └── debriefs/              # Retrospectives
 ```

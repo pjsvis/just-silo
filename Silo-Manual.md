@@ -16,7 +16,7 @@ We follow a simple naming convention to keep things predictable, and possibly en
 | **Playbooks** | `silo-<role>-playbook.md` | Kebab-case, describes audience |
 | **Briefs** | `YYYY-MM-DD-topic.md` | Date-first, searchable |
 | **Debriefs** | `YYYY-MM-DD-topic.md` | Date-first, matches brief |
-| **Skills** | `skill-<name>.md` | Kebab-case, action verb |
+| **Recipes** | `just <verb>` | Imperative, action verb |
 | **Recipes** | `just <verb>` | Imperative, action verb |
 
 **Principles:**
@@ -536,7 +536,7 @@ cleanup:
 
 - [README](README.md) — Project overview
 - [Playbooks](playbooks/) — By role: user, builder, agent, operator
-- [Skills](skills/) — Agent instructions
+- [Playbooks](playbooks/) — Role-based guides
 - [Examples](examples/silo_barley/) — Working silo
 - [Briefs](briefs/) — Project briefs
 - [Debriefs](debriefs/) — Retrospectives

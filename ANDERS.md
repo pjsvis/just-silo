@@ -1,0 +1,1 @@
+"Sometimes, rather than asking your AI to do the job, it is better to ask your AI to write a program to do the job." — Anders Hejlsberg

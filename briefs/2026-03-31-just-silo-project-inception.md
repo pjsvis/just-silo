@@ -7,7 +7,7 @@ tags: [just-silo, inception, pattern]
 
 ## What
 
-Create a standalone repository for the Silo pattern — a directory-based skill system for AI agents.
+Create a standalone repository for the Silo pattern — a directory-based task system for AI agents.
 
 ## Why
 
@@ -18,7 +18,7 @@ Create a standalone repository for the Silo pattern — a directory-based skill 
 ## Goals
 
 1. Publish just-silo as open source
-2. Include all documentation (playbook, manual, skills)
+2. Include all documentation (playbook, manual)
 3. Demonstrate the process (briefs, debriefs)
 4. Make it usable by other agent practitioners
 
@@ -29,8 +29,8 @@ just-silo/
 ├── README.md
 ├── template/
 ├── examples/
-├── skills/
 ├── playbooks/     # By role: user, builder, agent, operator
+
 ├── manual.md      # Detailed guide
 ├── briefs/
 └── debriefs/
@@ -42,6 +42,5 @@ just-silo/
 - [ ] README with quick start
 - [ ] Template ready to copy
 - [ ] Working example (silo_barley)
-- [ ] Skills for build and use
-- [ ] Playbooks by role
+- [x] Playbooks by role
 - [ ] This brief and eventual debrief

@@ -28,7 +28,7 @@ pi -p "Use skill-builder to create a new silo"
 | Feature | Pi | Other Agents |
 |---------|-----|-------------|
 | Context | Filesystem-native | Prompts |
-| Skills | Built-in just-silo | None |
+| Recipes | Built-in just-silo | Justfile |
 | Complexity | Minimal | Heavy |
 | Lock-in | None | Vendor |
 

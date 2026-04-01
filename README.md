@@ -238,7 +238,7 @@ just done process
 | [Silo-Philosophy.md](Silo-Philosophy.md) | The why (read this first) |
 | [Silo-Manual.md](Silo-Manual.md) | Technical implementation |
 | [Playbooks](playbooks/) | By role |
-| [Skills](skills/) | Agent instructions |
+| [Playbooks](playbooks/) | Role-based guides |
 | [silo_barley/](silo_barley/) | Working silo |
 
 ## License
