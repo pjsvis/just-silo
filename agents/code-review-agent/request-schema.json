@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Code Review Request",
+  "type": "object",
+  "required": ["target", "scope", "mode"],
+  "properties": {
+    "target": {
+      "type": "string",
+      "description": "Target to review: PR number, branch, commit, or file path",
+      "examples": ["123", "feature-branch", "HEAD~1..HEAD", "src/main.ts"]
+    },
+    "scope": {
+      "type": "string",
+      "enum": ["full", "incremental", "single"],
+      "description": "Review scope"
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["review", "harden", "both"],
+      "description": "Review mode"
+    },
+    "threshold": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "all"],
+      "default": "medium",
+      "description": "Auto-hardening threshold"
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "include_security": {
+          "type": "boolean",
+          "default": true
+        },
+        "include_performance": {
+          "type": "boolean", 
+          "default": true
+        },
+        "include_docs": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    }
+  }
+}

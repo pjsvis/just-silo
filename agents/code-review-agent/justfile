@@ -1,0 +1,96 @@
+# Code Review Agent
+# Reviews code against FAFCAS rubric, auto-hardens trivial issues
+
+set shell := ["bash", "-o", "pipefail", "-c"]
+set export := true
+
+SCRIPTS_DIR := "scripts"
+MARKERS_DIR := "markers"
+REQUEST_DIR := MARKERS_DIR + "/request"
+DONE_DIR := MARKERS_DIR + "/done"
+ERROR_DIR := MARKERS_DIR + "/error"
+STATE_DIR := MARKERS_DIR + "/state"
+
+# === IDLE ===
+default:
+    @just status
+
+status:
+    @echo "=== Code Review Agent Status ==="
+    @if [ -f "{{STATE_DIR}}/current" ]; then cat {{STATE_DIR}}/current; else echo "IDLE"; fi
+
+# === REQUEST HANDLING ===
+
+# Check for new requests
+poll:
+    @if [ -f "{{REQUEST_DIR}}/payload.jsonl" ]; then \
+        echo "Request found:"; \
+        cat {{REQUEST_DIR}}/payload.jsonl; \
+    else \
+        echo "No pending requests"; \
+    fi
+
+# Process request (main entry point)
+review:
+    @./{{SCRIPTS_DIR}}/coordinate.sh poll || exit 1
+    @./{{SCRIPTS_DIR}}/analyze.sh
+    @./{{SCRIPTS_DIR}}/harden.sh
+    @./{{SCRIPTS_DIR}}/report.sh
+    @./{{SCRIPTS_DIR}}/coordinate.sh complete
+
+# === ANALYSIS ===
+
+# Run FAFCAS analysis on diff
+analyze target="HEAD~1..HEAD" scope="incremental":
+    @echo "Analyzing {{target}} (scope: {{scope}})..."
+    @./{{SCRIPTS_DIR}}/analyze.sh "{{target}}" "{{scope}}"
+
+# Show analysis results
+analysis-results:
+    @cat {{DONE_DIR}}/analysis.jsonl 2>/dev/null || echo "No analysis yet"
+
+# === HARDENING ===
+
+# Auto-harden trivial issues
+harden threshold="medium":
+    @echo "Hardening issues at {{threshold}} threshold..."
+    @./{{SCRIPTS_DIR}}/harden.sh "{{threshold}}"
+
+# Show generated patches
+patches:
+    @ls -la {{DONE_DIR}}/patches/ 2>/dev/null || echo "No patches yet"
+
+# === REPORTING ===
+
+# Generate FAFCAS report
+report:
+    @./{{SCRIPTS_DIR}}/report.sh
+
+# Show FAFCAS scores
+scores:
+    @cat {{DONE_DIR}}/summary.json 2>/dev/null | jq '.' || echo "No scores yet"
+
+# Show full report
+report-show:
+    @cat {{DONE_DIR}}/report.md 2>/dev/null || echo "No report yet"
+
+# === COORDINATION ===
+
+# Mark as idle
+idle:
+    @echo "IDLE" > {{STATE_DIR}}/current
+    @rm -f {{REQUEST_DIR}}/payload.jsonl
+
+# Mark as running
+running:
+    @echo "RUNNING" > {{STATE_DIR}}/current
+
+# Mark error
+error msg:
+    @echo '{"error":"{{msg}}","timestamp":"'$(date -Iseconds)'"}' > {{ERROR_DIR}}/last.jsonl
+    @echo "ERROR" > {{STATE_DIR}}/current
+
+# Clear state
+reset:
+    @rm -rf {{DONE_DIR}}/* {{ERROR_DIR}}/* {{STATE_DIR}}/*
+    @just idle

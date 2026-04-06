@@ -1,0 +1,42 @@
+{
+  "name": "code-review-agent",
+  "type": "mounted",
+  "role": "Code reviewer and hardener",
+  "version": "0.1.0",
+  "description": "Reviews code against FAFCAS rubric, auto-hardens trivial issues",
+  "inputs": {
+    "format": "jsonl",
+    "schema": "request-schema.json"
+  },
+  "outputs": {
+    "report": {
+      "format": "markdown",
+      "path": "markers/done/report.md"
+    },
+    "summary": {
+      "format": "json",
+      "path": "markers/done/summary.json"
+    },
+    "patches": {
+      "format": "diff",
+      "path": "markers/done/patches/"
+    }
+  },
+  "parent": {
+    "required": true,
+    "protocol": "markers"
+  },
+  "fafcas": {
+    "factual": "Claims backed by evidence",
+    "accurate": "Correct technical assertions",
+    "fair": "Balanced assessment",
+    "complete": "All aspects reviewed",
+    "actionable": "Specific next steps",
+    "specific": "Exact locations cited"
+  },
+  "resources": {
+    "timeout": 300,
+    "memory": "512mb",
+    "parallel": false
+  }
+}
