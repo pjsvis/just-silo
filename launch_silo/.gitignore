@@ -1,0 +1,11 @@
+# State
+*.done
+*.lock
+*.log
+
+# Generated
+output/*
+!output/.gitkeep
+
+# OS
+.DS_Store

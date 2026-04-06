@@ -1,0 +1,35 @@
+{
+  "name": "silo_launch",
+  "version": "1.0.0",
+  "description": "Social media launch prep using gum/glow HITL + pi agent + browser automation",
+  "created": "2026-04-01",
+  "owner": "just-silo",
+  "silo_type": "launch_prep",
+  "interface": {
+    "tasks": "tasks/",
+    "context": "context/",
+    "scratchpad": "scratchpad/",
+    "intel": "scratchpad/",
+    "approved": "approved/",
+    "output": "output/",
+    "logs": "logs/"
+  },
+  "data": {
+    "intel": "scratchpad/api_metrics.jsonl",
+    "drafts": "scratchpad/drafts.md",
+    "posts": "output/final_launch_schedule.jsonl",
+    "audit": "logs/audit.log"
+  },
+  "phases": [
+    "intel",
+    "plan",
+    "review",
+    "execute"
+  ],
+  "recipes": {
+    "intel": "Scrape + fetch intelligence",
+    "plan": "pi agent generates drafts",
+    "review": "Glow render + gum approval",
+    "execute": "Write to output/"
+  }
+}

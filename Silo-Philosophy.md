@@ -313,6 +313,70 @@ A **just-silo** stores language. It keeps vocabulary scoped, contained, and exec
 
 ---
 
+## Silos We Reject vs Silos We Keep
+
+The word "silo" has baggage. It once meant something bad.
+
+### The Bad Silo
+
+A **data silo** was organizational dysfunction:
+
+- Information hoarded for power and turf
+- Duplicate work across departments
+- Inconsistent data definitions
+- Broken processes from lack of coordination
+- Symptom of distrust and political fragmentation
+
+**The "bad" silo was about isolation.**
+
+---
+
+### The Good Silo
+
+A **just-silo** is bounded context:
+
+- Focused expertise in a scoped domain
+- Externalized memory for ephemeral agents
+- Reduced cognitive load through knowledge partitioning
+- Coordination without coupling
+- Symptom of thoughtful architecture
+
+**The "good" silo is about context.**
+
+---
+
+### Why the Shift Matters
+
+Humans and AI agents have different problems:
+
+| Human Problem | AI Agent Problem |
+|---------------|------------------|
+| Information scattered across the org | Context window limited and ephemeral |
+| "Who has the data?" | "What was I doing last session?" |
+| Need to find the person | Need to find the context |
+
+Humans needed to break down silos to share information.
+
+AI agents need to *build* silos to preserve context.
+
+The "bad" silo emerged from politics. The "good" silo emerges from pragmatism.
+
+---
+
+### The Echo
+
+> *Just as a well-bounded context in Domain-Driven Design enables autonomous teams, a well-bounded silo enables autonomous agents.*
+
+We didn't reinvent the word. We reclaimed it.
+
+The "bad" silo was isolation. The "good" silo is inheritance.
+
+An agent `cd`s into a silo and inherits the vocabulary. It doesn't need to *find* the context — it *receives* it.
+
+**The silo externalizes what agents cannot remember.**
+
+---
+
 ## The Promise
 
 > *"Just do it."*

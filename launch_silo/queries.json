@@ -1,0 +1,25 @@
+{
+  "description": "Named jq filters for silo_launch",
+  "filters": {
+    "latest_metrics": {
+      "description": "Get most recent GitHub metrics entry",
+      "jq": "last",
+      "use_case": "Current stats display"
+    },
+    "stars_trend": {
+      "description": "Extract stars over time",
+      "jq": "map({timestamp, stars})",
+      "use_case": "Engagement trend"
+    },
+    "approved_posts": {
+      "description": "Get all approved posts",
+      "jq": "select(.status == \"approved\")",
+      "use_case": "Published content review"
+    },
+    "by_channel": {
+      "description": "Group posts by channel",
+      "jq": "group_by(.channel)",
+      "use_case": "Channel analysis"
+    }
+  }
+}

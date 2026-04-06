@@ -1,0 +1,107 @@
+# Launch Prep - Gum/Glow HITL Workflow
+set shell := ["bash", "-o", "pipefail", "-c"]
+set export := true
+
+SILO_DIR    := "."
+TASKS_DIR   := "tasks"
+CONTEXT_DIR := "context"
+SCRATCH_DIR := "scratchpad"
+APPROVED_DIR := "approved"
+LOGS_DIR    := "logs"
+OUTPUT_DIR  := "output"
+
+SCRATCH_FILE := "drafts.md"
+PROPOSAL_FILE := "proposal.md"
+OUTPUT_FILE   := "final_launch_schedule.jsonl"
+AUDIT_LOG     := "logs/audit.log"
+
+# === HELP ===
+
+help:
+	@echo "just-silo Launch Prep"
+	@echo ""
+	@echo "Intelligence:"
+	@echo "  just scrape    - Scrape URLs from context/targets.md"
+	@echo "  just fetch     - Fetch API metrics (GitHub, etc.)"
+	@echo "  just intel     - Combined intelligence gathering"
+	@echo ""
+	@echo "Draft:"
+	@echo "  just plan     - Generate 3 drafts (pi agent)"
+	@echo "  just review   - Glow render + gum approval"
+	@echo "  just execute  - Write approved to output/"
+	@echo ""
+	@echo "Status:"
+	@echo "  just status   - Check silo health"
+	@echo "  just audit    - View audit log"
+	@echo "  just clean    - Reset scratchpad"
+
+# === INTELLIGENCE ===
+
+# Default: show help
+default:
+	@just help
+
+# Scrape web pages using agent-browser
+scrape:
+	@echo "=== SCRAPE PHASE ==="
+	@./scripts/scrape.sh
+
+# Fetch API metrics
+fetch:
+	@echo "=== FETCH PHASE ==="
+	@./scripts/fetch.sh
+
+# Combined intelligence
+intel:
+	@echo "=== INTELLIGENCE PHASE ==="
+	@./scripts/scrape.sh
+	@./scripts/fetch.sh
+
+# === DRAFT WORKFLOW ===
+
+# Plan: read targets, generate drafts
+plan:
+	@echo "=== PLAN PHASE ==="
+	@echo ""
+	@echo "Reading targets from context/targets.md..."
+	@cat {{CONTEXT_DIR}}/targets.md
+	@echo ""
+	@echo "Generating draft posts..."
+	@./scripts/generate_drafts.sh
+
+# Review: glow proposals, gum approval
+review:
+	@echo "=== REVIEW PHASE ==="
+	@./scripts/review.sh
+
+# Execute: write approved content
+execute:
+	@echo "=== EXECUTE PHASE ==="
+	@./scripts/execute.sh
+
+# === STATUS & MAINTENANCE ===
+
+status:
+	@echo "=== SILO STATUS ==="
+	@echo ""
+	@echo "  Tasks: $(ls {{TASKS_DIR}}/ | wc -l | tr -d ' ') files"
+	@echo "  Scratch: $(ls {{SCRATCH_DIR}}/ | wc -l | tr -d ' ') files"
+	@echo "  Approved: $(ls {{APPROVED_DIR}}/ | wc -l | tr -d ' ') files"
+	@echo "  Output: $(wc -l < {{OUTPUT_DIR}}/{{OUTPUT_FILE}} 2>/dev/null || echo 0) entries"
+
+audit:
+	@if [ -f {{AUDIT_LOG}} ]; then \
+		cat {{AUDIT_LOG}}; \
+	else \
+		echo "(no audit log)"; \
+	fi
+
+clean:
+	@rm -f {{SCRATCH_DIR}}/*
+	@rm -f {{APPROVED_DIR}}/*
+	@echo "Cleaned scratchpad and approved"
+
+reset:
+	@rm -rf {{SCRATCH_DIR}}/* {{APPROVED_DIR}}/* {{OUTPUT_DIR}}/*
+	@rm -f {{AUDIT_LOG}}
+	@echo "Full reset complete"
