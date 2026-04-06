@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "description": "Named jq filters for {{name}} silo",
+  "filters": {
+    "pending": {
+      "description": "Entries awaiting processing",
+      "jq": "select(.status == \"pending\")"
+    },
+    "processed": {
+      "description": "Entries that have been processed",
+      "jq": "select(.status == \"processed\")"
+    },
+    "alerts": {
+      "description": "Flagged alert entries",
+      "jq": "select(.alert == true)"
+    },
+    "recent": {
+      "description": "Entries from the last 24 hours",
+      "jq": "select(.timestamp > (now - 86400 | todate))"
+    },
+    "by-tag": {
+      "description": "Filter by tag (pass tag name)",
+      "jq": "select(.tags | contains([\"{{tag}}\"]))"
+    }
+  }
+}

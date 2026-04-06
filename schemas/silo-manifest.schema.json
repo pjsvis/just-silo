@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/marcus-nicolaou/just-silo/schemas/silo-manifest.schema.json",
+  "title": "Silo Manifest",
+  "description": "Machine-readable contract for a just-silo silo. Defines identity, capabilities, and interface.",
+  "type": "object",
+  "required": ["name", "version", "interface"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference URI"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$",
+      "minLength": 1,
+      "maxLength": 63,
+      "description": "Silo identifier (kebab-case)"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version (MAJOR.MINOR.PATCH)"
+    },
+    "domain": {
+      "type": "string",
+      "description": "Problem domain classification"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description"
+    },
+    "created": {
+      "type": "string",
+      "format": "date",
+      "description": "Creation date (YYYY-MM-DD)"
+    },
+    "owner": {
+      "type": "string",
+      "description": "Owner identifier"
+    },
+    "silo_type": {
+      "type": "string",
+      "enum": ["generic", "sensor_processor", "data_pipeline", "content_pipeline", "meta_infrastructure"],
+      "description": "Type classification"
+    },
+    "blast_radius": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10,
+      "description": "Impact scope: 0=sandboxed, 10=system-wide"
+    },
+    "toolchain": {
+      "type": "object",
+      "properties": {
+        "runtime": {
+          "type": "string",
+          "enum": ["bun", "node", "deno", "python", "bash", "none"],
+          "description": "Primary runtime"
+        },
+        "linter": {
+          "type": "string",
+          "description": "Linting tool"
+        },
+        "formatter": {
+          "type": "string",
+          "description": "Formatting tool"
+        },
+        "shell": {
+          "type": "string",
+          "description": "Shell interpreter"
+        }
+      }
+    },
+    "interface": {
+      "type": "object",
+      "required": ["engine", "schema", "queries"],
+      "properties": {
+        "engine": {
+          "type": "string",
+          "enum": ["justfile", "make", "shell"],
+          "description": "Command engine"
+        },
+        "schema": {
+          "type": "string",
+          "description": "Path to data schema"
+        },
+        "queries": {
+          "type": "string",
+          "description": "Path to queries definitions"
+        },
+        "input": {
+          "type": "string",
+          "description": "Raw input file"
+        },
+        "active_state": {
+          "type": "string",
+          "description": "Working data file"
+        },
+        "quarantine": {
+          "type": "string",
+          "description": "Invalid entries file"
+        },
+        "output": {
+          "type": "string",
+          "description": "Archived output file"
+        }
+      }
+    },
+    "phases": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["verify", "harvest", "process", "observe", "flush", "sync", "init", "build", "test", "deploy"]
+      },
+      "description": "Pipeline phases"
+    },
+    "thresholds": {
+      "type": "object",
+      "description": "Alert thresholds (key: field, value: threshold)"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "PHI/COG references"
+    },
+    "lexicon": {
+      "type": "object",
+      "description": "Custom vocabulary definitions"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Silo capabilities"
+    }
+  },
+  "additionalProperties": true
+}

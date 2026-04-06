@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Silo Entry",
+  "description": "Canonical structure for a single silo data entry",
+  "type": "object",
+  "required": ["id", "timestamp", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for this entry"
+    },
+    "timestamp": {
+      "type": "string",
+      "description": "ISO 8601 timestamp"
+    },
+    "status": {
+      "type": "string",
+      "description": "Processing status",
+      "enum": ["pending", "processed", "exported", "quarantined"]
+    },
+    "data": {
+      "type": "object",
+      "description": "Domain-specific payload"
+    },
+    "alert": {
+      "type": "boolean",
+      "description": "Flag as alert item"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Categorization tags"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Entry metadata"
+    }
+  },
+  "additionalProperties": true
+}

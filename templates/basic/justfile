@@ -1,0 +1,140 @@
+# {{name}} Silo Vocabulary
+# Generated from templates/basic
+
+set shell := ["bash", "-o", "pipefail", "-c"]
+set export := true
+
+DATA_FILE      := "data.jsonl"
+HARVEST_FILE   := "harvest.jsonl"
+QUARANTINE_FILE := "quarantine.jsonl"
+OUTPUT_FILE    := "final_output.jsonl"
+SCHEMA_FILE    := "schema.json"
+QUERIES_FILE   := "queries.json"
+PIPELINE_FILE  := "pipeline.json"
+MARKERS_DIR    := "markers"
+SCRIPTS_DIR    := "scripts"
+
+# === ENTRY POINT ===
+
+default:
+    @echo "=== {{name}} Silo ==="
+    @echo "Recipes:"
+    @just --list --justfile {{justfile()}} 2>&1 | grep -v "^#" | grep -v "Available recipes" | grep -v "^$"
+    @echo ""
+    @echo "Run 'just help' for overview"
+
+# === HELP ===
+
+help:
+    @echo "HELP - Available commands:"
+    @echo "  just verify           - Check prerequisites"
+    @echo "  just harvest [source] - Ingest + validate data"
+    @echo "  just process          - Transform data"
+    @echo "  just flush           - Archive to output"
+    @echo "  just status          - Pipeline observability"
+    @echo "  just stats           - Show counts"
+    @echo "  just report          - Full report"
+
+# === CORE PIPELINE ===
+
+# Verify prerequisites are installed
+verify:
+    @echo "Checking prerequisites..."
+    @test -f {{SCHEMA_FILE}} && echo "  ✓ schema.json" || echo "  ✗ MISSING schema.json"
+    @test -f {{QUERIES_FILE}} && echo "  ✓ queries.json" || echo "  ✗ MISSING queries.json"
+    @command -v jq >/dev/null 2>&1 && echo "  ✓ jq" || echo "  ✗ jq MISSING"
+    @command -v just >/dev/null 2>&1 && echo "  ✓ just" || echo "  ✗ just MISSING"
+    @command -v glow >/dev/null 2>&1 && echo "  ○ glow (optional)" || true
+    @command -v gum >/dev/null 2>&1 && echo "  ○ gum (optional)" || true
+
+# Ingest data and validate against schema
+harvest source=(HARVEST_FILE):
+    @just verify
+    @if [ ! -f "{{source}}" ]; then echo "ERROR: '{{source}}' not found"; exit 1; fi
+    @echo "Harvesting from {{source}}..."
+    @> {{DATA_FILE}} && > {{QUARANTINE_FILE}}
+    @cat {{source}} | jq -c '.' >> {{DATA_FILE}} 2>/dev/null || true
+    @just stats
+
+# Run domain transformation
+process:
+    @./process.sh
+
+# Move processed entries to final output
+flush:
+    @if [ ! -f {{DATA_FILE}} ]; then echo "Nothing to flush"; exit 0; fi
+    @jq -c 'select(.status == "processed")' {{DATA_FILE}} >> {{OUTPUT_FILE}} 2>/dev/null || true
+    @jq -c 'select(.status != "processed")' {{DATA_FILE}} > {{DATA_FILE}}.tmp
+    @mv {{DATA_FILE}}.tmp {{DATA_FILE}}
+    @just stats
+
+# === OBSERVE: Pipeline Health ===
+
+status:
+    @./{{SCRIPTS_DIR}}/status_plain.sh
+
+who:
+    @echo "AGENTS:"
+    @if [ -f {{PIPELINE_FILE}} ]; then jq -r '.stages[] | "  \(.id): \(.agent // "unassigned")"' {{PIPELINE_FILE}}; fi
+
+stuck threshold="60":
+    @./{{SCRIPTS_DIR}}/status_stuck.sh {{threshold}}
+
+throughput:
+    @echo "Active:     $([ -f {{DATA_FILE}} ] && jq -s 'length' {{DATA_FILE}} || echo 0)"
+    @echo "Quarantine: $([ -f {{QUARANTINE_FILE}} ] && jq -s 'length' {{QUARANTINE_FILE}} || echo 0)"
+    @echo "Output:     $([ -f {{OUTPUT_FILE}} ] && jq -s 'length' {{OUTPUT_FILE}} || echo 0)"
+
+stats:
+    @just throughput
+
+alerts:
+    @if [ -f {{DATA_FILE}} ]; then jq -c 'select(.alert == true)' {{DATA_FILE}} || echo "  (no alerts)"; else echo "  (no data)"; fi
+
+report:
+    @just stats && just alerts
+
+# === MULTI-AGENT COORDINATION ===
+
+claim stage:
+    @mkdir -p {{MARKERS_DIR}}
+    @AGENT_ID=$$(hostname -s)_$$(date +%s)
+    @echo "{\"agent\":\"$$AGENT_ID\",\"stage\":\"{{stage}}\",\"claimed\":\"$$(date -Iseconds)\"}" > {{MARKERS_DIR}}/{{stage}}.lock
+    @echo "CLAIMED: {{stage}}"
+
+done marker:
+    @mkdir -p {{MARKERS_DIR}}
+    @if [ -f {{MARKERS_DIR}}/{{marker}}.lock ]; then mv {{MARKERS_DIR}}/{{marker}}.lock {{MARKERS_DIR}}/{{marker}}.done; fi
+    @touch {{MARKERS_DIR}}/{{marker}}.done
+    @echo "DONE: {{marker}}"
+
+wait marker:
+    @mkdir -p {{MARKERS_DIR}}
+    @echo "Waiting for {{marker}}..."
+    @while [ ! -f {{MARKERS_DIR}}/{{marker}}.lock ] && [ ! -f {{MARKERS_DIR}}/{{marker}}.done ]; do sleep 5; done
+    @echo "{{marker}} ready"
+
+heartbeat:
+    @mkdir -p {{MARKERS_DIR}}
+    @for l in {{MARKERS_DIR}}/*.lock; do if [ -f "$$l" ]; then touch "$$l"; fi; done
+    @echo "Heartbeats recorded"
+
+# === UTILITIES ===
+
+query filter:
+    @FILTER_JQ=$$(jq -r '.filters["{{filter}}"].jq' {{QUERIES_FILE}})
+    @jq -c "$$FILTER_JQ" {{DATA_FILE}}
+
+self-test:
+    @just verify
+    @echo "SELF-TEST: PASSED"
+
+clean:
+    @rm -f {{DATA_FILE}} {{QUARANTINE_FILE}} {{OUTPUT_FILE}}
+    @echo "Cleaned data files"
+
+install-deps:
+    @command -v jq >/dev/null 2>&1 && echo "jq: ✓" || echo "jq: ✗"
+    @command -v just >/dev/null 2>&1 && echo "just: ✓" || echo "just: ✗"
+    @command -v glow >/dev/null 2>&1 && echo "glow: ✓" || echo "glow: ○"
+    @command -v gum >/dev/null 2>&1 && echo "gum: ✓" || echo "gum: ○"

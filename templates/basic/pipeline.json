@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0",
+  "name": "{{name}}",
+  "description": "Pipeline definition for {{name}}",
+  "stages": [
+    {
+      "id": "harvest",
+      "name": "Data Ingestion",
+      "agent": null,
+      "completed": null,
+      "marker": "harvest"
+    },
+    {
+      "id": "process",
+      "name": "Domain Processing",
+      "agent": null,
+      "completed": null,
+      "marker": "process"
+    },
+    {
+      "id": "flush",
+      "name": "Archive Output",
+      "agent": null,
+      "completed": null,
+      "marker": "flush"
+    }
+  ]
+}

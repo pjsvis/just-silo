@@ -1,0 +1,42 @@
+{
+  "$schema": "https://github.com/marcus-nicolaou/just-silo/blob/main/schemas/silo-manifest.schema.json",
+  "name": "{{name}}",
+  "version": "1.0.0",
+  "domain": "{{domain}}",
+  "description": "{{description}}",
+  "created": "{{created}}",
+  "owner": "{{owner}}",
+  "silo_type": "generic",
+  "blast_radius": 1,
+  "toolchain": {
+    "runtime": "bun",
+    "linter": "oxlint",
+    "formatter": "biome",
+    "shell": "bash"
+  },
+  "interface": {
+    "engine": "justfile",
+    "schema": "schema.json",
+    "queries": "queries.json",
+    "input": "harvest.jsonl",
+    "active_state": "data.jsonl",
+    "quarantine": "quarantine.jsonl",
+    "output": "final_output.jsonl"
+  },
+  "phases": [
+    "verify",
+    "harvest",
+    "process",
+    "observe",
+    "flush"
+  ],
+  "thresholds": {},
+  "references": [],
+  "lexicon": {
+    "harvest": "Ingest and validate data against schema",
+    "process": "Transform and enrich data",
+    "flush": "Archive processed entries to output",
+    "observe": "Check pipeline health and alerts",
+    "verify": "Confirm prerequisites are met"
+  }
+}

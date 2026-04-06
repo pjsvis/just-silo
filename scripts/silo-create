@@ -1,0 +1,148 @@
+#!/usr/bin/env bash
+# silo-create - Spawn a new silo from template
+# Usage: silo-create <name> [template=basic] [domain=<domain>]
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+TEMPLATES_DIR="$(dirname "$SCRIPT_DIR")/templates"
+REGISTER_DIR="${REGISTER_DIR:-$HOME/vault/the-register}"
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+usage() {
+    cat << EOF
+silo-create - Spawn a new silo from template
+
+USAGE:
+    silo-create <name> [options]
+
+OPTIONS:
+    -t, --template   Template to use (default: basic)
+    -d, --domain     Domain for this silo (default: unassigned)
+    -o, --owner      Owner identifier (default: current user)
+    -p, --path       Parent directory (default: current directory)
+    -h, --help       Show this help
+
+EXAMPLES:
+    silo-create my-project
+    silo-create my-project --template basic --domain "ai-infra"
+    silo-create data-silo --domain "monitoring"
+
+EOF
+}
+
+log() { echo -e "${GREEN}[silo-create]${NC} $1"; }
+warn() { echo -e "${YELLOW}[silo-create]${NC} WARNING: $1"; }
+error() { echo -e "${RED}[silo-create]${NC} ERROR: $1" >&2; }
+
+# Parse arguments
+NAME=""
+TEMPLATE="basic"
+DOMAIN="unassigned"
+OWNER="${USER:-$(whoami)}"
+PARENT_DIR="${PWD}"
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -t|--template) TEMPLATE="$2"; shift 2 ;;
+        -d|--domain) DOMAIN="$2"; shift 2 ;;
+        -o|--owner) OWNER="$2"; shift 2 ;;
+        -p|--path) PARENT_DIR="$2"; shift 2 ;;
+        -h|--help) usage; exit 0 ;;
+        -*) error "Unknown option: $1"; exit 1 ;;
+        *) NAME="$1"; shift ;;
+    esac
+done
+
+# Validate
+if [ -z "$NAME" ]; then
+    error "Name is required"
+    usage
+    exit 1
+fi
+
+# Sanitize name
+NAME="$(echo "$NAME" | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]-_')"
+
+# Paths
+SILO_DIR="$PARENT_DIR/$NAME"
+TEMPLATE_DIR="$REGISTER_DIR/templates/$TEMPLATE"
+
+# Fallback to local templates
+if [ ! -d "$TEMPLATE_DIR" ]; then
+    TEMPLATE_DIR="$TEMPLATES_DIR/$TEMPLATE"
+fi
+
+if [ ! -d "$TEMPLATE_DIR" ]; then
+    error "Template not found: $TEMPLATE"
+    error "Searched: $TEMPLATE_DIR"
+    exit 1
+fi
+
+log "Creating silo: $NAME"
+log "Template: $TEMPLATE"
+log "Domain: $DOMAIN"
+log "Destination: $SILO_DIR"
+
+# Check if already exists
+if [ -d "$SILO_DIR" ]; then
+    error "Silo already exists: $SILO_DIR"
+    exit 1
+fi
+
+# Create directory
+mkdir -p "$SILO_DIR"
+
+# Copy template (including hidden files)
+log "Copying template..."
+shopt -s dotglob
+cp -r "$TEMPLATE_DIR/"* "$SILO_DIR/" 2>&-
+shopt -u dotglob
+
+# Substitute variables in all text files
+TODAY=$(date +%Y-%m-%d)
+for file in "$SILO_DIR"/.silo "$SILO_DIR"/*.json "$SILO_DIR"/*.md "$SILO_DIR"/justfile "$SILO_DIR"/README.md; do
+    if [ -f "$file" ]; then
+        # Use @ as delimiter to avoid conflict with / in paths
+        sed -i.bak \
+            -e "s@{{name}}@$NAME@g" \
+            -e "s@{{domain}}@$DOMAIN@g" \
+            -e "s@{{owner}}@$OWNER@g" \
+            -e "s@{{created}}@$TODAY@g" \
+            -e "s@{{description}}@Silo: $NAME@g" \
+            "$file" 2>/dev/null
+        rm -f "${file}.bak"
+    fi
+done
+
+# Ensure required directories exist
+mkdir -p "$SILO_DIR/markers"
+mkdir -p "$SILO_DIR/scripts"
+
+# Create placeholder data files
+touch "$SILO_DIR/harvest.jsonl"
+touch "$SILO_DIR/data.jsonl"
+touch "$SILO_DIR/quarantine.jsonl"
+touch "$SILO_DIR/final_output.jsonl"
+
+# Make scripts executable
+chmod +x "$SILO_DIR/process.sh" 2>/dev/null || true
+for sh in "$SILO_DIR"/scripts/*.sh; do
+    chmod +x "$sh" 2>/dev/null || true
+done
+
+log ""
+log "Silo created: ${GREEN}$NAME${NC}"
+log ""
+log "Next steps:"
+log "  cd $NAME"
+log "  just verify"
+log "  just init"
+log ""
+log "To provision from The Register:"
+log "  just sync"
