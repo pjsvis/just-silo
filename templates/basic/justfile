@@ -1,6 +1,11 @@
 # {{name}} Silo Vocabulary
 # Generated from templates/basic
 
+# === DATA STRATIFICATION ===
+# Scaffold files: versioned, shared, rarely change (.silo, justfile, schema, queries, process.sh)
+# Throughput files: local, ephemeral, change every run (data.jsonl, harvest.jsonl, output)
+# See: .silo["#meta"]["stratification"] for full manifest
+
 set shell := ["bash", "-o", "pipefail", "-c"]
 set export := true
 
@@ -49,11 +54,16 @@ verify:
 
 # Ingest data and validate against schema
 harvest source=(HARVEST_FILE):
+    @./{{SCRIPTS_DIR}}/audit_log.sh harvest_start source={{source}}
     @just verify
-    @if [ ! -f "{{source}}" ]; then echo "ERROR: '{{source}}' not found"; exit 1; fi
+    @if [ ! -f "{{source}}" ]; then \
+        ./{{SCRIPTS_DIR}}/audit_log.sh harvest_failed error="source_not_found" source={{source}}; \
+        echo "ERROR: '{{source}}' not found"; exit 1; \
+    fi
     @echo "Harvesting from {{source}}..."
     @> {{DATA_FILE}} && > {{QUARANTINE_FILE}}
     @cat {{source}} | jq -c '.' >> {{DATA_FILE}} 2>/dev/null || true
+    @./{{SCRIPTS_DIR}}/audit_log.sh harvest_complete count=$(cat {{DATA_FILE}} | wc -l)
     @just stats
 
 # Run domain transformation
@@ -62,11 +72,35 @@ process:
 
 # Move processed entries to final output
 flush:
-    @if [ ! -f {{DATA_FILE}} ]; then echo "Nothing to flush"; exit 0; fi
-    @jq -c 'select(.status == "processed")' {{DATA_FILE}} >> {{OUTPUT_FILE}} 2>/dev/null || true
+    @./{{SCRIPTS_DIR}}/audit_log.sh flush_start
+    @if [ ! -f {{DATA_FILE}} ]; then \
+        ./{{SCRIPTS_DIR}}/audit_log.sh flush_complete count=0 reason="no_data"; \
+        echo "Nothing to flush"; exit 0; \
+    fi
+    @FLUSHED=$$(jq -c 'select(.status == "processed")' {{DATA_FILE}} >> {{OUTPUT_FILE}} 2>/dev/null && jq -s 'length' {{OUTPUT_FILE}} || echo 0)
     @jq -c 'select(.status != "processed")' {{DATA_FILE}} > {{DATA_FILE}}.tmp
     @mv {{DATA_FILE}}.tmp {{DATA_FILE}}
+    @./{{SCRIPTS_DIR}}/audit_log.sh flush_complete count=$$FLUSHED
     @just stats
+
+# === AUDIT TRAIL ===
+
+# Query audit log
+audit query=(.event):
+    @if [ -f {{AUDIT_FILE:-audit.jsonl}} ]; then \
+        jq -c '{{query}}' {{AUDIT_FILE:-audit.jsonl}} 2>/dev/null || echo "No audit entries"; \
+    else echo "No audit log found"; fi
+
+audit tail n=("10"):
+    @if [ -f {{AUDIT_FILE:-audit.jsonl}} ]; then \
+        tail -n {{n}} {{AUDIT_FILE:-audit.jsonl}}; \
+    else echo "No audit log found"; fi
+
+audit events:
+    @just audit '.event' | sort | uniq -c | sort -rn
+
+audit timeline:
+    @just audit '.' | jq -s 'sort_by(.timestamp) | reverse | .[] | "\(.timestamp | split("T")[1] | split(".")[0]) \(.event)"' 2>/dev/null || echo "No timeline"
 
 # === OBSERVE: Pipeline Health ===
 
@@ -91,6 +125,27 @@ throughput:
 
 stats:
     @just throughput
+
+# Show data stratification overview
+stratify:
+    @echo "=== DATA STRATIFICATION ==="
+    @echo ""
+    @echo "SCAFFOLD (git-tracked):"
+    @echo "  - .silo          (manifest)"
+    @echo "  - justfile       (interface)"
+    @echo "  - schema.json    (validation)"
+    @echo "  - queries.json   (filters)"
+    @echo "  - process.sh     (domain logic)"
+    @echo "  - scripts/       (utilities)"
+    @echo ""
+    @echo "THROUGHPUT (git-ignored):"
+    @echo "  - data.jsonl     (working set)"
+    @echo "  - harvest.jsonl  (raw input)"
+    @echo "  - quarantine.jsonl (rejected)"
+    @echo "  - final_output.jsonl (archived)"
+    @echo "  - markers/       (coordination)"
+    @echo "  - pipeline.json  (state)"
+    @echo "  - status.json    (health)"
 
 alerts:
     @if [ -f {{DATA_FILE}} ]; then jq -c 'select(.alert == true)' {{DATA_FILE}} || echo "  (no alerts)"; else echo "  (no data)"; fi

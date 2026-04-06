@@ -26,12 +26,20 @@ OPTIONS:
     -d, --domain     Domain for this silo (default: unassigned)
     -o, --owner      Owner identifier (default: current user)
     -p, --path       Parent directory (default: current directory)
+    -P, --private    Create private silo (prefixed with _)
     -h, --help       Show this help
 
 EXAMPLES:
     silo-create my-project
     silo-create my-project --template basic --domain "ai-infra"
     silo-create data-silo --domain "monitoring"
+    silo-create _experiment --private    # Private/internal silo
+
+PRIVATE SILOS:
+    Silo names starting with _ are "private":
+    - Not synced to The Register
+    - Not shared with other agents
+    - Local-only, machine-specific
 
 EOF
 }
@@ -46,6 +54,7 @@ TEMPLATE="basic"
 DOMAIN="unassigned"
 OWNER="${USER:-$(whoami)}"
 PARENT_DIR="${PWD}"
+PRIVATE=0
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -53,6 +62,7 @@ while [[ $# -gt 0 ]]; do
         -d|--domain) DOMAIN="$2"; shift 2 ;;
         -o|--owner) OWNER="$2"; shift 2 ;;
         -p|--path) PARENT_DIR="$2"; shift 2 ;;
+        -P|--private) PRIVATE=1; shift ;;
         -h|--help) usage; exit 0 ;;
         -*) error "Unknown option: $1"; exit 1 ;;
         *) NAME="$1"; shift ;;
@@ -68,6 +78,20 @@ fi
 
 # Sanitize name
 NAME="$(echo "$NAME" | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]-_')"
+
+# Apply private prefix
+if [ $PRIVATE -eq 1 ] && [[ ! "$NAME" =~ ^_ ]]; then
+    NAME="_$NAME"
+fi
+
+# Check for conflicting private/public names
+if [[ "$NAME" =~ ^_ ]]; then
+    log "Creating PRIVATE silo: $NAME"
+    log "  (This silo will not be synced to The Register)"
+    VISIBILITY="private"
+else
+    VISIBILITY="shared"
+fi
 
 # Paths
 SILO_DIR="$PARENT_DIR/$NAME"
@@ -115,6 +139,7 @@ for file in "$SILO_DIR"/.silo "$SILO_DIR"/*.json "$SILO_DIR"/*.md "$SILO_DIR"/ju
             -e "s@{{owner}}@$OWNER@g" \
             -e "s@{{created}}@$TODAY@g" \
             -e "s@{{description}}@Silo: $NAME@g" \
+            -e "s@{{visibility}}@$VISIBILITY@g" \
             "$file" 2>/dev/null
         rm -f "${file}.bak"
     fi

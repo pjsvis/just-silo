@@ -1,0 +1,34 @@
+# === THROUGHPUT FILES ===
+# These files change constantly during pipeline operation.
+# They are local, ephemeral, and should NEVER be committed.
+# Managed by: just harvest | process | flush
+
+data.jsonl
+harvest.jsonl
+quarantine.jsonl
+final_output.jsonl
+pipeline.json
+status.json
+alerts.jsonl
+metrics.txt
+audit.jsonl
+
+# === COORDINATION MARKERS ===
+# Multi-agent lock files — generated at runtime
+markers/*.lock
+markers/*.done
+markers/*.progress
+
+# === TEMP FILES ===
+*.tmp
+*.bak
+*.swp
+
+# === OS ===
+.DS_Store
+Thumbs.db
+
+# === LOCAL OVERRIDES ===
+# Machine-specific config (gitignore this if you customize locally)
+.local.env
+.env.local

@@ -6,13 +6,31 @@
   "description": "{{description}}",
   "created": "{{created}}",
   "owner": "{{owner}}",
+  "visibility": "{{visibility}}",
+  "#meta": {
+    "naming": {
+      "private_convention": "Names starting with _ are private/local-only",
+      "public_convention": "Names without prefix are shared/synced"
+    },
   "silo_type": "generic",
   "blast_radius": 1,
+  "#meta": {
+    "stratification": {
+      "scaffold": ["justfile", "schema.json", "queries.json", "process.sh", "scripts/", ".silo"],
+      "throughput": ["data.jsonl", "harvest.jsonl", "quarantine.jsonl", "final_output.jsonl", "markers/", "pipeline.json", "status.json"],
+      "rationale": "Scaffold files are versioned, shared, and rarely change. Throughput files are local, ephemeral, and change every pipeline run."
+    }
+  },
   "toolchain": {
     "runtime": "bun",
     "linter": "oxlint",
     "formatter": "biome",
     "shell": "bash"
+  },
+  "audit": {
+    "enabled": true,
+    "file": "audit.jsonl",
+    "events": ["harvest_start", "harvest_complete", "harvest_failed", "process_start", "process_complete", "process_failed", "flush_start", "flush_complete", "flush_failed", "alert", "error", "checkpoint"]
   },
   "interface": {
     "engine": "justfile",

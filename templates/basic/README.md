@@ -2,6 +2,23 @@
 
 {{description}}
 
+## Naming Conventions
+
+| Prefix | Meaning | Example |
+|--------|---------|----------|
+| _(underscore) | **Private** — local-only, not synced | `_experiment` |
+| (none) | **Shared** — synced to The Register | `data-monitor` |
+
+**Private silos** (`_name`):
+- Not synced to The Register
+- Not shared with other agents
+- Machine-specific, local-only
+
+**Shared silos** (`name`):
+- Synced to The Register
+- Discoverable by other agents
+- Versioned and collaborative
+
 ## Quick Start
 
 ```bash
@@ -26,20 +43,34 @@ just flush
 
 ## File Structure
 
+### Data Stratification
+
+Silo files are divided into two categories based on change frequency:
+
+**Scaffold Files** (git-tracked, versioned, shared):
 ```
 {{name}}/
-├── .silo              # Silo manifest (configuration)
-├── justfile           # Silo vocabulary (commands)
-├── schema.json        # Data validation schema
+├── .silo              # Silo manifest
+├── justfile           # Silo vocabulary
+├── schema.json        # Data validation
 ├── queries.json       # Named jq filters
+├── process.sh         # Domain transformation
+└── scripts/           # Utilities
+```
+
+**Throughput Files** (git-ignored, local, ephemeral):
+```
+{{name}}/
 ├── harvest.jsonl      # Raw input data
 ├── data.jsonl         # Validated working set
 ├── quarantine.jsonl    # Invalid entries
 ├── final_output.jsonl # Archived output
-├── process.sh         # Domain transformation
-├── pipeline.json      # Pipeline definition
-└── markers/           # Multi-agent coordination
+├── markers/           # Multi-agent coordination
+├── pipeline.json      # Pipeline state
+└── status.json        # Health status
 ```
+
+> **Why?** Scaffold files define the silo contract. Throughput files are the "stuff" that flows through. Keeping them separate prevents git bloat and makes pipelines faster.
 
 ## Pipeline Phases
 
