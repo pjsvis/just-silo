@@ -275,6 +275,78 @@ td init  # May need --force flag
 
 ---
 
+## Lessons Learned: The Database Is Ephemeral
+
+> **TL;DR:** td is restartable and idempotent. The SQLite database is a convenience, not the source of truth.
+
+### The Insight
+
+```
+Without td: Hard to automate coordination
+With td:    Can do things
+```
+
+td is a **runtime orchestration tool** — it enables agents to self-organize tasks, track progress, and hand off work. It has value *because it exists*, not because it persists.
+
+### What We Lose When the DB Corrupts
+
+| Loss | Impact |
+|------|--------|
+| Review workflow state machine | Can work around: `td review` → `td approve` chain breaks |
+| Session → Issue linkage | Can work around: git blame is noisier but complete |
+| Priority ordering | Can work around: implicit in git log order |
+| Structured queries | Can work around: `git log`, grep, manual search |
+
+### What Survives
+
+| Source | What It Contains |
+|--------|------------------|
+| `~/.config/.todos/command_usage.jsonl` | Every command executed (entropy signals) |
+| `~/.config/.todos/agent_errors.jsonl` | Failures, dead ends, recovery paths |
+| `git history` | What changed, when, commit messages |
+| Pipeline audit logs | Events, decisions, state transitions |
+
+**The logs ARE the audit trail.** The SQLite database adds "who to credit/blame" — valuable for social coordination, not essential for entropy quantification.
+
+### The Idempotency Property
+
+```bash
+# Fresh start
+td init
+td usage --new-session
+
+# Or symlink to global DB (if exists)
+ln -sf ~/.config/.todos .todos
+```
+
+If `.todos/` corrupts:
+1. `rm -rf .todos` (local symlink)
+2. `td init` (recreates fresh DB)
+3. Continue
+
+**No work is lost** — the work exists in git and logs. We just lose the *index* into it.
+
+### Decision Framework
+
+```
+Is td working?          → Use it
+Is td failing often?    → Consider alternatives
+Is td completely gone?  → Use git + logs as fallback
+```
+
+**Rule:** td serves the work. The work does not depend on td.
+
+### Practical Guideline
+
+| Situation | Action |
+|-----------|--------|
+| td works | Use it normally |
+| "database locked" | Retry, or symlink to `~/.config/.todos/` |
+| "database malformed" | `td init` fresh, continue |
+| td completely unavailable | Work in git + logs, re-index later if needed |
+
+---
+
 ## Related
 
 - [Edinburgh Protocol Playbook](edinburgh-protocol-playbook.md) — Decision framework
