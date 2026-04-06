@@ -1,0 +1,16 @@
+{
+  "name": "just-silo",
+  "version": "0.1.0",
+  "description": "Silo Framework - Filesystem-based AI agent infrastructure",
+  "type": "module",
+  "scripts": {
+    "api": "bun src/silo-api-server.ts",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "hono": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.0.0"
+  }
+}
