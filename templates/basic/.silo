@@ -7,18 +7,48 @@
   "created": "{{created}}",
   "owner": "{{owner}}",
   "visibility": "{{visibility}}",
+  "silo_type": "generic",
+  "blast_radius": 1,
+  "workspace": {
+    "locked": false,
+    "machine_id": null,
+    "mounts": {}
+  },
+  "security": {
+    "sandboxed": true,
+    "network_access": "restricted",
+    "filesystem_scope": "local",
+    "resource_limits": {
+      "max_memory_mb": 512,
+      "max_cpu_percent": 50,
+      "max_disk_mb": 100
+    }
+  },
   "#meta": {
     "naming": {
       "private_convention": "Names starting with _ are private/local-only",
       "public_convention": "Names without prefix are shared/synced"
     },
-  "silo_type": "generic",
-  "blast_radius": 1,
-  "#meta": {
     "stratification": {
-      "scaffold": ["justfile", "schema.json", "queries.json", "process.sh", "scripts/", ".silo"],
-      "throughput": ["data.jsonl", "harvest.jsonl", "quarantine.jsonl", "final_output.jsonl", "markers/", "pipeline.json", "status.json"],
-      "rationale": "Scaffold files are versioned, shared, and rarely change. Throughput files are local, ephemeral, and change every pipeline run."
+      "scaffold": [
+        "justfile",
+        "schema.json",
+        "queries.json",
+        "process.sh",
+        "scripts/",
+        ".silo"
+      ],
+      "throughput": [
+        "data.jsonl",
+        "harvest.jsonl",
+        "quarantine.jsonl",
+        "final_output.jsonl",
+        "markers/",
+        "pipeline.json",
+        "status.json",
+        "audit.jsonl"
+      ],
+      "rationale": "Scaffold files are versioned, shared, rarely change. Throughput files are local, ephemeral, change every run."
     }
   },
   "toolchain": {
@@ -30,7 +60,20 @@
   "audit": {
     "enabled": true,
     "file": "audit.jsonl",
-    "events": ["harvest_start", "harvest_complete", "harvest_failed", "process_start", "process_complete", "process_failed", "flush_start", "flush_complete", "flush_failed", "alert", "error", "checkpoint"]
+    "events": [
+      "harvest_start",
+      "harvest_complete",
+      "harvest_failed",
+      "process_start",
+      "process_complete",
+      "process_failed",
+      "flush_start",
+      "flush_complete",
+      "flush_failed",
+      "alert",
+      "error",
+      "checkpoint"
+    ]
   },
   "interface": {
     "engine": "justfile",

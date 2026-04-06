@@ -1,4 +1,4 @@
-# {{name}} Silo Vocabulary
+# Silo Vocabulary
 # Generated from templates/basic
 
 # === DATA STRATIFICATION ===
@@ -18,15 +18,18 @@ QUERIES_FILE   := "queries.json"
 PIPELINE_FILE  := "pipeline.json"
 MARKERS_DIR    := "markers"
 SCRIPTS_DIR    := "scripts"
+AUDIT_FILE     := "audit.jsonl"
 
 # === ENTRY POINT ===
 
 default:
-    @echo "=== {{name}} Silo ==="
+    @echo "=== silo Silo ==="
     @echo "Recipes:"
     @just --list --justfile {{justfile()}} 2>&1 | grep -v "^#" | grep -v "Available recipes" | grep -v "^$"
     @echo ""
     @echo "Run 'just help' for overview"
+    @echo ""
+    @echo "Workspace: $([ -f .silo ] && jq -r '.workspace.machine_id // "unlocked"' .silo 2>/dev/null || echo "unlocked")"
 
 # === HELP ===
 
@@ -39,6 +42,8 @@ help:
     @echo "  just status          - Pipeline observability"
     @echo "  just stats           - Show counts"
     @echo "  just report          - Full report"
+    @echo "  just lock            - Lock silo to this machine"
+    @echo "  just chart           - Show throughput visualization"
 
 # === CORE PIPELINE ===
 
@@ -86,25 +91,23 @@ flush:
 # === AUDIT TRAIL ===
 
 # Query audit log
-audit query=(.event):
-    @if [ -f {{AUDIT_FILE:-audit.jsonl}} ]; then \
-        jq -c '{{query}}' {{AUDIT_FILE:-audit.jsonl}} 2>/dev/null || echo "No audit entries"; \
-    else echo "No audit log found"; fi
+audit-q filter=(".event"):
+    @if [ -f "{{AUDIT_FILE}}" ]; then jq -c "{{filter}}" "{{AUDIT_FILE}}" 2>/dev/null || echo "No audit entries"; else echo "No audit log found"; fi
 
-audit tail n=("10"):
-    @if [ -f {{AUDIT_FILE:-audit.jsonl}} ]; then \
-        tail -n {{n}} {{AUDIT_FILE:-audit.jsonl}}; \
-    else echo "No audit log found"; fi
+# Tail audit log
+audit-tail n=("10"):
+    @if [ -f "{{AUDIT_FILE}}" ]; then tail -n {{n}} "{{AUDIT_FILE}}"; else echo "No audit log found"; fi
 
-audit events:
-    @just audit '.event' | sort | uniq -c | sort -rn
+# Show event types
+audit-events:
+    @just audit-q '.event' | sort | uniq -c | sort -rn
 
-audit timeline:
-    @just audit '.' | jq -s 'sort_by(.timestamp) | reverse | .[] | "\(.timestamp | split("T")[1] | split(".")[0]) \(.event)"' 2>/dev/null || echo "No timeline"
+# Show timeline
+audit-timeline:
+    @just audit-q '.' | jq -s 'sort_by(.timestamp) | reverse | .[] | "\(.timestamp | split("T")[1] | split(".")[0]) \(.event)"' 2>/dev/null || echo "No timeline"
 
 # === OBSERVE: Pipeline Health ===
 
-# Status JSON for dashboard (writes to status.json)
 status-json:
     @./{{SCRIPTS_DIR}}/status_json.sh
 
@@ -126,6 +129,16 @@ throughput:
 stats:
     @just throughput
 
+# === MARKDOWN-UI ===
+
+# Render README with live status
+render:
+    @./{{SCRIPTS_DIR}}/render_status.sh --stdout
+
+# Render with glow (if installed)
+render-glow:
+    @./{{SCRIPTS_DIR}}/render_status.sh --glow
+
 # Show data stratification overview
 stratify:
     @echo "=== DATA STRATIFICATION ==="
@@ -146,6 +159,7 @@ stratify:
     @echo "  - markers/       (coordination)"
     @echo "  - pipeline.json  (state)"
     @echo "  - status.json    (health)"
+    @echo "  - audit.jsonl    (event log)"
 
 alerts:
     @if [ -f {{DATA_FILE}} ]; then jq -c 'select(.alert == true)' {{DATA_FILE}} || echo "  (no alerts)"; else echo "  (no data)"; fi
@@ -177,6 +191,52 @@ heartbeat:
     @mkdir -p {{MARKERS_DIR}}
     @for l in {{MARKERS_DIR}}/*.lock; do if [ -f "$$l" ]; then touch "$$l"; fi; done
     @echo "Heartbeats recorded"
+
+# === GAMMA LOOP: SELF-IMPROVEMENT ===
+
+# Analyze silo performance
+gamma-analyze:
+    @./{{SCRIPTS_DIR}}/gamma_loop.sh analyze
+
+# Get recommendations
+gamma-recommend:
+    @./{{SCRIPTS_DIR}}/gamma_loop.sh recommend
+
+# Preview threshold adjustments
+gamma-adjust:
+    @./{{SCRIPTS_DIR}}/gamma_loop.sh adjust
+
+# Full gamma loop
+gamma:
+    @./{{SCRIPTS_DIR}}/gamma_loop.sh all
+
+# === WORKSPACE LOCK ===
+
+# Lock silo to this machine
+lock:
+    @./{{SCRIPTS_DIR}}/workspace_lock.sh lock
+
+# Unlock silo
+unlock:
+    @./{{SCRIPTS_DIR}}/workspace_lock.sh unlock
+
+# Check lock status
+check-lock:
+    @./{{SCRIPTS_DIR}}/workspace_lock.sh check
+
+# === SECURITY ===
+
+# Validate a script for dangerous patterns
+validate-scripts:
+    @echo "Validating scripts..."
+    @for s in {{SCRIPTS_DIR}}/*.sh; do \
+        ./{{SCRIPTS_DIR}}/sandbox.sh validate "$$s" 2>&1 || true; \
+    done
+
+# Show security config
+security:
+    @echo "=== SECURITY CONFIG ==="
+    @jq '.security' .silo 2>/dev/null || echo "No security config"
 
 # === UTILITIES ===
 

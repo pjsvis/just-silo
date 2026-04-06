@@ -239,6 +239,40 @@ td usage --new-session
 td context <issue-id>   # Restore context for an issue
 ```
 
+### "database is locked" or "enable WAL mode: database is locked"
+
+**Root Cause:** SQLite WAL corruption from concurrent access (agent + GitHub sidecar).
+
+**Symptoms:**
+- `td init` creates `db.lock` but not `issues.db`
+- `td add` fails intermittently
+- Works in isolation, fails under load
+
+**Workarounds:**
+
+1. **Symlink to global db:**
+```bash
+rm -rf .todos && ln -s ~/.config/.todos .todos
+```
+
+2. **Wait and retry:**
+```bash
+sleep 1
+td add "My issue"
+```
+
+3. **Use global db directly:**
+```bash
+td init  # May need --force flag
+```
+
+**Investigation Needed:**
+- td is written in Go
+- SQLite config section not found in td source repo
+- See: [td repo](https://github.com/...) for SQLite initialization
+
+**Action:** File issue or PR if root cause found.
+
 ---
 
 ## Related

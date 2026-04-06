@@ -97,5 +97,76 @@ just heartbeat          # Keep claims alive
 Edit `.silo` to configure:
 - `name`: Silo identifier
 - `domain`: Problem domain
+- `visibility`: "shared" or "private"
 - `thresholds`: Alert thresholds
 - `toolchain`: Required tools
+- `workspace`: Machine lock settings
+- `security`: Isolation settings
+
+## Observability Commands
+
+```bash
+just stats           # Show throughput counts
+just chart          # ASCII throughput visualization
+just status         # Pipeline health
+just health         # Three-speed health check
+just health-fast    # Fast check (files exist)
+just health-medium  # Medium check (pipeline state)
+just health-slow    # Slow check (full validation)
+just alerts          # Show active alerts
+just report         # Full status report
+just audit-q        # Query audit log
+event | just audit-q '.event'
+just gamma           # Self-improvement analysis
+just gamma-recommend # Get recommendations
+just gamma-adjust    # Preview threshold changes
+```
+
+## Workspace & Security
+
+```bash
+just lock           # Lock silo to this machine
+just unlock         # Allow any machine
+just check-lock     # Verify lock status
+just validate-scripts  # Check script safety
+just security       # Show security config
+```
+
+## Data Commands
+
+```bash
+just harvest [file] # Ingest data
+just process        # Run domain logic
+just flush          # Archive processed items
+just stratify       # Show file categorization
+just query <name>  # Run named jq filter
+```
+
+## Development
+
+```bash
+just verify         # Check prerequisites
+just self-test      # Run tests
+just clean          # Remove data files
+just install-deps   # Check dependencies
+just help           # Show all commands
+just render         # Render README with status
+```
+
+<!-- PIPELINE_STATUS -->
+```
+╔═══════════════════════════════════════════════╗
+║  PIPELINE STATUS                              ║
+╠═══════════════════════════════════════════════╣
+║  harvest          0 entries             ║
+║  active           0 entries             ║
+║  quarantine       0 entries             ║
+║  archived         0 entries             ║
+║  alerts           0                       ║
+╠═══════════════════════════════════════════════╣
+║  workspace   Unlocked        ║
+║  visibility  Shared (synced)               ║
+╚═══════════════════════════════════════════════╝
+```
+
+<!-- /PIPELINE_STATUS -->

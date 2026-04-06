@@ -29,3 +29,4 @@ silo_launch/
 .sidecar-start.sh
 .sidecar-base
 .td-root
+node_modules/
