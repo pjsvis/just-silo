@@ -70,6 +70,10 @@ flush:
 
 # === OBSERVE: Pipeline Health ===
 
+# Status JSON for dashboard (writes to status.json)
+status-json:
+    @./{{SCRIPTS_DIR}}/status_json.sh
+
 status:
     @./{{SCRIPTS_DIR}}/status_plain.sh
 
