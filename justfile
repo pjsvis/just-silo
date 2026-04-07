@@ -1,5 +1,13 @@
 # just-silo — Directory-based skill framework for AI agents
 # https://github.com/marcus-nicolaou/just-silo
+#
+# COMMANDS ARE NAMESPACE-PREFIXED (git model)
+#   silo-*   — Silo operations (what users run)
+#   dev-*    — Development on just-silo itself
+#   docs-*   — Documentation
+#   lex-*    — Conceptual lexicon
+#   agents-* — Sub-agent management
+#   td-*     — Task database
 
 set shell := ["bash", "-o", "pipefail", "-c"]
 set positional-arguments := true
@@ -12,35 +20,32 @@ VERSION := "0.2.0"
 # ============================================================
 
 default:
-    @just help
+    @just --list
 
 version:
     @echo "{{PROJECT_NAME}} v{{VERSION}}"
 
-help:
-    @echo "{{PROJECT_NAME}} v{{VERSION}}"
-    @echo ""
-    @echo "Quick Start:"
-    @echo "  just silo       # Silo operations"
-    @echo "  just td         # Task management"
-    @echo "  just lex        # Lexicon"
-    @echo "  just agents     # Sub-agents"
-    @echo "  just help       # This help"
-    @echo ""
-    @echo "Full list: just --list"
-
 # ============================================================
-# SECTION: SILO (silo operations)
+# HELP
 # ============================================================
 
-# Show silo sub-commands
-silo:
-    @echo "Silo Commands:"
-    @echo "  silo-verify    - Verify prerequisites"
-    @echo "  silo-harvest   - Harvest data"
-    @echo "  silo-process   - Process data"
-    @echo "  silo-flush     - Flush to archive"
-    @echo "  silo-status    - Show status"
+help topic:
+    @if [ -z "{{topic}}" ]; then ./scripts/help.sh; else ./scripts/help.sh "{{topic}}"; fi
+
+# ============================================================
+# CONTENT (glow or cat)
+# ============================================================
+
+about:
+    @./scripts/about.sh
+
+about-file file:
+    @./scripts/about.sh {{file}}
+
+# ============================================================
+# SILO (delegated to template)
+# ============================================================
+
 
 silo-verify:
     @cd templates/basic && just verify
@@ -58,17 +63,9 @@ silo-status:
     @cd templates/basic && just status
 
 # ============================================================
-# SECTION: TD (task management)
+# TD (task database)
 # ============================================================
 
-# Show td sub-commands
-td:
-    @echo "TD Commands:"
-    @echo "  td-ramdisk    - Setup RAM disk"
-    @echo "  td-status     - Show status"
-    @echo "  td-reset      - Reset database"
-    @echo "  td-test       - Run smoke test"
-    @echo "  td-report     - Markdown report"
 
 td-ramdisk:
     @./scripts/td-ramdisk-setup.sh .
@@ -94,18 +91,9 @@ td-report:
     @cat td-report.md
 
 # ============================================================
-# SECTION: LEX (lexicon)
+# LEX (lexicon)
 # ============================================================
 
-# Show lexicon sub-commands
-lex:
-    @echo "Lexicon Commands:"
-    @echo "  lex           - Show this help"
-    @echo "  lex-all      - Show full lexicon"
-    @echo "  lex-short    - Compact format"
-    @echo "  lex-find X   - Find term X"
-    @echo "  lex-export   - Export JSON"
-    @echo "  lex-help     - Help"
 
 lex-all:
     @./scripts/silo-lexicon
@@ -120,26 +108,10 @@ lex-export:
     @./scripts/silo-lexicon --json > lexicon.json
     @echo "Exported to lexicon.json"
 
-lex-help:
-    @./scripts/silo-lexicon --help
-
-lex-show: lex-all
-
 # ============================================================
-# SECTION: AGENTS (sub-agents)
+# AGENTS (sub-agent management)
 # ============================================================
 
-# Show agents sub-commands
-agents:
-    @echo "Agents Commands:"
-    @echo "  agents           - List all agents"
-    @echo "  agents-show X   - Show agent X"
-    @echo "  agents-run X Y  - Run agent X command Y"
-    @echo ""
-    @echo "Available agents:"
-    @./scripts/list-agents.sh
-
-agents-list: agents
 
 agents-show name:
     @./scripts/show-agent.sh {{name}}
@@ -147,10 +119,6 @@ agents-show name:
 agents-run name cmd:
     @./scripts/run-agent.sh {{name}} {{cmd}}
 
-agents-help:
-    @cat agents/README.md
-
-# Convenience aliases
 agents-tidy cmd:
     @./scripts/run-agent.sh tidy {{cmd}}
 
@@ -158,57 +126,46 @@ agents-cr cmd:
     @./scripts/run-agent.sh cr {{cmd}}
 
 # ============================================================
-# SECTION: DOCS (documentation)
+# DOCS (documentation)
 # ============================================================
 
-# Show docs sub-commands
-docs:
-    @echo "Docs Commands:"
-    @echo "  docs           - Browse docs folder"
-    @echo "  docs-readme    - Show README"
-    @echo "  docs-manual    - Show Silo Manual"
-    @echo "  docs-philosophy - Show Philosophy"
-    @echo "  docs-agents   - Show AGENTS.md"
 
 docs-readme:
-    @command -v glow >/dev/null 2>&1 && glow -p README.md || cat README.md
+    @./scripts/about.sh README.md
 
 docs-manual:
-    @command -v glow >/dev/null 2>&1 && glow -p Silo-Manual.md || cat Silo-Manual.md
+    @./scripts/about.sh Silo-Manual.md
 
 docs-philosophy:
-    @command -v glow >/dev/null 2>&1 && glow -p Silo-Philosophy.md || cat Silo-Philosophy.md
+    @./scripts/about.sh Silo-Philosophy.md
 
 docs-agents:
-    @command -v glow >/dev/null 2>&1 && glow -p AGENTS.md || cat AGENTS.md
+    @./scripts/about.sh AGENTS.md
+
+# ============================================================
+# BROWSE (glow folders)
+# ============================================================
+
 
 browse:
-    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow docs/; else ls -la docs/; fi
+    @./scripts/about.sh docs/
 
-# Browse sub-commands
 briefs:
-    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow briefs/; else ls -la briefs/; fi
+    @./scripts/about.sh briefs/
 
 playbooks:
-    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow playbooks/; else ls -la playbooks/; fi
+    @./scripts/about.sh playbooks/
 
 debriefs:
-    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow debriefs/; else ls -la debriefs/; fi
+    @./scripts/about.sh debriefs/
 
 debrief-template:
-    @echo "# DeBrief Template"
-    @echo ""
     @grep -A 30 "^#" debriefs/2026-04-07-td-ramdisk-sparklines.md 2>/dev/null | head -20
 
 # ============================================================
-# SECTION: API (API server)
+# API (server)
 # ============================================================
 
-# Show API sub-commands
-api:
-    @echo "API Commands:"
-    @echo "  api           - Start server (port 3000)"
-    @echo "  api-port X   - Start on port X"
 
 api-start:
     @bun run src/silo-api-server.ts
@@ -217,14 +174,9 @@ api-port port:
     @SILO_API_PORT={{port}} bun run src/silo-api-server.ts
 
 # ============================================================
-# SECTION: TREND (sparklines)
+# TREND (sparklines)
 # ============================================================
 
-# Show trend sub-commands
-trend:
-    @echo "Trend Commands:"
-    @echo "  trend           - ASCII sparklines in terminal"
-    @echo "  trend-dashboard - Generate HTML dashboard"
 
 trend-show:
     @./scripts/silo-trend 2>/dev/null || echo "No silos found"
@@ -232,20 +184,10 @@ trend-show:
 trend-dashboard:
     @bun run src/silo-dashboard.ts
 
-trend-all: trend-show
-    @bun run src/silo-dashboard.ts
-    @echo "Dashboard: dashboard.html"
-
 # ============================================================
-# SECTION: WATCH (file watchers)
+# WATCH (file watchers)
 # ============================================================
 
-# Show watch sub-commands
-watch:
-    @echo "Watch Commands:"
-    @echo "  watch-tests      - Run tests on changes"
-    @echo "  watch-trend     - Show trends on changes"
-    @echo "  watch-dashboard - Dashboard on changes"
 
 watch-tests:
     @watchexec -e ts,tsx,js,jsx -- bun test
@@ -257,31 +199,12 @@ watch-dashboard:
     @watchexec -e jsonl -- just trend-dashboard
 
 # ============================================================
-# SECTION: DEV (development)
+# DEV (development)
 # ============================================================
 
-# Show dev sub-commands
-dev:
-    @echo "Dev Commands:"
-    @echo "  dev-check      - Check prerequisites"
-    @echo "  dev-tests     - Run tests"
-    @echo "  dev-new X     - Create silo X"
 
 dev-check:
-    @echo "=== {{PROJECT_NAME}} Prerequisites ==="
-    @echo ""
-    @echo "Core Dependencies:"
-    @command -v just >/dev/null 2>&1 && echo "  ✓ just" || echo "  ✗ just MISSING"
-    @command -v bun >/dev/null 2>&1 && echo "  ✓ bun" || echo "  ✗ bun MISSING"
-    @command -v jq >/dev/null 2>&1 && echo "  ✓ jq" || echo "  ✗ jq MISSING"
-    @command -v td >/dev/null 2>&1 && echo "  ✓ td" || echo "  ✗ td MISSING"
-    @command -v watchexec >/dev/null 2>&1 && echo "  ✓ watchexec" || echo "  ✗ watchexec MISSING"
-    @echo ""
-    @echo "Optional:"
-    @command -v glow >/dev/null 2>&1 && echo "  ✓ glow" || echo "  ○ glow (optional)"
-    @command -v gum >/dev/null 2>&1 && echo "  ✓ gum" || echo "  ○ gum (optional)"
-    @echo ""
-    @echo "Install: brew install just bun jq marcus/tap/td watchexec"
+    @./scripts/dev-check.sh
 
 dev-tests:
     @echo "=== Integration Tests ===" && ./scripts/silo-integration-test
@@ -296,8 +219,9 @@ dev-templates:
     @ls -1 templates/ | sed 's/^/  /'
 
 # ============================================================
-# SECTION: HOUSEKEEPING
+# OPS (housekeeping)
 # ============================================================
+
 
 tidy:
     @./scripts/tidy.sh 2>/dev/null || echo "No tidy script"
@@ -313,11 +237,15 @@ status:
     @echo "=== COMMITS ==="
     @git log --oneline -3 2>/dev/null || echo "(not a git repo)"
 
-# ============================================================
-# AGENT OPERATIONS
-# ============================================================
-
 agent-ops:
-    @command -v glow >/dev/null 2>&1 && glow -p playbooks/agent-ops-playbook.md || cat playbooks/agent-ops-playbook.md
+    @./scripts/about.sh playbooks/agent-ops-playbook.md
 
+# ============================================================
+# ALIASES
+# ============================================================
 
+alias s := status
+alias t := dev-tests
+alias d := dev-check
+alias v := dev-check
+alias a := about
