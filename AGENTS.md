@@ -173,6 +173,7 @@ The project uses specialized agents for different concerns. Agents watch td for 
 | **review-agent** | td status → in_review | Review code, open PR, request approval |
 | **briefs-agent** | td status → closed | Generate brief drafts |
 | **debriefs-agent** | git merge | Capture lessons learned |
+| **tidy-first-agent** | cron / on-push | Workspace hygiene |
 
 ### Agent Trigger Architecture
 
@@ -246,6 +247,48 @@ The project uses specialized agents for different concerns. Agents watch td for 
 - Watch for merges to main
 - Generate debrief in `debriefs/`
 - Extract: what worked, what didn't, metrics
+
+### tidy-first-agent
+
+**Purpose:** Maintain workspace hygiene.
+
+**Scope:**
+- Archive old briefs/debriefs when thresholds exceeded
+- Flag stale td issues
+- Auto-tidy routine cleanup
+- Brief-gen for complex decisions
+
+---
+
+## Session Handoff
+
+**Tiered approach to transferring context between sessions.**
+
+### End of Session (3 steps)
+
+1. Commit: `git add -A && git commit -m "Session end: <summary>"`
+2. Handoff: `td handoff <id> --done X --remaining Y`
+3. Bridge: Update debrief "For Next Session" (1-5 lines)
+
+### Start of Session (3 steps)
+
+1. Fresh: `td usage --new-session`
+2. Check: `td status` + `git log --oneline -5`
+3. Bridge: Read debrief "For Next Session" sections
+
+### The Bridge
+
+Every debrief should end with:
+
+```markdown
+## For Next Session
+
+- Read: `briefs/research/2026-04-07-brief-X.md`
+- Do: `td start td-XXXX`
+- Avoid: Known issue here
+```
+
+See `playbooks/agent-ops-playbook.md` for full details.
 
 ---
 
