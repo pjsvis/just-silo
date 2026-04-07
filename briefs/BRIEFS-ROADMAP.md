@@ -3,7 +3,7 @@
 ## Status
 
 - **v0.1** — RELEASED ✅
-- **v0.2** — In Progress (3 items)
+- **v0.2** — RELEASED ✅ (2026-04-07)
 - **v0.3** — Planned (Gamma Loops)
 - **v1.0** — Future
 
@@ -16,28 +16,25 @@
 | Template system | `templates/basic/` | ✅ |
 | Silo create/ignite | `scripts/silo-*` | ✅ 17 tests |
 | Unit tests | `src/*.test.ts` | ✅ 12 tests |
-| API server | `src/silo-api-server.ts` | ✅ |
-| Mesh | `src/silo-mesh.ts` | ✅ |
-| Dashboard | `src/silo-dashboard.ts` | ✅ |
-| Justfile | `justfile` | ✅ Namespace-prefixed |
-| Silo Lexicon | `silo-lexicon.jsonl` | ✅ 12 tokens |
 | Mentational Hygiene | `AGENTS.md` | ✅ |
 | Secrets playbook | `playbooks/secrets-playbook.md` | ✅ |
 | TD RAM disk | `scripts/td-ramdisk-setup.sh` | ✅ Smoke test passed |
 
 ---
 
-## v0.2 — In Progress
+## v0.2 — Released (2026-04-07)
 
 **Focus:** UX improvements — streaming, visualization, lexicon.
 
-### High Priority (Implement First)
+### Deliverables
 
-| # | Brief | Description | Effort | Status |
-|---|-------|-------------|--------|--------|
-| 1 | `brief-silo-streaming.md` | SSE for real-time telemetry | Low | TODO |
-| 2 | `brief-sparklines.md` | ASCII throughput graphs | Low | TODO |
-| 3 | `brief-silo-conceptual-lexicon.md` | Lexicon mount on `cd` | Low | TODO |
+| # | Brief | Description | Tests | Status |
+|---|-------|-------------|-------|--------|
+| 1 | `brief-silo-streaming.md` | SSE for real-time telemetry | ✅ `src/silo-api-server.test.ts` | ✅ Released |
+| 2 | `brief-sparklines.md` | ASCII throughput graphs | ✅ `src/sparkline.test.ts` | ✅ Released |
+| 3 | `brief-silo-conceptual-lexicon.md` | Lexicon mount on `cd` | ✅ `src/silo-lexicon.test.ts` | ✅ Released |
+
+**Test coverage:** 68 tests across 3 test files
 
 ### After High Priority
 
