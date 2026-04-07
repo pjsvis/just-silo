@@ -135,6 +135,44 @@ Available recipes:
 
 ---
 
+## Recipe Groups
+
+Organize recipes into groups for `just --list`:
+
+```just
+[group: "silo"]
+# Verify prerequisites
+silo-verify:
+    cd templates/basic && just verify
+
+[group: "silo"]
+silo-harvest:
+    cd templates/basic && just harvest
+
+[group: "td"]
+td-status:
+    td status
+```
+
+**Output:**
+```
+Available recipes:
+    [silo]
+    silo-harvest
+    silo-verify
+
+    [td]
+    td-status
+```
+
+**Filter by group:**
+```bash
+just --list --group silo   # Show only silo recipes
+just --list --group td     # Show only td recipes
+```
+
+**Note:** Group name must be in quotes: `[group: "silo"]`
+
 ## Recipe Comments
 
 Comments show in `just --list` when:
