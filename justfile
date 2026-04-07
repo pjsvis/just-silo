@@ -46,19 +46,23 @@ about-file file:
 # SILO (delegated to template)
 # ============================================================
 
-
+# Verify prerequisites
 silo-verify:
     @cd templates/basic && just verify
 
+# Harvest data
 silo-harvest:
     @cd templates/basic && just harvest
 
+# Process data
 silo-process:
     @cd templates/basic && just process
 
+# Flush to archive
 silo-flush:
     @cd templates/basic && just flush
 
+# Show status
 silo-status:
     @cd templates/basic && just status
 
