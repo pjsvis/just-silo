@@ -4,54 +4,81 @@
 
 Working on just-silo framework. Project at `/Users/petersmith/Dev/GitHub/just-silo-dev`
 
-## Current State
+## Status: v0.1.0 RELEASED ✅
 
-**3 commits on `dev`:**
-- `5a565b6` — EPIC-1: Core Infrastructure
-- `0a1c698` — EPIC-2: API & Automation  
-- `1cb3784` — EPIC-3: Observability
+## Quick Start
 
-## Delivered
+```bash
+just dev-check     # Prerequisites
+just dev-tests     # All tests
+just silo-verify # Silo prerequisites
+just lex           # Show lexicon
+just --list        # Full command list
+```
 
-| Component | Files |
-|-----------|-------|
-| Template System | `templates/basic/` with .silo, justfile, schema.json, queries.json, process.sh, scripts/ |
-| Manifest Schema | `schemas/silo-manifest.schema.json` |
-| CLI Tools | `scripts/silo-create`, `silo-ignite`, `silo-integration-test` |
-| API Server | `src/silo-api-server.ts` (Bun/Hono) |
-| Mesh Facade | `src/silo-mesh.ts` (auto-discovery) |
-| Dashboard | `src/silo-dashboard.ts` (HTML generator) |
+## Delivered in v0.1
+
+| Component | Files | Tests |
+|-----------|-------|-------|
+| Template System | `templates/basic/` | ✅ |
+| CLI Tools | `scripts/silo-create`, `scripts/silo-ignite` | ✅ 17 tests |
+| Unit Tests | `src/*.test.ts` | ✅ 12 tests |
+| API Server | `src/silo-api-server.ts` | ✅ |
+| Mesh | `src/silo-mesh.ts` | ✅ |
+| Dashboard | `src/silo-dashboard.ts` | ✅ |
+| Justfile | Namespace-prefixed (`dev-*`, `silo-*`) | ✅ |
+| Silo Lexicon | `silo-lexicon.jsonl` (12 tokens) | ✅ |
+| Mentational Hygiene | `AGENTS.md` | ✅ |
+| Secrets Playbook | `playbooks/secrets-playbook.md` | ✅ |
+
+## Mentational Hygiene (CRITICAL)
+
+**Before starting:** Read `AGENTS.md` → Mentational Hygiene section.
+
+```
+IF same command + same error = 2nd attempt → STOP
+STATE: "Known issue, skipping. Reason: [brief]"
+REPORT to user
+```
+
+**Nested directory signal:** `.foo/.foo/` = evidence of past attempts. Stop investigating.
+
+**Flow preservation:** Excellent flow is fragile. Technical fixes are not worth destroying session quality.
 
 ## TD Database Issue
 
-SQLite WAL corruption from concurrent access (agent + GitHub sidecar). Global db at `~/.config/.todos/issues.db` is 300KB but shows 0 issues. Project `.todos/` directory created but no `.db` written.
+**Known Issue — Skip per Mentational Hygiene directive.**
 
-**Before starting:** Fix td init or use global db. See `SESSION-STATE.md` for details.
+SQLite WAL corruption. Do NOT attempt to fix. Flag and move on.
 
-## Remaining Work
+## v0.2 Backlog
 
-### EPIC-1 (P2/P3):
-- Data Stratification (scaffolding vs throughput)
-- _silo naming convention
-- JSONL Audit Trail
-- Workspace-Locked Silo
-- Markdown-as-UI
+| Priority | Task | Effort |
+|----------|------|--------|
+| 1 | SSE Streaming | Low |
+| 2 | Sparklines | Low |
+| 3 | Lexicon mount (agent reads on cd) | Low |
+| 4 | User guide | Medium |
 
-### EPIC-2 (P3):
-- SSE Streaming for Status
-
-### EPIC-3 (P3):
-- Sparklines
-- Three-Speed Monitoring
-
-### EPIC-4-8 (Open):
-- Gamma Loops, Isolation & Security, Documentation, Blog, Strategy
+See `briefs/BRIEFS-ROADMAP.md` for full backlog.
 
 ## Instructions
 
-1. Run `td usage --new-session`
-2. Read `SESSION-STATE.md` for full context
-3. Fix td database issue first
-4. Continue with remaining epics
-5. Archive completed briefs
-6. Log progress to td
+1. Read `SESSION-STATE.md` for context
+2. Run `just dev-check` to verify environment
+3. Review `briefs/BRIEFS-ROADMAP.md` for priorities
+4. Check `silo-lexicon.jsonl` for conceptual tokens
+5. **Mentational Hygiene first** — prevent doom loops
+6. Archive completed work to `briefs/archive/`
+
+## Key Files
+
+| File | Purpose |
+|------|---------|
+| `justfile` | Commands (`just --list`) |
+| `AGENTS.md` | Agent directives |
+| `SESSION-STATE.md` | Current session state |
+| `silo-lexicon.jsonl` | Conceptual tokens |
+| `briefs/BRIEFS-ROADMAP.md` | Project roadmap |
+| `debriefs/` | Lessons learned |
+| `playbooks/` | How-to guides |
