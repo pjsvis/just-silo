@@ -257,3 +257,118 @@ Each gamma-loop should have a `CSP.md` defining:
 Building first → discovering requirements → formalizing protocol.
 
 This is the **Reveal** pattern applied to protocols. Don't pre-define. Let the implementation reveal the requirements.
+
+---
+
+## Specifying a Gamma-Loop
+
+Each gamma-loop is defined in `CSP.md`. Here's the template:
+
+```markdown
+# CSP: My Gamma-Loop
+
+## Mission
+Brief description of what this gamma-loop monitors.
+
+---
+
+## Thresholds
+
+| Resource | Auto-Archive | Flag |
+|----------|--------------|------|
+| files | > N | > days |
+
+---
+
+## Auto-Actions (Safe)
+
+| Action | Trigger | Safety |
+|--------|---------|--------|
+| Archive | Threshold | ✅ Reversible |
+| Prune | Condition | ✅ Safe |
+
+---
+
+## Human-Actions (Unsafe)
+
+| Action | Creates |
+|--------|---------|
+| Delete | Decision brief |
+| Refactor | Refactor brief |
+
+---
+
+## Integration Points
+
+- on flag → other-agent
+- on archive → log td
+- on error → report
+```
+
+### Example: Adding Code Quality Gamma-Loop
+
+```bash
+mkdir -p agents/code-quality-agent
+```
+
+```json
+// manifest.json
+{
+  "name": "code-quality-agent",
+  "type": "gamma-loop",
+  "commands": ["check", "run"],
+  "constraints": "CSP.md"
+}
+```
+
+```markdown
+# CSP: code-quality-agent
+
+## Thresholds
+
+| Resource | Auto-Fix | Flag |
+|----------|----------|------|
+| TODO | — | > 5 |
+| Broken links | — | Any |
+| Large files | > 1MB | — |
+```
+
+---
+
+## Gamma-Loop Test Pattern
+
+```bash
+# 1. Create test data
+for i in $(seq 1 10); do
+  echo "test" > "test-$i.txt"
+done
+
+# 2. Run gamma-loop
+just gamma
+
+# 3. Verify action
+ls test-*.txt  # Should be archived
+
+# 4. Cleanup
+rm -f archive/test-*.txt
+```
+
+---
+
+## Current Implementation
+
+| Agent | Type | Status |
+|-------|------|--------|
+| tidy-first-agent | gamma-loop | ✅ Working |
+
+**Tested:** Threshold enforcement (archived 5 briefs when > 30).
+
+---
+
+## Adding More Gamma-Loops
+
+1. Create `agents/<name>-agent/`
+2. Add `CSP.md` with thresholds
+3. Add `manifest.json` with `type: "gamma-loop"`
+4. Add `justfile` with commands
+5. Register in `agents/README.md`
