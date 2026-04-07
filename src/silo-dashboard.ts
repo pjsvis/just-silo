@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * silo-dashboard - Status dashboard generator
+ * silo-dashboard - Status dashboard generator with sparklines
  * 
  * "Wall of Light" - Industrial SCADA-style status page
  * Reads status.json from silos and generates HTML dashboard
@@ -8,6 +8,7 @@
 
 import { readdirSync, existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, basename } from 'node:path'
+import { generateSvgSparkline, parseDataJsonl, calculateEfficiency } from './sparkline'
 
 // Config
 const SILO_DIR = process.env.SILO_DASH_DIR || process.cwd()
@@ -23,6 +24,8 @@ interface SiloStatus {
   active: number
   quarantine: number
   output: number
+  sparkline: string
+  efficiency: number
 }
 
 // ============================================
@@ -64,6 +67,8 @@ function getSiloStatus(name: string): SiloStatus {
   let active = 0
   let quarantine = 0
   let output = 0
+  let sparkline = ''
+  let efficiency = 0
   
   // Try to read status.json
   if (existsSync(statusPath)) {
@@ -78,11 +83,22 @@ function getSiloStatus(name: string): SiloStatus {
     }
   }
   
-  // Try to count data files
+  // Try to count data files and generate sparkline
   try {
     if (existsSync(dataPath)) {
       const content = readFileSync(dataPath, 'utf-8')
       active = content.trim().split('\n').filter(l => l.trim()).length
+      
+      // Generate sparkline from data
+      const points = parseDataJsonl(content)
+      const values = points.map(p => p.value)
+      efficiency = calculateEfficiency(values)
+      
+      // Color based on efficiency
+      const sparkColor = efficiency >= 75 ? '#22c55e' : 
+                        efficiency >= 50 ? '#eab308' : '#ef4444'
+      
+      sparkline = generateSvgSparkline(values, 80, 24, sparkColor)
     }
     const quarantinePath = join(path, 'quarantine.jsonl')
     if (existsSync(quarantinePath)) {
@@ -106,7 +122,9 @@ function getSiloStatus(name: string): SiloStatus {
     lastUpdate,
     active,
     quarantine,
-    output
+    output,
+    sparkline,
+    efficiency
   }
 }
 
@@ -122,6 +140,9 @@ function generateDashboard(silos: SiloStatus[]): string {
                silo.state === 'amber' ? 'rgba(234,179,8,0.1)' : 
                silo.state === 'red' ? 'rgba(239,68,68,0.1)' : 'rgba(107,114,128,0.1)'
     
+    const sparklineSvg = silo.sparkline || 
+      `<svg width="80" height="24" viewBox="0 0 80 24"><line x1="0" y1="12" x2="80" y2="12" stroke="#6b7280" stroke-width="1" stroke-dasharray="4"/></svg>`
+    
     return `
     <tr style="background: ${bg}">
       <td>
@@ -129,6 +150,12 @@ function generateDashboard(silos: SiloStatus[]): string {
         <strong>${silo.name}</strong>
       </td>
       <td>${silo.message}</td>
+      <td>
+        <svg width="80" height="24" viewBox="0 0 80 24" style="display: block;">
+          ${sparklineSvg}
+        </svg>
+      </td>
+      <td>${silo.efficiency}%</td>
       <td>${silo.active}</td>
       <td>${silo.quarantine}</td>
       <td>${silo.output}</td>
@@ -164,6 +191,7 @@ function generateDashboard(silos: SiloStatus[]): string {
       display: flex;
       gap: 1.5rem;
       margin-bottom: 1rem;
+      flex-wrap: wrap;
     }
     .legend-item {
       display: flex;
@@ -189,14 +217,14 @@ function generateDashboard(silos: SiloStatus[]): string {
     }
     th {
       background: #334155;
-      padding: 1rem;
+      padding: 0.75rem 1rem;
       text-align: left;
       font-weight: 600;
       font-size: 0.875rem;
       color: #94a3b8;
     }
     td {
-      padding: 1rem;
+      padding: 0.75rem 1rem;
       border-top: 1px solid #334155;
     }
     tr:hover { background: rgba(255,255,255,0.02); }
@@ -204,6 +232,21 @@ function generateDashboard(silos: SiloStatus[]): string {
       text-align: center;
       padding: 3rem;
       color: #64748b;
+    }
+    .sparkline-cell {
+      padding: 0.25rem 0 !important;
+    }
+    .efficiency {
+      font-weight: 600;
+      color: #94a3b8;
+    }
+    .efficiency.high { color: #22c55e; }
+    .efficiency.medium { color: #eab308; }
+    .efficiency.low { color: #ef4444; }
+    @media (max-width: 900px) {
+      .header { flex-direction: column; gap: 1rem; }
+      table { font-size: 0.875rem; }
+      th:nth-child(n+5), td:nth-child(n+5) { display: none; }
     }
   </style>
 </head>
@@ -222,6 +265,9 @@ function generateDashboard(silos: SiloStatus[]): string {
     <div class="legend-item"><span class="dot amber"></span> Processing</div>
     <div class="legend-item"><span class="dot red"></span> Alert</div>
     <div class="legend-item"><span class="dot gray"></span> Unknown</div>
+    <div class="legend-item" style="margin-left: 2rem;">
+      <span style="color: #94a3b8;">Sparklines show trend over time</span>
+    </div>
   </div>
   
   ${silos.length > 0 ? `
@@ -230,6 +276,8 @@ function generateDashboard(silos: SiloStatus[]): string {
       <tr>
         <th>Silo</th>
         <th>Status</th>
+        <th>Trend</th>
+        <th>Eff.</th>
         <th>Active</th>
         <th>Quarantine</th>
         <th>Output</th>

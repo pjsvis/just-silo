@@ -234,3 +234,18 @@ debrief-template:
     @echo ""
     @grep -A 50 "^#" debriefs/2026-04-07-td-ramdisk-setup.md | head -30
 
+
+# === NAMESPACE: trend-* (sparklines) ===
+
+# Show ASCII sparklines in terminal
+trend:
+    @./scripts/silo-trend 2>/dev/null || echo "No silos found. Run from mesh directory."
+
+# Generate HTML dashboard with sparklines
+trend-dashboard:
+    @bun run src/silo-dashboard.ts
+
+# Both trend and dashboard
+trend-all: trend
+    @./src/silo-dashboard.ts
+    @echo "Dashboard generated: dashboard.html"

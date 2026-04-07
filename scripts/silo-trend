@@ -1,0 +1,80 @@
+#!/usr/bin/env bun
+/**
+ * silo-trend - Show ASCII sparklines for silo trends
+ */
+
+import { readdirSync, existsSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
+import { generateSparkline, calculateEfficiency, parseDataJsonl, formatCliOutput } from '../src/sparkline'
+
+const SILO_DIR = process.env.SILO_DIR || '.'
+
+interface SiloTrend {
+  name: string
+  values: number[]
+  state: string
+}
+
+function discoverSilos(): string[] {
+  if (!existsSync(SILO_DIR)) return []
+  
+  return readdirSync(SILO_DIR, { withFileTypes: true })
+    .filter(e => e.isDirectory())
+    .map(e => join(SILO_DIR, e.name))
+    .filter(p => existsSync(join(p, '.silo')))
+}
+
+function getSiloTrend(name: string): SiloTrend {
+  const dataPath = join(name, 'data.jsonl')
+  const statusPath = join(name, 'status.json')
+  
+  let values: number[] = []
+  let state = 'unknown'
+  
+  // Read data.jsonl for trend
+  if (existsSync(dataPath)) {
+    try {
+      const content = readFileSync(dataPath, 'utf-8')
+      const points = parseDataJsonl(content)
+      values = points.map(p => p.value)
+    } catch {
+      // Ignore
+    }
+  }
+  
+  // Read status for state
+  if (existsSync(statusPath)) {
+    try {
+      const content = readFileSync(statusPath, 'utf-8')
+      const status = JSON.parse(content)
+      state = status.state || 'unknown'
+    } catch {
+      // Ignore
+    }
+  }
+  
+  // Extract name from path
+  const nameOnly = name.split('/').pop() || name
+  
+  return { name: nameOnly, values, state }
+}
+
+function main() {
+  console.log('[silo-trend] Scanning for silos...')
+  
+  const siloPaths = discoverSilos()
+  if (siloPaths.length === 0) {
+    console.log('No silos found.')
+    return
+  }
+  
+  const trends = siloPaths.map(p => getSiloTrend(p))
+  console.log(formatCliOutput(trends))
+}
+
+// Run if called directly
+if (import.meta.main) {
+  main()
+}
+
+export { discoverSilos, getSiloTrend }
