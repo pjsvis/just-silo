@@ -1,88 +1,127 @@
 # Gamma-Loop Protocol
 
-**Self-correcting automation for silos.**
+**Knowledge persistence control loop for agents.**
 
 ---
 
-## The Gap
+## The Core Insight
 
-> We built `tidy-first-agent` first to discover what a gamma-loop requires.
-
-The philosophical briefs explain *why* gamma-loops exist. This playbook defines *how* to implement one.
+> We named it "tidy-first-agent" because we were tidying the workspace. But the *real* purpose is **knowledge persistence** — ensuring lessons don't die with the session.
 
 ---
 
 ## Definition
 
-> **Gamma-Loop:** An internal feedback mechanism that maintains protocol tone by detecting drift and triggering corrections without human intervention.
+> **Gamma-Loop:** The control loop that activates after work completes, extracts lessons learned, and persists them to `debriefs/` and `playbooks/`.
 
-### In Biological Terms
-
-```
-Alpha (Command) → Execute task
-    ↓
-Gamma (Monitor) → Check constraints
-    ↓
-Adjust ← If drift detected
-```
-
-### In Silo Terms
+### The Loop
 
 ```
 Agent does work
     ↓
-Gamma-loop checks: constraints, thresholds, staleness
+Gamma-loop activates
     ↓
-If drift: archive, flag, prune, report
+What drifted? What worked? What failed?
+    ↓
+Lessons identified
+    ↓
+Persisted to: debriefs/ + playbooks/
+    ↓
+Knowledge survives the session
 ```
 
 ---
 
-## What Gamma-Loop Monitors
+## Why "Gamma"?
 
-| Aspect | What It Checks | Action |
-|--------|----------------|--------|
-| **Entropy** | File count, complexity | Archive oldest |
-| **Staleness** | Age of issues/briefs | Flag for review |
-| **Orphaned** | Untracked files, empty dirs | Clean up |
-| **Compliance** | Missing docs, broken links | Report |
-| **Health** | Error rates, failure patterns | Alert |
+From neurophysiology:
+- **Alpha** = initial activation (the work)
+- **Gamma** = high-frequency monitoring (maintaining state)
+
+The gamma-loop maintains **knowledge state** — it ensures learning persists, not just the code.
 
 ---
 
-## tidy-first-agent: The Prototype
+## Each Agent Has a Gamma-Loop
 
-`tidy-first-agent` is our first gamma-loop implementation.
+| Agent | Domain | Gamma-Loop Persists To |
+|-------|--------|------------------------|
+| tidy-first-agent | Workspace hygiene | `briefs/archive/`, `debriefs/` |
+| code-review-agent | Reviews | `playbooks/code-review/` |
+| docs-agent | Documentation | `playbooks/*.md` |
+| compliance-agent | Regulations | `playbooks/compliance/` |
 
-### What It Monitors
+---
+
+## tidy-first-agent's Gamma-Loop
+
+tidy-first-agent was built first to discover what gamma-loops need.
+
+### What It Learned
+
+| Discovery | Implication |
+|-----------|------------|
+| Files accumulate | Need threshold-based archiving |
+| Old briefs become stale | Need age-based flagging |
+| Lessons aren't captured | Need debrief template |
+| Process drifts silently | Need observability |
+
+### Its Gamma-Loop
 
 ```bash
-just agents tidy check
+Work completes
+    ↓
+Gamma-loop: "What changed?"
+    ↓
+Exceeded thresholds? → Archive oldest
+    ↓
+Lessons learned? → Write debrief
+    ↓
+Persisted to: debriefs/
 ```
 
-| Resource | Threshold | Action |
-|----------|-----------|--------|
-| Briefs | > 30 files | Archive oldest |
-| Debriefs | > 20 files | Archive oldest |
-| td issues | stale > 14 days | Flag |
-| Git branches | merged, not pruned | Prune |
+---
 
-### Architecture
+## The Gamma-Loop Verb
 
-```
-tidy-first-agent/
-├── justfile          # Commands: check, status, run
-├── src/              # Implementation
-│   └── tidy-first-agent.ts
-├── CSP.md            # Constraint specification
-└── schedules/       # Cron configs
+We debate the verb without touching code:
+
+```justfile
+# Vocabulary options
+gamma          # The concept verb
+lessons        # What it produces
+reflect        # The action
+persist        # The outcome
+debrief        # The mechanism
 ```
 
-### Key Insight
+### Recommendation
 
-> We didn't know what gamma-loop needed until we built `tidy-first-agent`.
+| Verb | Purpose |
+|------|---------|
+| `gamma` | Run all agent gamma-loops |
+| `gamma-check` | What needs persisting? |
+| `gamma-save` | Persist lessons |
+| `lessons` | Show lessons learned |
 
-Building first → discovering requirements → formalizing protocol.
+---
+
+## Gamma-Loop Specification
+
+Each agent's gamma-loop is defined in `CSP.md`:
+
+```markdown
+# CSP: My Agent
+
+## Gamma-Loop
+
+| Trigger | Action | Persists To |
+|---------|--------|-------------|
+| Session end | Write debrief | debriefs/ |
+| Threshold exceeded | Archive + log | briefs/archive/ |
+| Lesson learned | Write playbook | playbooks/ |
+| Process drift | Flag for review | td issues |
+```
 
 ---
 
@@ -91,120 +130,104 @@ Building first → discovering requirements → formalizing protocol.
 ### 1. Observe
 
 ```bash
-# Check current state
+# What happened this session?
 gamma-check
 ```
 
-Collect metrics:
-- File counts
-- Age distributions
-- Error patterns
-- Threshold violations
+Questions:
+- What worked?
+- What failed?
+- What drifted from protocol?
+- What needs documenting?
 
-### 2. Evaluate
+### 2. Extract
 
 ```bash
-# Compare to constraints
-gamma-evaluate
+# What are the lessons?
+gamma-extract
 ```
 
-| Condition | Severity | Action |
-|-----------|----------|--------|
-| Within thresholds | OK | Log, done |
-| Approaching threshold | Warning | Flag |
-| Exceeded threshold | Alert | Archive/clean |
-| Unknown state | Error | Report |
+For each lesson:
+- What was the context?
+- What was the decision?
+- What's the pattern?
 
-### 3. Act
+### 3. Persist
 
 ```bash
-# Apply corrections
-gamma-act
+# Write to debriefs/
+gamma-save
+
+# Write to playbooks/
+gamma-save --playbook "lessons-patterns.md"
 ```
 
-Actions (in order of preference):
-1. **Archive** — Move to archive, don't delete
-2. **Flag** — Mark for human review
-3. **Prune** — Remove safe orphans
-4. **Report** — Escalate if unresolved
-
-### 4. Report
+### 4. Verify
 
 ```bash
-# Summarize actions
-gamma-report
-```
-
-Report includes:
-- What changed
-- What needs attention
-- What requires human input
-
----
-
-## Protocol Commands
-
-```bash
-# Full gamma-loop cycle
-gamma: gamma-check && gamma-evaluate && gamma-act && gamma-report
-
-# Individual steps
-gamma-check      # Observe
-gamma-evaluate   # Compare to constraints
-gamma-act        # Apply corrections
-gamma-report     # Summarize
+# Did it persist?
+lessons
 ```
 
 ---
 
-## Integration with Agents
-
-### tidy-first-agent as Gamma-Loop
-
-```bash
-# Cron: run gamma-loop daily
-0 8 * * * just agents tidy run
-
-# Cron: full gamma-loop weekly
-0 9 * * 1 just agents tidy run-full
-```
-
-### Adding a New Gamma-Loop
-
-1. **Define constraints** in `CSP.md`
-2. **Implement checks** in `src/`
-3. **Add commands** to `justfile`
-4. **Register** in `manifest.json`
-
-```bash
-agents/
-├── tidy-first-agent/     # Gamma-loop for workspace
-└── my-gamma-agent/      # Your new gamma-loop
-    ├── justfile
-    ├── manifest.json    # commands: ["check", "run"]
-    └── CSP.md           # Constraints
-```
-
----
-
-## Constraint Specification (CSP.md)
-
-Each gamma-loop should have a `CSP.md` defining:
+## DeBrief Format
 
 ```markdown
-# Constraints
+# DeBrief: [What Happened]
 
-| Resource | Threshold | Action |
-|----------|-----------|--------|
-| briefs/ | > 30 | archive oldest |
-| debriefs/ | > 20 | archive oldest |
-| td issues | stale > 14d | flag |
+**Date:** YYYY-MM-DD
+**Agent:** agent-name
+**Session:** session-id
 
-# Protocols
+## What We Did
 
-- Never delete, only archive
-- Preserve git history
-- Log all actions
+## What Worked
+
+## What Was Tricky
+
+## Lessons Learned
+
+## Related
+
+- debriefs/YYYY-MM-DD-*.md
+- playbooks/*.md
+```
+
+---
+
+## Playbook Pattern
+
+```markdown
+# Playbook: [Topic]
+
+**Context:** When this situation arises...
+
+**Pattern:** Do this...
+
+**Why:** This works because...
+
+**Related:**
+- debriefs/YYYY-MM-DD-*.md
+```
+
+---
+
+## Adding a Gamma-Loop to an Agent
+
+1. Add `CSP.md` with gamma-loop section
+2. Implement `gamma-check`, `gamma-save` commands
+3. Define `persists-to` in `manifest.json`
+
+```json
+{
+  "name": "my-agent",
+  "type": "agent",
+  "gamma-loop": {
+    "triggers": ["session-end", "threshold-exceeded"],
+    "persists-to": ["debriefs/", "playbooks/"]
+  }
+}
 ```
 
 ---
@@ -213,26 +236,25 @@ Each gamma-loop should have a `CSP.md` defining:
 
 | Anti-Pattern | Problem | Solution |
 |--------------|---------|----------|
-| **Delete on sight** | Data loss | Archive instead |
-| **No logging** | Untraceable | Log every action |
-| **No thresholds** | Infinite growth | Define constraints |
-| **No human flag** | Automation surprises | Flag edge cases |
+| Lessons in memory | Lost on crash | Always persist |
+| No debrief template | Inconsistent | Use standard format |
+| Lessons not actionable | Noise | Specific, contextual |
+| Gamma-loop optional | Drift inevitable | Make it required |
 
 ---
 
 ## Design Principles
 
-1. **Archive, don't delete** — Reversibility
-2. **Log everything** — Audit trail
-3. **Threshold-based** — Predictable behavior
-4. **Flag edge cases** — Human judgment for ambiguity
-5. **Idempotent** — Safe to run multiple times
+1. **Every agent has a gamma-loop** — No agent is complete without knowledge persistence
+2. **Lessons outlast sessions** — The code changes; the learning persists
+3. **Structured format** — Consistent debriefs enable pattern detection
+4. **Verifiable** — `lessons` command shows what was learned
 
 ---
 
 ## Related
 
-- `brief-gamma-loop-01.md` — Why gamma-loop (philosophy)
+- `brief-gamma-loop-01.md` — Philosophy (why gamma)
 - `brief-gamma-loop-02.md` — Alpha-Gamma decoupling
 - `silo-gamma-loop-03.md` — Baby→Adult maturation
 - `agents/tidy-first-agent/` — First gamma-loop implementation
@@ -242,133 +264,19 @@ Each gamma-loop should have a `CSP.md` defining:
 
 ## Status
 
-- [x] Define protocol (this doc)
+- [x] Define gamma-loop concept
 - [x] Prototype: tidy-first-agent
+- [x] Document specification
 - [ ] Implement: gamma-* commands
-- [ ] Integrate: tidy-first-agent as gamma-loop
-- [ ] Extend: Add more gamma-loops
+- [ ] Add gamma-loop to code-review-agent
+- [ ] Add gamma-loop to docs-agent
 
 ---
 
-## Lesson Learned
+## The Revelation
 
-> We built `tidy-first-agent` to discover what gamma-loop requires.
+> We built tidy-first-agent to discover what gamma-loop requires.
 
-Building first → discovering requirements → formalizing protocol.
+The discovery: **Knowledge doesn't persist automatically.** It must be extracted, structured, and saved — by design.
 
-This is the **Reveal** pattern applied to protocols. Don't pre-define. Let the implementation reveal the requirements.
-
----
-
-## Specifying a Gamma-Loop
-
-Each gamma-loop is defined in `CSP.md`. Here's the template:
-
-```markdown
-# CSP: My Gamma-Loop
-
-## Mission
-Brief description of what this gamma-loop monitors.
-
----
-
-## Thresholds
-
-| Resource | Auto-Archive | Flag |
-|----------|--------------|------|
-| files | > N | > days |
-
----
-
-## Auto-Actions (Safe)
-
-| Action | Trigger | Safety |
-|--------|---------|--------|
-| Archive | Threshold | ✅ Reversible |
-| Prune | Condition | ✅ Safe |
-
----
-
-## Human-Actions (Unsafe)
-
-| Action | Creates |
-|--------|---------|
-| Delete | Decision brief |
-| Refactor | Refactor brief |
-
----
-
-## Integration Points
-
-- on flag → other-agent
-- on archive → log td
-- on error → report
-```
-
-### Example: Adding Code Quality Gamma-Loop
-
-```bash
-mkdir -p agents/code-quality-agent
-```
-
-```json
-// manifest.json
-{
-  "name": "code-quality-agent",
-  "type": "gamma-loop",
-  "commands": ["check", "run"],
-  "constraints": "CSP.md"
-}
-```
-
-```markdown
-# CSP: code-quality-agent
-
-## Thresholds
-
-| Resource | Auto-Fix | Flag |
-|----------|----------|------|
-| TODO | — | > 5 |
-| Broken links | — | Any |
-| Large files | > 1MB | — |
-```
-
----
-
-## Gamma-Loop Test Pattern
-
-```bash
-# 1. Create test data
-for i in $(seq 1 10); do
-  echo "test" > "test-$i.txt"
-done
-
-# 2. Run gamma-loop
-just gamma
-
-# 3. Verify action
-ls test-*.txt  # Should be archived
-
-# 4. Cleanup
-rm -f archive/test-*.txt
-```
-
----
-
-## Current Implementation
-
-| Agent | Type | Status |
-|-------|------|--------|
-| tidy-first-agent | gamma-loop | ✅ Working |
-
-**Tested:** Threshold enforcement (archived 5 briefs when > 30).
-
----
-
-## Adding More Gamma-Loops
-
-1. Create `agents/<name>-agent/`
-2. Add `CSP.md` with thresholds
-3. Add `manifest.json` with `type: "gamma-loop"`
-4. Add `justfile` with commands
-5. Register in `agents/README.md`
+The gamma-loop is the nervous system of the agent. Without it, the agent works but doesn't learn.

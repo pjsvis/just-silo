@@ -361,23 +361,20 @@ watch-trend:
     @watchexec -e jsonl -- just trend
 
 # === NAMESPACE: gamma-* (gamma-loop protocol) ===
+# === NAMESPACE: gamma-* (knowledge persistence) ===
 
-# Run gamma-loop (tidy-first as prototype)
+# Run gamma-loop (persist lessons from this session)
 gamma:
-    @just agents-run tidy run
+    @echo "=== Gamma-Loop: Knowledge Persistence ===" && just agents-run tidy check
 
-# Check gamma state
+# Check what needs persisting
 gamma-check:
-    @just agents-run tidy check
+    @echo "=== Gamma-Loop Check ===" && just agents-run tidy check
 
-# Full gamma-loop
-gamma-full:
-    @just agents-run tidy run-full
+# Show lessons learned
+lessons:
+    @echo "=== Lessons Learned ===" && ls debriefs/*.md 2>/dev/null | tail -5 | xargs -I{} basename {} .md | sed 's/^/  /' || echo "  No lessons yet"
 
-# Show gamma status
-gamma-status:
-    @just agents-run tidy status
-
-# Gamma report
-gamma-report:
-    @echo "=== Gamma-Loop Status ===" && just agents-run tidy check
+# Show recent debriefs
+debriefs-recent:
+    @ls -lt debriefs/*.md 2>/dev/null | head -10 | awk '{print $NF}' | xargs -I{} basename {} .md | sed 's/^/  /' || echo "  No debriefs yet"
