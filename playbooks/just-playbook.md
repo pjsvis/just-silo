@@ -135,6 +135,27 @@ Available recipes:
 
 ---
 
+## Recipe Comments
+
+Comments show in `just --list` when:
+
+1. **Immediately before recipe** (no blank line):
+```just
+# Build the project
+build:
+    echo building
+```
+
+2. **Inline with recipe name**:
+```just
+build: # Build the project
+    echo building
+```
+
+**Does NOT work:**
+- Comment with blank line between it and recipe
+- Section headers (comments on their own lines)
+
 ## Common Commands
 
 ```bash
