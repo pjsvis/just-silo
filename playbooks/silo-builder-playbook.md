@@ -262,6 +262,69 @@ just-silo is a **rapid prototyping tool for workflows**, not enterprise infrastr
 
 **The philosophy:** Make it work. Make it right. Make it fast. In that order, only when needed.
 
+## Justfile Patterns: Module vs Delegation
+
+**Question:** Should we split a large justfile into modules?
+
+### Option 1: Includes (Rejected)
+
+```justfile
+# NOT RECOMMENDED
+include agents.just
+include docs.just
+include api.just
+```
+
+**Problems:**
+- Additional complexity (per-file variables, cross-references)
+- Harder to grep/catalog commands
+- Just's include syntax is limited
+
+### Option 2: Delegation (Accepted)
+
+```justfile
+# RECOMMENDED: Registry pattern
+
+agents:
+    @echo "Delegating..."
+    @./scripts/run-agent.sh {{name}} {{cmd}}
+```
+
+**Benefits:**
+- Single source of truth (one justfile)
+- Easy to discover (`just --list`)
+- Easy to grep
+- Sub-justfiles are self-contained
+
+### The Pattern
+
+```
+just agents tidy run
+      ↓
+┌─────────────────────────────────┐
+│  justfile (registry/directory)  │
+└─────────────────────────────────┘
+      ↓ delegates
+┌─────────────────────────────────────┐
+│  agents/tidy-first-agent/justfile   │
+│  (self-contained execution)        │
+└─────────────────────────────────────┘
+```
+
+### When to Split
+
+**Keep one file if:**
+- < 500 lines
+- No namespace conflicts
+- Commands are related
+
+**Consider delegation if:**
+- Distinct sub-systems (agents, api, docs)
+- Different teams ownership
+- Sub-system has its own justfile anyway
+
+**Lesson:** The delegation pattern scales well. One file is easier to understand than hunting through modules.
+
 ## Anti-Patterns
 
 - ❌ Don't pre-define vocabulary — let it emerge
