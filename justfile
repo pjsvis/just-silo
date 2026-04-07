@@ -1,13 +1,5 @@
 # just-silo — Directory-based skill framework for AI agents
 # https://github.com/marcus-nicolaou/just-silo
-#
-# COMMANDS ARE NAMESPACE-PREFIXED (git model)
-#   silo-*   — Silo operations (what users run)
-#   dev-*    — Development on just-silo itself
-#   docs-*   — Documentation
-#   lex-*    — Conceptual lexicon
-#   agents-* — Sub-agent management
-#   td-*     — Task database
 
 set shell := ["bash", "-o", "pipefail", "-c"]
 set positional-arguments := true
@@ -22,24 +14,24 @@ VERSION := "0.2.0"
 default:
     @just --list
 
-version:
+version:  # Show version
     @echo "{{PROJECT_NAME}} v{{VERSION}}"
 
 # ============================================================
 # HELP
 # ============================================================
 
-help topic:
+help topic:  # Navigate help topics
     @if [ -z "{{topic}}" ]; then ./scripts/help.sh; else ./scripts/help.sh "{{topic}}"; fi
 
 # ============================================================
 # CONTENT (glow or cat)
 # ============================================================
 
-about:
+about:  # Show silo overview
     @./scripts/about.sh
 
-about-file file:
+about-file file:  # Show specific file
     @./scripts/about.sh {{file}}
 
 # ============================================================
@@ -47,22 +39,27 @@ about-file file:
 # ============================================================
 
 # Verify prerequisites
+[group: "silo"]
 silo-verify:
     @cd templates/basic && just verify
 
 # Harvest data
+[group: "silo"]
 silo-harvest:
     @cd templates/basic && just harvest
 
 # Process data
+[group: "silo"]
 silo-process:
     @cd templates/basic && just process
 
 # Flush to archive
+[group: "silo"]
 silo-flush:
     @cd templates/basic && just flush
 
 # Show status
+[group: "silo"]
 silo-status:
     @cd templates/basic && just status
 
@@ -70,25 +67,34 @@ silo-status:
 # TD (task database)
 # ============================================================
 
-
+# Setup RAM disk for td
+[group: "td"]
 td-ramdisk:
     @./scripts/td-ramdisk-setup.sh .
 
+# Show td status
+[group: "td"]
 td-status:
     @td status
     @echo ""
     @echo "RAM disk:"
     @df -h /Volumes/TD-RAMDisk 2>/dev/null | tail -1 || echo "  Not mounted"
 
+# Reset td database
+[group: "td"]
 td-reset:
     @echo "Resetting td database..."
     @rm -rf .todos
     @./scripts/td-ramdisk-setup.sh .
     @td usage --new-session
 
+# Run td smoke test
+[group: "td"]
 td-test:
     @./scripts/td-smoke-test.sh
 
+# Generate td report
+[group: "td"]
 td-report:
     @./scripts/td-markdown-report.sh
     @echo ""
@@ -98,16 +104,23 @@ td-report:
 # LEX (lexicon)
 # ============================================================
 
-
+# Show full lexicon
+[group: "lex"]
 lex-all:
     @./scripts/silo-lexicon
 
+# Show compact lexicon
+[group: "lex"]
 lex-short:
     @./scripts/silo-lexicon --short
 
+# Find term in lexicon
+[group: "lex"]
 lex-find term:
     @./scripts/silo-lexicon "{{term}}"
 
+# Export lexicon to JSON
+[group: "lex"]
 lex-export:
     @./scripts/silo-lexicon --json > lexicon.json
     @echo "Exported to lexicon.json"
@@ -116,16 +129,23 @@ lex-export:
 # AGENTS (sub-agent management)
 # ============================================================
 
-
+# Show agent info
+[group: "agents"]
 agents-show name:
     @./scripts/show-agent.sh {{name}}
 
+# Run agent command
+[group: "agents"]
 agents-run name cmd:
     @./scripts/run-agent.sh {{name}} {{cmd}}
 
+# Run tidy agent
+[group: "agents"]
 agents-tidy cmd:
     @./scripts/run-agent.sh tidy {{cmd}}
 
+# Run code review agent
+[group: "agents"]
 agents-cr cmd:
     @./scripts/run-agent.sh cr {{cmd}}
 
@@ -133,16 +153,23 @@ agents-cr cmd:
 # DOCS (documentation)
 # ============================================================
 
-
+# Show README
+[group: "docs"]
 docs-readme:
     @./scripts/about.sh README.md
 
+# Show Silo Manual
+[group: "docs"]
 docs-manual:
     @./scripts/about.sh Silo-Manual.md
 
+# Show Silo Philosophy
+[group: "docs"]
 docs-philosophy:
     @./scripts/about.sh Silo-Philosophy.md
 
+# Show AGENTS.md
+[group: "docs"]
 docs-agents:
     @./scripts/about.sh AGENTS.md
 
@@ -150,19 +177,28 @@ docs-agents:
 # BROWSE (glow folders)
 # ============================================================
 
-
+# Browse docs folder
+[group: "browse"]
 browse:
     @./scripts/about.sh docs/
 
+# Browse briefs folder
+[group: "browse"]
 briefs:
     @./scripts/about.sh briefs/
 
+# Browse playbooks folder
+[group: "browse"]
 playbooks:
     @./scripts/about.sh playbooks/
 
+# Browse debriefs folder
+[group: "browse"]
 debriefs:
     @./scripts/about.sh debriefs/
 
+# Show debrief template
+[group: "browse"]
 debrief-template:
     @grep -A 30 "^#" debriefs/2026-04-07-td-ramdisk-sparklines.md 2>/dev/null | head -20
 
@@ -170,10 +206,13 @@ debrief-template:
 # API (server)
 # ============================================================
 
-
+# Start API server
+[group: "api"]
 api-start:
     @bun run src/silo-api-server.ts
 
+# Start API on custom port
+[group: "api"]
 api-port port:
     @SILO_API_PORT={{port}} bun run src/silo-api-server.ts
 
@@ -181,10 +220,13 @@ api-port port:
 # TREND (sparklines)
 # ============================================================
 
-
+# Show ASCII sparklines
+[group: "trend"]
 trend-show:
     @./scripts/silo-trend 2>/dev/null || echo "No silos found"
 
+# Generate HTML dashboard
+[group: "trend"]
 trend-dashboard:
     @bun run src/silo-dashboard.ts
 
@@ -192,13 +234,18 @@ trend-dashboard:
 # WATCH (file watchers)
 # ============================================================
 
-
+# Watch and run tests
+[group: "watch"]
 watch-tests:
     @watchexec -e ts,tsx,js,jsx -- bun test
 
+# Watch and show trends
+[group: "watch"]
 watch-trend:
     @watchexec -e jsonl -- just trend-show
 
+# Watch and update dashboard
+[group: "watch"]
 watch-dashboard:
     @watchexec -e jsonl -- just trend-dashboard
 
@@ -206,18 +253,25 @@ watch-dashboard:
 # DEV (development)
 # ============================================================
 
-
+# Check prerequisites
+[group: "dev"]
 dev-check:
     @./scripts/dev-check.sh
 
+# Run tests
+[group: "dev"]
 dev-tests:
     @echo "=== Integration Tests ===" && ./scripts/silo-integration-test
     @echo ""
     @echo "=== Unit Tests ===" && bun test
 
+# Create new silo
+[group: "dev"]
 dev-new name:
     @./scripts/silo-create {{name}}
 
+# List templates
+[group: "dev"]
 dev-templates:
     @echo "Templates:"
     @ls -1 templates/ | sed 's/^/  /'
@@ -226,14 +280,19 @@ dev-templates:
 # OPS (housekeeping)
 # ============================================================
 
-
+# Quick tidy check
+[group: "ops"]
 tidy:
     @./scripts/tidy.sh 2>/dev/null || echo "No tidy script"
 
+# Archive old briefs
+[group: "ops"]
 archive-briefs:
     @echo "Archiving briefs from previous sprints..."
     @cd briefs && ls -t *.md | tail -n +10 | xargs -I{} mv {} archive/ 2>/dev/null; echo "Done"
 
+# Show git status
+[group: "ops"]
 status:
     @echo "=== GIT ==="
     @git status --short 2>/dev/null || echo "(not a git repo)"
@@ -241,6 +300,8 @@ status:
     @echo "=== COMMITS ==="
     @git log --oneline -3 2>/dev/null || echo "(not a git repo)"
 
+# Show agent ops playbook
+[group: "ops"]
 agent-ops:
     @./scripts/about.sh playbooks/agent-ops-playbook.md
 
