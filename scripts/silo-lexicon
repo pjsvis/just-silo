@@ -1,0 +1,182 @@
+#!/usr/bin/env bun
+/**
+ * silo-lexicon - Lexicon management and queries
+ * 
+ * Usage:
+ *   ./silo-lexicon              # Show all tokens
+ *   ./silo-lexicon <token>     # Look up specific token
+ *   ./silo-lexicon --help      # Show help
+ */
+
+import { readFileSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
+
+const SILO_DIR = process.env.SILO_DIR || process.cwd()
+const LEXICON_FILE = process.env.SILO_LEXICON || 'silo-lexicon.jsonl'
+
+interface LexiconEntry {
+  token: string
+  definition: string
+  heuristic: string
+  category?: string
+}
+
+function findLexicon(startDir: string): string | null {
+  let dir = startDir
+  
+  // Walk up directory tree
+  while (dir !== '/') {
+    const lexPath = join(dir, LEXICON_FILE)
+    if (existsSync(lexPath)) {
+      return lexPath
+    }
+    
+    // Also check templates/basic for template silos
+    const templatePath = join(dir, 'templates/basic', LEXICON_FILE)
+    if (existsSync(templatePath)) {
+      return templatePath
+    }
+    
+    dir = join(dir, '..')
+  }
+  
+  return null
+}
+
+function loadLexicon(): LexiconEntry[] {
+  const lexPath = findLexicon(SILO_DIR)
+  if (!lexPath) {
+    return []
+  }
+  
+  try {
+    const content = readFileSync(lexPath, 'utf-8')
+    return content
+      .trim()
+      .split('\n')
+      .filter(l => l.trim())
+      .map(l => {
+        try {
+          return JSON.parse(l) as LexiconEntry
+        } catch {
+          return null
+        }
+      })
+      .filter((e): e is LexiconEntry => e !== null)
+  } catch {
+    return []
+  }
+}
+
+function formatEntry(entry: LexiconEntry): string {
+  const lines = [
+    `\x1b[1m${entry.token}\x1b[0m`,
+    '',
+    `  ${entry.definition}`,
+    ''
+  ]
+  
+  if (entry.heuristic) {
+    lines.push(`  \x1b[36m→\x1b[0m ${entry.heuristic}`)
+  }
+  
+  if (entry.category) {
+    lines.push(`  \x1b[90m[${entry.category}]\x1b[0m`)
+  }
+  
+  return lines.join('\n')
+}
+
+function formatAll(entries: LexiconEntry[]): string {
+  if (entries.length === 0) {
+    return '\x1b[33mNo lexicon found.\x1b[0m\n' +
+           'Create silo-lexicon.jsonl in your silo directory.'
+  }
+  
+  const lines = [
+    '\x1b[1m=== Silo Lexicon ===\x1b[0m',
+    '',
+    ...entries.map(e => formatEntry(e) + '\n'),
+    `---\nTotal: ${entries.length} tokens`
+  ]
+  
+  return lines.join('\n')
+}
+
+function formatShort(entries: LexiconEntry[]): string {
+  if (entries.length === 0) {
+    return ''
+  }
+  
+  return entries.map(e => `**${e.token}**: ${e.definition}`).join(' | ')
+}
+
+// Main
+function main() {
+  const args = Bun.argv.slice(2)
+  
+  // --help
+  if (args.includes('--help') || args.includes('-h')) {
+    console.log(`
+\x1b[1mSilo Lexicon\x1b[0m - Conceptual vocabulary for the silo
+
+Usage:
+  silo-lexicon             # Show all tokens
+  silo-lexicon <token>     # Look up specific token
+  silo-lexicon --short     # Compact format
+  silo-lexicon --json      # JSON output
+  silo-lexicon --help     # Show this help
+
+Environment:
+  SILO_DIR      - Directory to search (default: cwd)
+  SILO_LEXICON  - Lexicon filename (default: silo-lexicon.jsonl)
+
+Examples:
+  silo-lexicon
+  silo-lexicon "enough is enough"
+  silo-lexicon --short
+`)
+    return
+  }
+  
+  // --json
+  if (args.includes('--json')) {
+    const entries = loadLexicon()
+    console.log(JSON.stringify(entries, null, 2))
+    return
+  }
+  
+  // --short
+  if (args.includes('--short')) {
+    const entries = loadLexicon()
+    console.log(formatShort(entries))
+    return
+  }
+  
+  // Look up specific token
+  if (args.length > 0) {
+    const query = args[0].toLowerCase()
+    const entries = loadLexicon()
+    const match = entries.find(e => 
+      e.token.toLowerCase().includes(query) ||
+      e.definition.toLowerCase().includes(query)
+    )
+    
+    if (match) {
+      console.log(formatEntry(match))
+    } else {
+      console.error(`\x1b[31mToken not found: "${query}"\x1b[0m`)
+      process.exit(1)
+    }
+    return
+  }
+  
+  // Show all
+  const entries = loadLexicon()
+  console.log(formatAll(entries))
+}
+
+// Run
+main()
+
+export { loadLexicon, findLexicon, LexiconEntry }

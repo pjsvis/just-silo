@@ -163,22 +163,26 @@ docs-agents:
 
 # === NAMESPACE: lex-* (lexicon) ===
 
-# Show lexicon as markdown table
+# Show full lexicon
 lex:
-    @echo "# Silo Lexicon"
-    @echo ""
-    @echo "| Token | Heuristic |"
-    @echo "|-------|------------|"
-    @jq -r '.token + " | " + .heuristic' silo-lexicon.jsonl
+    @./scripts/silo-lexicon
 
-# Show lexicon as JSON
+# Show compact lexicon (single line)
+lex-short:
+    @./scripts/silo-lexicon --short
+
+# Look up specific token
+lex-find term:
+    @./scripts/silo-lexicon "{{term}}"
+
+# Export lexicon as JSON
 lex-json:
-    @if [ -f silo-lexicon.jsonl ]; then cat silo-lexicon.jsonl | jq .; else echo "No lexicon"; fi
+    @./scripts/silo-lexicon --json > lexicon.json
+    @echo "Exported to lexicon.json"
 
 # Check if term exists in lexicon
 lex-check term:
-    @test -f silo-lexicon.jsonl && echo "Checking: {{term}}"
-    @jq -c 'select(.token | contains("{{term}}"))' silo-lexicon.jsonl | jq . || echo "'{{term}}' not found"
+    @./scripts/silo-lexicon "{{term}}" 2>/dev/null || echo "'{{term}}' not found"
 
 # === NAMESPACE: browse-* (glow TUI for folders) ===
 
@@ -249,3 +253,13 @@ trend-dashboard:
 trend-all: trend
     @./src/silo-dashboard.ts
     @echo "Dashboard generated: dashboard.html"
+
+# === NAMESPACE: api-* (API server with SSE) ===
+
+# Start API server
+api:
+    @bun run src/silo-api-server.ts
+
+# Start API server with custom port
+api-port port:
+    @SILO_API_PORT={{port}} bun run src/silo-api-server.ts
