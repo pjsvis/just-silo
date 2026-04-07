@@ -13,7 +13,7 @@
 
 | Agent | Task | Status |
 |-------|------|--------|
-| `tidy-first-agent` | ASCII cleanup for docs | Pending |
+| `tidy-first-agent` | Workspace hygiene | ✅ Implemented |
 
 ---
 
