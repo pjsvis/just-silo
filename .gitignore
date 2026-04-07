@@ -16,6 +16,14 @@ markers/*.done
 # OS
 .DS_Store
 
+# Secrets — managed by skate
+.skate/
+*.skate
+.env
+.env.*
+secrets/
+credentials/
+
 # Marketing — private drafts
 marketing/
 
