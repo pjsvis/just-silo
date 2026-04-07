@@ -1,124 +1,272 @@
 # just-silo — Directory-based skill framework for AI agents
 # https://github.com/marcus-nicolaou/just-silo
-#
-# COMMANDS ARE NAMESPACE-PREFIXED (git model)
-#   silo-*   — Silo operations (what users run)
-#   dev-*    — Development on just-silo itself
-#   docs-*   — Documentation
-#   tests-*  — Testing
-#   lex-*    — Conceptual lexicon
-#
-# TWO CONTEXTS:
-#   1. Project (this file) — Develop just-silo
-#   2. Silo (template/) — Use just-silo
 
 set shell := ["bash", "-o", "pipefail", "-c"]
 set positional-arguments := true
 
 PROJECT_NAME := "just-silo"
-VERSION := "0.1.0"
+VERSION := "0.2.0"
 
-# === ENTRY POINT ===
+# ============================================================
+# ENTRY POINT
+# ============================================================
 
-# Show help with curated commands
 default:
     @just help
 
-# Show version
 version:
     @echo "{{PROJECT_NAME}} v{{VERSION}}"
 
-# === HELP ===
-
-# Curated help for users
 help:
     @echo "{{PROJECT_NAME}} v{{VERSION}}"
     @echo ""
-    @echo "TWO CONTEXTS:"
-    @echo "  Project: just dev-* (develop just-silo)"
-    @echo "  Silo:    just silo-* (operate a silo)"
-    @echo ""
-    @echo ""
-    @echo "⭐ START HERE:"
-    @echo "  just about          — Orientation to this silo (RECOMMENDED)"
-    @echo ""
-    @echo "PROJECT (develop just-silo):"
-    @echo "  just dev-check      — Check prerequisites"
-    @echo "  just dev-tests      — Run all tests"
-    @echo "  just dev-new        — Create new silo"
-    @echo ""
-    @echo "SILO (operate a silo):"
-    @echo "  just silo-verify   — Check silo prerequisites"
-    @echo "  just silo-harvest   — Ingest data"
-    @echo "  just silo-flush    — Archive output"
-    @echo ""
-    @echo "DOCS:"
-    @echo "  just docs           — Browse docs/"
-    @echo "  just lex            — Show lexicon"
+    @echo "Quick Start:"
+    @echo "  just silo       # Silo operations"
+    @echo "  just td         # Task management"
+    @echo "  just lex        # Lexicon"
+    @echo "  just agents     # Sub-agents"
+    @echo "  just help       # This help"
     @echo ""
     @echo "Full list: just --list"
 
-# === ABOUT (Orientation) ===
+# ============================================================
+# SECTION: SILO (silo operations)
+# ============================================================
 
-# Full orientation to this silo (glow if available)
-about:
-    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow --width 80 SHORTCUTS.about.md; else cat SHORTCUTS.about.md; fi
+# Show silo sub-commands
+silo:
+    @echo "Silo Commands:"
+    @echo "  silo-verify    - Verify prerequisites"
+    @echo "  silo-harvest   - Harvest data"
+    @echo "  silo-process   - Process data"
+    @echo "  silo-flush     - Flush to archive"
+    @echo "  silo-status    - Show status"
 
-# === NAMESPACE: silo-* (user operations) ===
-
-# Verify silo prerequisites
 silo-verify:
     @cd templates/basic && just verify
 
-# Harvest data into silo
 silo-harvest:
     @cd templates/basic && just harvest
 
-# Process silo data
 silo-process:
     @cd templates/basic && just process
 
-# Flush processed data to archive
 silo-flush:
     @cd templates/basic && just flush
 
-# Show silo status
 silo-status:
     @cd templates/basic && just status
 
-# === NAMESPACE: td-* (task database) ===
+# ============================================================
+# SECTION: TD (task management)
+# ============================================================
 
-# Set up td database on RAM disk
+# Show td sub-commands
+td:
+    @echo "TD Commands:"
+    @echo "  td-ramdisk    - Setup RAM disk"
+    @echo "  td-status     - Show status"
+    @echo "  td-reset      - Reset database"
+    @echo "  td-test       - Run smoke test"
+    @echo "  td-report     - Markdown report"
+
 td-ramdisk:
     @./scripts/td-ramdisk-setup.sh .
 
-# Show td database status
 td-status:
     @td status
     @echo ""
-    @echo "RAM disk usage:"
-    @df -h /Volumes/TD-RAMDisk 2>/dev/null | tail -1 || echo "  (RAM disk not mounted)"
+    @echo "RAM disk:"
+    @df -h /Volumes/TD-RAMDisk 2>/dev/null | tail -1 || echo "  Not mounted"
 
-# Restart td with fresh database
 td-reset:
     @echo "Resetting td database..."
     @rm -rf .todos
     @./scripts/td-ramdisk-setup.sh .
     @td usage --new-session
 
-# Run td smoke test
 td-test:
     @./scripts/td-smoke-test.sh
 
-# Generate markdown report of td tasks
 td-report:
     @./scripts/td-markdown-report.sh
     @echo ""
     @cat td-report.md
 
-# === NAMESPACE: dev-* (project development) ===
+# ============================================================
+# SECTION: LEX (lexicon)
+# ============================================================
 
-# Check project prerequisites
+# Show lexicon sub-commands
+lex:
+    @echo "Lexicon Commands:"
+    @echo "  lex           - Show this help"
+    @echo "  lex-all      - Show full lexicon"
+    @echo "  lex-short    - Compact format"
+    @echo "  lex-find X   - Find term X"
+    @echo "  lex-export   - Export JSON"
+    @echo "  lex-help     - Help"
+
+lex-all:
+    @./scripts/silo-lexicon
+
+lex-short:
+    @./scripts/silo-lexicon --short
+
+lex-find term:
+    @./scripts/silo-lexicon "{{term}}"
+
+lex-export:
+    @./scripts/silo-lexicon --json > lexicon.json
+    @echo "Exported to lexicon.json"
+
+lex-help:
+    @./scripts/silo-lexicon --help
+
+lex-show: lex-all
+
+# ============================================================
+# SECTION: AGENTS (sub-agents)
+# ============================================================
+
+# Show agents sub-commands
+agents:
+    @echo "Agents Commands:"
+    @echo "  agents           - List all agents"
+    @echo "  agents-show X   - Show agent X"
+    @echo "  agents-run X Y  - Run agent X command Y"
+    @echo ""
+    @echo "Available agents:"
+    @./scripts/list-agents.sh
+
+agents-list: agents
+
+agents-show name:
+    @./scripts/show-agent.sh {{name}}
+
+agents-run name cmd:
+    @./scripts/run-agent.sh {{name}} {{cmd}}
+
+agents-help:
+    @cat agents/README.md
+
+# Convenience aliases
+agents-tidy cmd:
+    @./scripts/run-agent.sh tidy {{cmd}}
+
+agents-cr cmd:
+    @./scripts/run-agent.sh cr {{cmd}}
+
+# ============================================================
+# SECTION: DOCS (documentation)
+# ============================================================
+
+# Show docs sub-commands
+docs:
+    @echo "Docs Commands:"
+    @echo "  docs           - Browse docs folder"
+    @echo "  docs-readme    - Show README"
+    @echo "  docs-manual    - Show Silo Manual"
+    @echo "  docs-philosophy - Show Philosophy"
+    @echo "  docs-agents   - Show AGENTS.md"
+
+docs-readme:
+    @command -v glow >/dev/null 2>&1 && glow -p README.md || cat README.md
+
+docs-manual:
+    @command -v glow >/dev/null 2>&1 && glow -p Silo-Manual.md || cat Silo-Manual.md
+
+docs-philosophy:
+    @command -v glow >/dev/null 2>&1 && glow -p Silo-Philosophy.md || cat Silo-Philosophy.md
+
+docs-agents:
+    @command -v glow >/dev/null 2>&1 && glow -p AGENTS.md || cat AGENTS.md
+
+browse:
+    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow docs/; else ls -la docs/; fi
+
+# Browse sub-commands
+briefs:
+    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow briefs/; else ls -la briefs/; fi
+
+playbooks:
+    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow playbooks/; else ls -la playbooks/; fi
+
+debriefs:
+    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow debriefs/; else ls -la debriefs/; fi
+
+debrief-template:
+    @echo "# DeBrief Template"
+    @echo ""
+    @grep -A 30 "^#" debriefs/2026-04-07-td-ramdisk-sparklines.md 2>/dev/null | head -20
+
+# ============================================================
+# SECTION: API (API server)
+# ============================================================
+
+# Show API sub-commands
+api:
+    @echo "API Commands:"
+    @echo "  api           - Start server (port 3000)"
+    @echo "  api-port X   - Start on port X"
+
+api-start:
+    @bun run src/silo-api-server.ts
+
+api-port port:
+    @SILO_API_PORT={{port}} bun run src/silo-api-server.ts
+
+# ============================================================
+# SECTION: TREND (sparklines)
+# ============================================================
+
+# Show trend sub-commands
+trend:
+    @echo "Trend Commands:"
+    @echo "  trend           - ASCII sparklines in terminal"
+    @echo "  trend-dashboard - Generate HTML dashboard"
+
+trend-show:
+    @./scripts/silo-trend 2>/dev/null || echo "No silos found"
+
+trend-dashboard:
+    @bun run src/silo-dashboard.ts
+
+trend-all: trend-show
+    @bun run src/silo-dashboard.ts
+    @echo "Dashboard: dashboard.html"
+
+# ============================================================
+# SECTION: WATCH (file watchers)
+# ============================================================
+
+# Show watch sub-commands
+watch:
+    @echo "Watch Commands:"
+    @echo "  watch-tests      - Run tests on changes"
+    @echo "  watch-trend     - Show trends on changes"
+    @echo "  watch-dashboard - Dashboard on changes"
+
+watch-tests:
+    @watchexec -e ts,tsx,js,jsx -- bun test
+
+watch-trend:
+    @watchexec -e jsonl -- just trend-show
+
+watch-dashboard:
+    @watchexec -e jsonl -- just trend-dashboard
+
+# ============================================================
+# SECTION: DEV (development)
+# ============================================================
+
+# Show dev sub-commands
+dev:
+    @echo "Dev Commands:"
+    @echo "  dev-check      - Check prerequisites"
+    @echo "  dev-tests     - Run tests"
+    @echo "  dev-new X     - Create silo X"
+
 dev-check:
     @echo "=== {{PROJECT_NAME}} Prerequisites ==="
     @echo ""
@@ -129,239 +277,47 @@ dev-check:
     @command -v td >/dev/null 2>&1 && echo "  ✓ td" || echo "  ✗ td MISSING"
     @command -v watchexec >/dev/null 2>&1 && echo "  ✓ watchexec" || echo "  ✗ watchexec MISSING"
     @echo ""
-    @echo "Optional Tools:"
-    @command -v glow >/dev/null 2>&1 && echo "  ✓ glow (optional)" || echo "  ○ glow (optional)"
-    @command -v gum >/dev/null 2>&1 && echo "  ✓ gum (optional)" || echo "  ○ gum (optional)"
-    @command -v sidecar >/dev/null 2>&1 && echo "  ✓ sidecar (optional)" || echo "  ○ sidecar (optional)"
+    @echo "Optional:"
+    @command -v glow >/dev/null 2>&1 && echo "  ✓ glow" || echo "  ○ glow (optional)"
+    @command -v gum >/dev/null 2>&1 && echo "  ✓ gum" || echo "  ○ gum (optional)"
     @echo ""
-    @echo "=== Project Files ==="
-    @test -f justfile && echo "  ✓ justfile" || echo "  ✗ justfile MISSING"
-    @test -f template/justfile && echo "  ✓ template/justfile" || echo "  ✗ template/justfile MISSING"
-    @test -f scripts/silo-create && echo "  ✓ scripts/silo-create" || echo "  ✗ scripts/silo-create MISSING"
-    @test -d src && echo "  ✓ src/" || echo "  ✗ src/ MISSING"
-    @test -f silo-lexicon.jsonl && echo "  ✓ silo-lexicon.jsonl" || echo "  ✗ silo-lexicon.jsonl MISSING"
-    @test -f agents/README.md && echo "  ✓ agents/README.md" || echo "  ○ agents/README.md"
-    @echo ""
-    @echo "=== Installation ==="
-    @echo "  brew install just bun jq marcus/tap/td watchexec"
-    @echo "  brew install glow gum marcus/tap/sidecar  # optional"
+    @echo "Install: brew install just bun jq marcus/tap/td watchexec"
 
-# Run all tests (integration + unit)
 dev-tests:
     @echo "=== Integration Tests ===" && ./scripts/silo-integration-test
     @echo ""
     @echo "=== Unit Tests ===" && bun test
 
-# Create a new silo from template
 dev-new name:
     @./scripts/silo-create {{name}}
 
-# List available templates
 dev-templates:
-    @echo "Available templates:"
-    @ls -1 templates/
+    @echo "Templates:"
+    @ls -1 templates/ | sed 's/^/  /'
 
-# === NAMESPACE: docs-* (documentation) ===
+# ============================================================
+# SECTION: HOUSEKEEPING
+# ============================================================
 
-# Browse docs folder with glow
-docs:
-    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow docs/; else ls -la docs/; fi
-
-# Show README
-docs-readme:
-    @command -v glow >/dev/null 2>&1 && glow -p README.md || cat README.md
-
-# Show Silo Manual
-docs-manual:
-    @if command -v glow >/dev/null 2>&1; then glow -p Silo-Manual.md 2>/dev/null || cat Silo-Manual.md; else cat Silo-Manual.md; fi
-
-# Show Silo Philosophy
-docs-philosophy:
-    @if command -v glow >/dev/null 2>&1; then glow -p Silo-Philosophy.md 2>/dev/null || cat Silo-Philosophy.md; else cat Silo-Philosophy.md; fi
-
-# Show AGENTS.md
-docs-agents:
-    @command -v glow >/dev/null 2>&1 && glow -p AGENTS.md || cat AGENTS.md
-
-# === NAMESPACE: lex-* (lexicon) ===
-
-# Show sub-commands
-lex:
-    @echo "Lexicon Commands:" && echo "" && echo "  lex          - Show this help" && echo "  lex-all     - Show full lexicon" && echo "  lex-short   - Compact format" && echo "  lex-find X  - Find term X" && echo "  lex-export  - Export as JSON" && echo "  lex-help    - Help"
-
-# Show full lexicon
-lex-all:
-    @./scripts/silo-lexicon
-
-# Show compact (single line)
-lex-short:
-    @./scripts/silo-lexicon --short
-
-# Find term
-lex-find term:
-    @./scripts/silo-lexicon "{{term}}"
-
-# Export as JSON
-lex-export:
-    @./scripts/silo-lexicon --json > lexicon.json
-    @echo "Exported to lexicon.json"
-
-# Help
-lex-help:
-    @./scripts/silo-lexicon --help
-
-# Alias
-lex-show: lex-all
-
-# === NAMESPACE: browse-* (glow TUI for folders) ===
-
-# Browse docs folder
-browse:
-    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow docs/; else ls -la docs/; fi
-
-# Browse briefs folder
-briefs:
-    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow briefs/; else ls -la briefs/; fi
-
-# Browse playbooks folder
-playbooks:
-    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow playbooks/; else ls -la playbooks/; fi
-
-# Browse debriefs folder
-debriefs:
-    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow debriefs/; else ls -la debriefs/; fi
-
-# === NAMESPACE: tidy-* (workspace hygiene) ===
-
-# Quick tidy check - show file counts
 tidy:
-    @echo "=== Tidy Check ==="
-    @echo "Briefs: $(ls briefs/*.md 2>/dev/null | wc -l | tr -d ' ') files"
-    @echo "  Archive: $(ls archive/briefs/*.md 2>/dev/null | wc -l | tr -d ' ') files"
-    @echo "Debriefs: $(ls debriefs/*.md 2>/dev/null | wc -l | tr -d ' ') files"
-    @echo "  Archive: $(ls archive/debriefs/*.md 2>/dev/null | wc -l | tr -d ' ') files"
-    @echo ""
-    @td list --count 2>/dev/null || echo "(td not configured)"
-    @td reviewable 2>/dev/null && echo "Reviews pending" || echo "All clear" 2>/dev/null || true
+    @./scripts/tidy.sh 2>/dev/null || echo "No tidy script"
 
-# Archive old briefs (pre-current sprint)
 archive-briefs:
-    @echo "Archiving old briefs..."
-    @mkdir -p archive/briefs archive/debriefs
-    @mv briefs/2026-03-*.md archive/briefs/ 2>/dev/null && echo "  Moved March briefs" || echo "  No March briefs"
-    @mv briefs/2026-04-0[1-4]-*.md archive/briefs/ 2>/dev/null && echo "  Moved April 1-4 briefs" || echo "  No April 1-4 briefs"
-    @mv debriefs/2026-04-0[1-5]-*.md archive/debriefs/ 2>/dev/null && echo "  Moved old debriefs" || echo "  No old debriefs"
-    @echo "Done. Run: git add -A && git commit"
+    @echo "Archiving briefs from previous sprints..."
+    @cd briefs && ls -t *.md | tail -n +10 | xargs -I{} mv {} archive/ 2>/dev/null; echo "Done"
 
-# === STATUS ===
-
-# Show git status and recent commits
 status:
     @echo "=== GIT ==="
     @git status --short 2>/dev/null || echo "(not a git repo)"
     @echo ""
-    @echo "=== COMMITS (last 5) ==="
-    @git log --oneline -5 2>/dev/null || echo "(not a git repo)"
+    @echo "=== COMMITS ==="
+    @git log --oneline -3 2>/dev/null || echo "(not a git repo)"
 
-# === ALIASES (backward compat) ===
+# ============================================================
+# AGENT OPERATIONS
+# ============================================================
 
-verify: dev-check
-test: dev-tests
-templates: dev-templates
-readme: docs-readme
-manual: docs-manual
-philosophy: docs-philosophy
-unit-test: dev-tests
-
-# === NAMESPACE: debrief-* (retrospectives) ===
-
-# Show agent ops playbook
 agent-ops:
     @command -v glow >/dev/null 2>&1 && glow -p playbooks/agent-ops-playbook.md || cat playbooks/agent-ops-playbook.md
 
-# Show debrief template
-debrief-template:
-    @echo "# Debrief Template"
-    @echo ""
-    @echo "Location: debriefs/YYYY-MM-DD-session.md"
-    @echo ""
-    @grep -A 50 "^#" debriefs/2026-04-07-td-ramdisk-setup.md | head -30
-
-
-# === NAMESPACE: trend-* (sparklines) ===
-
-# Show ASCII sparklines in terminal
-trend:
-    @./scripts/silo-trend 2>/dev/null || echo "No silos found. Run from mesh directory."
-
-# Generate HTML dashboard with sparklines
-trend-dashboard:
-    @bun run src/silo-dashboard.ts
-
-# Both trend and dashboard
-trend-all: trend
-    @./src/silo-dashboard.ts
-    @echo "Dashboard generated: dashboard.html"
-
-# === NAMESPACE: api-* (API server with SSE) ===
-
-# Start API server
-api:
-    @bun run src/silo-api-server.ts
-
-# Start API server with custom port
-api-port port:
-    @SILO_API_PORT={{port}} bun run src/silo-api-server.ts
-
-# === NAMESPACE: agents-* (sub-agent management) ===
-
-# List all available agents
-agents:
-    @echo "# Agents Registry"
-    @echo ""
-    @echo "| Agent | Alias | Description |"
-    @echo "|-------|-------|-------------|"
-    @./scripts/list-agents.sh
-    @echo ""
-    @echo "Usage: just agents <name> [command]"
-    @echo "Example: just agents tidy run"
-
-# Show specific agent summary
-agents-show name:
-    @./scripts/show-agent.sh {{name}}
-
-# Run agent command
-agents-run name cmd:
-    @./scripts/run-agent.sh {{name}} {{cmd}}
-
-# Show agents help
-agents-help:
-    @cat agents/README.md
-
-# Alias: just agent = just agents
-execute-agent: agents
-
-# === AGENTS CONVENIENCE ALIASES ===
-
-# Delegate to agents-run for any agent command
-# Usage: just agents <name> <cmd>  →  just agents-run <name> <cmd>
-agents-tidy cmd:
-    @./scripts/run-agent.sh tidy {{cmd}}
-
-agents-cr cmd:
-    @./scripts/run-agent.sh cr {{cmd}}
-
-# === NAMESPACE: watch-* (file watchers) ===
-
-# Watch for changes and run tests
-watch-tests:
-    @watchexec -e ts,tsx,js,jsx -- bun test
-
-# Watch data files and regenerate dashboard
-watch-dashboard:
-    @watchexec -e jsonl -- just trend-dashboard
-
-# Watch and show trend in terminal
-watch-trend:
-    @watchexec -e jsonl -- just trend
 
