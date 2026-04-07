@@ -333,3 +333,17 @@ agents-tidy cmd:
 
 agents-cr cmd:
     @./scripts/run-agent.sh cr {{cmd}}
+
+# === NAMESPACE: watch-* (file watchers) ===
+
+# Watch for changes and run tests
+watch-tests:
+    @watchexec -e ts,tsx,js,jsx -- bun test
+
+# Watch data files and regenerate dashboard
+watch-dashboard:
+    @watchexec -e jsonl -- just trend-dashboard
+
+# Watch and show trend in terminal
+watch-trend:
+    @watchexec -e jsonl -- just trend

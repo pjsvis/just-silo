@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# watch-trend - Regenerate trend report on data changes
+
+watchexec -e jsonl -- just trend

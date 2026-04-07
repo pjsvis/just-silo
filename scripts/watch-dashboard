@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# watch-dashboard - Regenerate dashboard on data changes
+
+watchexec -e jsonl -- just trend-dashboard

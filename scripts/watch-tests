@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# watch-tests - Run tests on file changes
+
+watchexec -e ts,tsx,js,jsx -- bun test
