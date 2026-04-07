@@ -160,4 +160,93 @@ The silo externalizes domain knowledge into the filesystem. Hand an agent a silo
 
 ---
 
+## Agent Architecture
+
+The project uses specialized agents for different concerns. Agents watch td for relevant statuses and act accordingly.
+
+### Agent Overview
+
+| Agent | Trigger | Purpose |
+|-------|---------|---------|
+| **test-agent** | td status → in_review | Enforce test presence + pass |
+| **docs-agent** | td status → approved | Sync docs with code changes |
+| **review-agent** | td status → in_review | Review code, open PR, request approval |
+| **briefs-agent** | td status → closed | Generate brief drafts |
+| **debriefs-agent** | git merge | Capture lessons learned |
+
+### Agent Trigger Architecture
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                      Workflow Triggers                        │
+├──────────────────────────────────────────────────────────────┤
+│                                                              │
+│  File-system triggers (inotify / FSEvents):                 │
+│    *.ts changed     → test-agent                            │
+│    *.md changed     → docs-agent                            │
+│    scripts/*        → test-agent                            │
+│                                                              │
+│  td status triggers:                                        │
+│    in_review        → test-agent, review-agent              │
+│    approved         → docs-agent                            │
+│    closed           → briefs-agent                          │
+│                                                              │
+│  Git triggers:                                              │
+│    pre-commit       → test-agent                            │
+│    post-merge       → debriefs-agent                        │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+```
+
+### test-agent
+
+**Purpose:** Ensure test presence and pass (not coverage %).
+
+**Scope:**
+- Must have `<module>.test.ts` for each `<module>.ts`
+- Must pass: `bun test`
+- Must cover: happy path + one edge case per exported function
+
+**Enforces:** Presence and pass/fail, not coverage metrics.
+
+### docs-agent
+
+**Purpose:** Keep docs in sync with code changes.
+
+**Scope:**
+- Detect changes to source files
+- Flag docs that reference changed code but weren't updated
+- Optionally: Auto-update simple doc references (e.g., command output)
+
+### review-agent
+
+**Purpose:** Formal review and PR workflow.
+
+**Scope:**
+- Review code for issues
+- Open PR (draft or ready)
+- Request human review
+- Handle server-side auto-review webhook events
+- Retry failed CI, close stale PRs
+
+### briefs-agent
+
+**Purpose:** Generate brief drafts from issues.
+
+**Scope:**
+- Watch for closed issues
+- Generate first-draft brief in `briefs/research/`
+- Format: problem → proposed solution → status
+
+### debriefs-agent
+
+**Purpose:** Capture lessons post-merge.
+
+**Scope:**
+- Watch for merges to main
+- Generate debrief in `debriefs/`
+- Extract: what worked, what didn't, metrics
+
+---
+
 **Status:** Early-stage project. Template and example working. Distribution: copy template model.
