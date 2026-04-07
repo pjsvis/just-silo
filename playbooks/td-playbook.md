@@ -231,7 +231,7 @@ td ws start "my-workspace"
 
 ### "Cannot approve issue I implemented"
 Correct. External review prevents self-review bias.
-Use `--minor` for trivial changes: `td add "Fix typo" --minor`
+Close with self-close exception: `td close <issue-id> --self-close-exception "Reason"`
 
 ### Session diverged from reality
 ```bash
@@ -239,32 +239,43 @@ td usage --new-session
 td context <issue-id>   # Restore context for an issue
 ```
 
-### "database is locked" or "enable WAL mode: database is locked"
+### "database is locked" or "database malformed"
 
-**Root Cause:** SQLite WAL corruption from concurrent access (agent + GitHub sidecar).
+**Root Cause:** SQLite WAL corruption.
 
-**Symptoms:**
-- `td init` creates `db.lock` but not `issues.db`
-- `td add` fails intermittently
-- Works in isolation, fails under load
+**Solution:** RAM disk (see above). If not using RAM disk:
 
-**Workarounds:**
-
-1. **Symlink to global db:**
+1. **Reset database:**
 ```bash
-rm -rf .todos && ln -s ~/.config/.todos .todos
+just td-reset
 ```
 
-2. **Wait and retry:**
+2. **Or manually:**
 ```bash
-sleep 1
-td add "My issue"
+rm -rf .todos
+./scripts/td-ramdisk-setup.sh .
 ```
 
-3. **Use global db directly:**
+---
+
+## Testing
+
+### Smoke Test
+
+Run the full workflow test:
 ```bash
-td init  # May need --force flag
+just td-test
 ```
+
+This tests:
+- Initialize
+- Create issues
+- Start work
+- Log progress
+- Block issues
+- Create dependencies
+- Handoff
+- Review
 
 **Investigation Needed:**
 - td is written in Go
@@ -272,6 +283,140 @@ td init  # May need --force flag
 - See: [td repo](https://github.com/...) for SQLite initialization
 
 **Action:** File issue or PR if root cause found.
+
+---
+
+## RAM Disk Strategy: Eliminating SQLite Corruption
+
+**Problem:** SQLite WAL corruption under concurrent access. Database breaks periodically.
+
+**Solution:** Mount td database directory as a RAM disk.
+
+**Rationale:** We use td for operations but do not require persistence. The database is a runtime index, not a source of truth.
+
+### Quick Setup
+
+```bash
+# Use the setup script (recommended)
+just td-ramdisk
+
+# Or manually:
+./scripts/td-ramdisk-setup.sh .
+```
+
+### Recovery Commands
+
+```bash
+just td-reset    # Reset and reinitialize td database
+just td-status   # Check td status + RAM disk usage
+```
+
+---
+
+## Mid-Workflow Failure Analysis
+
+### What Happens If RAM Disk Goes Down
+
+| Failure Mode | Impact | Recovery |
+|-------------|--------|----------|
+| **Reboot** | All state lost | `just td-ramdisk` to reinitialize |
+| **RAM pressure** | OS may evict RAM disk | Same as reboot |
+| **Panic/crash** | Partial writes may corrupt | `td init` fails, use backup or reset |
+
+### What Survives the Failure
+
+| Source | Survives RAM Disk Loss? |
+|--------|-------------------------|
+| Git history | ✅ Yes — commit messages, diffs |
+| `command_usage.jsonl` | ❌ No — on RAM disk |
+| Issues database | ❌ No — on RAM disk |
+| Sessions | ❌ No — on RAM disk |
+| Briefs/debriefs | ✅ Yes — in project directory |
+| Playbooks | ✅ Yes — in project directory |
+
+### Agent/Sub-Agent Workflow Impact
+
+Since we use td to manage agent and sub-agent progress:
+
+```
+Agent A: starts td-123 → works → td handoff
+Agent B: td review → works → td approve
+```
+
+**If RAM disk dies mid-workflow:**
+- Agent A's progress is lost (but work exists in git)
+- Agent B cannot see the handoff (must ask or infer)
+- Session IDs are reset
+
+**Mitigation:** Briefs and debriefs. Agents document state there.
+
+### Our Stance
+
+**Acceptable.** The database is operational (coordination), not archival (history).
+
+- Work exists in git
+- Decisions exist in briefs/debriefs
+- td gives us "in the moment" coordination
+
+If we need persistence, we can snapshot to disk (see below).
+
+---
+
+## Persistence Option (Optional)
+
+If you want to snapshot the database periodically:
+
+```bash
+#!/bin/bash
+# ~/.local/bin/td-snapshot.sh
+BACKUP_DIR="$HOME/.local/share/td-backups"
+mkdir -p "$BACKUP_DIR"
+cp .todos/issues.db "$BACKUP_DIR/td-$(date +%Y%m%d-%H%M%S).db"
+# Keep last 10 snapshots
+ls -t "$BACKUP_DIR"/td-*.db | tail -n +11 | xargs rm -
+```
+
+Run via cron or login script if you want history.
+
+---
+
+## Assessment: Potential Uses of td Database
+
+### Current Usage (Ops Layer)
+
+| Use | Value | Persistence Required? |
+|-----|-------|------------------------|
+| Issue tracking | High — coordination tool | No |
+| Session management | Medium — context continuity | No |
+| Review workflow | High — prevents self-review bias | No |
+| Agent coordination | High — prevents collision | No |
+
+### Potential Future Uses (If We Chose to Persist)
+
+| Use Case | Effort | Opinion |
+|----------|--------|---------|
+| **Time tracking** — log hours per issue | Low | Valuable. We already log progress; add `--hours` flag. |
+| **Sprint velocity** — issues completed per week | Low | Useful for retrospectives. |
+| **Review turnaround** — handoff → approve latency | Low | Good ops metric. |
+| **Agent performance** — error rates, retry counts | Medium | Interesting but requires td schema changes. |
+| **Knowledge graph** — issue relationships | High | Overkill. Git + briefs already cover this. |
+| **Cross-session continuity** — resume after reboot | Medium | Nice-to-have, but RAM disk makes this moot. |
+
+### Recommendation
+
+**Keep td ephemeral for now.** The potential uses above are "nice to have" but not essential. The current RAM disk setup gives us:
+
+- Zero corruption risk
+- Fast I/O
+- Clean state on reboot
+
+If we later want persistence for time tracking or velocity metrics, we can:
+
+1. Add a `td snapshot` command that exports to `~/.local/share/td-history/`
+2. Parse `command_usage.jsonl` for metrics (already persists to disk)
+3. Keep runtime ops in RAM, archive analytics separately
+
+**Principle:** The database should do one thing well (coordination) without carrying the weight of historical analytics.
 
 ---
 

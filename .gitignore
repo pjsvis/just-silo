@@ -38,3 +38,4 @@ silo_launch/
 .sidecar-base
 .td-root
 node_modules/
+td-report.md

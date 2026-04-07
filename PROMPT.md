@@ -45,11 +45,16 @@ REPORT to user
 
 **Flow preservation:** Excellent flow is fragile. Technical fixes are not worth destroying session quality.
 
-## TD Database Issue
+## TD RAM Disk — ✅ RESOLVED
 
-**Known Issue — Skip per Mentational Hygiene directive.**
+td database now runs on RAM disk (`/Volumes/TD-RAMDisk`).
 
-SQLite WAL corruption. Do NOT attempt to fix. Flag and move on.
+**Commands:**
+- `just td-ramdisk` — Set up / verify RAM disk
+- `just td-reset` — Reset and reinitialize
+- `just td-status` — Check status + RAM usage
+
+**Trade-off:** Data is volatile. Acceptable since we use td for ops, not archival.
 
 ## v0.2 Backlog
 

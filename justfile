@@ -76,6 +76,36 @@ silo-flush:
 silo-status:
     @cd templates/basic && just status
 
+# === NAMESPACE: td-* (task database) ===
+
+# Set up td database on RAM disk
+td-ramdisk:
+    @./scripts/td-ramdisk-setup.sh .
+
+# Show td database status
+td-status:
+    @td status
+    @echo ""
+    @echo "RAM disk usage:"
+    @df -h /Volumes/TD-RAMDisk 2>/dev/null | tail -1 || echo "  (RAM disk not mounted)"
+
+# Restart td with fresh database
+td-reset:
+    @echo "Resetting td database..."
+    @rm -rf .todos
+    @./scripts/td-ramdisk-setup.sh .
+    @td usage --new-session
+
+# Run td smoke test
+td-test:
+    @./scripts/td-smoke-test.sh
+
+# Generate markdown report of td tasks
+td-report:
+    @./scripts/td-markdown-report.sh
+    @echo ""
+    @cat td-report.md
+
 # === NAMESPACE: dev-* (project development) ===
 
 # Check project prerequisites
