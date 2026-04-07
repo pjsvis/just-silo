@@ -359,3 +359,25 @@ watch-dashboard:
 # Watch and show trend in terminal
 watch-trend:
     @watchexec -e jsonl -- just trend
+
+# === NAMESPACE: gamma-* (gamma-loop protocol) ===
+
+# Run gamma-loop (tidy-first as prototype)
+gamma:
+    @just agents-run tidy run
+
+# Check gamma state
+gamma-check:
+    @just agents-run tidy check
+
+# Full gamma-loop
+gamma-full:
+    @just agents-run tidy run-full
+
+# Show gamma status
+gamma-status:
+    @just agents-run tidy status
+
+# Gamma report
+gamma-report:
+    @echo "=== Gamma-Loop Status ===" && just agents-run tidy check
