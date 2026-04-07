@@ -1,12 +1,15 @@
-# Just-Silo Roadmap — v0.1 (2026-04-06)
+# Just-Silo Roadmap
 
-## Status: RELEASED ✅
+## Status
 
-v0.1.0 is released. Core infrastructure complete and tested.
+- **v0.1** — RELEASED ✅
+- **v0.2** — In Progress (3 items)
+- **v0.3** — Planned (Gamma Loops)
+- **v1.0** — Future
 
 ---
 
-## Delivered in v0.1
+## v0.1 — Released (2026-04-06)
 
 | Deliverable | File | Tests |
 |------------|------|-------|
@@ -20,71 +23,93 @@ v0.1.0 is released. Core infrastructure complete and tested.
 | Silo Lexicon | `silo-lexicon.jsonl` | ✅ 12 tokens |
 | Mentational Hygiene | `AGENTS.md` | ✅ |
 | Secrets playbook | `playbooks/secrets-playbook.md` | ✅ |
+| TD RAM disk | `scripts/td-ramdisk-setup.sh` | ✅ Smoke test passed |
 
 ---
 
-## v0.2 Backlog
+## v0.2 — In Progress
 
-### High Priority
+**Focus:** UX improvements — streaming, visualization, lexicon.
 
-| Brief | Description | Effort |
-|-------|-------------|--------|
-| `briefs/2026-04-04-brief-silo-streaming.md` | SSE for real-time telemetry | Low |
-| `briefs/2026-04-04-brief-sparklines.md` | ASCII throughput graphs | Low |
-| `briefs/2026-04-06-brief-silo-conceptual-lexicon.md` | Lexicon integration | Low |
+### High Priority (Implement First)
 
-### Medium Priority
+| # | Brief | Description | Effort | Status |
+|---|-------|-------------|--------|--------|
+| 1 | `brief-silo-streaming.md` | SSE for real-time telemetry | Low | TODO |
+| 2 | `brief-sparklines.md` | ASCII throughput graphs | Low | TODO |
+| 3 | `brief-silo-conceptual-lexicon.md` | Lexicon mount on `cd` | Low | TODO |
 
-| Brief | Description | Effort |
-|-------|-------------|--------|
-| EPIC-4: Gamma Loops | Self-modifying silos | Medium |
-| EPIC-6: Documentation | User guide, developer guide | Medium |
+### After High Priority
 
-### Lower Priority (Future)
+| # | Brief | Description | Effort | Status |
+|---|-------|-------------|--------|--------|
+| 4 | User guide | `docs/user-guide.md` | Medium | TODO |
+
+---
+
+## v0.3 — Planned
+
+**Focus:** Self-modifying silos.
+
+| Epic | Briefs | Effort |
+|------|--------|--------|
+| EPIC-4: Gamma Loops | `brief-silo-gamma-loop.md`, `brief-gamma-loop-01.md`, `brief-gamma-loop-02.md`, `brief-gamma-loop-03.md` | Medium |
+
+---
+
+## Future (v1.0+)
 
 | Epic | Briefs | Notes |
 |------|--------|-------|
-| EPIC-5: Isolation | 9 briefs | When needed |
+| EPIC-5: Isolation | 9 briefs | Multi-tenant, security |
+| EPIC-6: Documentation | User + dev guides | After v0.2 |
 | EPIC-7: Blog | 2 briefs | After EPIC-6 |
 | EPIC-8: Strategy | 20+ briefs | Long-term |
 
 ---
 
-## Archived (Not Needed for v0.1)
+## Archived Research
 
-Moved to `briefs/archive/`:
+These briefs are **research artifacts**, not deliverables. Archived to `briefs/archive/`:
 
-- `2026-04-04-nrief-silo-local-remote.md` (typo)
-- `2026-04-02-brief-edinburgh-eval.md.md` (double extension)
-- PDF markdown briefs (12 files)
-- Various outdated briefs
+### Register Silo (19 briefs)
+Research on how silos register themselves. Mostly exploratory.
+
+### Blog Content (2 briefs)
+Content strategy, not implementation.
+
+### Strategy (20+ briefs)
+Long-term vision, reference only.
 
 ---
 
 ## Quick Commands
 
 ```bash
+# Development
 just dev-check     # Prerequisites
 just dev-tests     # All tests
 just silo-verify  # Silo prerequisites
 just lex           # Show lexicon
+
+# TD
+just td-ramdisk    # Setup RAM disk
+just td-status     # Check status
+just td-test       # Smoke test
+just td-report     # Markdown report
+
+# Docs
+just agent-ops     # Agent ops playbook
+just docs          # Browse docs
 ```
 
 ---
 
-## Next Steps
+## Issue Tracking
 
-1. [ ] **SSE Streaming** — Real-time status
-2. [ ] **Sparklines** — ASCII graphs
-3. [ ] **Lexicon mount** — Agent reads on `cd`
-4. [ ] **User guide** — `docs/user-guide.md`
-
----
-
-## Deprecated Statuses
-
-These brief statuses are now outdated:
-- PLANNING → CONCEPT (many were never planned)
-- IMPLEMENTATION → DONE or ARCHIVED
-
-The roadmap is now simplified: **v0.1 delivered, v0.2 backlog above.**
+Active issues tracked in `td`:
+```bash
+td list        # All issues
+td in-review   # Awaiting review
+td status      # Dashboard
+```
