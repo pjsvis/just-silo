@@ -1,0 +1,304 @@
+#!/usr/bin/env bun
+/**
+ * tidy-first-agent — Workspace hygiene automation
+ * 
+ * Usage:
+ *   tidy-first-agent check      # Check current state
+ *   tidy-first-agent run       # Run auto-tidy
+ *   tidy-first-agent status    # Show tidy metrics
+ */
+
+import { existsSync, readdirSync, statSync, readFileSync, writeFileSync, renameSync, mkdirSync } from 'node:fs'
+import { join, dirname } from 'node:path'
+import { execSync } from 'node:child_process'
+
+const PROJECT_ROOT = execSync('git rev-parse --show-toplevel', { encoding: 'utf-8' }).trim()
+const BRIEFS_DIR = join(PROJECT_ROOT, 'briefs')
+const DEBRIEFS_DIR = join(PROJECT_ROOT, 'debriefs')
+const ARCHIVE_DIR = join(BRIEFS_DIR, 'archive')
+const ARCHIVE_DEBRIEFS_DIR = join(DEBRIEFS_DIR, 'archive')
+
+// Thresholds
+const BRIEFS_THRESHOLD = 30
+const DEBRIEFS_THRESHOLD = 20
+const STALE_DAYS = 14
+
+interface TidyResult {
+  action: string
+  status: 'done' | 'skipped' | 'brief_needed'
+  details: string
+}
+
+function getFileAge(path: string): number {
+  const stat = statSync(path)
+  const now = Date.now()
+  return (now - stat.mtimeMs) / (1000 * 60 * 60 * 24) // days
+}
+
+function countFiles(dir: string, ext = '.md'): number {
+  if (!existsSync(dir)) return 0
+  return readdirSync(dir)
+    .filter(f => f.endsWith(ext))
+    .length
+}
+
+function getFilesByDate(dir: string, ext = '.md'): string[] {
+  if (!existsSync(dir)) return []
+  return readdirSync(dir)
+    .filter(f => f.endsWith(ext))
+    .map(f => ({ file: f, mtime: statSync(join(dir, f)).mtimeMs }))
+    .sort((a, b) => a.mtime - b.mtime)
+    .map(f => f.file)
+}
+
+function ensureArchive(dir: string): void {
+  const archiveDir = dir === BRIEFS_DIR ? ARCHIVE_DIR : ARCHIVE_DEBRIEFS_DIR
+  if (!existsSync(archiveDir)) {
+    mkdirSync(archiveDir, { recursive: true })
+  }
+}
+
+function archiveOldFiles(dir: string, threshold: number, ext = '.md'): TidyResult {
+  ensureArchive(dir)
+  const archiveDir = dir === BRIEFS_DIR ? ARCHIVE_DIR : ARCHIVE_DEBRIEFS_DIR
+  
+  const files = getFilesByDate(dir, ext)
+  const excess = files.length - threshold
+  
+  if (excess <= 0) {
+    return {
+      action: 'check',
+      status: 'skipped',
+      details: `${files.length} files, below threshold of ${threshold}`
+    }
+  }
+  
+  // Archive oldest files
+  const toArchive = files.slice(0, excess)
+  const archived: string[] = []
+  
+  for (const file of toArchive) {
+    const src = join(dir, file)
+    const dest = join(archiveDir, file)
+    try {
+      renameSync(src, dest)
+      archived.push(file)
+    } catch (e) {
+      console.error(`Failed to archive ${file}: ${e}`)
+    }
+  }
+  
+  return {
+    action: 'archive',
+    status: 'done',
+    details: `Archived ${archived.length} files: ${archived.join(', ')}`
+  }
+}
+
+function checkStaleTDIssues(): TidyResult {
+  try {
+    // Get issues with no activity > 14 days
+    const output = execSync('td list --all --format json 2>/dev/null || echo "[]"', { encoding: 'utf-8' })
+    let issues: any[] = []
+    
+    try {
+      issues = JSON.parse(output)
+    } catch {
+      return { action: 'check', status: 'skipped', details: 'Could not parse td output' }
+    }
+    
+    const now = Date.now()
+    const stale = issues.filter(issue => {
+      const lastActivity = new Date(issue.updated_at || issue.created_at).getTime()
+      const daysSinceActivity = (now - lastActivity) / (1000 * 60 * 60 * 24)
+      return daysSinceActivity > STALE_DAYS && issue.status !== 'closed'
+    })
+    
+    if (stale.length === 0) {
+      return { action: 'check', status: 'skipped', details: 'No stale issues found' }
+    }
+    
+    return {
+      action: 'flag_stale',
+      status: 'brief_needed',
+      details: `Found ${stale.length} stale issues: ${stale.map(i => i.id).join(', ')}`
+    }
+  } catch (e) {
+    return { action: 'check', status: 'skipped', details: 'td not available' }
+  }
+}
+
+function pruneMergedBranches(): TidyResult {
+  try {
+    // Get current branch
+    const currentBranch = execSync('git branch --show-current', { encoding: 'utf-8' }).trim()
+    
+    if (currentBranch !== 'main' && currentBranch !== 'master') {
+      return { action: 'check', status: 'skipped', details: `On ${currentBranch}, not main` }
+    }
+    
+    // Get merged branches
+    const mergedOutput = execSync('git branch --merged | grep -v "^[ *]*main" | grep -v "^[ *]*master" | tr -d " "', { encoding: 'utf-8' })
+    const branches = mergedOutput.trim().split('\n').filter(b => b.length > 0)
+    
+    if (branches.length === 0) {
+      return { action: 'prune', status: 'skipped', details: 'No merged branches to prune' }
+    }
+    
+    // Don't delete current branch
+    const toDelete = branches.filter(b => b !== currentBranch)
+    
+    if (toDelete.length === 0) {
+      return { action: 'prune', status: 'skipped', details: 'No branches to prune' }
+    }
+    
+    // Delete branches (dry run for safety - agent should actually run this)
+    return {
+      action: 'prune',
+      status: 'done',
+      details: `Would prune ${toDelete.length} branches: ${toDelete.join(', ')}`
+    }
+  } catch (e) {
+    return { action: 'prune', status: 'skipped', details: 'Git error' }
+  }
+}
+
+function commitChanges(results: TidyResult[]): void {
+  const changes = results.filter(r => r.status === 'done')
+  if (changes.length === 0) return
+  
+  try {
+    execSync('git add -A', { cwd: PROJECT_ROOT })
+    const status = execSync('git status --short', { cwd: PROJECT_ROOT, encoding: 'utf-8' })
+    
+    if (status.trim()) {
+      const timestamp = new Date().toISOString().split('T')[0]
+      execSync(`git commit -m "chore: tidy-first-agent ${timestamp}"`, { cwd: PROJECT_ROOT })
+      console.log('✓ Committed tidy changes')
+    }
+  } catch (e) {
+    console.error('Failed to commit:', e)
+  }
+}
+
+function showStatus(): void {
+  const briefCount = countFiles(BRIEFS_DIR)
+  const archiveBriefCount = countFiles(ARCHIVE_DIR)
+  const debriefCount = countFiles(DEBRIEFS_DIR)
+  const archiveDebriefCount = countFiles(ARCHIVE_DEBRIEFS_DIR)
+  
+  console.log(`
+=== Workspace Tidy Status ===
+
+BRIEFS:
+  Active:  ${briefCount} (threshold: ${BRIEFS_THRESHOLD})
+  Archive: ${archiveBriefCount}
+
+DEBRIEFS:
+  Active:  ${debriefCount} (threshold: ${DEBRIEFS_THRESHOLD})
+  Archive: ${archiveDebriefCount}
+
+STALE:
+  td issues > ${STALE_DAYS} days: check with "td list --all"
+
+BRANCHES:
+  Merged: check with "git branch --merged"
+`)
+}
+
+function showCheck(): void {
+  const briefCount = countFiles(BRIEFS_DIR)
+  const debriefCount = countFiles(DEBRIEFS_DIR)
+  
+  const results: string[] = []
+  
+  if (briefCount > BRIEFS_THRESHOLD) {
+    results.push(`Briefs: ${briefCount} > ${BRIEFS_THRESHOLD}`)
+  }
+  
+  if (debriefCount > DEBRIEFS_THRESHOLD) {
+    results.push(`Debriefs: ${debriefCount} > ${DEBRIEFS_THRESHOLD}`)
+  }
+  
+  if (results.length === 0) {
+    console.log('✓ Workspace is tidy')
+  } else {
+    console.log('Issues found:')
+    results.forEach(r => console.log(`  - ${r}`))
+  }
+}
+
+function runAutoTidy(): TidyResult[] {
+  console.log('Running auto-tidy...\n')
+  
+  const results: TidyResult[] = []
+  
+  // Archive old briefs
+  console.log('[1/4] Checking briefs...')
+  const briefResult = archiveOldFiles(BRIEFS_DIR, BRIEFS_THRESHOLD)
+  results.push(briefResult)
+  console.log(`  ${briefResult.status === 'done' ? '✓' : '-'} ${briefResult.details}`)
+  
+  // Archive old debriefs
+  console.log('[2/4] Checking debriefs...')
+  const debriefResult = archiveOldFiles(DEBRIEFS_DIR, DEBRIEFS_THRESHOLD)
+  results.push(debriefResult)
+  console.log(`  ${debriefResult.status === 'done' ? '✓' : '-'} ${debriefResult.details}`)
+  
+  // Check stale td issues
+  console.log('[3/4] Checking stale td issues...')
+  const staleResult = checkStaleTDIssues()
+  results.push(staleResult)
+  console.log(`  ${staleResult.status === 'brief_needed' ? '!' : '-'} ${staleResult.details}`)
+  
+  // Prune merged branches
+  console.log('[4/4] Checking git branches...')
+  const pruneResult = pruneMergedBranches()
+  results.push(pruneResult)
+  console.log(`  ${pruneResult.status === 'done' ? '✓' : '-'} ${pruneResult.details}`)
+  
+  // Commit if needed
+  commitChanges(results)
+  
+  return results
+}
+
+function run(full = false): void {
+  const results = runAutoTidy()
+  
+  const needsBriefs = results.filter(r => r.status === 'brief_needed')
+  
+  if (needsBriefs.length > 0 && full) {
+    console.log('\n--- Briefs needed ---')
+    needsBriefs.forEach(r => console.log(`  ! ${r.action}: ${r.details}`))
+    console.log('\nRun with --full to create briefs for these items')
+  }
+}
+
+// Main
+const args = process.argv.slice(2)
+const cmd = args[0] || 'help'
+
+switch (cmd) {
+  case 'check':
+    showCheck()
+    break
+  case 'status':
+    showStatus()
+    break
+  case 'run':
+    run(args.includes('--full'))
+    break
+  case 'help':
+  default:
+    console.log(`
+tidy-first-agent — Workspace hygiene automation
+
+Usage:
+  tidy-first-agent check      # Quick check
+  tidy-first-agent status    # Detailed status
+  tidy-first-agent run       # Auto-tidy
+  tidy-first-agent run --full # Include brief-gen
+`)
+    break
+}
