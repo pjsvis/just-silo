@@ -62,7 +62,7 @@ help:
 
 # Full orientation to this silo (glow if available)
 about:
-    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow SHORTCUTS.about.md; else cat SHORTCUTS.about.md; fi
+    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow --width 120 SHORTCUTS.about.md; else cat SHORTCUTS.about.md; fi
 
 # === NAMESPACE: silo-* (user operations) ===
 
