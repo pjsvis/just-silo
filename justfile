@@ -219,3 +219,18 @@ philosophy: docs-philosophy
 lexicon: lex-json
 lex-show: lex
 unit-test: dev-tests
+
+# === NAMESPACE: debrief-* (retrospectives) ===
+
+# Show agent ops playbook
+agent-ops:
+    @command -v glow >/dev/null 2>&1 && glow -p playbooks/agent-ops-playbook.md || cat playbooks/agent-ops-playbook.md
+
+# Show debrief template
+debrief-template:
+    @echo "# Debrief Template"
+    @echo ""
+    @echo "Location: debriefs/YYYY-MM-DD-session.md"
+    @echo ""
+    @grep -A 50 "^#" debriefs/2026-04-07-td-ramdisk-setup.md | head -30
+
