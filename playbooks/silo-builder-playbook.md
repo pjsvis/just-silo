@@ -169,6 +169,56 @@ status:
     @./<your-script>.sh
 ```
 
+## Creating New Silos
+
+**Policy: A new silo is a clone of just-silo, customized for a domain.**
+
+### The Simple Path: Clone
+
+```bash
+# Clone just-silo as your new silo
+git clone git@github.com:pjsvis/just-silo.git my-new-silo
+cd my-new-silo
+
+# Customize for your domain
+# 1. Edit .silo (name, domain, description)
+# 2. Edit justfile (your verbs)
+# 3. Edit schema.json (your data types)
+# 4. Edit silo-lexicon.jsonl (your vocabulary)
+
+# Verify it works
+just verify
+```
+
+### Sub-Silos
+
+**Not needed yet.** Defer until a concrete use case emerges.
+
+If you find yourself wanting sub-silos, ask:
+- Are they really separate domains?
+- Would copy-paste be simpler?
+- Do we need runtime coordination?
+
+Most "sub-silo" needs are better served by:
+- Multiple independent silos
+- A parent justfile that orchestrates children
+
+### Inter-Silo Communication
+
+**Future problem.** For now, silos are independent.
+
+Future strategies (not implemented):
+- Shared brief/debrief repository
+- Event bus between silos
+- "Super-silo" that spawns children
+
+### Focus
+
+Develop the current silo. Ship it. Learn from it.
+
+New silos = clone + customize.
+New patterns = emerge from use, don't preempt.
+
 ## Checklist
 
 - [ ] `.silo` manifest with domain name

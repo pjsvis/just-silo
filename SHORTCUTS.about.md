@@ -41,6 +41,20 @@ in the filesystem. Hand an agent a silo and it acts without prior context.
 
 See playbooks/silo-builder-playbook.md for creating new silos.
 
+## Creating New Silos
+
+**A new silo is a clone of just-silo, customized for a domain.**
+
+```bash
+git clone git@github.com:pjsvis/just-silo.git my-silo
+cd my-silo
+# Customize: .silo, justfile, schema.json, silo-lexicon.jsonl
+just verify
+```
+
+**Sub-silos:** Not needed yet. Defer until use case emerges.
+**Inter-silo comms:** Future problem. Silos are independent for now.
+
 ## Philosophy
 
 See Silo-Philosophy.md for the full philosophy.
