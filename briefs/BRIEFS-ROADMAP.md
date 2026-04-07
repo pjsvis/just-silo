@@ -14,6 +14,7 @@
 | Agent | Task | Status |
 |-------|------|--------|
 | `tidy-first-agent` | Workspace hygiene | ✅ Implemented |
+| `pr-review-agent` | AI PR review monitoring | ✅ Implemented |
 
 ---
 
