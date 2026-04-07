@@ -38,6 +38,10 @@ help:
     @echo "  Project: just dev-* (develop just-silo)"
     @echo "  Silo:    just silo-* (operate a silo)"
     @echo ""
+    @echo ""
+    @echo "⭐ START HERE:"
+    @echo "  just about          — Orientation to this silo (RECOMMENDED)"
+    @echo ""
     @echo "PROJECT (develop just-silo):"
     @echo "  just dev-check      — Check prerequisites"
     @echo "  just dev-tests      — Run all tests"
@@ -53,6 +57,12 @@ help:
     @echo "  just lex            — Show lexicon"
     @echo ""
     @echo "Full list: just --list"
+
+# === ABOUT (Orientation) ===
+
+# Full orientation to this silo (see SHORTCUTS.about.md)
+about:
+    @cat SHORTCUTS.about.md
 
 # === NAMESPACE: silo-* (user operations) ===
 
