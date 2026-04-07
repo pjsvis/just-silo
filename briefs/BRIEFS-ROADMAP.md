@@ -9,6 +9,14 @@
 
 ---
 
+## Internal Agents
+
+| Agent | Task | Status |
+|-------|------|--------|
+| `tidy-first-agent` | ASCII cleanup for docs | Pending |
+
+---
+
 ## v0.1 — Released (2026-04-06)
 
 | Deliverable | File | Tests |
@@ -62,6 +70,16 @@
 | EPIC-6: Documentation | User + dev guides | After v0.2 |
 | EPIC-7: Blog | 2 briefs | After EPIC-6 |
 | EPIC-8: Strategy | 20+ briefs | Long-term |
+
+---
+
+## Agent Briefs
+
+Briefs for agent implementation in `briefs/research/`:
+
+| Brief | Agent | Purpose |
+|-------|-------|---------|
+| `brief-tidy-first-01-ansi-cleanup.md` | tidy-first-agent | ASCII cleanup task |
 
 ---
 
