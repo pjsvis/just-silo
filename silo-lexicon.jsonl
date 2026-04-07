@@ -1,0 +1,12 @@
+{"token": "stuff → things", "definition": "Transform unstructured input into structured output. The silo is the machine.", "heuristic": "Ask: what is the stuff? What do I want the things?"}
+{"token": "enough is enough", "definition": "Flush early, keep data lean. Past a threshold, more data = more noise.", "heuristic": "If data.jsonl > threshold, flush before over-engineering"}
+{"token": "occupy the territory", "definition": "Act in filesystem, not in abstractions. The filesystem IS the interface.", "heuristic": "If tempted to build middleware, ask: can the filesystem do it?"}
+{"token": "the pipeline IS the dashboard", "definition": "Filesystem state IS observability. No separate logging layer needed.", "heuristic": "Ask: what does the filesystem show me right now?"}
+{"token": "mentational hygiene", "definition": "Same command + same error twice = stop, flag, move on. Prevent context poisoning.", "heuristic": "Apply when stuck in recursive loop. State pattern, state evidence, choose path."}
+{"token": "nested directory signal", "definition": ".foo/.foo/ pattern = evidence of previous failed attempts. A clue, not a task.", "heuristic": "Stop investigating. Report. Don't chase the nested structure."}
+{"token": "the reveal", "definition": "You don't pre-define the vocabulary. You say what you want. The silo emerges.", "heuristic": "Start from intent, not from schema. Let the silo reveal itself."}
+{"token": "map ≠ territory", "definition": "Your outputs are maps, not the territory. Acknowledge the gap.", "heuristic": "Ask: what is my evidence? What am I assuming?"}
+{"token": "impartial spectator", "definition": "Before conclusions, simulate a disinterested expert review.", "heuristic": "Ask: would an expert with no stake agree?"}
+{"token": "watt's test", "definition": "Does this actually help? Pragmatic improvement over theoretical elegance.", "heuristic": "Ask: does it reduce entropy? Does it enable better decisions?"}
+{"token": "doom loop", "definition": "Same action + same result + repeat = recursive failure. Context gets poisoned.", "heuristic": "2 attempts max, then skip and report known issue"}
+{"token": "flow preservation", "definition": "Excellent flow is fragile. Technical fixes are not worth destroying session quality.", "heuristic": "Prioritize flow over purity. Flag issues, continue work."}
