@@ -203,18 +203,40 @@ debrief-template:
     @grep -A 30 "^#" debriefs/2026-04-07-td-ramdisk-sparklines.md 2>/dev/null | head -20
 
 # ============================================================
-# API (server)
+# API (server) - Two-Tier Architecture
 # ============================================================
 
-# Start API server
+# Start internal API (dev dashboard, port 3001)
+[group: "api"]
+api-internal:
+    @echo "Starting internal API on http://127.0.0.1:3001"
+    @SILO_API_PORT=3001 bun run src/silo-api-internal.ts
+
+# Start external API (remote control, port 3000)
+[group: "api"]
+api-external:
+    @echo "Starting external API on http://0.0.0.0:3000"
+    @SILO_API_PORT=3000 bun run src/silo-api-external.ts
+
+# Start both APIs (internal first, then external)
 [group: "api"]
 api-start:
-    @bun run src/silo-api-server.ts
+    @echo "Starting two-tier API..."
+    @SILO_API_PORT=3001 bun run src/silo-api-internal.ts &
+    @sleep 1
+    @SILO_API_PORT=3000 bun run src/silo-api-external.ts
 
-# Start API on custom port
+# Start API on custom port (legacy, uses internal)
 [group: "api"]
 api-port port:
-    @SILO_API_PORT={{port}} bun run src/silo-api-server.ts
+    @SILO_API_PORT={{port}} bun run src/silo-api-internal.ts
+
+# Show API status
+[group: "api"]
+api-status:
+    @echo "=== API Status ==="
+    @curl -s http://127.0.0.1:3001/health 2>/dev/null && echo " (internal OK)" || echo " (internal down)"
+    @curl -s http://127.0.0.1:3000/health 2>/dev/null && echo " (external OK)" || echo " (external down)"
 
 # ============================================================
 # TREND (sparklines)
