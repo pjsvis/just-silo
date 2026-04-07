@@ -280,3 +280,147 @@ lessons
 The discovery: **Knowledge doesn't persist automatically.** It must be extracted, structured, and saved — by design.
 
 The gamma-loop is the nervous system of the agent. Without it, the agent works but doesn't learn.
+
+---
+
+## IMPORTANT: Gamma-Loop is Internal
+
+The gamma-loop is **not a verb**. It is an **internal process** that runs automatically after each workflow.
+
+### User-Facing Verbs
+
+```justfile
+tidy        # Run the job (gamma-loop runs inside)
+```
+
+### What the User Sees
+
+```
+just tidy
+    ↓
+Job executes
+    ↓
+Gamma-loop runs internally (user doesn't invoke)
+    ↓
+Agent improved for next run
+```
+
+### What the User Doesn't See
+
+```
+Gamma-loop observes
+    ↓
+Patterns detected
+    ↓
+Adjustments made to CSP.md
+    ↓
+Logged for entropy measurement
+```
+
+---
+
+## Logging for Entropy Measurement
+
+**Logging is a key component for entropy measurement.**
+
+### What We Log
+
+| Metric | What It Measures | Why |
+|--------|----------------|-----|
+| `runs.log` | Workflow execution frequency | Activity entropy |
+| `adjustments.log` | Gamma-loop changes | Improvement rate |
+| `thresholds.log` | Threshold changes over time | Calibration entropy |
+| `errors.log` | Failures and retries | Failure entropy |
+| `entropy.log` | Calculated entropy per run | Overall entropy |
+
+### Log Format
+
+```json
+{
+  "timestamp": "2026-04-07T10:00:00Z",
+  "workflow": "tidy",
+  "run": 42,
+  "gamma-loop": {
+    "observed": "threshold_exceeded",
+    "adjusted": "archive_threshold: 30 → 35",
+    "entropy_before": 0.72,
+    "entropy_after": 0.68
+  }
+}
+```
+
+### Entropy Calculation
+
+```
+Entropy = -Σ p(x) * log(p(x))
+
+Where x = outcome type (success, partial, failure)
+```
+
+### Why Logging Matters
+
+1. **Measure improvement** — Is entropy decreasing over time?
+2. **Detect drift** — Is entropy increasing? Something is wrong.
+3. **Tune thresholds** — Real data tells us what thresholds work.
+4. **Correlate with events** — What caused entropy spikes?
+
+### Implementation Note
+
+```bash
+# Each agent should log to:
+agents/<name>-agent/logs/
+    runs.log
+    adjustments.log
+    entropy.log
+```
+
+---
+
+## The Feedback Loop: Complete Picture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        WORKFLOW                             │
+│  Cron/WatchExec triggers tidy                               │
+│                         ↓                                   │
+│  Job executes                                              │
+│                         ↓                                   │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │              GAMMA-LOOP (Internal)                   │   │
+│  │  1. Observe: What happened?                           │   │
+│  │  2. Measure: Calculate entropy for this run          │   │
+│  │  3. Learn: What patterns emerge?                     │   │
+│  │  4. Adjust: Tweak thresholds if needed             │   │
+│  │  5. Log: Record for entropy tracking                │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                         ↓                                   │
+│  Agent improved for next run                               │
+│                         ↓                                   │
+│  Entropy decreases over time ✅                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Anti-Pattern: External Gamma-Loop
+
+❌ **Wrong:** Making gamma-loop a verb users must invoke.
+
+❌ **Wrong:** Separate command for "improvement mode."
+
+✅ **Right:** Gamma-loop runs automatically inside each agent.
+
+---
+
+## Key Insight
+
+> The gamma-loop is why the agent improves. Without logging, we can't measure if it's working.
+
+**Entropy measurement requires:**
+
+1. Log every workflow run
+2. Calculate entropy per run
+3. Track entropy over time
+4. Adjust based on real data
+
+The gamma-loop without logging is like a thermostat without a temperature sensor.

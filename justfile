@@ -360,21 +360,3 @@ watch-dashboard:
 watch-trend:
     @watchexec -e jsonl -- just trend
 
-# === NAMESPACE: gamma-* (gamma-loop protocol) ===
-# === NAMESPACE: gamma-* (knowledge persistence) ===
-
-# Run gamma-loop (persist lessons from this session)
-gamma:
-    @echo "=== Gamma-Loop: Knowledge Persistence ===" && just agents-run tidy check
-
-# Check what needs persisting
-gamma-check:
-    @echo "=== Gamma-Loop Check ===" && just agents-run tidy check
-
-# Show lessons learned
-lessons:
-    @echo "=== Lessons Learned ===" && ls debriefs/*.md 2>/dev/null | tail -5 | xargs -I{} basename {} .md | sed 's/^/  /' || echo "  No lessons yet"
-
-# Show recent debriefs
-debriefs-recent:
-    @ls -lt debriefs/*.md 2>/dev/null | head -10 | awk '{print $NF}' | xargs -I{} basename {} .md | sed 's/^/  /' || echo "  No debriefs yet"
