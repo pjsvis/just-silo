@@ -185,26 +185,33 @@ docs-agents:
 
 # === NAMESPACE: lex-* (lexicon) ===
 
-# Show full lexicon
+# Show sub-commands
 lex:
+    @echo "Lexicon Commands:" && echo "" && echo "  lex          - Show this help" && echo "  lex-all     - Show full lexicon" && echo "  lex-short   - Compact format" && echo "  lex-find X  - Find term X" && echo "  lex-export  - Export as JSON" && echo "  lex-help    - Help"
+
+# Show full lexicon
+lex-all:
     @./scripts/silo-lexicon
 
-# Show compact lexicon (single line)
+# Show compact (single line)
 lex-short:
     @./scripts/silo-lexicon --short
 
-# Look up specific token
+# Find term
 lex-find term:
     @./scripts/silo-lexicon "{{term}}"
 
-# Export lexicon as JSON
-lex-json:
+# Export as JSON
+lex-export:
     @./scripts/silo-lexicon --json > lexicon.json
     @echo "Exported to lexicon.json"
 
-# Check if term exists in lexicon
-lex-check term:
-    @./scripts/silo-lexicon "{{term}}" 2>/dev/null || echo "'{{term}}' not found"
+# Help
+lex-help:
+    @./scripts/silo-lexicon --help
+
+# Alias
+lex-show: lex-all
 
 # === NAMESPACE: browse-* (glow TUI for folders) ===
 
@@ -264,8 +271,6 @@ templates: dev-templates
 readme: docs-readme
 manual: docs-manual
 philosophy: docs-philosophy
-lexicon: lex-json
-lex-show: lex
 unit-test: dev-tests
 
 # === NAMESPACE: debrief-* (retrospectives) ===
