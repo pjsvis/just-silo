@@ -29,7 +29,21 @@ interface PRInfo {
 
 const GITHUB_API = 'https://api.github.com'
 const POLL_INTERVAL = 5 * 60 * 1000 // 5 minutes
-const GITHUB_TOKEN = process.env.GH_TOKEN || process.env.GITHUB_TOKEN || ''
+
+function getGitHubToken(): string {
+  // Try skate first (preferred)
+  try {
+    const output = execSync('skate get github_pat', { encoding: 'utf-8' }).trim()
+    if (output && !output.includes('not found') && !output.includes('error')) {
+      return output
+    }
+  } catch { /* fall through */ }
+  
+  // Fallback to environment variable
+  return process.env.GH_TOKEN || process.env.GITHUB_TOKEN || ''
+}
+
+const GITHUB_TOKEN = getGitHubToken()
 
 // Severity keywords
 const MUST_FIX = ['bug', 'breaking', 'security', 'error', 'fails', 'crash', 'wrong', 'incorrect']

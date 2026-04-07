@@ -17,10 +17,10 @@ The PR is open. AI reviewers (qodo, code-rabbit) are slow and rate-limited. This
 ## Setup
 
 ```bash
-# Set GitHub token
-export GH_TOKEN=your_github_token
+# GitHub PAT is fetched from skate automatically
+skate set github_pat your_token  # If not already set
 
-# Default PR number
+# Default PR number (optional)
 export PR_NUMBER=2
 ```
 
