@@ -1,0 +1,7 @@
+{
+  "name": "code-review-agent",
+  "alias": "cr",
+  "description": "Automated code review",
+  "commands": ["review", "check", "setup"],
+  "entry": "justfile"
+}

@@ -295,3 +295,41 @@ api:
 # Start API server with custom port
 api-port port:
     @SILO_API_PORT={{port}} bun run src/silo-api-server.ts
+
+# === NAMESPACE: agents-* (sub-agent management) ===
+
+# List all available agents
+agents:
+    @echo "# Agents Registry"
+    @echo ""
+    @echo "| Agent | Alias | Description |"
+    @echo "|-------|-------|-------------|"
+    @./scripts/list-agents.sh
+    @echo ""
+    @echo "Usage: just agents <name> [command]"
+    @echo "Example: just agents tidy run"
+
+# Show specific agent summary
+agents-show name:
+    @./scripts/show-agent.sh {{name}}
+
+# Run agent command
+agents-run name cmd:
+    @./scripts/run-agent.sh {{name}} {{cmd}}
+
+# Show agents help
+agents-help:
+    @cat agents/README.md
+
+# Alias: just agent = just agents
+execute-agent: agents
+
+# === AGENTS CONVENIENCE ALIASES ===
+
+# Delegate to agents-run for any agent command
+# Usage: just agents <name> <cmd>  →  just agents-run <name> <cmd>
+agents-tidy cmd:
+    @./scripts/run-agent.sh tidy {{cmd}}
+
+agents-cr cmd:
+    @./scripts/run-agent.sh cr {{cmd}}

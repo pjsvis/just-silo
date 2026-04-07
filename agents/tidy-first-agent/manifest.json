@@ -1,0 +1,7 @@
+{
+  "name": "tidy-first-agent",
+  "alias": "tidy",
+  "description": "Workspace hygiene automation",
+  "commands": ["check", "status", "run", "run-full", "install-crons"],
+  "entry": "justfile"
+}
