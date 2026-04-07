@@ -216,6 +216,7 @@ td handoff <id> \
 | Approve | `td approve <id>` |
 | Close own work | `td close <id> --self-close-exception "reason"` |
 | Generate report | `just td-report` |
+| Run smoke test | `just td-test` |
 
 ---
 

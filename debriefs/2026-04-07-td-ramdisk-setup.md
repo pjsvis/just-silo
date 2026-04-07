@@ -3,7 +3,9 @@
 **Date:** 2026-04-07  
 **Duration:** ~1.5 hours  
 **Participants:** Human + AI Agent  
-**Branch:** dev
+**Branch:** dev  
+**Status:** ✅ Approved (td-2653ba)  
+**Reviewer:** ses_cd8f9e
 
 ---
 
@@ -128,7 +130,10 @@
 
 ## Related
 
-- `playbooks/td-playbook.md` — Full td operations guide
-- `playbooks/agent-ops-playbook.md` — Agent coordination guide
-- `REPOS.md` — External dependencies
-- `scripts/td-ramdisk-setup.sh` — Setup script
+- [TD Playbook](../playbooks/td-playbook.md) — Full td operations guide
+- [Agent Ops Playbook](../playbooks/agent-ops-playbook.md) — Agent coordination guide
+- [REPOS.md](../REPOS.md) — External dependencies
+- [Scripts](../scripts/):  
+  - `td-ramdisk-setup.sh` — Setup script  
+  - `td-smoke-test.sh` — 12-step smoke test  
+  - `td-markdown-report.sh` — Report generator

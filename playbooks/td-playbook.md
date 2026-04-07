@@ -267,22 +267,21 @@ Run the full workflow test:
 just td-test
 ```
 
-This tests:
-- Initialize
-- Create issues
-- Start work
-- Log progress
-- Block issues
-- Create dependencies
-- Handoff
-- Review
+This tests 12 steps:
+1. Initialize
+2. Create issues
+3. Start work
+4. Log progress
+5. Block issues
+6. Create dependencies
+7. List issues
+8. Check blocked
+9. Check dependencies
+10. Status check
+11. Handoff
+12. Review submission
 
-**Investigation Needed:**
-- td is written in Go
-- SQLite config section not found in td source repo
-- See: [td repo](https://github.com/...) for SQLite initialization
-
-**Action:** File issue or PR if root cause found.
+**Status:** ✅ Passed — all 12 steps verified working.
 
 ---
 
@@ -496,3 +495,5 @@ Is td completely gone?  → Use git + logs as fallback
 
 - [Edinburgh Protocol Playbook](edinburgh-protocol-playbook.md) — Decision framework
 - [Briefs/Debriefs Pattern](briefs-playbook.md) — Pre/post work documentation
+- [Debrief: td RAM disk setup](../debriefs/2026-04-07-td-ramdisk-setup.md) — Session debrief with lessons learned
+- [Agent Ops Playbook](agent-ops-playbook.md) — Human/agent coordination
