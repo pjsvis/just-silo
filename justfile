@@ -202,6 +202,28 @@ playbooks:
 debriefs:
     @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow debriefs/; else ls -la debriefs/; fi
 
+# === NAMESPACE: tidy-* (workspace hygiene) ===
+
+# Quick tidy check - show file counts
+tidy:
+    @echo "=== Tidy Check ==="
+    @echo "Briefs: $(ls briefs/*.md 2>/dev/null | wc -l | tr -d ' ') files"
+    @echo "  Archive: $(ls archive/briefs/*.md 2>/dev/null | wc -l | tr -d ' ') files"
+    @echo "Debriefs: $(ls debriefs/*.md 2>/dev/null | wc -l | tr -d ' ') files"
+    @echo "  Archive: $(ls archive/debriefs/*.md 2>/dev/null | wc -l | tr -d ' ') files"
+    @echo ""
+    @td list --count 2>/dev/null || echo "(td not configured)"
+    @td reviewable 2>/dev/null && echo "Reviews pending" || echo "All clear" 2>/dev/null || true
+
+# Archive old briefs (pre-current sprint)
+archive-briefs:
+    @echo "Archiving old briefs..."
+    @mkdir -p archive/briefs archive/debriefs
+    @mv briefs/2026-03-*.md archive/briefs/ 2>/dev/null && echo "  Moved March briefs" || echo "  No March briefs"
+    @mv briefs/2026-04-0[1-4]-*.md archive/briefs/ 2>/dev/null && echo "  Moved April 1-4 briefs" || echo "  No April 1-4 briefs"
+    @mv debriefs/2026-04-0[1-5]-*.md archive/debriefs/ 2>/dev/null && echo "  Moved old debriefs" || echo "  No old debriefs"
+    @echo "Done. Run: git add -A && git commit"
+
 # === STATUS ===
 
 # Show git status and recent commits
