@@ -1,0 +1,39 @@
+{
+  "name": "tidy-first-agent",
+  "type": "mounted",
+  "role": "Workspace hygiene maintenance",
+  "version": "0.1.0",
+  "description": "Maintains workspace hygiene via scheduled tidy runs",
+  "inputs": {
+    "format": "json",
+    "schema": null
+  },
+  "outputs": {
+    "report": {
+      "format": "text",
+      "path": "markers/done/report.txt"
+    },
+    "status": {
+      "format": "json",
+      "path": "markers/state/status.json"
+    }
+  },
+  "parent": {
+    "required": true,
+    "protocol": "markers"
+  },
+  "resources": {
+    "timeout": 60,
+    "memory": "256mb",
+    "parallel": false
+  },
+  "schedule": {
+    "enabled": true,
+    "cron": "0 */6 * * *",
+    "entrypoint": "just tidy"
+  },
+  "constraints": {
+    "policy": "CSP.md",
+    "scope": "workspace hygiene only"
+  }
+}

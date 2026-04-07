@@ -129,6 +129,21 @@ lex-export:
 # AGENTS (sub-agent management)
 # ============================================================
 
+# Show agents status
+[group: "agents"]
+agent-status name="":
+    @./scripts/agent-status.sh {{name}}
+
+# Create new agent from template
+[group: "agents"]
+agent-create name type="mounted":
+    @./scripts/agent-create.sh {{name}} {{type}}
+
+# Invoke an agent with input
+[group: "agents"]
+agent-invoke name input="-":
+    @./scripts/agent-invoke.sh {{name}} {{input}}
+
 # Show agent info
 [group: "agents"]
 agents-show name:
