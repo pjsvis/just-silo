@@ -60,9 +60,9 @@ help:
 
 # === ABOUT (Orientation) ===
 
-# Full orientation to this silo (see SHORTCUTS.about.md)
+# Full orientation to this silo (glow if available)
 about:
-    @cat SHORTCUTS.about.md
+    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow SHORTCUTS.about.md; else cat SHORTCUTS.about.md; fi
 
 # === NAMESPACE: silo-* (user operations) ===
 
