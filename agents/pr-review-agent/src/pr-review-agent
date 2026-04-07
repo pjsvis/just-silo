@@ -1,0 +1,379 @@
+#!/usr/bin/env bun
+/**
+ * pr-review-agent — Monitor PR reviews, fix issues, notify when ready
+ * 
+ * Usage:
+ *   pr-review-agent poll <pr-number>     # Poll once
+ *   pr-review-agent watch <pr-number>    # Poll every 5 minutes
+ *   pr-review-agent status <pr-number>   # Show current status
+ */
+
+import { execSync } from 'node:child_process'
+
+interface PRComment {
+  id: number
+  user: { login: string }
+  body: string
+  path?: string
+  line?: number
+  created_at: string
+}
+
+interface PRInfo {
+  number: number
+  title: string
+  state: string
+  head: { sha: string }
+  base: { ref: string }
+}
+
+const GITHUB_API = 'https://api.github.com'
+const POLL_INTERVAL = 5 * 60 * 1000 // 5 minutes
+const GITHUB_TOKEN = process.env.GH_TOKEN || process.env.GITHUB_TOKEN || ''
+
+// Severity keywords
+const MUST_FIX = ['bug', 'breaking', 'security', 'error', 'fails', 'crash', 'wrong', 'incorrect']
+const SHOULD_FIX = ['recommend', 'should', 'consider', 'prefer', 'better']
+const SUGGESTION = ['nit:', 'nitpick', 'style', 'minor', 'optional', 'perhaps']
+const NOISE = ['unclear', 'out of scope', 'unrelated', 'maybe', 'depends']
+
+function ghFetch(endpoint: string): any {
+  if (!GITHUB_TOKEN) {
+    throw new Error('GH_TOKEN environment variable required')
+  }
+  
+  try {
+    const cmd = `curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "Accept: application/vnd.github.v3+json" "${GITHUB_API}${endpoint}"`
+    const output = execSync(cmd, { encoding: 'utf-8' })
+    const json = JSON.parse(output)
+    
+    if (json.message) {
+      if (json.message.includes('Bad')) throw new Error('Invalid GitHub token')
+      if (json.message.includes('rate')) throw new Error('Rate limited')
+    }
+    
+    return json
+  } catch (e) {
+    if (e instanceof Error) throw e
+    throw new Error('API request failed')
+  }
+}
+
+function getRepo(): string {
+  const output = execSync('git remote get-url origin', { encoding: 'utf-8' }).trim()
+  const match = output.match(/github\.com[:/](.+?)(?:\.git)?$/)
+  if (!match) throw new Error('Could not determine repo')
+  return match[1]
+}
+
+function getPRInfo(prNumber: number): PRInfo {
+  try {
+    const repo = getRepo()
+    const response = ghFetch(`/repos/${repo}/pulls/${prNumber}`)
+    if (response && response.number) return response as PRInfo
+  } catch (e) {
+    console.error('Could not fetch PR info:', (e as Error).message)
+  }
+  return {
+    number: prNumber,
+    title: 'PR #' + prNumber,
+    state: 'open',
+    head: { sha: 'unknown' },
+    base: { ref: 'main' }
+  }
+}
+
+function getRepo(): string {
+  const output = execSync('git remote get-url origin', { encoding: 'utf-8' }).trim()
+  const match = output.match(/github\.com[:/](.+?)(?:\.git)?$/)
+  if (!match) throw new Error('Could not determine repo from git remote')
+  return match[1]
+}
+
+function getComments(prNumber: number): PRComment[] {
+  const repo = getRepo()
+  try {
+    const response = ghFetch(`/repos/${repo}/pulls/${prNumber}/comments`)
+    // Handle both array response and paginated response
+    if (Array.isArray(response)) return response
+    if (response.data && Array.isArray(response.data)) return response.data
+    return []
+  } catch {
+    return []
+  }
+}
+
+function categorize(body: string): { category: string; reason: string } {
+  const lower = body.toLowerCase()
+  
+  for (const keyword of MUST_FIX) {
+    if (lower.includes(keyword)) {
+      return { category: 'MUST_FIX', reason: `Found keyword: ${keyword}` }
+    }
+  }
+  
+  for (const keyword of SHOULD_FIX) {
+    if (lower.includes(keyword)) {
+      return { category: 'SHOULD_FIX', reason: `Found keyword: ${keyword}` }
+    }
+  }
+  
+  for (const keyword of SUGGESTION) {
+    if (lower.includes(keyword)) {
+      return { category: 'SUGGESTION', reason: `Found keyword: ${keyword}` }
+    }
+  }
+  
+  for (const keyword of NOISE) {
+    if (lower.includes(keyword)) {
+      return { category: 'NOISE', reason: `Found keyword: ${keyword}` }
+    }
+  }
+  
+  return { category: 'UNKNOWN', reason: 'No known keywords' }
+}
+
+function extractFileAndLine(comment: PRComment): { file?: string; line?: number; suggestion: string } {
+  const body = comment.body || ''
+  
+  // Extract file path from diff or comment
+  const fileMatch = comment.path || body.match(/`([^`]+)`|\.([a-z]+):(\d+)/)
+  
+  return {
+    file: comment.path,
+    line: comment.line,
+    suggestion: body.substring(0, 500) // Truncate for logging
+  }
+}
+
+function shouldAutoFix(comment: PRComment): boolean {
+  const { category } = categorize(comment.body)
+  return category === 'MUST_FIX' || category === 'SHOULD_FIX'
+}
+
+async function attemptFix(comment: PRComment): Promise<{ fixed: boolean; reason: string }> {
+  const { category, reason } = categorize(comment.body)
+  
+  // For now, log what we would fix
+  const { file, line, suggestion } = extractFileAndLine(comment)
+  
+  if (!file) {
+    return { fixed: false, reason: 'No file specified in comment' }
+  }
+  
+  // Check if file exists
+  try {
+    execSync(`git show HEAD:${file} > /dev/null 2>&1`, { encoding: 'utf-8' })
+  } catch {
+    return { fixed: false, reason: `File not in PR: ${file}` }
+  }
+  
+  // TODO: Implement actual fix logic based on comment type
+  console.log(`Would fix: ${file}${line ? `:${line}` : ''}`)
+  console.log(`  Category: ${category}`)
+  console.log(`  Reason: ${reason}`)
+  console.log(`  Suggestion: ${suggestion.substring(0, 200)}...`)
+  
+  return { fixed: false, reason: 'Fix not yet implemented - manual review needed' }
+}
+
+async function poll(prNumber: number): Promise<void> {
+  console.log(`\n=== Polling PR #${prNumber} ===`)
+  
+  const comments = getComments(prNumber)
+  console.log(`Found ${comments.length} total comments`)
+  
+  // Filter for AI reviewer comments
+  const aiReviewers = ['qodo-pr[bot]', 'coderabbitai[bot]', 'qodo[bot]']
+  const aiComments = comments.filter(c => aiReviewers.includes(c.user.login))
+  
+  if (aiComments.length === 0) {
+    console.log('No new AI reviewer comments')
+    return
+  }
+  
+  console.log(`AI reviewer comments: ${aiComments.length}`)
+  
+  const toFix: PRComment[] = []
+  const toSkip: { comment: PRComment; reason: string }[] = []
+  
+  for (const comment of aiComments) {
+    if (shouldAutoFix(comment)) {
+      toFix.push(comment)
+    } else {
+      const { category, reason } = categorize(comment.body)
+      toSkip.push({ comment, reason: `${category}: ${reason}` })
+    }
+  }
+  
+  console.log(`\nMust/SHOULD fix: ${toFix.length}`)
+  console.log(`Skipping: ${toSkip.length}`)
+  
+  if (toFix.length === 0) {
+    console.log('\nNo fixes needed - PR ready for merge review')
+    return
+  }
+  
+  // Attempt fixes
+  let fixed = 0
+  let skipped = 0
+  
+  for (const comment of toFix) {
+    const result = await attemptFix(comment)
+    if (result.fixed) {
+      fixed++
+    } else {
+      skipped++
+    }
+  }
+  
+  console.log(`\nFixed: ${fixed}, Manual needed: ${skipped}`)
+  
+  if (fixed > 0) {
+    console.log('\nPushing fixes...')
+    pushFixes()
+  }
+}
+
+function pushFixes(): void {
+  try {
+    execSync('git add -A', { encoding: 'utf-8' })
+    const status = execSync('git status --short', { encoding: 'utf-8' })
+    
+    if (status.toString().trim()) {
+      execSync('git commit -m "fix: address AI reviewer comments"')
+      execSync('git push')
+      console.log('Pushed fixes to PR branch')
+    }
+  } catch (e: any) {
+    console.error('Failed to push:', e.message)
+  }
+}
+
+async function watch(prNumber: number): Promise<void> {
+  console.log(`Watching PR #${prNumber} for AI reviewer comments...`)
+  console.log(`Poll interval: ${POLL_INTERVAL / 1000 / 60} minutes`)
+  console.log('Press Ctrl+C to stop\n')
+  
+  let consecutiveNoFix = 0
+  const STOP_AFTER = 3
+  
+  while (true) {
+    try {
+      await poll(prNumber)
+      
+      // Check stop condition
+      const comments = getComments(prNumber)
+      const aiReviewers = ['qodo-pr[bot]', 'coderabbitai[bot]', 'qodo[bot]']
+      const aiComments = comments.filter(c => aiReviewers.includes(c.user.login))
+      const needsFix = aiComments.filter(c => shouldAutoFix(c))
+      
+      if (needsFix.length === 0) {
+        consecutiveNoFix++
+        if (consecutiveNoFix >= STOP_AFTER) {
+          console.log(`\n=== PR #${prNumber} Ready for Review ===`)
+          console.log('All critical issues addressed. Human review + merge needed.')
+          break
+        }
+      } else {
+        consecutiveNoFix = 0
+      }
+      
+    } catch (e: any) {
+      if (e.message.includes('rate limit')) {
+        console.log('Rate limited. Waiting 60 seconds...')
+        await sleep(60000)
+        continue
+      }
+      console.error('Poll error:', e.message)
+    }
+    
+    await sleep(POLL_INTERVAL)
+  }
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+async function status(prNumber: number): Promise<void> {
+  const pr = getPRInfo(prNumber)
+  const comments = getComments(prNumber)
+  
+  const aiReviewers = ['qodo-pr[bot]', 'coderabbitai[bot]', 'qodo[bot]']
+  const aiComments = comments.filter(c => aiReviewers.includes(c.user.login))
+  
+  const categorized = aiComments.map(c => ({
+    reviewer: c.user.login,
+    category: categorize(c.body).category,
+    file: c.path || 'general',
+    snippet: c.body.substring(0, 100)
+  }))
+  
+  console.log(`
+=== PR #${prNumber}: ${pr.title || 'Unknown'} ===
+
+State: ${pr.state || 'unknown'}
+Branch: ${pr.head?.sha || 'unknown'}
+
+AI Review Comments: ${aiComments.length}
+`)
+  
+  if (categorized.length > 0) {
+    console.log('Breakdown:')
+    const counts: Record<string, number> = {}
+    for (const c of categorized) {
+      counts[c.category] = (counts[c.category] || 0) + 1
+    }
+    for (const [cat, count] of Object.entries(counts)) {
+      console.log(`  ${cat}: ${count}`)
+    }
+  }
+}
+
+// Main
+const args = process.argv.slice(2)
+const cmd = args[0] || 'help'
+const prNumber = parseInt(args[1]) || parseInt(process.env.PR_NUMBER || '0')
+
+if (!GITHUB_TOKEN) {
+  console.error('Error: GH_TOKEN environment variable required')
+  console.error('Set: export GH_TOKEN=your_github_token')
+  process.exit(1)
+}
+
+if (!prNumber) {
+  console.error('Error: PR number required')
+  console.error('Usage: pr-review-agent <poll|watch|status> <pr-number>')
+  process.exit(1)
+}
+
+switch (cmd) {
+  case 'poll':
+    poll(prNumber)
+    break
+  case 'watch':
+    watch(prNumber)
+    break
+  case 'status':
+    status(prNumber)
+    break
+  default:
+    console.log(`
+pr-review-agent — Monitor PR reviews, fix issues
+
+Usage:
+  pr-review-agent poll <pr-number>     # Poll once
+  pr-review-agent watch <pr-number>    # Poll every 5 minutes
+  pr-review-agent status <pr-number>  # Show current status
+
+Environment:
+  GH_TOKEN         # GitHub API token (required)
+  PR_NUMBER        # Fallback PR number
+
+Examples:
+  pr-review-agent watch 2
+  pr-review-agent status 2
+`)
+    break
+}

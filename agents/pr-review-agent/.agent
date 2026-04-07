@@ -1,0 +1,36 @@
+{
+  "name": "pr-review-agent",
+  "type": "standalone",
+  "role": "PR review monitoring and fix automation",
+  "version": "0.1.0",
+  "description": "Monitors PR reviews from qodo/code-rabbit, fixes issues, notifies when ready",
+  "inputs": {
+    "format": "cli",
+    "args": ["poll", "watch", "status"]
+  },
+  "outputs": {
+    "fixes": {
+      "format": "git",
+      "action": "push to PR branch"
+    },
+    "notification": {
+      "format": "stdout",
+      "action": "console output + td log"
+    }
+  },
+  "resources": {
+    "timeout": 300,
+    "memory": "128mb",
+    "parallel": false
+  },
+  "schedule": {
+    "enabled": true,
+    "cron": "*/5 * * * *",
+    "entrypoint": "just watch"
+  },
+  "constraints": {
+    "policy": "CSP.md",
+    "no_merge": true,
+    "rate_limit_respect": true
+  }
+}
