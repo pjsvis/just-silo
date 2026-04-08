@@ -1,157 +1,130 @@
-# Gamma Loop Playbook
+# Gamma-Loop Playbook
 
-## What is a Gamma Loop?
+## The Pattern
 
-A **Gamma Loop** is a self-monitoring and self-correction mechanism within a Silo. It keeps the Silo healthy without requiring human intervention for routine maintenance.
-
-## The Gamma Loop Model
+Whenever we learn a lesson, we capture it.
 
 ```
-Observe ──▶ Orient ──▶ Act ──▶ (repeat)
-    ▲                         │
-    └─────────────────────────┘
+Develop → Verb → Document → Tidy
 ```
 
-| Phase | Silo Action |
-|-------|-------------|
-| **Observe** | Check state, count artifacts, detect drift |
-| **Orient** | Compare against thresholds/constraints |
-| **Act** | Apply corrections (archive, prune, flag) |
-| **Escalate** | Notify human for complex issues |
+---
 
-## When to Run Gamma Loops
+## The Gamma-Loop
 
-| Scenario | Frequency | Command |
-|----------|-----------|---------|
-| Daily maintenance | Every 8 hours | `just agents-tidy "run"` |
-| Weekly deep-clean | Weekly | `just agents-tidy "run --full"` |
-| Pre-session | Before work | `just agents-tidy "check"` |
-| Post-session | After work | `just agents-tidy "run"` |
+**Gamma** = the third letter. After alpha (first attempt), beta (iteration), gamma (learning).
 
-## Gamma Loop Commands
+### The Cycle
+
+1. **Develop** — Figure it out. Get it working.
+2. **Verb** — Add `just` verbs. Make it repeatable.
+3. **Document** — Write playbook, brief, or debrief.
+4. **Tidy** — Prune dead verbs, stale docs, old briefs.
+
+### When to Run
+
+- End of every session
+- When a pattern emerges
+- Before starting something new
+
+---
+
+## How It Works
+
+### 1. Develop
+
+```
+cd new-thing
+# Figure it out
+command --that --works
+```
+
+### 2. Verb
 
 ```bash
-# Quick health check
-just agents-tidy "check"
-
-# Detailed status
-just agents-tidy "status"
-
-# Auto-tidy (safe operations)
-just agents-tidy "run"
-
-# Full tidy (includes brief-gen for complex issues)
-just agents-tidy "run --full"
-
-# Install cron schedules
-just agents-tidy "install-crons"
+# Add to justfile
+do-thing ARG:
+    command --that --works {{ARG}}
 ```
 
-## What Gamma Loops Can Do
+### 3. Document
 
-### ✅ Archive Old Artifacts
-- Old briefs → `briefs/archive/`
-- Old debriefs → `debriefs/archive/`
-- Stale markers → `archive/`
+Create a playbook:
+```bash
+# playbooks/new-thing-playbook.md
+# How to use the thing
+```
 
-### ✅ Prune Git Branches
-- Remove merged branches
-- Clean up old feature branches
+Or update an existing one.
 
-### ✅ Flag for Human Review
-- Stale td issues (> 14 days)
-- Complex decisions needing briefs
-
-## What Gamma Loops Must NOT Do
-
-### ❌ Never Delete
-Only archive/move. Deletion is irreversible.
-
-### ❌ Never Modify Source Code
-Gamma loops touch data, not code.
-
-### ❌ Never Touch Secrets
-Credentials remain untouched.
-
-## Escalation Criteria
-
-Escalate to human when:
-
-1. **Threshold exceeded for new artifact type**
-2. **Unknown error during correction**
-3. **Constraint policy violation detected**
-4. **Gamma loop itself is corrupted**
-
-## Adding a New Gamma Loop
-
-### Step 1: Define Thresholds
+### 4. Tidy
 
 ```bash
-# In your silo
-cat >> .silo << 'EOF'
-"gamma": {
-  "thresholds": {
-    "maxBriefs": 30,
-    "maxDebriefs": 20,
-    "staleDays": 14
-  }
-}
-EOF
+just tidy-first
 ```
 
-### Step 2: Create Check Script
+Prune:
+- Dead verbs
+- Stale docs
+- Old briefs without follow-up
+- Unused scripts
 
+---
+
+## Example: PXY Presentation
+
+**Develop:**
+- Figured out WebSocket push works
+- Markdown renders on server
+- Theme switching via JSON message
+
+**Verb:**
 ```bash
-#!/bin/bash
-# scripts/gamma-check.sh
-
-SILO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-source "$SILO_DIR/.silo"
-
-# Count briefs
-BRIEF_COUNT=$(ls "$SILO_DIR/briefs"/*.md 2>/dev/null | wc -l)
-MAX_BRIEFS=${gamma_thresholds_maxBriefs:-30}
-
-if [ "$BRIEF_COUNT" -gt "$MAX_BRIEFS" ]; then
-  echo "⚠️  Briefs exceeded: $BRIEF_COUNT > $MAX_BRIEFS"
-fi
+just present    # Start + display
+just push 01    # Show slide
+just theme dark # Switch theme
 ```
 
-### Step 3: Create Correct Script
+**Document:**
+- `playbooks/presentation-playbook.md`
+- `briefs/.../pxy-presentation-brief.md`
+- `debriefs/.../pxy-presentation-debrief.md`
 
-```bash
-#!/bin/bash
-# scripts/gamma-correct.sh
+**Tidy:**
+- Deprecated old server scripts (Python, Node)
+- Marked agent scripts as deprecated
+- Updated AGENTS.md
 
-# Archive oldest briefs
-ARCHIVE_DIR="briefs/archive"
-mkdir -p "$ARCHIVE_DIR"
-ls -t briefs/*.md | tail -n +31 | xargs -I{} mv {} "$ARCHIVE_DIR/"
-```
+---
 
-### Step 4: Wire to justfile
+## Tidy-First Triggers
 
-```just
-gamma-check:
-    @./scripts/gamma-check.sh
+Run `just tidy-first` when:
 
-gamma-correct:
-    @./scripts/gamma-correct.sh
+| Trigger | Action |
+|---------|--------|
+| Session end | Prune dead verbs, mark stale docs |
+| New domain starts | Archive old briefs without follow-up |
+| 10+ briefs | Archive oldest 5 |
+| Verb not used in 30 days | Prune or comment |
+| Script > 3 files | Split or archive |
 
-gamma-loop:
-    @just gamma-check && just gamma-correct
-```
+---
 
-## Gamma Log
+## The Benefit
 
-All gamma loop actions are logged:
+**Alpha** = figuring it out
+**Beta** = making it work
+**Gamma** = learning from it
 
-```json
-{"timestamp": "2026-04-07T10:00:00Z", "action": "archive", "target": "briefs/old.md", "reason": "threshold_exceeded"}
-{"timestamp": "2026-04-07T10:00:00Z", "action": "prune", "target": "feature/old-branch", "reason": "merged"}
-```
+The gamma-loop ensures:
+- Knowledge persists
+- Commands stay clean
+- Context transfers between sessions
+
+---
 
 ## See Also
 
-- `agents/tidy-first-agent/` - Canonical implementation
-- `briefs/2026-04-07-brief-gamma-loop-architecture.md` - Architecture doc
+- `playbooks/td-playbook.md` — Local-first task management
+- `playbooks/presentation-playbook.md` — Example of gamma-loop in action
