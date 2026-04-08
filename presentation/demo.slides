@@ -1,0 +1,134 @@
+# Demo Presentation Slides
+# Usage: cat slides/01-title.html | ./push-content
+#   or:  ./push-content "$(cat slides/01-title.html)"
+
+---
+
+## Slide 01: Title
+
+```html
+<h1>AI Agent Workflows</h1>
+<h2>Live Demo</h2>
+<p style="margin-top: 2em; color: #888;">Watch the operator work</p>
+```
+
+---
+
+## Slide 02: Self-Test
+
+```html
+<h1>✓ Self-Test Complete</h1>
+<ul>
+  <li>Voice interface: Nominal</li>
+  <li>Display server: Connected</li>
+  <li>Context loaded: 6 briefs</li>
+  <li>Status: Ready</li>
+</ul>
+```
+
+---
+
+## Slide 03: Definition Demo
+
+```html
+<h1>Grumpy</h1>
+<p><em>adjective</em></p>
+<p>Disposed to or marked by ill humor and irritability.</p>
+<hr style="margin: 2em 0; border-color: #333;">
+<p style="font-size: 0.7em; color: #666;">"Don't get grumpy with me."</p>
+```
+
+---
+
+## Slide 04: Services Table
+
+```html
+<h1>Consulting Services</h1>
+<table>
+  <tr><th>Service</th><th>Scope</th><th>Timeline</th></tr>
+  <tr><td>Discovery</td><td>Process audit</td><td>1 week</td></tr>
+  <tr><td>Design</td><td>Workflow architecture</td><td>2 weeks</td></tr>
+  <tr><td>Implementation</td><td>Agent deployment</td><td>4 weeks</td></tr>
+  <tr><td>Operations</td><td>Ongoing support</td><td>Monthly</td></tr>
+</table>
+```
+
+---
+
+## Slide 05: Bestiary Entry
+
+```html
+<h1>Bestiary: Scaffolding Fallacy</h1>
+<p><em>noun</em></p>
+<p>The tendency to build elaborate infrastructure before confirming the core use case works.</p>
+<table style="margin-top: 1em;">
+  <tr><td style="width: 20%;"><strong>Signal</strong></td><td>weeks of setup, zero output</td></tr>
+  <tr><td><strong>Antidote</strong></td><td>Ship ugly first. Iterate to pretty.</td></tr>
+</table>
+```
+
+---
+
+## Slide 06: Code Block
+
+```html
+<h1>Ledger Output</h1>
+<pre><code>AGENT: review-agent
+MODEL: claude-3-5-sonnet
+TOKENS: 12,847
+COST: $0.38
+STATUS: ✓ Complete</code></pre>
+```
+
+---
+
+## Slide 07: Cost Estimate
+
+```html
+<h1>Cost Projection</h1>
+<table>
+  <tr><th>Phase</th><th>Tokens (est.)</th><th>Cost (est.)</th></tr>
+  <tr><td>Discovery</td><td>50,000</td><td>$1.50</td></tr>
+  <tr><td>Design</td><td>80,000</td><td>$2.40</td></tr>
+  <tr><td>Implementation</td><td>200,000</td><td>$6.00</td></tr>
+  <tr><td><strong>Total</strong></td><td><strong>330,000</strong></td><td><strong>$9.90</strong></td></tr>
+</table>
+```
+
+---
+
+## Slide 08: Agenda
+
+```html
+<h1>Agenda</h1>
+<ol style="font-size: 1.4em; line-height: 2;">
+  <li>Self-test (done ✓)</li>
+  <li>Workflow overview</li>
+  <li>Agent architecture</li>
+  <li>Cost model</li>
+  <li>Q&A</li>
+</ol>
+```
+
+---
+
+## Slide 09: The Ask
+
+```html
+<h1>Next Steps</h1>
+<ul>
+  <li>Schedule a discovery session</li>
+  <li>Map your workflow</li>
+  <li>Identify first automation</li>
+</ul>
+<p style="margin-top: 2em; font-size: 1.2em;">Let's talk.</p>
+```
+
+---
+
+## Slide 10: Thank You
+
+```html
+<h1>Thank You</h1>
+<p style="color: #888;">Questions?</p>
+```

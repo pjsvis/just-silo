@@ -212,20 +212,12 @@ my-silo/
 - Validation at ingestion is cheap
 - Debugging downstream is expensive
 
-## Multi-Agent
+## Multi-Agent (Deprecated)
 
-Agents coordinate via marker files:
+Agent orchestration has been removed. Use direct terminal instead.
 
-```bash
-# Agent A
-just harvest
-just done harvest
-
-# Agent B
-just wait harvest
-just process
-just done process
-```
+- **Local:** Zed + terminal
+- **Remote:** Monitoring only
 
 ## Examples
 

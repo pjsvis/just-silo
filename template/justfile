@@ -272,6 +272,47 @@ compact:
 	@jq -c 'select(.status != "processed")' {{DATA_FILE}} > {{DATA_FILE}}.tmp
 	@mv {{DATA_FILE}}.tmp {{DATA_FILE}}
 
+# === COST TRACKING ===
+
+# Log a task to the cost ledger
+# Usage: just silo-cost-log agent="scout-smoke" task="recon" model="minimax-2.7-4k" status="done" [duration_s]
+silo-cost-log agent="unnamed" task="-" model="minimax-2.7-4k" status="done" duration_s="0":
+	@mkdir -p pipeline
+	@LEDGER=pipeline/history.jsonl bash {{SCRIPTS_DIR}}/silo_cost.sh "{{agent}}" "{{task}}" "{{model}}" "{{status}}" "{{duration_s}}"
+
+# Show cost ledger summary
+# Usage: just silo-cost
+silo-cost:
+	@if [ ! -f pipeline/history.jsonl ]; then echo "  (no ledger — run silo-cost-log first)"; exit 0; fi
+	@echo "=== COST LEDGER ==="
+	@wc -l < pipeline/history.jsonl | xargs echo "ENTRIES:"
+	@echo ""
+	@echo "PER-AGENT:"
+	@jq -c '[.agent, .model, .status, .duration_s, .cost_usd]' pipeline/history.jsonl | while IFS= read -r line; do agent=$(echo "$line" | jq -r '.[0]'); model=$(echo "$line" | jq -r '.[1]'); status=$(echo "$line" | jq -r '.[2]'); dur=$(echo "$line" | jq -r '.[3]'); cost=$(echo "$line" | jq -r '.[4]'); echo "  $agent  $model  $status  ${dur}s  \$$cost"; done || true
+	@echo ""
+	@echo "TOTALS:"
+	@jq -s '"  Total tasks: \(length)", "  Total cost: $" + (reduce .[].cost_usd as $x (0; . + $x) | tostring), "  Total duration: \(reduce .[].duration_s as $d (0; . + $d))s"' pipeline/history.jsonl | tr -d '"'
+	@echo ""
+	@echo "  NOTE: Estimates assume 2k in + 800 out tokens/task."
+	@printf '  Rates: minimax-2.7-4k $0.05/M in / $0.10/M out\n'
+
+# Show cost by agent group
+silo-cost-by-agent:
+	@LEDGER=pipeline/history.jsonl bash {{SCRIPTS_DIR}}/silo_cost_by_agent.sh
+
+# Archive old ledger entries (>30 days)
+cost-archive:
+	@mkdir -p pipeline
+	@if [ ! -f pipeline/history.jsonl ]; then echo "Nothing to archive"; exit 0; fi
+	@ARCHIVE="pipeline/history_$$(date +%Y%m%d).jsonl"
+	@jq 'select(now - (\(.ts / 1000)) < 2592000)' pipeline/history.jsonl > "$$ARCHIVE" 2>/dev/null || true
+	@echo "Archived: $$ARCHIVE"
+
+# Clear the cost ledger
+cost-clear:
+	@rm -f pipeline/history.jsonl
+	@echo "Ledger cleared"
+
 # === MULTI-AGENT COORDINATION ===
 
 lock marker:

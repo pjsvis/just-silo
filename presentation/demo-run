@@ -1,0 +1,54 @@
+#!/bin/bash
+# demo-run — Run the demo presentation
+# Pushes slides one by one with pauses
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
+SERVER="${SSE_SERVER:-localhost:8080}"
+SLEEP="${SLEEP:-3}"
+
+slides=(
+  "slides/01-title.html"
+  "slides/02-selftest.html"
+  "slides/03-definition.html"
+  "slides/04-services.html"
+  "slides/05-bestiary.html"
+  "slides/06-code.html"
+  "slides/07-costs.html"
+  "slides/08-agenda.html"
+  "slides/09-ask.html"
+  "slides/10-end.html"
+)
+
+echo "=== SSE Demo Presentation ==="
+echo "Server: $SERVER"
+echo "Delay between slides: ${SLEEP}s"
+echo ""
+echo "Make sure the server is running:"
+echo "  python3 sse-server.py 8080"
+echo ""
+echo "And browser open to:"
+echo "  http://localhost:8080/present"
+echo ""
+echo "Press Ctrl+C to stop, Enter to start..."
+read
+
+for i in "${!slides[@]}"; do
+  num=$((i+1))
+  echo "[$num/10] Pushing ${slides[$i]}..."
+  ./push-content "$(cat "${slides[$i]}")"
+  if [ $i -lt $((${#slides[@]} - 1)) ]; then
+    echo "    Waiting ${SLEEP}s..."
+    sleep "$SLEEP"
+  fi
+done
+
+echo ""
+echo "=== Demo Complete ==="
+echo ""
+echo "Push more slides manually:"
+echo "  ./push-content \"\$(cat slides/03-definition.html)\""
+echo ""
+echo "Or push raw HTML:"
+echo "  ./push-content '<h1>Hello</h1>'"

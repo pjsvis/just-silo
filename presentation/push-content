@@ -1,0 +1,25 @@
+#!/bin/bash
+# push-content — Push HTML content to SSE server
+# Usage: push-content "<h1>Hello</h1>"
+#   or:  push-content /path/to/file.html
+
+SERVER="${SSE_SERVER:-localhost:8080}"
+
+if [ -z "$1" ]; then
+  echo "Usage: push-content '<html content>'" >&2
+  echo "   or: push-content /path/to/file.html" >&2
+  exit 1
+fi
+
+# If argument is a file, read it; otherwise use as-is
+if [ -f "$1" ]; then
+  CONTENT=$(cat "$1")
+else
+  CONTENT="$1"
+fi
+
+curl -s -X POST "http://${SERVER}/push" \
+  -H "Content-Type: text/html" \
+  --data-raw "$CONTENT"
+
+echo ""  # newline after curl output

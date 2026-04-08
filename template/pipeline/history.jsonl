@@ -1,0 +1,77 @@
+{
+  "ts": "2026-04-08T07:12:38+01:00",
+  "agent": "scout-smoke",
+  "task": "codebase-recon",
+  "model": "minimax-2.7-4k",
+  "status": "done",
+  "duration_s": 47,
+  "input_tokens": 2000,
+  "output_tokens": 800,
+  "cost_usd": 0.180000
+}
+{
+  "ts": "2026-04-08T07:12:38+01:00",
+  "agent": "worker-smoke",
+  "task": "dev-check",
+  "model": "minimax-2.7-4k",
+  "status": "done",
+  "duration_s": 23,
+  "input_tokens": 2000,
+  "output_tokens": 800,
+  "cost_usd": 0.180000
+}
+{
+  "ts": "2026-04-08T07:12:38+01:00",
+  "agent": "reviewer-smoke",
+  "task": "justfile-review",
+  "model": "minimax-2.7-4k",
+  "status": "done",
+  "duration_s": 31,
+  "input_tokens": 2000,
+  "output_tokens": 800,
+  "cost_usd": 0.180000
+}
+{
+  "ts": "2026-04-08T07:15:18+01:00",
+  "agent": "planner-smoke",
+  "task": "plan-silo-archive",
+  "model": "minimax-2.7-4k",
+  "status": "running",
+  "duration_s": 0,
+  "input_tokens": 2000,
+  "output_tokens": 800,
+  "cost_usd": 0.180000
+}
+{
+  "ts": "2026-04-08T07:15:18+01:00",
+  "agent": "spec-smoke",
+  "task": "spec-silo-archive",
+  "model": "minimax-2.7-4k",
+  "status": "running",
+  "duration_s": 0,
+  "input_tokens": 2000,
+  "output_tokens": 800,
+  "cost_usd": 0.180000
+}
+{
+  "ts": "2026-04-08T07:27:14+01:00",
+  "agent": "worker-v3",
+  "task": "dev-check",
+  "model": "minimax/minimax-m2.7",
+  "status": "done",
+  "duration_s": 16,
+  "input_tokens": 2000,
+  "output_tokens": 800,
+  "cost_usd": 0.360000
+}
+{
+  "ts": "2026-04-08T07:27:14+01:00",
+  "agent": "scout-v3",
+  "task": "codebase-recon",
+  "model": "minimax/minimax-m2.7",
+  "status": "done",
+  "duration_s": 41,
+  "input_tokens": 2000,
+  "output_tokens": 800,
+  "cost_usd": 0.360000
+}

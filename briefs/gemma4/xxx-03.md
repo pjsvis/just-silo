@@ -13,7 +13,7 @@ In current AI development, a "skill" is typically implemented as a static asset:
 * **The Gamma-Loop (The Feedback Gap):** Most systems lack a high-gain feedback loop. If a tool fails, the system provides an error message to the user instead of providing the error back to the model for automated tool refinement.
 
 ### **2. Humean Skepticism: The Decay of Induction**
-Applying David Hume’s skepticism to this architecture:
+Applying David Hume's skepticism to this architecture:
 * **Inductive Risk:** We cannot rationally assume that because a tool worked on File A, it will work on File B. 
 * **Skill as a Verb:** Competency is not the possession of a tool; it is the active process of applying knowledge to a changing environment. A "skill" is a fleeting action performed in response to a specific delta.
 

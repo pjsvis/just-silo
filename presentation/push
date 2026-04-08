@@ -1,0 +1,33 @@
+#!/bin/bash
+# push — Push content to presentation server
+# Usage: push "<markdown>"
+#   or:  push /path/to/file.md
+#   or:  push --theme dark|light
+
+SERVER="${SERVER:-localhost:8080}"
+
+case "$1" in
+  --theme)
+    curl -s -X POST "http://${SERVER}/theme" -d "$2"
+    echo ""
+    ;;
+  *)
+    if [ -z "$1" ]; then
+      echo "Usage: push '<markdown>'" >&2
+      echo "   or: push /path/to/file.md" >&2
+      echo "   or: push --theme dark|light" >&2
+      exit 1
+    fi
+
+    if [ -f "$1" ]; then
+      CONTENT=$(cat "$1")
+    else
+      CONTENT="$1"
+    fi
+
+    curl -s -X POST "http://${SERVER}/push" \
+      -H "Content-Type: text/markdown" \
+      --data-raw "$CONTENT"
+    echo ""
+    ;;
+esac
