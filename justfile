@@ -283,12 +283,17 @@ api-external:
     @SILO_API_PORT=3000 bun run src/silo-api-external.ts
 
 # Start both APIs (internal first, then external)
+# Uses subshell with trap to clean up background process on exit
 [group("api")]
 api-start:
     @echo "Starting two-tier API..."
-    @SILO_API_PORT=3001 bun run src/silo-api-internal.ts &
-    @sleep 1
-    @SILO_API_PORT=3000 bun run src/silo-api-external.ts
+    @(
+        SILO_API_PORT=3001 bun run src/silo-api-internal.ts &
+        INTERNAL_PID=$!
+        trap "kill $INTERNAL_PID 2>/dev/null" EXIT INT TERM
+        sleep 1
+        SILO_API_PORT=3000 bun run src/silo-api-external.ts
+    )
 
 # Start API on custom port (legacy, uses internal)
 [group("api")]

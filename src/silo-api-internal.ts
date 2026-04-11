@@ -143,22 +143,27 @@ app.get('/stream/status', (c) => {
   return streamSSE(c, async (stream) => {
     const statusPath = join(SILO_DIR, 'status.json')
     let lastMtime = 0
+    const signal = c.req.raw.signal
     
-    while (true) {
-      try {
-        if (existsSync(statusPath)) {
-          const stat = statSync(statusPath)
-          if (stat.mtimeMs > lastMtime) {
-            lastMtime = stat.mtimeMs
-            await stream.writeSSE({
-              data: JSON.stringify(getStatus()),
-              event: 'status',
-              id: String(Date.now())
-            })
+    try {
+      while (!signal.aborted) {
+        try {
+          if (existsSync(statusPath)) {
+            const stat = statSync(statusPath)
+            if (stat.mtimeMs > lastMtime) {
+              lastMtime = stat.mtimeMs
+              await stream.writeSSE({
+                data: JSON.stringify(getStatus()),
+                event: 'status',
+                id: String(Date.now())
+              })
+            }
           }
-        }
-      } catch { /* ignore */ }
-      await new Promise(r => setTimeout(r, STREAM_INTERVAL))
+        } catch { /* ignore */ }
+        await new Promise(r => setTimeout(r, STREAM_INTERVAL))
+      }
+    } finally {
+      stream.close()
     }
   })
 })
@@ -167,23 +172,28 @@ app.get('/stream/heartbeat', (c) => {
   return streamSSE(c, async (stream) => {
     const heartbeatPath = join(SILO_DIR, 'heartbeat.jsonl')
     let lastLine = ''
+    const signal = c.req.raw.signal
     
     await stream.writeSSE({
       data: JSON.stringify({ type: 'connected', silo: SILO_DIR }),
       event: 'ping'
     })
     
-    while (true) {
-      try {
-        if (existsSync(heartbeatPath)) {
-          const lastEntry = readLastLine(heartbeatPath)
-          if (lastEntry && lastEntry !== lastLine) {
-            lastLine = lastEntry
-            await stream.writeSSE({ data: lastEntry, event: 'heartbeat' })
+    try {
+      while (!signal.aborted) {
+        try {
+          if (existsSync(heartbeatPath)) {
+            const lastEntry = readLastLine(heartbeatPath)
+            if (lastEntry && lastEntry !== lastLine) {
+              lastLine = lastEntry
+              await stream.writeSSE({ data: lastEntry, event: 'heartbeat' })
+            }
           }
-        }
-      } catch { /* ignore */ }
-      await new Promise(r => setTimeout(r, STREAM_INTERVAL))
+        } catch { /* ignore */ }
+        await new Promise(r => setTimeout(r, STREAM_INTERVAL))
+      }
+    } finally {
+      stream.close()
     }
   })
 })
@@ -192,23 +202,28 @@ app.get('/stream/logs', (c) => {
   return streamSSE(c, async (stream) => {
     const dataPath = join(SILO_DIR, 'data.jsonl')
     let lastLine = ''
+    const signal = c.req.raw.signal
     
     await stream.writeSSE({
       data: JSON.stringify({ type: 'connected', silo: SILO_DIR }),
       event: 'ping'
     })
     
-    while (true) {
-      try {
-        if (existsSync(dataPath)) {
-          const lastEntry = readLastLine(dataPath)
-          if (lastEntry && lastEntry !== lastLine) {
-            lastLine = lastEntry
-            await stream.writeSSE({ data: lastEntry, event: 'log' })
+    try {
+      while (!signal.aborted) {
+        try {
+          if (existsSync(dataPath)) {
+            const lastEntry = readLastLine(dataPath)
+            if (lastEntry && lastEntry !== lastLine) {
+              lastLine = lastEntry
+              await stream.writeSSE({ data: lastEntry, event: 'log' })
+            }
           }
-        }
-      } catch { /* ignore */ }
-      await new Promise(r => setTimeout(r, STREAM_INTERVAL))
+        } catch { /* ignore */ }
+        await new Promise(r => setTimeout(r, STREAM_INTERVAL))
+      }
+    } finally {
+      stream.close()
     }
   })
 })
@@ -218,6 +233,7 @@ app.get('/stream/all', (c) => {
     const statusPath = join(SILO_DIR, 'status.json')
     const heartbeatPath = join(SILO_DIR, 'heartbeat.jsonl')
     const dataPath = join(SILO_DIR, 'data.jsonl')
+    const signal = c.req.raw.signal
     
     let lastStatusMtime = 0
     let lastHeartbeat = ''
@@ -228,34 +244,38 @@ app.get('/stream/all', (c) => {
       event: 'ping'
     })
     
-    while (true) {
-      try {
-        if (existsSync(statusPath)) {
-          const stat = statSync(statusPath)
-          if (stat.mtimeMs > lastStatusMtime) {
-            lastStatusMtime = stat.mtimeMs
-            await stream.writeSSE({
-              data: JSON.stringify({ ...getStatus(), source: 'status' }),
-              event: 'status'
-            })
+    try {
+      while (!signal.aborted) {
+        try {
+          if (existsSync(statusPath)) {
+            const stat = statSync(statusPath)
+            if (stat.mtimeMs > lastStatusMtime) {
+              lastStatusMtime = stat.mtimeMs
+              await stream.writeSSE({
+                data: JSON.stringify({ ...getStatus(), source: 'status' }),
+                event: 'status'
+              })
+            }
           }
-        }
-        if (existsSync(heartbeatPath)) {
-          const hb = readLastLine(heartbeatPath)
-          if (hb && hb !== lastHeartbeat) {
-            lastHeartbeat = hb
-            await stream.writeSSE({ data: hb, event: 'heartbeat' })
+          if (existsSync(heartbeatPath)) {
+            const hb = readLastLine(heartbeatPath)
+            if (hb && hb !== lastHeartbeat) {
+              lastHeartbeat = hb
+              await stream.writeSSE({ data: hb, event: 'heartbeat' })
+            }
           }
-        }
-        if (existsSync(dataPath)) {
-          const log = readLastLine(dataPath)
-          if (log && log !== lastLog) {
-            lastLog = log
-            await stream.writeSSE({ data: log, event: 'log' })
+          if (existsSync(dataPath)) {
+            const log = readLastLine(dataPath)
+            if (log && log !== lastLog) {
+              lastLog = log
+              await stream.writeSSE({ data: log, event: 'log' })
+            }
           }
-        }
-      } catch { /* ignore */ }
-      await new Promise(r => setTimeout(r, STREAM_INTERVAL))
+        } catch { /* ignore */ }
+        await new Promise(r => setTimeout(r, STREAM_INTERVAL))
+      }
+    } finally {
+      stream.close()
     }
   })
 })

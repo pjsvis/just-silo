@@ -160,9 +160,21 @@ app.post('/exec/:verb', async (c) => {
   
   const body = await c.req.json().catch(() => ({}))
   const args: string[] = body.args || []
+  const signal = c.req.raw.signal
   
   return streamSSE(c, async (stream) => {
     const proc = spawn('just', [verb, ...args], { cwd: SILO_DIR })
+    
+    // Kill process on client disconnect
+    const cleanup = () => {
+      if (!proc.killed) {
+        proc.kill('SIGTERM')
+        stream.writeSSE({ data: 'Terminated by client disconnect', event: 'terminate' })
+      }
+    }
+    
+    // Handle abort signal
+    signal.addEventListener('abort', cleanup)
     
     proc.stdout.on('data', (data) => {
       stream.writeSSE({ data: data.toString(), event: 'stdout' })
@@ -173,11 +185,13 @@ app.post('/exec/:verb', async (c) => {
     })
     
     proc.on('close', (code) => {
+      signal.removeEventListener('abort', cleanup)
       stream.writeSSE({ data: `Exit code: ${code}`, event: 'close' })
       stream.close()
     })
     
     proc.on('error', (err) => {
+      signal.removeEventListener('abort', cleanup)
       stream.writeSSE({ data: err.message, event: 'error' })
       stream.close()
     })

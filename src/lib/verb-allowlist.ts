@@ -24,7 +24,11 @@ export interface AllowlistConfig {
 /**
  * Parse justfile for remote="true" annotations
  * 
- * Format: recipe-name param1 param2: [remote="true"]
+ * Supported formats:
+ *   recipe-name: [remote="true"]
+ *   recipe-name param: [remote="true"]
+ *   recipe-name param1 param2: [remote="true"]
+ *   recipe-name param: [remote="true"] description
  */
 export function parseRemoteVerbs(justfilePath: string): Set<string> {
   if (!existsSync(justfilePath)) {
@@ -34,17 +38,23 @@ export function parseRemoteVerbs(justfilePath: string): Set<string> {
   const content = readFileSync(justfilePath, 'utf-8')
   const remoteVerbs = new Set<string>()
   
-  // Match lines like: `recipe-name:` or `recipe-name arg: [remote="true"]`
-  const recipePattern = /^([a-zA-Z0-9_-]+)\s*(?:[^\s:]+)?:(?:\s*#.*)?\s*\[remote="true"\]/gm
-  
+  // Pattern 1: Trailing bracket form - `recipe-name: [remote="true"]`
+  // Matches: `verb: [group="x"] [remote="true"]` or `verb: [remote="true"]`
+  const trailingPattern = /^([a-zA-Z0-9_-]+)(?:\s+[^:]+)?:\s*(?:#[^\[]*)?\[remote="true"\]/gm
   let match
-  while ((match = recipePattern.exec(content)) !== null) {
+  while ((match = trailingPattern.exec(content)) !== null) {
     remoteVerbs.add(match[1])
   }
   
-  // Also match inline: `recipe: [remote="true"]`
+  // Pattern 2: Inline comment form - `recipe-name: # comment [remote="true"]`
   const inlinePattern = /^([a-zA-Z0-9_-]+):\s*#.*\[remote="true"\]/gm
   while ((match = inlinePattern.exec(content)) !== null) {
+    remoteVerbs.add(match[1])
+  }
+  
+  // Pattern 3: Attribute before colon (documented form) - `recipe-name [remote="true"]:`
+  const attrPattern = /^([a-zA-Z0-9_-]+)(?:\s+[^:]+)?\s+\[remote="true"\]\s*:/gm
+  while ((match = attrPattern.exec(content)) !== null) {
     remoteVerbs.add(match[1])
   }
   

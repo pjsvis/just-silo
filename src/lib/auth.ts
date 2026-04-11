@@ -1,5 +1,8 @@
 /**
  * Auth utilities for external API
+ * 
+ * Security model: External API requires auth by default.
+ * Set SILO_AUTH_DISABLED=true only for local development.
  */
 
 export interface AuthConfig {
@@ -12,8 +15,18 @@ const DEFAULT_HEADER = 'X-Silo-Token'
 
 export function getAuthConfig(): AuthConfig {
   const token = process.env.SILO_API_TOKEN
-  const enabled = token ? true : false
+  const explicitDisable = process.env.SILO_AUTH_DISABLED === 'true'
   const headerName = process.env.SILO_AUTH_HEADER || DEFAULT_HEADER
+  
+  // Auth is required unless explicitly disabled (for local dev only)
+  const enabled = explicitDisable ? false : (token ? true : false)
+  
+  if (!enabled && !explicitDisable && !token) {
+    // Token not set - auth will be required, middleware will deny all requests
+    console.warn('[AUTH] WARNING: SILO_API_TOKEN not set. External API will deny all requests.')
+  } else if (explicitDisable) {
+    console.warn('[AUTH] WARNING: Authentication DISABLED via SILO_AUTH_DISABLED. Do not use in production!')
+  }
   
   return { enabled, token, headerName }
 }
