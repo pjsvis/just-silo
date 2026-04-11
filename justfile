@@ -351,7 +351,20 @@ watch-dashboard:
 dev-check:
     @./scripts/dev-check.sh
 
-# Run tests
+# Type-check all tiers (requires: npm install -g typescript)
+[group("dev")]
+dev-typecheck:
+    @if command -v tsc >/dev/null 2>&1; then \
+        echo "=== Type Check: Production (src/) ===" && \
+        tsc --project tsconfig.json --noEmit 2>&1 || true && \
+        echo "" && \
+        echo "=== Type Check: Scripts (scripts/) ===" && \
+        tsc --project tsconfig.scripts.json --noEmit 2>&1 || true; \
+    else \
+        echo "TypeScript not installed. Run: npm install -g typescript"; \
+    fi
+
+# Run tests (integration + unit)
 [group("dev")]
 dev-tests:
     @echo "=== Integration Tests ===" && ./scripts/silo-integration-test
@@ -364,6 +377,11 @@ dev-tests:
     else \
         SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh error "Tests failed" action=dev-tests status=failure exit_code="$$TEST_EXIT"; \
     fi
+
+# Full quality check (type + test)
+[group("dev")]
+dev-checkall: dev-typecheck dev-tests
+    @echo "=== Full Quality Check Complete ==="
 
 # Create new silo
 [group("dev")]

@@ -146,7 +146,19 @@ src/
 ├── silo-api-server.ts  # Types, tests, docs
 └── lib/
     └── silo-logger.ts  # Full quality
+
+**TypeScript config tiers:**
+```json
+tsconfig.json          // Tier 2: strict, no implicit any
+tsconfig.scripts.json // Tier 1: relaxed, allowJs
 ```
+
+**Commands:**
+```bash
+just dev-typecheck   # Check all tiers
+just dev-checkall   # Type + tests
+```
+
 
 ---
 
