@@ -269,9 +269,73 @@ just agents-help
 
 ---
 
+## Coding Standards for Agents
+
+> **When coding agents act, they follow these rules.**
+
+### The Simplicity Rule
+
+> **Extract to scripts. Keep justfiles thin.**
+
+| Situation | Don't Do | Do |
+|----------|----------|----|
+| Recipe > 80 chars | Inline jq pipeline | Call `scripts/process.sh` |
+| Data transformation | `jq` in justfile | `scripts/transform.sh` |
+| Conditional logic | Nested `if/elif/else` | Call `scripts/decide.sh` |
+| Multi-step workflow | Long recipe with `\` | `just step1 && just step2` |
+
+### Why Simplicity Wins
+
+1. **Debugging** — Simple code fails predictably
+2. **Readability** — Future you thanks present you
+3. **Composability** — Scripts call scripts
+4. **Testability** — Scripts can be tested independently
+
+### The Trigger
+
+Extract to a script when:
+- Line exceeds 80 characters
+- Nested quotes (`'"..."'`)
+- Variable interpolation complexity
+- Multi-line `\` chains
+- Data manipulation (jq, sed, awk)
+
+### Pattern
+
+```just
+# BAD: Justfile does the work
+transform:
+    @jq -c 'select(.status == "ready")' data.jsonl > ready.jsonl
+    @jq -c 'select(.status != "ready")' data.jsonl > pending.jsonl
+    @echo "Split $(wc -l < ready.jsonl) ready, $(wc -l < pending.jsonl) pending"
+
+# GOOD: Script does the work
+transform:
+    @./scripts/transform.sh
+```
+
+### The justfile Mantra
+
+```
+Justfile = vocabulary (orchestration)
+Scripts  = grammar (implementation)
+```
+
+### Agent-Specific Rules
+
+1. **Log actions** — stdout or `.silo/logs/`
+2. **Fail loud** — Let errors propagate
+3. **Idempotent** — Safe to run twice
+4. **Manifest** — Update `manifest.json` when commands change
+5. **Test** — Agent lifecycle tests in `tests/` directory
+
+---
+
 ## Related
 
 - `agents/README.md` — Agent registry
 - `agents/<name>-agent/` — Individual agent directories
 - `scripts/resolve-agent.sh` — Name/alias resolution
 - `playbooks/watchexec-playbook.md` — File watching (for agents)
+- `playbooks/justfile-design-playbook.md` — Justfile design rules
+- `playbooks/lessons-learned.md` — Collected wisdom

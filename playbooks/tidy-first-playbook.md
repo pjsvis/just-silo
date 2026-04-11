@@ -145,8 +145,28 @@ Before starting new work:
 
 ---
 
+## Tidy Code Too
+
+The same discipline applies to code:
+
+| Before | After |
+|--------|-------|
+| 200-line justfile with jq pipelines | Thin justfile + `scripts/*.sh` |
+| Complex shell in recipes | Extract to scripts |
+| Mega-recipes doing everything | Small, composable pieces |
+
+### The Rule
+
+> **If a recipe line is longer than 80 chars or has nested quotes, extract to a script.**
+
+See: `playbooks/justfile-design-playbook.md` for details.
+
+---
+
 ## Related
 
 - [Briefs Pattern](briefs-playbook.md) — How to write briefs
 - [td Playbook](td-playbook.md) — Task management
 - [Agent Ops Playbook](agent-ops-playbook.md) — Agent coordination
+- [Justfile Design Playbook](justfile-design-playbook.md) — Recipe design rules
+- [Lessons Learned](lessons-learned.md) — Collected wisdom
