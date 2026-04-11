@@ -259,7 +259,9 @@ briefs-find query="":
 # Full briefs maintenance
 [group("briefs")]
 briefs-maintain:
+    @SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh info "Starting briefs maintenance" action=briefs-maintain
     @./scripts/briefs.sh catalog && ./scripts/briefs.sh debriefs && ./scripts/briefs.sh sync
+    @SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh info "Briefs maintenance complete" action=briefs-maintain status=success
 
 # Show briefs status
 [group("briefs")]
@@ -286,14 +288,14 @@ api-external:
 # Uses subshell with trap to clean up background process on exit
 [group("api")]
 api-start:
-    @echo "Starting two-tier API..."
-    @(
-        SILO_API_PORT=3001 bun run src/silo-api-internal.ts &
-        INTERNAL_PID=$!
-        trap "kill $INTERNAL_PID 2>/dev/null" EXIT INT TERM
-        sleep 1
-        SILO_API_PORT=3000 bun run src/silo-api-external.ts
-    )
+	@echo "Starting two-tier API..."
+	@(\
+		SILO_API_PORT=3001 bun run src/silo-api-internal.ts &\
+		INTERNAL_PID=$$!\
+		trap "kill $$INTERNAL_PID 2>/dev/null" EXIT INT TERM\
+		sleep 1\
+		SILO_API_PORT=3000 bun run src/silo-api-external.ts\
+	)
 
 # Start API on custom port (legacy, uses internal)
 [group("api")]
@@ -352,9 +354,19 @@ dev-check:
 # Run tests
 [group("dev")]
 dev-tests:
+    @START_TIME=$$(date +%s)
     @echo "=== Integration Tests ===" && ./scripts/silo-integration-test
+    @INT_EXIT=$$?
     @echo ""
     @echo "=== Unit Tests ===" && bun test
+    @TEST_EXIT=$$?
+    @END_TIME=$$(date +%s)
+    @DURATION=$$((END_TIME - START_TIME))
+    @if [ $$TEST_EXIT -eq 0 ] && [ $$INT_EXIT -eq 0 ]; then \
+        SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh info "Tests passed" action=dev-tests status=success duration_ms=$$((DURATION * 1000)); \
+    else \
+        SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh error "Tests failed" action=dev-tests status=failure exit_code=$$TEST_EXIT; \
+    fi
 
 # Create new silo
 [group("dev")]
@@ -432,3 +444,11 @@ log-query *args:
 log-init:
     @mkdir -p .silo/logs
     @echo "Logging directory initialized: .silo/logs"
+
+# Entropy trend analysis
+# Usage: just log-trend           # Summary
+#        just log-trend --alerts  # High entropy alerts
+#        just log-trend --predict # Predictions
+[group("ops")]
+log-trend *args:
+    @bash scripts/silo-log-trend.sh {{args}}
