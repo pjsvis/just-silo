@@ -395,8 +395,35 @@ agent-ops:
 # ALIASES
 # ============================================================
 
-alias s := status
-alias t := dev-tests
-alias d := dev-check
-alias v := dev-check
-alias a := about
+
+
+# Write a log entry (Pino-compatible JSONL)
+# Usage: just log-info "Task completed"
+#        just log-info "Task completed" --action harvest --status success
+[group("ops")]
+log-info msg *args:
+    @SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh info "{{msg}}" {{args}}
+
+# Write a warn log entry
+[group("ops")]
+log-warn msg *args:
+    @SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh warn "{{msg}}" {{args}}
+
+# Write an error log entry
+[group("ops")]
+log-error msg *args:
+    @SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh error "{{msg}}" {{args}}
+
+# Query telemetry logs
+# Usage: just log-query              # Recent entries
+#        just log-query --errors     # Errors only
+#        just log-query --stats      # Statistics
+[group("ops")]
+log-query *args:
+    @bash scripts/silo-log-query.sh {{args}}
+
+# Initialize logging directory
+[group("ops")]
+log-init:
+    @mkdir -p .silo/logs
+    @echo "Logging directory initialized: .silo/logs"

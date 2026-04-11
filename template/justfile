@@ -365,3 +365,47 @@ coordination:
 	@echo "=== COORDINATION STATUS ==="
 	@mkdir -p {{MARKERS_DIR}}
 	@ls {{MARKERS_DIR}}/*.lock {{MARKERS_DIR}}/*.done 2>/dev/null || echo "  No markers"
+
+# === GAMMA-LOOP: Knowledge Persistence ===
+
+# Run the gamma-loop: Observe → Measure → Learn → Adjust → Log
+# Usage: just gamma [workflow]
+# What: Measures entropy, logs telemetry, suggests improvements
+# When: End of session or after significant work
+gamma workflow="session":
+	@SILO_ROOT="$(pwd)" SILO_SESSION="${SILO_SESSION:-$(hostname)_$(date +%s)}" bash {{SCRIPTS_DIR}}/gamma-loop.sh "{{workflow}}"
+
+# Log a workflow run for entropy tracking
+# Usage: just telemetry-log workflow=harvest status=success duration_s=42
+telemetry-log workflow="-" status="success" duration_s="0" entries="0":
+	@mkdir -p telemetry
+	@jq -n --arg ts "$(date +%s)" --arg workflow "{{workflow}}" --arg status "{{status}}" --arg dur "{{duration_s}}" --arg session "${SILO_SESSION:-}" '{ts: $ts | tonumber, workflow: $workflow, status: $status, duration_s: $dur | tonumber, session: $session}' >> telemetry/runs.jsonl
+	@echo "Logged: {{workflow}} ({{status}}) {{duration_s}}s"
+
+# Show entropy trend from telemetry
+# Usage: just entropy
+entropy:
+	@if [ ! -f telemetry/entropy.jsonl ]; then echo "  (no telemetry — run telemetry-log first)"; exit 0; fi
+	@echo "=== ENTROPY TREND ==="
+	@tail -10 telemetry/entropy.jsonl | jq -s 'sort_by(.ts) | .[] | "\(.workflow): \(.entropy * 100 | floor)%"' 2>/dev/null || echo "  (parse error)"
+	@echo ""
+	@echo "GUIDE:"
+	@echo "  0-30%  Low entropy — process is stable"
+	@echo "  30-60% Moderate — some variability"
+	@echo "  60-100% High — process needs attention"
+
+# Check for high-entropy events needing attention
+# Usage: just telemetry-alerts
+telemetry-alerts:
+	@if [ ! -f telemetry/runs.jsonl ]; then echo "  (no telemetry)"; exit 0; fi
+	@echo "=== TELEMETRY ALERTS ==="
+	@if grep -q '"entropy":' telemetry/runs.jsonl 2>/dev/null; then tail -20 telemetry/runs.jsonl | jq -c 'select(.entropy > 0.5)' 2>/dev/null | while read -r line; do echo "  ⚠ $line"; done; else echo "  (no entropy > 50% in recent runs)"; fi
+
+# Show telemetry summary
+telemetry:
+	@echo "=== TELEMETRY SUMMARY ==="
+	@mkdir -p telemetry
+	@RUNS=$(wc -l < telemetry/runs.jsonl 2>/dev/null || echo 0)
+	@echo "Runs logged: $RUNS"
+	@if [ -f telemetry/entropy.jsonl ]; then AVG_ENTROPY=$(tail -20 telemetry/entropy.jsonl | jq -s 'map(.entropy) | add / length' 2>/dev/null || echo "N/A"); echo "Avg entropy (last 20): $AVG_ENTROPY"; fi
+	@ls -la telemetry/ 2>/dev/null || echo "  (empty)"

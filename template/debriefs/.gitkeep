@@ -1,0 +1,34 @@
+# Debriefs Directory
+
+This directory stores retrospective summaries of work sessions.
+
+## Format
+
+```markdown
+# DeBrief: [What Happened]
+
+**Date:** YYYY-MM-DD
+**Session:** session-id
+
+## What We Did
+
+## What Worked
+
+## What Was Tricky
+
+## Lessons Learned
+
+## Related
+- playbooks/*.md
+```
+
+## Naming Convention
+
+```
+YYYY-MM-DD-debrief-[topic].md
+```
+
+## See Also
+
+- `playbooks/gamma-loop-playbook.md` — The gamma-loop pattern
+- `playbooks/debriefs-playbook.md` — How to write effective debriefs
