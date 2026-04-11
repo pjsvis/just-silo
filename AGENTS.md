@@ -93,9 +93,100 @@ bun test --watch
 
 ---
 
+## Experimental Tiers
+
+Scripts evolve through tiers as they mature:
+
+```
+@scripts/lab/     → scripts/  → src/
+  ↑                 ↑           ↑
+  Tier 0            Tier 1      Tier 2
+  (experimental)    (stable)   (production)
+```
+
+| Tier | Location | Rules |
+|------|----------|-------|
+| 0 | `@scripts/lab/` | Experimental. No review. Promote when stable. |
+| 1 | `scripts/` | Stable. Reviewed. Production-ready. |
+| 2 | `src/` | Full rigor. Types, tests, documentation. |
+
+### Tier 0: @scripts/lab/
+
+Experimental scripts with `@` prefix. Agents try ideas here:
+
+```bash
+scripts/lab/
+├── @entropy-viz.sh    # Trying visualization
+├── @jq-playground.sh  # Testing jq patterns
+└── @experiment.sh     # Wild idea
+```
+
+**Rules:**
+- No review required
+- Promote to `scripts/` when stable
+- Gamma-loop archives stale experiments
+
+### Tier 1: scripts/
+
+Stable, production scripts. Reviewed before promotion:
+
+```bash
+scripts/
+├── silo-create.sh       # Stable
+├── silo-ignite.sh      # Stable
+└── silo-log.sh        # Stable
+```
+
+### Tier 2: src/
+
+TypeScript/Production code. Full rigor:
+
+```bash
+src/
+├── silo-api-server.ts  # Types, tests, docs
+└── lib/
+    └── silo-logger.ts  # Full quality
+```
+
+---
+
+## Agent Scratchpad
+
+The **scratch/** directory is the agent's private workspace:
+
+```bash
+scratch/          # NOT COMMITTED
+├── draft-*.md     # Thinking out loud
+├── test-*.jsonl   # Playground data
+└── exploration/   # Free-form
+```
+
+**Rules:**
+- Never committed (in `.gitignore`)
+- Agent's private workspace
+- Gamma-loop archives stale scratch
+
+---
+
+## The Simplicity Rule
+
+> **Extract to scripts. Keep justfiles thin.**
+
+| Situation | Don't Do | Do |
+|-----------|----------|----|
+| Recipe > 80 chars | Inline jq | `scripts/process.sh` |
+| Data transformation | `jq` in justfile | `scripts/transform.sh` |
+| Multi-step logic | Long recipe with `\` | Call scripts |
+
+See: `playbooks/justfile-design-playbook.md`
+
+---
+
 ## See Also
 
 - `playbooks/bestiary-human-tendencies.md` — Known failure modes
+- `playbooks/justfile-design-playbook.md` — Recipe design rules
+- `playbooks/gamma-loop-playbook.md` — Gamma-loop pattern
 - `briefs/` — Project briefs and research
 - `presentation/` — SSE presentation server
 

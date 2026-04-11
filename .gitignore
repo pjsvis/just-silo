@@ -39,3 +39,7 @@ silo_launch/
 .td-root
 node_modules/
 td-report.md
+
+# Agent workspace — private, not committed
+scratch/
+.scratch/
