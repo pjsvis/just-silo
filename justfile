@@ -354,18 +354,15 @@ dev-check:
 # Run tests
 [group("dev")]
 dev-tests:
-    @START_TIME=$$(date +%s)
     @echo "=== Integration Tests ===" && ./scripts/silo-integration-test
     @INT_EXIT=$$?
     @echo ""
     @echo "=== Unit Tests ===" && bun test
     @TEST_EXIT=$$?
-    @END_TIME=$$(date +%s)
-    @DURATION=$$((END_TIME - START_TIME))
-    @if [ $$TEST_EXIT -eq 0 ] && [ $$INT_EXIT -eq 0 ]; then \
-        SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh info "Tests passed" action=dev-tests status=success duration_ms=$$((DURATION * 1000)); \
+    @if [ "$$TEST_EXIT" = "0" ] && [ "$$INT_EXIT" = "0" ]; then \
+        SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh info "Tests passed" action=dev-tests status=success; \
     else \
-        SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh error "Tests failed" action=dev-tests status=failure exit_code=$$TEST_EXIT; \
+        SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh error "Tests failed" action=dev-tests status=failure exit_code="$$TEST_EXIT"; \
     fi
 
 # Create new silo
