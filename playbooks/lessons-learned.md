@@ -36,4 +36,56 @@ Collected wisdom from debriefs.
 3. **Browser refresh is the reset.** When in doubt, refresh.
 4. **WebSocket > SSE for reliability.** Native ping/pong worth the switch.
 5. **Markdown is PXY-friendly.** No HTML escaping headaches.
+
 ---
+
+## Lesson: Justfile Shell Escaping
+
+*Source: 2026-04-11 — Integration test failures in templates/basic/justfile*
+
+### The Problem
+
+`just` uses `$$` to escape `$` for shell interpolation. When recipes have complex shell commands, escaping degrades through edits:
+
+```
+justfile:  @COUNT=$$(jq -s ...)
+becomes:   @COUNT=$(jq -s ...)   # correct in shell
+
+justfile:  @COUNT=$$(jq -s ...) >> {{OUTPUT_FILE}} 2>/dev/null && ...
+becomes:   @COUNT=$(...) >> ... && ...       # ERROR: syntax error
+```
+
+### Why It Happens
+
+1. **Copy-paste degradation** — templates get modified, escaping gets corrupted
+2. **Multi-line confusion** — `\` continuation + variable interpolation = subtle bugs
+3. **Test gap** — templates rarely tested end-to-end
+
+### The Fix
+
+**Extract complex shell to scripts.** Keep justfile recipes thin:
+
+```justfile
+# BAD: Complex shell in justfile
+flush:
+    @jq -c 'select(.status == "processed")' {{DATA}} >> {{OUT}} 2>/dev/null || true
+    @jq -c 'select(.status != "processed")' {{DATA}} > {{DATA}}.tmp
+
+# GOOD: Thin recipe calls script
+flush:
+    @./scripts/flush.sh
+```
+
+### Rule of Thumb
+
+> If a recipe line is longer than 80 chars or has nested quotes, extract to a script.
+
+### Prevention
+
+1. **Test templates end-to-end** — `scripts/silo-integration-test` catches these
+2. **Keep recipes thin** — just orchestrate, scripts do the work
+3. **Use `$(...)` not backticks** — clearer, nestable
+4. **No `$$` in multi-line recipes** — use separate statements
+
+---
+
