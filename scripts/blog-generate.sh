@@ -10,8 +10,8 @@
 
 set -euo pipefail
 
-STORIES_FILE="${STORIES_FILE:-stories/stories.jsonl}"
-POSTS_DIR="${POSTS_DIR:-stories/_posts}"
+STORIES_FILE="${STORIES_FILE:-insights/stories.jsonl}"
+POSTS_DIR="${POSTS_DIR:-insights/_posts}"
 
 mkdir -p "$POSTS_DIR"
 
@@ -196,7 +196,7 @@ generate_post() {
         echo ""
         echo "## Related Stories"
         echo ""
-        echo "See also: \`stories/stories.jsonl\`"
+        echo "See also: \`insights/stories.jsonl\`"
         echo ""
         
     } > "$output"

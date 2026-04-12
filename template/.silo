@@ -30,5 +30,7 @@
     "PHI-13: Workflow Durability",
     "PHI-14: Architectural Specialisation",
     "COG-12: Deductive Minimalist"
-  ]
+  ],
+  "markers_dir": "markers",
+  "checkpoint_system": true
 }

@@ -101,7 +101,7 @@ dev:
 
 verify:
     @echo "Verifying dependencies..."
-    @test -f "../../../stories/stories.jsonl" && echo "✓ Parent stories" || echo "✗ No stories"
+    @test -f "../../../insights/stories.jsonl" && echo "✓ Parent stories" || echo "✗ No stories"
     @test -d "../../../scripts" && echo "✓ Parent scripts" || echo "✗ No scripts"
 EOF
 echo "✓ Created justfile"

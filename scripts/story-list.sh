@@ -2,7 +2,7 @@
 # story-list.sh — List and search stories
 # Usage: ./story-list.sh [--tag TAG] [--type TYPE] [--source FILE] [--min-quality N]
 #
-# Lists stories from stories/stories.jsonl
+# Lists stories from insights/stories.jsonl
 # Features:
 # - Quality score filtering
 # - Topic tag grouping
@@ -10,7 +10,7 @@
 
 set -euo pipefail
 
-STORIES_FILE="${STORIES_FILE:-stories/stories.jsonl}"
+STORIES_FILE="${STORIES_FILE:-insights/stories.jsonl}"
 
 # Colors
 RED='\033[0;31m'

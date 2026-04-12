@@ -43,3 +43,11 @@ td-report.md
 # Agent workspace — private, not committed
 scratch/
 .scratch/
+
+# Binary artifacts
+glow
+
+# Archive
+archive/
+archive_archive/
+opentui-examples

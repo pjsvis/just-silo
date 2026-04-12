@@ -2,6 +2,8 @@
 
 *"just-silo it or just-forget it"*
 
+**New here?** Start with [START-HERE.md](START-HERE.md) or run `just silo-help`.
+
 ---
 
 ## The Tone
@@ -335,3 +337,27 @@ See `scripts/provision-arch-omarchy.sh` for Arch Linux equivalents.
 - [just](https://github.com/casey/just) — Command runner
 - [glow](https://github.com/charmbracelet/glow) — Markdown renderer
 - [gum](https://github.com/charmbracelet/gum) — TUI components
+
+---
+
+## Philosophy
+
+**Gödel showed: completeness is unreachable. Consistency is achievable.**
+We choose consistency.
+
+### The Watchwords
+
+| Word | Meaning |
+|------|---------|
+| **TIDY FIRST** | Keep context lean. Archive liberally. |
+| **CONSISTENCY** | README matches directory. Invariants hold. |
+| **STUFF → THINGS** | Transform unstructured into structured. |
+| **ENTROPY REDUCTION** | The goal. Less noise, more signal. |
+
+### The Invariants
+
+1. **Filenames unique** within silo scope
+2. **README.md** in every browsable directory
+3. **README is checksum** of directory contents
+
+See [briefs/2026-04-12-brief-silo-philosophy.md](briefs/2026-04-12-brief-silo-philosophy.md) for full treatment.

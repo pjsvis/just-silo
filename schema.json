@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Just-Silo Dev Workspace",
+  "description": "Development workspace for just-silo",
+  "type": "object",
+  "properties": {}
+}

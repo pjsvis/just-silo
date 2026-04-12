@@ -1,0 +1,35 @@
+{
+  "name": "just-silo-dev",
+  "version": "0.2.0",
+  "description": "The just-silo development workspace",
+  "created": "2026-03-31",
+  "silo_type": "development",
+  "directive": "CAW CANNY: Prompt for go/no-go before any read-write action.",
+  "gamma_loop": {
+    "enabled": true,
+    "telemetry_dir": ".silo/telemetry",
+    "debriefs_dir": "debriefs",
+    "playbooks_dir": "playbooks"
+  },
+  "entry_points": {
+    "readme": "README.md",
+    "framework": "docs/SILO-FRAMEWORK.md",
+    "philosophy": "briefs/2026-04-12-brief-silo-philosophy.md",
+    "briefs": "briefs/",
+    "playbooks": "playbooks/",
+    "tasks": ".todos"
+  },
+  "invariants": [
+    "Filename uniqueness within silo",
+    "README.md per browsable directory",
+    "README is checksum of directory",
+    "Archive naming: FOLDERNAME_archive pattern",
+    "No recursion: no nested silos"
+  ],
+  "watchwords": [
+    "TIDY FIRST",
+    "CONSISTENCY",
+    "STUFF → THINGS",
+    "ENTROPY REDUCTION"
+  ]
+}

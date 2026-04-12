@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-04-11T16:28:27+01:00",
+  "branch": "pr/two-tier-api-agents-gamma",
+  "scores": {
+    "factual": 5,
+    "accurate": 5,
+    "fair": 5,
+    "complete": 5,
+    "actionable": 5,
+    "specific": 5
+  },
+  "overall": 5,
+  "findings": [],
+  "total_findings": 0
+}

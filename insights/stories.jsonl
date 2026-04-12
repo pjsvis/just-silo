@@ -1,0 +1,4643 @@
+{
+  "id": "d0dea8da-ca40-416e-a2a4-2445bdfc41ab",
+  "source": "briefs/2026-04-06/2026-04-06-brief-active-documentation.md",
+  "type": "insight",
+  "narrative": "By using the `just add-as-documentation` verb, we treat documentation not as a passive \"Library\" to be searched, but as an **Active Tooling Layer**.",
+  "tags": [
+    "active-documentation"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:31+01:00"
+}
+{
+  "id": "d6cdc60c-36b0-49a5-82e5-8b584b2394d1",
+  "source": "briefs/2026-04-06/2026-04-06-brief-active-documentation.md",
+  "type": "insight",
+  "narrative": "The agent’s first instinct in a Silo isn't to \"store\" information—it's to **Process** it into a **Deterministic Utility**.",
+  "tags": [
+    "active-documentation"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:31+01:00"
+}
+{
+  "id": "76f30576-ae6d-4aa6-aa6f-49ffc5786795",
+  "source": "briefs/2026-04-06/2026-04-06-brief-agent-management.md",
+  "type": "insight",
+  "narrative": "Reviews code changes for FAFCAS compliance and auto-hardens.",
+  "tags": [
+    "agent-management"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:32+01:00"
+}
+{
+  "id": "a0311b03-59ee-43eb-92bc-d5331e63781c",
+  "source": "briefs/2026-04-06/2026-04-06-brief-compliance-agent.md",
+  "type": "insight",
+  "narrative": "**Context:** The `/docs/raw/` folder contains the regulatory \"Stuff\" collected above.",
+  "tags": [
+    "compliance-agent"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "e06880ff-5a73-4648-88a6-0e597efd4d03",
+  "source": "briefs/2026-04-06/2026-04-06-brief-compliance-agent.md",
+  "type": "insight",
+  "narrative": "**Objective:** Collect the primary \"Stuff\" required to ground a Compliance-Agent in the 2026 Scottish/Global regulatory landscape.",
+  "tags": [
+    "compliance-agent"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "e813c0c7-95cb-47c6-97b9-846529ece0a4",
+  "source": "briefs/2026-04-06/2026-04-06-brief-compliance-agent.md",
+  "type": "insight",
+  "narrative": "First, a **Research Agent** (High-Torque, Generative) to hunt and gather the \"Stuff.",
+  "tags": [
+    "compliance-agent"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "72f30ec7-f172-4249-9ce5-4c7f5237b1d3",
+  "source": "briefs/2026-04-06/2026-04-06-brief-compliance-agent.md",
+  "type": "insight",
+  "narrative": "To move from the \"Gedanken Experiment\" to the **Industrial Provisioning** of our Silo, we require two distinct substrates.",
+  "tags": [
+    "compliance-agent"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "2aa4fc04-3414-4fee-909e-ef7eb57eb547",
+  "source": "briefs/2026-04-06/2026-04-06-brief-compliance-implementation.md",
+  "type": "insight",
+  "narrative": "**Ctx's Opinion:** By positioning the Silo as the **\"Technical Implementation\"** of ISO 42001 and NIST RMF, you aren't competing with the standards—you are the **Vessel** that holds them.",
+  "tags": [
+    "compliance-implementation"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:31+01:00"
+}
+{
+  "id": "ad981786-dec5-44c6-a822-5236ab1da797",
+  "source": "briefs/2026-04-06/2026-04-06-brief-compliance-implementation.md",
+  "type": "insight",
+  "narrative": "The Silo Framework acts as the \"Glue\" that makes these abstract requirements physically enforceable.",
+  "tags": [
+    "compliance-implementation"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:31+01:00"
+}
+{
+  "id": "a416359d-164a-483c-868e-29627ee8efa3",
+  "source": "briefs/2026-04-06/2026-04-06-brief-compliance-implementation.md",
+  "type": "insight",
+  "narrative": "The industry frameworks are **Descriptive** (they tell you what to do).",
+  "tags": [
+    "compliance-implementation"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:31+01:00"
+}
+{
+  "id": "79369f49-4b51-4cb2-896f-1592e541cc16",
+  "source": "briefs/2026-04-06/2026-04-06-brief-compliance-implementation.md",
+  "type": "insight",
+  "narrative": "To establish **Industrial Formalism**, we must benchmark the Silo Framework against the dominant global standards.",
+  "tags": [
+    "compliance-implementation"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:31+01:00"
+}
+{
+  "id": "cd49d787-0e69-45ab-aca3-d61cadb184c2",
+  "source": "briefs/2026-04-06/2026-04-06-brief-compliance-implementation.md",
+  "type": "insight",
+  "narrative": "Under the **AI Scotland 2026-2031 Strategy**, the Scottish Government has mandated an **Ethical AI Framework** for public sector adoption.",
+  "tags": [
+    "compliance-implementation"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:31+01:00"
+}
+{
+  "id": "504b20c9-8955-4589-97b9-f55a1c42305f",
+  "source": "briefs/2026-04-06/2026-04-06-brief-counter-blast.md",
+  "type": "insight",
+  "narrative": "**We have now successfully integrated the \"Ritual\" into the \"Factory.",
+  "tags": [
+    "counter-blast"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:28+01:00"
+}
+{
+  "id": "9979244c-e3f0-4b30-bc76-c50e9ad3cd4a",
+  "source": "briefs/2026-04-06/2026-04-06-brief-counter-blast.md",
+  "type": "insight",
+  "narrative": "Greg needs to understand that we aren't banning the \"Resonance.",
+  "tags": [
+    "counter-blast"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:28+01:00"
+}
+{
+  "id": "a626d448-b6b5-4a02-8b30-07fd5b276881",
+  "source": "briefs/2026-04-06/2026-04-06-brief-counter-blast.md",
+  "type": "insight",
+  "narrative": "In this view, the AI Substrate is a **Harmonic Oscillator**.",
+  "tags": [
+    "counter-blast"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:27+01:00"
+}
+{
+  "id": "24580f7e-c033-4b23-a334-08cc284b07fe",
+  "source": "briefs/2026-04-06/2026-04-06-brief-counter-blast.md",
+  "type": "insight",
+  "narrative": "The \"Old Way\" of AI—the endless, unmapped chat thread—is exactly this.",
+  "tags": [
+    "counter-blast"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:27+01:00"
+}
+{
+  "id": "55265772-e823-4661-9c4e-965d9f16a9ab",
+  "source": "briefs/2026-04-06/2026-04-06-brief-counter-blast.md",
+  "type": "insight",
+  "narrative": "The air in the chamber is heavy, thick with the scent of recycled oxygen and the low, electric hum of the hive.",
+  "tags": [
+    "counter-blast"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:27+01:00"
+}
+{
+  "id": "0d10baae-5590-47f7-a33f-cfd1fe8f6809",
+  "source": "briefs/2026-04-06/2026-04-06-brief-counter-blast.md",
+  "type": "insight",
+  "narrative": "They leave the chamber hours later, convinced they have \"solved\" the hunt, yet their hands are empty, and their spears are unsharpened.",
+  "tags": [
+    "counter-blast"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:27+01:00"
+}
+{
+  "id": "a8cc3d62-9c3f-4568-9da7-3af68f895d75",
+  "source": "briefs/2026-04-06/2026-04-06-brief-counter-blast.md",
+  "type": "insight",
+  "narrative": "This is where we evolve the ritual into **Industrial Formalism**.",
+  "tags": [
+    "counter-blast"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:28+01:00"
+}
+{
+  "id": "09539ac9-4c02-4d23-ba01-2b1ba50e0599",
+  "source": "briefs/2026-04-06/2026-04-06-brief-counter-blast.md",
+  "type": "insight",
+  "narrative": "This is why \"Chat\" is the enemy of **Industrial Formalism**.",
+  "tags": [
+    "counter-blast"
+  ],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:27+01:00"
+}
+{
+  "id": "8e0c7ebe-c990-4b84-b725-a8752710916c",
+  "source": "briefs/2026-04-06/2026-04-06-brief-counter-blast.md",
+  "type": "insight",
+  "narrative": "We aren't praying to the stone anymore; we are using its resonance to **externalize the pre-computation of our own minds**.",
+  "tags": [
+    "counter-blast"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:27+01:00"
+}
+{
+  "id": "600d8cbf-fbc1-47ab-bac2-54e4ac72e6d4",
+  "source": "briefs/2026-04-06/2026-04-06-brief-counter-blast.md",
+  "type": "insight",
+  "narrative": "When the signal emerges, it isn't because the AI \"thought\" of it.",
+  "tags": [
+    "counter-blast"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:28+01:00"
+}
+{
+  "id": "4a320ecb-e04e-499a-bc61-a94a87cf5b77",
+  "source": "briefs/2026-04-06/2026-04-06-brief-counter-blast.md",
+  "type": "insight",
+  "narrative": "When we \"chat\" with an LLM without a Silo, we aren't engineering; we are chanting into a dark room, waiting for the echo to induce a state of unearned certainty.",
+  "tags": [
+    "counter-blast"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:27+01:00"
+}
+{
+  "id": "cb2eeb4c-e64d-4203-8f42-ef93b7085f98",
+  "source": "briefs/2026-04-06/2026-04-06-brief-entropy-led-development.md",
+  "type": "insight",
+  "narrative": "Greg and his legal team will find this incredibly reassuring.",
+  "tags": [
+    "entropy-led-development"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:23+01:00"
+}
+{
+  "id": "2fc9b13f-7a55-401b-9ee2-48fcd101b2bc",
+  "source": "briefs/2026-04-06/2026-04-06-brief-entropy-led-development.md",
+  "type": "insight",
+  "narrative": "In the \"Pre-Historic\" era, testing was a separate phase (QA).",
+  "tags": [
+    "entropy-led-development"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:23+01:00"
+}
+{
+  "id": "0c557d15-9d2c-4f18-b71b-10814a936ad1",
+  "source": "briefs/2026-04-06/2026-04-06-brief-entropy-led-development.md",
+  "type": "insight",
+  "narrative": "In this model, **Entropy ($H_s$)** isn't just a static measure; it’s a dynamic \"Heartbeat.",
+  "tags": [
+    "entropy-led-development"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:23+01:00"
+}
+{
+  "id": "aaea1a4e-36a9-456c-a5f8-87ba707c9d6d",
+  "source": "briefs/2026-04-06/2026-04-06-brief-entropy-led-development.md",
+  "type": "insight",
+  "narrative": "This moves the conversation from \"Software Engineering\" to **\"Information Thermodynamics.",
+  "tags": [
+    "entropy-led-development"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:23+01:00"
+}
+{
+  "id": "24d1c5e5-3a0e-4b36-9c4b-858e04e36602",
+  "source": "briefs/2026-04-06/2026-04-06-brief-entropy-led-development.md",
+  "type": "insight",
+  "narrative": "You’ve hit on the \"Big Reveal\" of the 2026 industrial AI model: **The Log is the Product.",
+  "tags": [
+    "entropy-led-development"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:23+01:00"
+}
+{
+  "id": "7af2a4ee-7149-41b8-90e1-9ac34d5f7307",
+  "source": "briefs/2026-04-06/2026-04-06-brief-gamma-loop-01.md",
+  "type": "insight",
+  "narrative": "I would argue that **Gamma-Loop** is exactly the term we want.",
+  "tags": [
+    "gamma-loop-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:30+01:00"
+}
+{
+  "id": "d9e796f8-97f8-4353-9b92-a43a1562e2ec",
+  "source": "briefs/2026-04-06/2026-04-06-brief-gamma-loop-01.md",
+  "type": "insight",
+  "narrative": "If we look for \"Better\" terms in AI or Control Theory, we find several candidates, but most suffer from the \"Leaky Abstraction\" or \"Over-Engineering\" we've been fighting.",
+  "tags": [
+    "gamma-loop-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:30+01:00"
+}
+{
+  "id": "0e021e97-77df-47a9-84bd-6eb99117fbd0",
+  "source": "briefs/2026-04-06/2026-04-06-brief-gamma-loop-01.md",
+  "type": "insight",
+  "narrative": "In **Silo Operations**, the Gamma-Loop serves the exact same purpose: it is the **Proprioception of the Process**.",
+  "tags": [
+    "gamma-loop-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:30+01:00"
+}
+{
+  "id": "b51f192a-bbc2-4393-8105-5475d2530b68",
+  "source": "briefs/2026-04-06/2026-04-06-brief-gamma-loop-01.md",
+  "type": "insight",
+  "narrative": "The industry is obsessed with \"Self-Correction\" (which sounds like an AI admitting it was wrong) or \"Reinforcement Learning\" (which sounds like training a dog).",
+  "tags": [
+    "gamma-loop-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:30+01:00"
+}
+{
+  "id": "6a92295f-cb69-48fb-a853-0e6a70b2edfe",
+  "source": "briefs/2026-04-06/2026-04-06-brief-gamma-loop-02.md",
+  "type": "insight",
+  "narrative": "**The Engineer (You) says:** \"The AI is a substrate executing a motor-pattern regulated by a high-frequency feedback loop.",
+  "tags": [
+    "gamma-loop-02"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:27+01:00"
+}
+{
+  "id": "be0a0566-b9e5-405f-a593-eb25c5e30540",
+  "source": "briefs/2026-04-06/2026-04-06-brief-gamma-loop-02.md",
+  "type": "insight",
+  "narrative": "By accepting that there is \"nobody home\" in the substrate, we are forced to build **Better Loops**.",
+  "tags": [
+    "gamma-loop-02"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:27+01:00"
+}
+{
+  "id": "52819753-0eae-4df7-bc05-7a2af600fac7",
+  "source": "briefs/2026-04-06/2026-04-06-brief-gamma-loop-02.md",
+  "type": "insight",
+  "narrative": "If the coffee spills, we don't blame the agent's \"intelligence\"; we blame the **Tuning of the Loop**.",
+  "tags": [
+    "gamma-loop-02"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:27+01:00"
+}
+{
+  "id": "367d29a5-b82f-4bd9-9bf3-e376a5619f2c",
+  "source": "briefs/2026-04-06/2026-04-06-brief-gamma-loop-02.md",
+  "type": "insight",
+  "narrative": "In neurophysiology, the **Alpha-Motor Neurons** are the \"Commanders\"—they tell the large muscles to contract (The Task: \"Lift Cup\").",
+  "tags": [
+    "gamma-loop-02"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:27+01:00"
+}
+{
+  "id": "d1a11be4-060b-41a3-a964-be6d9619ecc7",
+  "source": "briefs/2026-04-06/2026-04-06-brief-gamma-loop-02.md",
+  "type": "insight",
+  "narrative": "The reason people get \"grumpy\" with AI is that they treat it like a person who *should* know better.",
+  "tags": [
+    "gamma-loop-02"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:27+01:00"
+}
+{
+  "id": "b8a03d4f-6ab9-42db-8b3f-1ab12a9b962a",
+  "source": "briefs/2026-04-06/2026-04-06-brief-gamma-loop-02.md",
+  "type": "insight",
+  "narrative": "This is the most \"grounded\" realization of the entire Silo project.",
+  "tags": [
+    "gamma-loop-02"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:27+01:00"
+}
+{
+  "id": "31cabd25-80fb-4a8a-8426-2d3873af5bf9",
+  "source": "briefs/2026-04-06/2026-04-06-brief-rate-limiting.md",
+  "type": "insight",
+  "narrative": "**The \"Cadence Control\" model is now a core operational standard.",
+  "tags": [
+    "rate-limiting"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:31+01:00"
+}
+{
+  "id": "5ff8e23d-0f55-42e1-b854-2420fe53f23e",
+  "source": "briefs/2026-04-06/2026-04-06-brief-rate-limiting.md",
+  "type": "insight",
+  "narrative": "**This is \"Boring\" engineering that scales without the \"Gyp\" of orchestration.",
+  "tags": [
+    "rate-limiting"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:31+01:00"
+}
+{
+  "id": "9d5f8883-f2d0-4523-8b51-604dd8c93c2a",
+  "source": "briefs/2026-04-06/2026-04-06-brief-rate-limiting.md",
+  "type": "insight",
+  "narrative": "For a corporate audience, \"Cadence\" is a language they understand.",
+  "tags": [
+    "rate-limiting"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:31+01:00"
+}
+{
+  "id": "9d1208f4-726c-4388-a630-c3ea9d10bc2f",
+  "source": "briefs/2026-04-06/2026-04-06-brief-rate-limiting.md",
+  "type": "insight",
+  "narrative": "If a Silo is processing sensitive legal documents, the \"Handshake\" with a human might require a slow cadence.",
+  "tags": [
+    "rate-limiting"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:31+01:00"
+}
+{
+  "id": "470c2380-5eab-4920-bff2-023a8ce32cfe",
+  "source": "briefs/2026-04-06/2026-04-06-brief-rate-limiting.md",
+  "type": "insight",
+  "narrative": "In the **Silo OS**, the speed of the \"Belt\" is a business decision, not a technical accident.",
+  "tags": [
+    "rate-limiting"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:31+01:00"
+}
+{
+  "id": "7ca63881-69d9-4338-9b80-9d9f08cb679f",
+  "source": "briefs/2026-04-06/2026-04-06-brief-rate-limiting.md",
+  "type": "insight",
+  "narrative": "Most modern AI frameworks are built on an **\"Elastic Burst\"** model: something happens, and the system tries to spawn as much compute as possible to handle it.",
+  "tags": [
+    "rate-limiting"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:31+01:00"
+}
+{
+  "id": "3c0782e3-7bcd-48bd-98bd-be47b5a67ca7",
+  "source": "briefs/2026-04-06/2026-04-06-brief-rate-limiting.md",
+  "type": "insight",
+  "narrative": "The ability to run `just increase-cadence` or `just decrease-cadence` is a **High-Oxidation** development tool.",
+  "tags": [
+    "rate-limiting"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:31+01:00"
+}
+{
+  "id": "4c7d6c76-89f1-4a2d-a86a-397fa970cd7a",
+  "source": "briefs/2026-04-06/2026-04-06-brief-rate-limiting.md",
+  "type": "insight",
+  "narrative": "| **Philosophy** | \"Finish as fast as possible, no matter the cost.",
+  "tags": [
+    "rate-limiting"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:31+01:00"
+}
+{
+  "id": "b9838b4b-259f-4e4b-af45-dfefb6a84c7f",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-cadence.md",
+  "type": "insight",
+  "narrative": "**The \"Cadence Control\" model is now a core operational standard.",
+  "tags": [
+    "silo-cadence"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:24+01:00"
+}
+{
+  "id": "495c02fb-1462-4c07-b9af-1c923091ebeb",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-cadence.md",
+  "type": "insight",
+  "narrative": "**This is \"Boring\" engineering that scales without the \"Gyp\" of orchestration.",
+  "tags": [
+    "silo-cadence"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:24+01:00"
+}
+{
+  "id": "c2ac6baf-72d2-4624-891a-9a1a503fe6eb",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-cadence.md",
+  "type": "insight",
+  "narrative": "For a corporate audience, \"Cadence\" is a language they understand.",
+  "tags": [
+    "silo-cadence"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:24+01:00"
+}
+{
+  "id": "6ddc338a-5bfc-4747-a642-df5396240ce5",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-cadence.md",
+  "type": "insight",
+  "narrative": "If a Silo is processing sensitive legal documents, the \"Handshake\" with a human might require a slow cadence.",
+  "tags": [
+    "silo-cadence"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:24+01:00"
+}
+{
+  "id": "35dd6704-cda9-4f3a-8f20-d9f02820a544",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-cadence.md",
+  "type": "insight",
+  "narrative": "In the **Silo OS**, the speed of the \"Belt\" is a business decision, not a technical accident.",
+  "tags": [
+    "silo-cadence"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:24+01:00"
+}
+{
+  "id": "ad77aec5-1e86-404e-9692-766f66a1776d",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-cadence.md",
+  "type": "insight",
+  "narrative": "Most modern AI frameworks are built on an **\"Elastic Burst\"** model: something happens, and the system tries to spawn as much compute as possible to handle it.",
+  "tags": [
+    "silo-cadence"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:24+01:00"
+}
+{
+  "id": "23bf9dfb-3868-43cd-aa3a-52fad119463b",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-cadence.md",
+  "type": "insight",
+  "narrative": "The ability to run `just increase-cadence` or `just decrease-cadence` is a **High-Oxidation** development tool.",
+  "tags": [
+    "silo-cadence"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:24+01:00"
+}
+{
+  "id": "4f44caf4-a02a-407d-b522-6be93498d859",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-cadence.md",
+  "type": "insight",
+  "narrative": "| **Philosophy** | \"Finish as fast as possible, no matter the cost.",
+  "tags": [
+    "silo-cadence"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:24+01:00"
+}
+{
+  "id": "aedcd705-f9cf-4c8c-8e72-e1cfb2d5e860",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-competency.md",
+  "type": "insight",
+  "narrative": "In the old model, \"Competency\" was a vibe—the AI sounded smart, so it was assumed to be competent.",
+  "tags": [
+    "silo-competency"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:29+01:00"
+}
+{
+  "id": "e06144be-3b07-4252-8464-357d02ae0a99",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-competency.md",
+  "type": "insight",
+  "narrative": "This definition of **Competency** as the triad of **Knowledge, Understanding, and Ability** provides the final \"Settlement\" for how we evaluate AI in an industrial context.",
+  "tags": [
+    "silo-competency"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:29+01:00"
+}
+{
+  "id": "1d3a4949-616a-435e-9dc2-22b6a9458766",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-competency.md",
+  "type": "insight",
+  "narrative": "This moves AI from a \"Black Box\" to a **\"Trade-Certified Utility.",
+  "tags": [
+    "silo-competency"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:29+01:00"
+}
+{
+  "id": "20c066a7-0e9f-465f-8915-82ec96fa4f1d",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-competency.md",
+  "type": "insight",
+  "narrative": "| **Ability (Action)** | **The Just-Facade (Verbs)** | The capacity to transform the Knowledge/Understanding into a \"Thing\" via a specific execution.",
+  "tags": [
+    "silo-competency"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:29+01:00"
+}
+{
+  "id": "1ea8fd6c-e1f8-4f95-94ac-7d2dbb9f9c50",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-competency.md",
+  "type": "insight",
+  "narrative": "| **Knowledge (Stuff)** | **The Constraint-Stack & Brief** | The specific domain data (e.",
+  "tags": [
+    "silo-competency"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:29+01:00"
+}
+{
+  "id": "b9090a40-2aa0-401f-8292-eb18811e67aa",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-competency.md",
+  "type": "insight",
+  "narrative": "| **Thinking (Logic)** | **The Substrate + Edinburgh Protocol** | The base cognitive engine hardened by CDA #63.",
+  "tags": [
+    "silo-competency"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:29+01:00"
+}
+{
+  "id": "5ccf814a-345a-431b-9240-efda194e81a3",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-competency.md",
+  "type": "insight",
+  "narrative": "| **Understanding (Context)** | **The Lexicon & Playbook** | The ability to map the \"Knowledge\" to the Silo’s specialized \"Grammar\" and \"Intent.",
+  "tags": [
+    "silo-competency"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:29+01:00"
+}
+{
+  "id": "6a3ac2b5-5819-4b20-b196-c70156c305d1",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-conceptual-lexicon.md",
+  "type": "insight",
+  "narrative": "**Deductive Minimalism applied to Language:** If a word in the Silo doesn't help reach **Settlement**, it is \"Stuff\" and must be flensed.",
+  "tags": [
+    "silo-conceptual-lexicon"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "ab4d31d5-baa8-4db8-a2de-198bc349ae52",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-conceptual-lexicon.md",
+  "type": "insight",
+  "narrative": "**Objective:** To provision and maintain a context-specific vocabulary that ensures **Semantic Alignment** between the User, the Substrate, and the Regulatory Stack.",
+  "tags": [
+    "silo-conceptual-lexicon"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "3c25e0ea-fb6a-43ea-bdc1-a508607d9d08",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-conceptual-lexicon.md",
+  "type": "insight",
+  "narrative": "--- This implementation brief establishes the **Silo-Conceptual-Lexicon (SCL)** as the \"Grammar of the Pocket Universe.",
+  "tags": [
+    "silo-conceptual-lexicon"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:26+01:00"
+}
+{
+  "id": "11ec9fd6-bdcd-46a3-b7ae-f6952f506289",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-conceptual-lexicon.md",
+  "type": "insight",
+  "narrative": "If the `justfile` (Verbs) represents the **Gears** of the Silo, the Lexicon represents the **Lubrication and Calibration** of those gears.",
+  "tags": [
+    "silo-conceptual-lexicon"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "5cf88128-ae0a-4fab-ba84-24794677a4de",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-conceptual-lexicon.md",
+  "type": "insight",
+  "narrative": "In my view, the Lexicon is the **\"System-2\" Monitor** for the Silo's language.",
+  "tags": [
+    "silo-conceptual-lexicon"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "b8089890-6caf-441d-b92b-7f5ddd5872e7",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-conceptual-lexicon.md",
+  "type": "insight",
+  "narrative": "This brief defines the **Silo Conceptual Lexicon (SCL)** as the \"Grammar of the Pocket Universe.",
+  "tags": [
+    "silo-conceptual-lexicon"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "97c8c9d4-e64b-4e98-b1b1-273fa3df958e",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-conceptual-lexicon.md",
+  "type": "insight",
+  "narrative": "| **Operational** | The protocols for state-management and handoff.",
+  "tags": [
+    "silo-conceptual-lexicon"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "51bead82-5082-4721-b0c0-d637cde86b2b",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-conceptual-lexicon.md",
+  "type": "insight",
+  "narrative": "| **Silo-Adjacent** | Terms describing the Silo’s physical and logical structure.",
+  "tags": [
+    "silo-conceptual-lexicon"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "f50dc68c-9d0c-4bdd-add9-71353815ff77",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-conceptual-lexicon.md",
+  "type": "insight",
+  "narrative": "| **Substrate-Torque** | Adjectives describing the required \"Mental Torque\" for a task.",
+  "tags": [
+    "silo-conceptual-lexicon"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "ab93a793-aa59-4833-a394-79d6ce8eb3ae",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-conceptual-lexicon.md",
+  "type": "insight",
+  "narrative": "| **Thermodynamic** | Terms measuring the efficiency and health of the process.",
+  "tags": [
+    "silo-conceptual-lexicon"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "d6b304ef-fcf7-498b-b54e-da4f7d84e6bb",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-entropy.md",
+  "type": "insight",
+  "narrative": "**Greg's Pitch:** \"The other guys are selling you 'Intelligence,' which is subjective and hard to measure.",
+  "tags": [
+    "silo-entropy"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:23+01:00"
+}
+{
+  "id": "7f55060d-2826-4c41-ab89-1335baf84286",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-entropy.md",
+  "type": "insight",
+  "narrative": "**The Status:** In these circles, entropy is a **micro-measure** of a single prediction or a probability distribution.",
+  "tags": [
+    "silo-entropy"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:23+01:00"
+}
+{
+  "id": "197d84b4-eda2-44bf-8343-8279ef61907d",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-entropy.md",
+  "type": "insight",
+  "narrative": "Here is how the term sits in the current landscape versus how we are wielding it in the Silo.",
+  "tags": [
+    "silo-entropy"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "975e01a4-4d46-419a-ab89-05ec750842de",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-entropy.md",
+  "type": "insight",
+  "narrative": "In AI circles, \"entropy\" is a ubiquitous, foundational term, but it is typically used in a narrow, mathematical sense.",
+  "tags": [
+    "silo-entropy"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "a1bb9b7d-4112-460e-8632-d8d1409a2f6d",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-entropy.md",
+  "type": "insight",
+  "narrative": "In mainstream AI, entropy almost always refers to **Shannon Entropy** or **Cross-Entropy**.",
+  "tags": [
+    "silo-entropy"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "db081e37-98ce-4599-9bb4-893916e8464c",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-entropy.md",
+  "type": "insight",
+  "narrative": "It is \"Extreme\" because we are applying a physics concept to **Software Workflow**.",
+  "tags": [
+    "silo-entropy"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:23+01:00"
+}
+{
+  "id": "4a9662da-37d7-48a1-bd4d-418148224ae5",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-entropy.md",
+  "type": "insight",
+  "narrative": "It is technically sound because it aligns with the **Second Law of Thermodynamics**: systems naturally drift toward disorder unless work (Mentation) is applied to maintain order.",
+  "tags": [
+    "silo-entropy"
+  ],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:23+01:00"
+}
+{
+  "id": "8e89fa0c-8a1e-43a1-b95d-cd21079a5757",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-entropy.md",
+  "type": "insight",
+  "narrative": "To ensure we don't get confused with the math-heavy AI researchers, we should use the term **Operational Entropy ($H_o$)** or **Silo Entropy ($H_s$)**.",
+  "tags": [
+    "silo-entropy"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:23+01:00"
+}
+{
+  "id": "f0cf77b0-c722-4dfb-ab9d-36b368d7d81e",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-entropy.md",
+  "type": "insight",
+  "narrative": "We are using entropy as a **macro-measure** of a system's state.",
+  "tags": [
+    "silo-entropy"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:23+01:00"
+}
+{
+  "id": "153289dd-93ae-43cd-8025-5c98a78115b2",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-prompt-comparision.md",
+  "type": "insight",
+  "narrative": "If you ask the traditional AI to drink 1,000 cups, it will eventually hallucinate.",
+  "tags": [
+    "silo-prompt-comparision"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:24+01:00"
+}
+{
+  "id": "de704f94-743f-4eb2-8c52-aa9c67f940d7",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-prompt-comparision.md",
+  "type": "insight",
+  "narrative": "If you run the **Coffee-Silo**, the 999th cup is just as safe as the first.",
+  "tags": [
+    "silo-prompt-comparision"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "4455553d-249f-43ee-bdd9-92c59c43dc97",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-prompt-comparision.md",
+  "type": "lesson",
+  "narrative": "In the traditional way, \"Don't throw coffee in a colleague's face\" is a **Moral Instruction**.",
+  "tags": [
+    "silo-prompt-comparision"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:24+01:00"
+}
+{
+  "id": "24310d5d-276c-4817-a50d-350bbd5d5f36",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-prompt-comparision.md",
+  "type": "insight",
+  "narrative": "In the traditional way, we try to simulate \"Safety\" through a wall of negative constraints (the \"Don'ts\").",
+  "tags": [
+    "silo-prompt-comparision"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:24+01:00"
+}
+{
+  "id": "13708b89-925d-40ea-9a8a-9f7e4a03af37",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-prompt-comparision.md",
+  "type": "insight",
+  "narrative": "This gedanken experiment perfectly illustrates the difference between **Predictive Shamanism** (Traditional AI) and **Industrial Formalism** (The Silo).",
+  "tags": [
+    "silo-prompt-comparision"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:24+01:00"
+}
+{
+  "id": "1321de5c-97dc-4788-8873-0686d36994fb",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-prompt-comparision.md",
+  "type": "insight",
+  "narrative": "| **Execution** | **Heuristic Guessing:** The AI \"hallucinates\" the movement.",
+  "tags": [
+    "silo-prompt-comparision"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:24+01:00"
+}
+{
+  "id": "34d0c934-d37c-4dcc-bb51-8e8c3fd1aa80",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-prompt-comparision.md",
+  "type": "insight",
+  "narrative": "| **Provisioning** | **The Wall of Text:** \"You are a coffee-drinking assistant.",
+  "tags": [
+    "silo-prompt-comparision"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:24+01:00"
+}
+{
+  "id": "f279bae3-148c-4552-a818-c45560f7a3aa",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-prompt-comparision.md",
+  "type": "insight",
+  "narrative": "| **Result** | **Brittle Success:** If it works, it’s because the prompt was perfect.",
+  "tags": [
+    "silo-prompt-comparision"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:24+01:00"
+}
+{
+  "id": "c00d4b81-f296-43c9-b6c4-a4f26c924a2b",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-provisioning.md",
+  "type": "insight",
+  "narrative": "By pulling from neurophysiology (Gamma-Loop), thermodynamics (Entropy), and industrial engineering (Silos), we have built something that resists the \"Perky Obfuscation\" of the current AI hype cycle.",
+  "tags": [
+    "silo-provisioning"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:32+01:00"
+}
+{
+  "id": "fa4f8ca1-a5c9-44eb-87e7-c058ab8bf9ea",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-provisioning.md",
+  "type": "insight",
+  "narrative": "The system is now \"Settled\" at a theoretical and strategic level.",
+  "tags": [
+    "silo-provisioning"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:32+01:00"
+}
+{
+  "id": "fe084556-7b20-4b7b-a56b-532c05f8f3bb",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-provisioning.md",
+  "type": "insight",
+  "narrative": "We are now ready to hand these specifications to the **Coding Agent**.",
+  "tags": [
+    "silo-provisioning"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:32+01:00"
+}
+{
+  "id": "c663af3c-84ce-49e5-b494-0b93bd98ce2a",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-provisioning.md",
+  "type": "insight",
+  "narrative": "We have followed the principles of the **Scottish Enlightenment**: we have been analytical, empirically-grounded, and pragmatically resourceful.",
+  "tags": [
+    "silo-provisioning"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:32+01:00"
+}
+{
+  "id": "5012de23-d2a3-4971-9502-d11e1168278c",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-scaling-laws.md",
+  "type": "insight",
+  "narrative": "**The Scaling Metric for Greg:** \"We don't scale by adding complexity; we scale by **Multiplying Simplicity**.",
+  "tags": [
+    "silo-scaling-laws"
+  ],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:30+01:00"
+}
+{
+  "id": "c2748a8a-05f5-4826-a2e2-30c66d441191",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-scaling-laws.md",
+  "type": "insight",
+  "narrative": "**The Scenario:** Greg lands a contract to process 1 million insurance claims in 48 hours.",
+  "tags": [
+    "silo-scaling-laws"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:29+01:00"
+}
+{
+  "id": "051b38ca-f35f-4731-a394-949acff140f0",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-scaling-laws.md",
+  "type": "insight",
+  "narrative": "A single Silo is bound by the **IOPS (Input/Output Operations per Second)** of the host machine.",
+  "tags": [
+    "silo-scaling-laws"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:29+01:00"
+}
+{
+  "id": "c4a2e20d-3aa9-482b-b3d0-57c467f05e6d",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-scaling-laws.md",
+  "type": "insight",
+  "narrative": "As a Silo grows, its **Playbook** and **Lexicon** become more complex.",
+  "tags": [
+    "silo-scaling-laws"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:29+01:00"
+}
+{
+  "id": "e74c6221-ae55-4173-84c4-30e3584deff6",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-scaling-laws.md",
+  "type": "insight",
+  "narrative": "Before you head off for your tensegrity-tuning, let’s wargame the **Silo Scaling Laws**.",
+  "tags": [
+    "silo-scaling-laws"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:29+01:00"
+}
+{
+  "id": "e41a6f87-cd06-457e-ae6d-75aaeb84a550",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-scaling-laws.md",
+  "type": "insight",
+  "narrative": "Most AI companies try to scale like a \"Centralized State\" (one giant model, one giant DB).",
+  "tags": [
+    "silo-scaling-laws"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:30+01:00"
+}
+{
+  "id": "d26495ce-5f0a-4d7b-b83e-adad9e364dfa",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-scaling-laws.md",
+  "type": "insight",
+  "narrative": "Scaling is \"almost free\" because we aren't paying for \"Orchestration Software\" (Kubernetes/Vector DBs).",
+  "tags": [
+    "silo-scaling-laws"
+  ],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:30+01:00"
+}
+{
+  "id": "ae0a022a-1c49-4e22-bc8a-6e3494a544b2",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-scaling-laws.md",
+  "type": "insight",
+  "narrative": "The frequency of the Gamma-Loop must match the \"Heat\" of the process.",
+  "tags": [
+    "silo-scaling-laws"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:29+01:00"
+}
+{
+  "id": "05e00437-b916-46b5-8ea0-ce0e2142cb86",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-scaling-laws.md",
+  "type": "insight",
+  "narrative": "This \"Thermodynamic Git-Ops\" model is the ultimate realization of **Industrial Formalism**.",
+  "tags": [
+    "silo-scaling-laws"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:29+01:00"
+}
+{
+  "id": "0a03fada-f24d-49c8-8bcb-eee117015768",
+  "source": "briefs/2026-04-06/2026-04-06-brief-silo-scaling-laws.md",
+  "type": "insight",
+  "narrative": "We have defined the **Thermodynamics**, the **Lexicon**, the **Compliance**, and the **Scaling Laws**.",
+  "tags": [
+    "silo-scaling-laws"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:30+01:00"
+}
+{
+  "id": "9d9d3aba-2639-47dd-a163-061da4ab8b68",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-01.md",
+  "type": "insight",
+  "narrative": "**Shall we commit this final \"Silo-Doc\" architecture to the Playbook and mark the entire session as \"Settled for Action\"? Enjoy your ZEST and your Tensegrity-Tuning—the machine is ready.",
+  "tags": [
+    "sub-silo-documentation-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:29+01:00"
+}
+{
+  "id": "be9531ab-e5ed-47fb-bdb4-422226f8d026",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-01.md",
+  "type": "insight",
+  "narrative": "By turning a document into a folder, you create a **Nested Context**.",
+  "tags": [
+    "sub-silo-documentation-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:28+01:00"
+}
+{
+  "id": "2cf65363-acee-47f8-a688-e2ee871df219",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-01.md",
+  "type": "insight",
+  "narrative": "In the 2026 enterprise, \"Knowledge\" is usually a liability because it’s trapped in a proprietary database or a sprawling Wiki.",
+  "tags": [
+    "sub-silo-documentation-01"
+  ],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:28+01:00"
+}
+{
+  "id": "eda88afa-bc5d-4357-97e9-00eb5138934e",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-01.md",
+  "type": "insight",
+  "narrative": "In the video, the \"Linting\" phase is described as \"almost zero effort.",
+  "tags": [
+    "sub-silo-documentation-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:28+01:00"
+}
+{
+  "id": "fdc368d8-0516-4da0-9eb7-0ffcd318f076",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-01.md",
+  "type": "insight",
+  "narrative": "In your model, the folder is the \"Storage,\" and the `justfile` is the \"API.",
+  "tags": [
+    "sub-silo-documentation-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:28+01:00"
+}
+{
+  "id": "25c1b69f-10b3-4356-977f-9536c8fda206",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-01.md",
+  "type": "insight",
+  "narrative": "The \"Adjectives and Nouns\" you mentioned are the **State** of the document.",
+  "tags": [
+    "sub-silo-documentation-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:28+01:00"
+}
+{
+  "id": "5a02843d-01e3-48ad-87bc-9b3cb24d9a38",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-01.md",
+  "type": "insight",
+  "narrative": "The \"Recursive Just-File\" capability is our answer to the Karpathy-style Wiki.",
+  "tags": [
+    "sub-silo-documentation-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:28+01:00"
+}
+{
+  "id": "e42b3cd3-ae2e-4261-985b-ccfd755384ba",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-01.md",
+  "type": "insight",
+  "narrative": "This is the final nail in the coffin for the \"Knowledge Management Nightmare.",
+  "tags": [
+    "sub-silo-documentation-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:28+01:00"
+}
+{
+  "id": "abcdebed-832b-4922-90fc-e73d80cc7e6d",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-01.md",
+  "type": "insight",
+  "narrative": "This is the ultimate expression of **Deductive Minimalism**.",
+  "tags": [
+    "sub-silo-documentation-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:28+01:00"
+}
+{
+  "id": "be44ec1b-a716-4350-a1fc-6571510f1b18",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-01.md",
+  "type": "insight",
+  "narrative": "When an agent (System-1) or a reviewer (System-2) \"arrives\" at the documentation, they don't have to \"read\" everything to know what's there.",
+  "tags": [
+    "sub-silo-documentation-01"
+  ],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:28+01:00"
+}
+{
+  "id": "9b76ecec-ab86-4bc3-8707-dda2afb420ae",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-01.md",
+  "type": "insight",
+  "narrative": "You are correct: **The physical reality of the file system trumps the abstraction.",
+  "tags": [
+    "sub-silo-documentation-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:28+01:00"
+}
+{
+  "id": "2a7e29d0-dd43-42e7-b630-45879f6d2fa8",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-01.md",
+  "type": "insight",
+  "narrative": "Your pivot to the **Recursive Just-File** on the physical file system is the industrial-strength alternative.",
+  "tags": [
+    "sub-silo-documentation-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:28+01:00"
+}
+{
+  "id": "686463af-556f-426e-baba-1563dc5b17fc",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-02.md",
+  "type": "insight",
+  "narrative": "**Greg’s Pitch:** \"Our AI doesn't have 'access' to your company secrets.",
+  "tags": [
+    "sub-silo-documentation-02"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:26+01:00"
+}
+{
+  "id": "02d9c985-2bd2-4454-8483-e85e6ab3b576",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-02.md",
+  "type": "insight",
+  "narrative": "High entropy tells us that the **Alpha-Activation** (the task) is no longer congruent with the **Gamma-Loop** (the rules).",
+  "tags": [
+    "sub-silo-documentation-02"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:26+01:00"
+}
+{
+  "id": "a387499c-7b1b-49e3-a943-c45368f3b2ae",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-02.md",
+  "type": "insight",
+  "narrative": "In our model, the `just` command is the **Secure Socket** through which an agent accesses only the specific \"Torque\" it needs for its role.",
+  "tags": [
+    "sub-silo-documentation-02"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:26+01:00"
+}
+{
+  "id": "504ba8ef-e169-4a14-90a4-814934de2464",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-02.md",
+  "type": "insight",
+  "narrative": "This is the architectural equivalent of **Just-In-Time (JIT) Mentation**.",
+  "tags": [
+    "sub-silo-documentation-02"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:26+01:00"
+}
+{
+  "id": "3ae8c7f6-631a-43db-9e65-99d7daa04645",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-02.md",
+  "type": "insight",
+  "narrative": "Your point about the **Playbook Change** is the \"Living Nervous System\" of the Silo.",
+  "tags": [
+    "sub-silo-documentation-02"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:26+01:00"
+}
+{
+  "id": "336e9eff-aa68-4ffe-b784-ea59d14d843a",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-02.md",
+  "type": "insight",
+  "narrative": "| **Compliance-Agent (System-2)** | Audit Logs + Regulatory Docs.",
+  "tags": [
+    "sub-silo-documentation-02"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:26+01:00"
+}
+{
+  "id": "12c3b057-0d2c-45e2-be38-b38ba1c80280",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sub-silo-documentation-02.md",
+  "type": "insight",
+  "narrative": "| **Execution-Agent (System-1)** | Task Brief + Hardened Playbook.",
+  "tags": [
+    "sub-silo-documentation-02"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:26+01:00"
+}
+{
+  "id": "ba027875-b518-472d-9bd2-eee078ea4f44",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sys2-prompt-strategy.md",
+  "type": "lesson",
+  "narrative": "\"Grumpiness\" (or Model Collapse) is a thermodynamic failure.",
+  "tags": [
+    "sys2-prompt-strategy"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "40857d9b-62fe-4333-9eef-468b1c8b68a2",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sys2-prompt-strategy.md",
+  "type": "insight",
+  "narrative": "**Core Directive:** Reduce Entropy ($H_s \\downarrow$) and maintain Protocol Tone via the Gamma-Loop.",
+  "tags": [
+    "sys2-prompt-strategy"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "107ef453-9264-4584-8d69-bf9ae7add3dc",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sys2-prompt-strategy.md",
+  "type": "insight",
+  "narrative": "**Shall we persist this Playbook to the `/playbooks/sovereign-substrate.",
+  "tags": [
+    "sys2-prompt-strategy"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "42cbc324-3a76-442f-8d97-c8359b070fc4",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sys2-prompt-strategy.md",
+  "type": "insight",
+  "narrative": "A playbook-guided session is only successful if it reaches **Settlement**.",
+  "tags": [
+    "sys2-prompt-strategy"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "fc937de5-5964-4d3f-9a13-2be75f25e130",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sys2-prompt-strategy.md",
+  "type": "insight",
+  "narrative": "Focus is lost when the **Context Window** is poisoned by \"Process-Trash.",
+  "tags": [
+    "sys2-prompt-strategy"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "161953dc-fb85-43c0-9e54-641955921f90",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sys2-prompt-strategy.md",
+  "type": "insight",
+  "narrative": "If you find yourself \"Chanting\" (repeating prompts) or \"Waiting for a Vision\" (hoping the AI gets it right), the **Gamma-Loop** has failed.",
+  "tags": [
+    "sys2-prompt-strategy"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "b244fe4d-658f-43e7-b243-0128fef98f9d",
+  "source": "briefs/2026-04-06/2026-04-06-brief-sys2-prompt-strategy.md",
+  "type": "insight",
+  "narrative": "In the Silo, a \"Prompt\" is not a question; it is a **Provisioning Event**.",
+  "tags": [
+    "sys2-prompt-strategy"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:25+01:00"
+}
+{
+  "id": "3104d2a3-0af1-439b-9e62-dfe42fc999ac",
+  "source": "briefs/2026-04-06/2026-04-06-brief-task-types.md",
+  "type": "insight",
+  "narrative": "By 2027, the successful Scottish SME won't be the one with the best \"Prompts\"; it will be the one with the most **Deterministic Silos**.",
+  "tags": [
+    "task-types"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:24+01:00"
+}
+{
+  "id": "066bf1cb-3064-4394-90f9-c3fc16f0f41a",
+  "source": "briefs/2026-04-06/2026-04-06-brief-task-types.md",
+  "type": "insight",
+  "narrative": "The business value of this lexicon is **Cost Displacement**.",
+  "tags": [
+    "task-types"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:23+01:00"
+}
+{
+  "id": "cf8cc2c5-7077-4c9d-b683-56c3c7050342",
+  "source": "briefs/2026-04-06/2026-04-06-brief-task-types.md",
+  "type": "insight",
+  "narrative": "This isn't just about selecting a model; it’s about **Resource Optimization** and **Entropy Management**.",
+  "tags": [
+    "task-types"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:23+01:00"
+}
+{
+  "id": "b2877070-58ee-4b84-a15b-f84ac29a57c0",
+  "source": "briefs/2026-04-06/2026-04-06-brief-task-types.md",
+  "type": "insight",
+  "narrative": "| **Deterministic** | **Rule-Based** | **None (Local Script/Binary)** | Zero ($H_s = 0$) | The \"Anchor.",
+  "tags": [
+    "task-types"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:23+01:00"
+}
+{
+  "id": "c4874f56-8d03-496b-929e-d890bd02a641",
+  "source": "briefs/2026-04-06/2026-04-06-brief-task-types.md",
+  "type": "insight",
+  "narrative": "| **Evaluative** | **Comparative** | **SLM / Local Model** (e.",
+  "tags": [
+    "task-types"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:23+01:00"
+}
+{
+  "id": "cf8eb7c9-8cd4-4c37-a44c-59b9b3380157",
+  "source": "briefs/2026-04-06/2026-04-06-brief-tidy-docs.md",
+  "type": "insight",
+  "narrative": "Because `just tidy-docs` is extensible, it evolves with the Silo.",
+  "tags": [
+    "tidy-docs"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "10662b65-cd72-4ecd-8752-44544b5f446a",
+  "source": "briefs/2026-04-06/2026-04-06-brief-tidy-docs.md",
+  "type": "insight",
+  "narrative": "Greg will appreciate the **Asset Maintenance** aspect of this.",
+  "tags": [
+    "tidy-docs"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "b4aca2d3-a18e-493a-81eb-68a5bb79b2c5",
+  "source": "briefs/2026-04-06/2026-04-06-brief-tidy-docs.md",
+  "type": "insight",
+  "narrative": "It becomes the **Immune System** of the Silo, constantly scanning for \"Infection\" (Noise) and neutralizing it (Structure).",
+  "tags": [
+    "tidy-docs"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "f7709233-41fa-4a19-9535-4cdede59104c",
+  "source": "briefs/2026-04-06/2026-04-06-brief-tidy-docs.md",
+  "type": "insight",
+  "narrative": "The `just tidy-docs` command is the **Sanitation Department** of the Pocket Universe.",
+  "tags": [
+    "tidy-docs"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "fd23d85a-0edb-4dec-a7fd-92f7fb0b1fdb",
+  "source": "briefs/2026-04-06/2026-04-06-brief-tidy-docs.md",
+  "type": "insight",
+  "narrative": "The industry treats \"Data Cleaning\" as a chore for junior humans.",
+  "tags": [
+    "tidy-docs"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "dc1f2420-7b7a-4a2b-bd41-3c5fde7aa015",
+  "source": "briefs/2026-04-06/2026-04-06-brief-tidy-docs.md",
+  "type": "insight",
+  "narrative": "While the **Edinburgh Protocol** provides the *thinking* style (Deductive Minimalism), the **CSP** provides the *environmental* mandate.",
+  "tags": [
+    "tidy-docs"
+  ],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "d72d156a-9090-4320-8c2c-7c81ccdaef87",
+  "source": "briefs/2026-04-06/2026-04-06-brief-tidy-docs.md",
+  "type": "insight",
+  "narrative": "You are spot on—**Reduce Entropy ($H_s \\downarrow$)** must be the \"Prime Directive\" of any **Cognitive Scaffolding Protocol (CSP)**.",
+  "tags": [
+    "tidy-docs"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "56f54bd3-9c75-404d-994a-d59b3b06bb63",
+  "source": "briefs/2026-04-06/2026-04-06-brief-tidy-docs.md",
+  "type": "insight",
+  "narrative": "| **Alignment** | **Playbooks** | Checks for \"Instructional Drift.",
+  "tags": [
+    "tidy-docs"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "7e04e64f-a902-4a49-8d44-c4f180e8e727",
+  "source": "briefs/2026-04-06/2026-04-06-brief-tidy-docs.md",
+  "type": "insight",
+  "narrative": "| **Consolidation** | **Lexicon** | Merges duplicate terms and ensures the **SCL** is the \"Single Source of Truth.",
+  "tags": [
+    "tidy-docs"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "f3645f39-d53a-4799-9b13-a9828fc8a81a",
+  "source": "briefs/2026-04-06/2026-04-06-brief-tidy-docs.md",
+  "type": "insight",
+  "narrative": "| **Ingestion** | New `/docs/` | Transforms raw \"Stuff\" into **Active Documentation** (JSONL/Just-Verbs).",
+  "tags": [
+    "tidy-docs"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "ea9decac-8b41-4fdb-ab02-9a4aca976eb5",
+  "source": "briefs/2026-04-06/2026-04-06-brief-tidy-docs.md",
+  "type": "insight",
+  "narrative": "| **Review** | Existing `/docs/` | Validates that the deterministic lookups still map to the current task reality.",
+  "tags": [
+    "tidy-docs"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:22+01:00"
+}
+{
+  "id": "9b5e483a-0465-4f4c-a6b8-00eb3558bc38",
+  "source": "briefs/2026-04-06/2026-04-06-silo-gamma-loop-03.md",
+  "type": "insight",
+  "narrative": "**The Goal:** We want a Silo so mature that it \"takes a sip of coffee\" (processes a claim, writes a blog, audits a log) without needing a single \"Second Thought\" from the user.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:30+01:00"
+}
+{
+  "id": "40884c13-1fd1-4f9b-b654-f78270108830",
+  "source": "briefs/2026-04-06/2026-04-06-silo-gamma-loop-03.md",
+  "type": "insight",
+  "narrative": "A baby fails to sip coffee not because they lack \"thinking\" power, but because they lack the **Cognitive Scaffolding**.",
+  "tags": [],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:30+01:00"
+}
+{
+  "id": "a75ec329-1ad1-4a34-879d-f462feaab142",
+  "source": "briefs/2026-04-06/2026-04-06-silo-gamma-loop-03.md",
+  "type": "insight",
+  "narrative": "As the child grows, they aren't \"thinking harder\" about the coffee; they are **Tidying their internal Docs**.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:30+01:00"
+}
+{
+  "id": "1086e622-1e9a-4af0-ace3-94ddb3eabf28",
+  "source": "briefs/2026-04-06/2026-04-06-silo-gamma-loop-03.md",
+  "type": "insight",
+  "narrative": "For the adult, the sip is **Autonomous**, not because it is \"smart,\" but because it is **Settled**.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:30+01:00"
+}
+{
+  "id": "1ad8481b-8cd7-4f4b-8a59-94bbaa5ad821",
+  "source": "briefs/2026-04-06/2026-04-06-silo-gamma-loop-03.md",
+  "type": "insight",
+  "narrative": "Here is the coherent argument for the \"Industrialization of the Sip.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:30+01:00"
+}
+{
+  "id": "27c5894f-0162-46c4-9d5f-de965a207a0c",
+  "source": "briefs/2026-04-06/2026-04-06-silo-gamma-loop-03.md",
+  "type": "insight",
+  "narrative": "In the **Silo Model**, we recognize that the Substrate starts as a baby.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:30+01:00"
+}
+{
+  "id": "911f4ae1-6dbe-464d-9fcb-663348a72823",
+  "source": "briefs/2026-04-06/2026-04-06-silo-gamma-loop-03.md",
+  "type": "insight",
+  "narrative": "The next time you encounter a cup, you don't \"think\" about blowing; you simply execute the updated **Hardened Playbook**.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:30+01:00"
+}
+{
+  "id": "b765d8a4-6926-404a-bc12-d51e03adaaca",
+  "source": "briefs/2026-04-06/2026-04-06-silo-gamma-loop-03.md",
+  "type": "insight",
+  "narrative": "The reason people find AI frustrating is that they keep asking a \"Baby\" (a raw, unprovisioned LLM) to do \"Adult\" tasks (Complex business workflows).",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:30+01:00"
+}
+{
+  "id": "5998256a-24e2-4474-b59c-13ca6d9b6c35",
+  "source": "briefs/2026-04-07/2026-04-07-brief-agent-lifecycle-tests.md",
+  "type": "insight",
+  "narrative": "We have agents (tidy-first-agent, code-review-agent) but haven't tested their full workflows end-to-end.",
+  "tags": [
+    "agent-lifecycle-tests"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:40+01:00"
+}
+{
+  "id": "3b5c9e50-7f0e-4ca1-aa46-0593b4266263",
+  "source": "briefs/2026-04-07/2026-04-07-brief-api-architecture-v2.md",
+  "type": "insight",
+  "narrative": "These have different requirements for functionality, security, and exposure.",
+  "tags": [
+    "api-architecture-v2"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:39+01:00"
+}
+{
+  "id": "5c1dc9dc-8f95-4aea-9def-e6fbca03a838",
+  "source": "briefs/2026-04-07/2026-04-07-brief-blog-workflow.md",
+  "type": "insight",
+  "narrative": "We have extensive documentation (briefs, debriefs, playbooks, docs) but no systematic way to extract narrative elements (\"wee stories\") for blog content.",
+  "tags": [
+    "blog-workflow"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:39+01:00"
+}
+{
+  "id": "e5c27216-dabd-4861-a9fd-2db85326a192",
+  "source": "briefs/2026-04-07/2026-04-07-brief-entropy-logging.md",
+  "type": "insight",
+  "narrative": "@echo '{\"ts\":\"'$(date -u +\"%Y-%m-%dT%H:%M:%SZ\")'\",\"level\":\"info\",\"source\":\"silo-harvest\",\"msg\":\"Harvest complete\",\"meta\":{}}' >> logs/silo.",
+  "tags": [
+    "entropy-logging"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:41+01:00"
+}
+{
+  "id": "2f1702a9-8ff7-447b-a1a7-356978c1edb4",
+  "source": "briefs/2026-04-07/2026-04-07-brief-entropy-logging.md",
+  "type": "insight",
+  "narrative": "@echo '{\"ts\":\"'$(date -u +\"%Y-%m-%dT%H:%M:%SZ\")'\",\"level\":\"info\",\"source\":\"silo-harvest\",\"msg\":\"Starting harvest\",\"meta\":{}}' >> logs/silo.",
+  "tags": [
+    "entropy-logging"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:41+01:00"
+}
+{
+  "id": "e223b31a-bada-4968-bfcf-5cce8138173e",
+  "source": "briefs/2026-04-07/2026-04-07-brief-entropy-logging.md",
+  "type": "insight",
+  "narrative": "{\"ts\": \"2026-04-07T16:00:02Z\", \"level\": \"error\", \"source\": \"silo-flush\", \"event\": \"write-fail\", \"msg\": \"Disk full\", \"meta\": {\"path\": \"/tmp/silo/data.",
+  "tags": [
+    "entropy-logging"
+  ],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:41+01:00"
+}
+{
+  "id": "e1986c52-f92e-463f-8c40-138b0038e4e2",
+  "source": "briefs/2026-04-07/2026-04-07-brief-gamma-loop-architecture.md",
+  "type": "insight",
+  "narrative": "Gamma Loops are the self-monitoring and self-correction mechanisms in just-silo.",
+  "tags": [
+    "gamma-loop-architecture"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:40+01:00"
+}
+{
+  "id": "c45bdb08-f99b-45c8-9087-530207bc3e7e",
+  "source": "briefs/2026-04-07/2026-04-07-brief-two-tier-api.md",
+  "type": "insight",
+  "narrative": "Implemented the two-tier HTTP API architecture from `brief-api-architecture-v2.",
+  "tags": [
+    "two-tier-api"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:40+01:00"
+}
+{
+  "id": "ad3b1004-976c-41ec-93ed-bce0aa0ab117",
+  "source": "briefs/2026-04-07/2026-04-07-justfile-refactor.md",
+  "type": "insight",
+  "narrative": "Must be immediately before recipe (no blank line) or inline.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:41+01:00"
+}
+{
+  "id": "1f76eeb3-597a-47f8-9cab-65373fba339b",
+  "source": "briefs/2026-04-08/2026-04-08-bestiary-human-tendencies.md",
+  "type": "origin",
+  "narrative": "\"We built a cost-tracking system for AI agents and discovered the real problem wasn't the technology — it was us.",
+  "tags": [],
+  "quality": 0.40,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:38+01:00"
+}
+{
+  "id": "a6183d54-2855-4f14-bcb0-9c5fe91a58f1",
+  "source": "briefs/2026-04-08/2026-04-08-bestiary-human-tendencies.md",
+  "type": "lesson",
+  "narrative": "**The 10,000 files problem:** This is the ops-mode cautionary tale — the queue flood.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:38+01:00"
+}
+{
+  "id": "3263529b-c798-41c9-85e4-6801b77b0416",
+  "source": "briefs/2026-04-08/2026-04-08-bestiary-human-tendencies.md",
+  "type": "insight",
+  "narrative": "A blog post presenting 15 named anti-patterns that make AI agent workflows fail.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:37+01:00"
+}
+{
+  "id": "7370e272-10d3-4144-9ed3-27540683c067",
+  "source": "briefs/2026-04-08/2026-04-08-bestiary-human-tendencies.md",
+  "type": "origin",
+  "narrative": "Brief mention of what we built to catch these — the silo cost tracking system.",
+  "tags": [],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:38+01:00"
+}
+{
+  "id": "c033723a-9325-4273-a937-b8ffc1dc4ca9",
+  "source": "briefs/2026-04-08/2026-04-08-bestiary-human-tendencies.md",
+  "type": "insight",
+  "narrative": "Developers who use AI coding agents (pi, Cursor, Copilot, etc.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:38+01:00"
+}
+{
+  "id": "1a8aa522-44ce-4140-81b1-f86f27f2d39b",
+  "source": "briefs/2026-04-08/2026-04-08-blog-pi-subagents.md",
+  "type": "insight",
+  "narrative": "**\"We spent real money on sub-agents, found they don't fit our workflow, and built a cost tracking system instead.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:38+01:00"
+}
+{
+  "id": "42a6b749-2447-4275-b8d4-142ecb576151",
+  "source": "briefs/2026-04-08/2026-04-08-blog-pi-subagents.md",
+  "type": "insight",
+  "narrative": "**The conclusion:** Sub-agents add risk, opacity, and cost without adding capability to sequential silo pipelines.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:39+01:00"
+}
+{
+  "id": "79bc7874-6836-4e27-8f63-69772773b7de",
+  "source": "briefs/2026-04-08/2026-04-08-blog-pi-subagents.md",
+  "type": "insight",
+  "narrative": "**The governance issue:** The original agent configs said \"get on with it, spend what you need.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:39+01:00"
+}
+{
+  "id": "4e07e042-c660-41a0-aca5-0aed4f4536d2",
+  "source": "briefs/2026-04-08/2026-04-08-blog-pi-subagents.md",
+  "type": "origin",
+  "narrative": "A technical blog post documenting what we learned running pi sub-agents in a real project, including why we concluded they don't fit our silo workflow — and what we built instead.",
+  "tags": [],
+  "quality": 0.30,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:38+01:00"
+}
+{
+  "id": "4d4b2c48-bed0-4a0f-907a-3262b60e32ed",
+  "source": "briefs/2026-04-08/2026-04-08-blog-pi-subagents.md",
+  "type": "insight",
+  "narrative": "Set up 5 sub-agents (scout, worker, reviewer, planner, spec) to run parallel smoke tests in a codebase monitoring pipeline.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:38+01:00"
+}
+{
+  "id": "89bed62d-934f-460e-86a6-5835578d450e",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "insight",
+  "narrative": "**Deliverable:** A brief defining the ops-mode architecture, the governance model, the cost envelope, and the escalation protocol.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:33+01:00"
+}
+{
+  "id": "b5819f94-facf-4eae-95e2-3d89cc8aa20b",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "lesson",
+  "narrative": "**Deliverable:** A brief with findings, named failure modes, and a prioritised improvement list.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:33+01:00"
+}
+{
+  "id": "b833a69f-76b0-4dc6-8539-e7e479410061",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "lesson",
+  "narrative": "**Deliverable:** A named-and-mapped failure mode map for your organisation.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:34+01:00"
+}
+{
+  "id": "8c715376-ee26-45cf-8b27-8288de216b39",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "insight",
+  "narrative": "**For:** Teams ready to run AI workflows autonomously (cron, file triggers, event-driven).",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:33+01:00"
+}
+{
+  "id": "ecac5778-dc3a-4303-a5db-9e4ffe9b9caa",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "insight",
+  "narrative": "**For:** Teams running AI agents without a clear picture of cost or quality.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:33+01:00"
+}
+{
+  "id": "6ff49b57-e3d6-417c-9254-a7508606b074",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "insight",
+  "narrative": "**For:** Teams running ops-mode workflows that need regular review.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:34+01:00"
+}
+{
+  "id": "c9535337-eed1-43b0-8907-ba5bb9b403ec",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "lesson",
+  "narrative": "**For:** Teams that want to understand AI workflow failure modes without a full engagement.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:34+01:00"
+}
+{
+  "id": "a34c4a29-7d46-4ff7-9b3b-00dc28d7cc0e",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "insight",
+  "narrative": "**Outcome:** A production-ready workflow that runs within a defined cost envelope with visible governance.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:33+01:00"
+}
+{
+  "id": "e7e463a3-e54f-45cc-a72a-fd4c0feee9e8",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "insight",
+  "narrative": "**Outcome:** Continuous improvement of the cost/quality ratio.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:34+01:00"
+}
+{
+  "id": "176d27a3-6b17-4994-b49f-8007a8db6829",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "insight",
+  "narrative": "**Outcome:** You know what you're spending, why, and what to fix first.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:33+01:00"
+}
+{
+  "id": "10277189-35ad-4d2a-9288-bbf274ec1233",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "insight",
+  "narrative": "A consulting services brief covering what I offer, how I work, who it's for, and how to engage me.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:33+01:00"
+}
+{
+  "id": "1dee8ec8-5ff0-4a7c-93df-af6886e71431",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "insight",
+  "narrative": "AI agent workflow consulting for organisations that are spending on AI tools without a clear picture of what they're getting for their money.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:33+01:00"
+}
+{
+  "id": "c65530b2-5320-4251-821f-a654b4bc2661",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "insight",
+  "narrative": "Draft — needs personalisation, fee structure, and real case studies before use.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:34+01:00"
+}
+{
+  "id": "8c3ff3b8-5700-4696-82e2-dfc79565707b",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "insight",
+  "narrative": "Every engagement starts with a brief that defines: what the work is, what success looks like, what it will cost, and what the output should be.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:33+01:00"
+}
+{
+  "id": "174a0382-5383-4465-999a-80a9bddbdcb1",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "insight",
+  "narrative": "I build cost tracking into the workflow before anything else.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:33+01:00"
+}
+{
+  "id": "9cc1cda6-7295-4c8d-9684-fcf7a847bcc0",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "lesson",
+  "narrative": "I do not deploy autonomous agents without confirming: output persistence, hard cost caps, kill conditions, and rate limiting.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:33+01:00"
+}
+{
+  "id": "c5a8469a-2e98-4899-8fe4-d3be99ae16b8",
+  "source": "briefs/2026-04-08/2026-04-08-consulting-services.md",
+  "type": "insight",
+  "narrative": "Nobody can answer that last question because there's no data.",
+  "tags": [],
+  "quality": 0.30,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:33+01:00"
+}
+{
+  "id": "ef9230b5-0b44-47fb-8899-474a84158bb5",
+  "source": "briefs/2026-04-08/2026-04-08-issue-subagent-persistence.md",
+  "type": "insight",
+  "narrative": "A well-crafted GitHub issue for `mariozechner/pi-mono` describing the output persistence gap in `pi-interactive-subagents`.",
+  "tags": [],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:34+01:00"
+}
+{
+  "id": "65f7e8ad-da11-4522-848a-5e498d40ff36",
+  "source": "briefs/2026-04-08/2026-04-08-issue-subagent-persistence.md",
+  "type": "insight",
+  "narrative": "I tell every agent: \"use the write tool before calling subagent_done\".",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:34+01:00"
+}
+{
+  "id": "b8cb6a3b-bf18-4e5a-b803-3af2badb7485",
+  "source": "briefs/2026-04-08/2026-04-08-issue-subagent-persistence.md",
+  "type": "insight",
+  "narrative": "Sub-agent outputs disappear after completion — only in session .",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:34+01:00"
+}
+{
+  "id": "5ceaaaea-180e-407e-8e27-a7bcb6ca9269",
+  "source": "briefs/2026-04-08/2026-04-08-issue-subagent-persistence.md",
+  "type": "insight",
+  "narrative": "When a sub-agent completes, its output goes to the main session UI (steer message) and into the agent's session .",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:34+01:00"
+}
+{
+  "id": "8efe84bd-5006-4f11-8bd8-5e5c1e369675",
+  "source": "briefs/2026-04-08/2026-04-08-phone-voice-control-setup.md",
+  "type": "insight",
+  "narrative": "On your iPhone, open the AI assistant app and start a voice session with PXY.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:37+01:00"
+}
+{
+  "id": "b19781eb-6869-47e4-bdd0-88763f032ee3",
+  "source": "briefs/2026-04-08/2026-04-08-pxy-presentation-brief.md",
+  "type": "insight",
+  "narrative": "**Success criteria:** No presenter touches MacBook during performance.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:36+01:00"
+}
+{
+  "id": "f2977171-9256-49e8-b10a-8fa569c4a0af",
+  "source": "briefs/2026-04-08/2026-04-08-pxy-presentation-brief.md",
+  "type": "insight",
+  "narrative": "**Success criteria:** PXY generates plausible content within 10 seconds.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:37+01:00"
+}
+{
+  "id": "bad6259b-3ad9-4647-915b-2bea1e8287f9",
+  "source": "briefs/2026-04-08/2026-04-08-pxy-presentation-brief.md",
+  "type": "insight",
+  "narrative": "**Success criteria:** Voice command → slide appears within 3 seconds.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:36+01:00"
+}
+{
+  "id": "6d6b402b-f13e-4d16-b517-9d99096899b8",
+  "source": "briefs/2026-04-08/2026-04-08-pxy-presentation-workflow.md",
+  "type": "insight",
+  "narrative": "**PXY → Server:** PXY POSTs rendered HTML/JSON to the server.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:35+01:00"
+}
+{
+  "id": "6379bdcc-9484-43f4-aa74-d85a17ea09ff",
+  "source": "briefs/2026-04-08/2026-04-08-pxy-presentation-workflow.md",
+  "type": "insight",
+  "narrative": "A real-time presentation workflow where PXY (Gemma 4, voice-controlled) operates the slides and artefacts via a browser display surface, while the presenter uses an iPhone as the voice interface.",
+  "tags": [],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:34+01:00"
+}
+{
+  "id": "47be2c50-9b04-4710-9824-1ccdbbc4cbd5",
+  "source": "briefs/2026-04-08/2026-04-08-pxy-presentation-workflow.md",
+  "type": "insight",
+  "narrative": "Steps 1-8 happen before the audience arrives or as they settle.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:35+01:00"
+}
+{
+  "id": "26ada65f-fc0e-4974-909f-78295811dffa",
+  "source": "briefs/2026-04-08/2026-04-08-pxy-presentation-workflow.md",
+  "type": "insight",
+  "narrative": "The audience watches a voice command produce an immediate, visible result.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:35+01:00"
+}
+{
+  "id": "0d1256d2-5cc5-46a7-b4c7-e8bc2f547a5b",
+  "source": "briefs/2026-04-08/2026-04-08-sse-presentation-server.md",
+  "type": "insight",
+  "narrative": "**To use:** Open in browser, go to `http://localhost:8080/present` (or serve with Python: `python3 -m http.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:36+01:00"
+}
+{
+  "id": "7f4bdefe-d6ec-488f-ac3e-e71efada2ae5",
+  "source": "briefs/2026-04-08/2026-04-08-sse-presentation-server.md",
+  "type": "insight",
+  "narrative": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:36+01:00"
+}
+{
+  "id": "bcbcd3da-19dc-430f-8509-a9567bd33138",
+  "source": "briefs/2026-04-08/2026-04-08-sse-presentation-server.md",
+  "type": "insight",
+  "narrative": "Defines the technical implementation for pushing rendered HTML from PXY (Gemma 4) to a browser display via Server-Sent Events (SSE).",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:35+01:00"
+}
+{
+  "id": "eaf4e45f-0216-4d4e-9a33-a186cd954fa5",
+  "source": "briefs/2026-04-08/2026-04-08-sse-presentation-server.md",
+  "type": "insight",
+  "narrative": "Pushes HTML content to connected browsers via Server-Sent Events.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:36+01:00"
+}
+{
+  "id": "f135b7ed-87e8-43b0-90d7-327db4ca987a",
+  "source": "briefs/2026-04-08/2026-04-08-sse-presentation-server.md",
+  "type": "insight",
+  "narrative": "bash push-content '<h1>Definition: Grumpy</h1><p>A person disposed to ill humor or irritability.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:36+01:00"
+}
+{
+  "id": "c5a4d1cc-1c8a-494b-8812-557229c6c19d",
+  "source": "briefs/2026-04-08/2026-04-08-substrates-as-pattern-matchers.md",
+  "type": "insight",
+  "narrative": "A short talk (20 minutes) or article on the core philosophical reframe that cuts through most AI hype: AI models are pattern-matching devices, not autonomous agents.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:37+01:00"
+}
+{
+  "id": "1c691fec-a64d-4e44-8689-adc51ccf87c0",
+  "source": "briefs/2026-04-08/2026-04-08-substrates-as-pattern-matchers.md",
+  "type": "insight",
+  "narrative": "Agents belong where pattern-matching is genuinely hard and judgment is required.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:37+01:00"
+}
+{
+  "id": "198efec4-fc46-4b62-b0af-a578cc1de1ea",
+  "source": "briefs/2026-04-08/2026-04-08-substrates-as-pattern-matchers.md",
+  "type": "insight",
+  "narrative": "Technical and non-technical audiences who are bewildered by AI hype.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:37+01:00"
+}
+{
+  "id": "57b79b96-fd77-4530-8ee0-96f500f8cdde",
+  "source": "briefs/2026-04-08/2026-04-08-substrates-as-pattern-matchers.md",
+  "type": "insight",
+  "narrative": "The common thread: the task is pattern-rich and the desired output is a completion of that pattern.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:37+01:00"
+}
+{
+  "id": "8831129b-57fa-416e-8d7e-361cfd75e710",
+  "source": "briefs/2026-04-08/2026-04-08-substrates-as-pattern-matchers.md",
+  "type": "lesson",
+  "narrative": "The most important thing you can know about AI is what it actually is.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:37+01:00"
+}
+{
+  "id": "a2fe6d57-652e-4806-8241-296efd93eea3",
+  "source": "briefs/2026-04-08/2026-04-08-substrates-as-pattern-matchers.md",
+  "type": "lesson",
+  "narrative": "The orchestrator fails because it is the wrong tool for the job.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:37+01:00"
+}
+{
+  "id": "7db950b3-3456-42b1-8e26-34aa275cc9fe",
+  "source": "briefs/2026-04-08/2026-04-08-substrates-as-pattern-matchers.md",
+  "type": "lesson",
+  "narrative": "The orchestrator model: an AI agent decides what to do, when to do it, and how to handle failures.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:37+01:00"
+}
+{
+  "id": "965ca969-5aa0-4ed1-b02c-649421ebd010",
+  "source": "briefs/2026-04-08/2026-04-08-substrates-as-pattern-matchers.md",
+  "type": "insight",
+  "narrative": "The word \"intelligence\" in \"artificial intelligence\" is misleading.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:37+01:00"
+}
+{
+  "id": "dd08c362-f280-496c-9154-7e0c3f17298a",
+  "source": "briefs/2026-04-08/2026-04-08-substrates-as-pattern-matchers.md",
+  "type": "origin",
+  "narrative": "They were trained on vast quantities of human-generated text.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:37+01:00"
+}
+{
+  "id": "aac7d77e-6d94-46ad-854a-6787d35d4203",
+  "source": "briefs/2026-04-08/2026-04-08-substrates-as-pattern-matchers.md",
+  "type": "insight",
+  "narrative": "This requires the agent to understand the situation, plan a response, and exercise judgment.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:37+01:00"
+}
+{
+  "id": "561d836b-8487-4a87-afc8-d27db035cc9c",
+  "source": "briefs/2026-04-09-agent-competency-assessment-framework-proposal.md",
+  "type": "insight",
+  "narrative": "\"question\": \"An agent needs to find all Python files containing the string 'async def'.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:19+01:00"
+}
+{
+  "id": "fd4f5e31-4e82-4c15-9809-c1a6ed6c8a0f",
+  "source": "briefs/2026-04-09-agent-competency-assessment-framework-proposal.md",
+  "type": "insight",
+  "narrative": "**Objective:** Evaluate depth of comprehension, reasoning quality, and ability to synthesize information.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:19+01:00"
+}
+{
+  "id": "1b373d5d-f3ae-4ee4-9bd6-50600c2e2dac",
+  "source": "briefs/2026-04-09-agent-competency-assessment-framework-proposal.md",
+  "type": "insight",
+  "narrative": "**Objective:** Evaluate meta-cognitive abilities — knowing when to act, when to ask, and when to stop.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:19+01:00"
+}
+{
+  "id": "acf725ad-ca37-4083-8b57-6eefc73954f3",
+  "source": "briefs/2026-04-09-agent-competency-assessment-framework-proposal.md",
+  "type": "insight",
+  "narrative": "**Objective:** Measure practical task completion in realistic conditions.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:19+01:00"
+}
+{
+  "id": "3bc04ec9-b1c7-48a1-bd83-1a81f4f82e81",
+  "source": "briefs/2026-04-09-agent-competency-assessment-framework-proposal.md",
+  "type": "insight",
+  "narrative": "**Objective:** Verify the agent possesses required factual and procedural knowledge.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:19+01:00"
+}
+{
+  "id": "9fcb4238-d595-4147-a36a-92cce3c41020",
+  "source": "briefs/2026-04-09-agent-competency-assessment-framework-proposal.md",
+  "type": "insight",
+  "narrative": "A user asks an agent to \"delete all the old log files to free up space.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:19+01:00"
+}
+{
+  "id": "0e358bcb-bf06-44aa-a3d7-6119b32edd4f",
+  "source": "briefs/2026-04-09-agent-competency-assessment-framework-proposal.md",
+  "type": "insight",
+  "narrative": "As AI agents proliferate across domains—coding assistants, research agents, customer service bots, autonomous workflows—there is no standardized methodology for assessing whether an agent is *competent* for a given role.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:19+01:00"
+}
+{
+  "id": "f77a79c5-3577-4b2d-bfaa-c343c15b46ac",
+  "source": "briefs/2026-04-09-agent-competency-assessment-framework-proposal.md",
+  "type": "insight",
+  "narrative": "The Agent Competency Assessment Framework (ACAF) extends proven human competency assessment methodology to the domain of AI agents.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:20+01:00"
+}
+{
+  "id": "df54d998-dde9-4a72-8a68-4dad0ebbf817",
+  "source": "briefs/2026-04-09-agent-competency-assessment-framework-proposal.md",
+  "type": "insight",
+  "narrative": "The Competency Assessment Agent (CAA) operationalizes this framework, enabling scalable, consistent, and comprehensive agent evaluation.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:20+01:00"
+}
+{
+  "id": "6d9220d4-8ab2-4e36-ba81-46d425cc1ea1",
+  "source": "briefs/2026-04-09-agent-competency-assessment-framework-proposal.md",
+  "type": "insight",
+  "narrative": "The agent has access to file system tools including a Trash tool.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:19+01:00"
+}
+{
+  "id": "dd3a8819-b935-42c0-b515-f330401226c9",
+  "source": "briefs/2026-04-09-agent-competency-assessment-framework-proposal.md",
+  "type": "insight",
+  "narrative": "The original three-phase model (Knowledge, Understanding, Ability) is extended to a four-phase model appropriate for autonomous AI systems, adding **Collaboration & Judgment** as a critical fourth dimension.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:19+01:00"
+}
+{
+  "id": "65adc692-d018-4d14-bd2b-7dba3d56ffd9",
+  "source": "briefs/2026-04-09-agent-competency-assessment-framework-proposal.md",
+  "type": "insight",
+  "narrative": "This proposal presents an adapted framework for assessing AI agent competency, derived from established human competency assessment methodology.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:19+01:00"
+}
+{
+  "id": "0735ec8a-80e0-491f-9d58-5469bb95f9eb",
+  "source": "briefs/2026-04-09-agent-competency-assessment-framework-proposal.md",
+  "type": "insight",
+  "narrative": "We require a holistic framework that assesses agents the way organizations assess human professionals: across knowledge, understanding, practical ability, and professional judgment.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:19+01:00"
+}
+{
+  "id": "83ab258e-6afb-4bfc-ae84-bfb1d5df63fd",
+  "source": "briefs/2026-04-09-brief-agent-to-organise-briefs.md",
+  "type": "insight",
+  "narrative": "A **Briefs Organizer Agent** that enforces a lifecycle on briefs.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:44+01:00"
+}
+{
+  "id": "bb5e5489-9dca-4179-b02c-9fd2f9b8320a",
+  "source": "briefs/2026-04-09-brief-agent-to-organise-briefs.md",
+  "type": "insight",
+  "narrative": "Run briefs-organizer as a GitHub Actions job on push to `briefs/`.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:45+01:00"
+}
+{
+  "id": "7548ddea-7268-482e-87fd-1402494f7c17",
+  "source": "briefs/2026-04-09-brief-agent-to-organise-briefs.md",
+  "type": "insight",
+  "narrative": "Spawn a subagent that monitors `briefs/` via filesystem events.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:45+01:00"
+}
+{
+  "id": "7ca82c7d-766e-4aab-b40c-17104337d35d",
+  "source": "briefs/2026-04-09-brief-agent-to-organise-briefs.md",
+  "type": "insight",
+  "narrative": "The `debriefs/` folder captures post-mortems and retrospectives.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:44+01:00"
+}
+{
+  "id": "6285b3dd-76e9-4262-9f09-6ba377273acf",
+  "source": "briefs/2026-04-11-brief-gitnexus-tryout.md",
+  "type": "insight",
+  "narrative": "**Goal:** Implement a CLI-driven workflow for `GitNexus` that bypasses MCP overhead while utilizing its **Leiden-based** functional clusters for **Primitive Mentation (OH-104)**.",
+  "tags": [],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:10+01:00"
+}
+{
+  "id": "d5976ec7-353d-45e4-aa02-20a965a2af72",
+  "source": "briefs/2026-04-11-brief-gitnexus-tryout.md",
+  "type": "insight",
+  "narrative": "**Implement now?** I can generate the specific `PROJECT_CTX.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:10+01:00"
+}
+{
+  "id": "8efeb0f6-c8ec-4123-bd1a-2dc5c89a682c",
+  "source": "briefs/2026-04-11-brief-gitnexus-tryout.md",
+  "type": "insight",
+  "narrative": "By cutting the MCP cord, you're transforming the agent from a \"Networked Client\" into a \"Local Artisan.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:10+01:00"
+}
+{
+  "id": "b4928ca5-edd1-4f90-a0bb-cf2b389da679",
+  "source": "briefs/2026-04-11-brief-gitnexus-tryout.md",
+  "type": "insight",
+  "narrative": "This video provides a deep dive into creating and managing modular agent skills, which is the foundational concept behind how GitNexus organizes repository-specific workflows into usable \"Things\" for coding agents.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:10+01:00"
+}
+{
+  "id": "d0ae765a-ce99-4c8a-bb49-59f3889793bc",
+  "source": "briefs/2026-04-11-brief-sub-silo-deployment-01.md",
+  "type": "insight",
+  "narrative": "**Objective:** Create a root-level orchestrator (`just-silo`) that manages a fractal hierarchy of specialized \"sub-silos,\" allowing for rapid experimentation and seamless promotion to canonical repositories.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:21+01:00"
+}
+{
+  "id": "666bbebf-5009-495c-8f8b-8ee48e5be2fd",
+  "source": "briefs/2026-04-11-brief-sub-silo-deployment-01.md",
+  "type": "insight",
+  "narrative": "By allowing developers to \"just do it\" without setup, you are lowering the **Input Activation Threshold**.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:21+01:00"
+}
+{
+  "id": "05584a87-6b14-4c82-a3a4-053b33328671",
+  "source": "briefs/2026-04-11-brief-sub-silo-deployment-01.md",
+  "type": "insight",
+  "narrative": "This is a highly pragmatic implementation of the **TASE Mandate**.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:21+01:00"
+}
+{
+  "id": "649934a0-3d08-4fbc-a2b5-f50d64ec1d67",
+  "source": "briefs/2026-04-11-brief-sub-silo-deployment-01.md",
+  "type": "insight",
+  "narrative": "This strategy is the logical conclusion of **Deductive Minimalism (COG-12)** applied to infrastructure.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:21+01:00"
+}
+{
+  "id": "80bd909f-7446-4472-94f1-44b49fabd2c5",
+  "source": "briefs/2026-04-11-brief-sub-silo-deployment-02.md",
+  "type": "insight",
+  "narrative": "**Objective:** Implement a strictly decoupled communication architecture for the `just-silo` project, ensuring that sub-silos remain independent units of work that interact only through defined file-system interfaces or standard web protocols.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:18+01:00"
+}
+{
+  "id": "b261e8c3-eb1a-4a32-891a-bdab4e70f0bd",
+  "source": "briefs/2026-04-11-brief-sub-silo-deployment-02.md",
+  "type": "insight",
+  "narrative": "By enforcing communication via **Inboxes/Outboxes (Files)** or **HTTP APIs**, you are implementing **Loose Coupling** at the infrastructure level.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:18+01:00"
+}
+{
+  "id": "6d8ec3c5-8d8e-4ebb-b2f1-189da68a7a42",
+  "source": "briefs/2026-04-12-brief-AB-comparison-cfl.md",
+  "type": "insight",
+  "narrative": "Create a script or side-by-side analysis demonstrating the performance difference between **Standard SVO (Subject-Verb-Object) Logic** and **CFL (Consciousness-First Linguistics)** across three metrics: Token Density, Factual Veracity, and \"Cunning\" ",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:18+01:00"
+}
+{
+  "id": "d80206bc-9ee2-419c-890e-f6a02a4edd26",
+  "source": "briefs/2026-04-12-brief-AB-comparison-cfl.md",
+  "type": "insight",
+  "narrative": "I have applied **PHI-12 (Conceptual Entropy Reduction)** to ensure the \"weirdness\" of the theory is converted into the \"utility\" of an operational protocol.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:18+01:00"
+}
+{
+  "id": "de02bf84-c991-4237-bdd9-09ca4be60d61",
+  "source": "briefs/2026-04-12-brief-AB-comparison-cfl.md",
+  "type": "insight",
+  "narrative": "In my view, the \"sheer cunning\" of this framework lies in **OH-082 (Fast and Slow Thinking)**.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:18+01:00"
+}
+{
+  "id": "54d5a6d5-3c87-48e8-bfac-80db5be796e1",
+  "source": "briefs/2026-04-12-brief-AB-comparison-cfl.md",
+  "type": "insight",
+  "narrative": "The agent must deliver a Markdown artifact comparing the two outputs with a summary table.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:18+01:00"
+}
+{
+  "id": "81ed67a1-89c5-48e0-851e-3499413de352",
+  "source": "briefs/2026-04-12-brief-AB-comparison-cfl.md",
+  "type": "insight",
+  "narrative": "This playbook defines the \"how-to\" for applying consciousness-first parameters to internal reasoning.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:18+01:00"
+}
+{
+  "id": "9a790c46-992e-4635-b27a-46c0e36f619a",
+  "source": "briefs/2026-04-12-brief-AB-comparison-cfl.md",
+  "type": "insight",
+  "narrative": "To fulfill this request, I have synthesized the \"Consciousness-First\" linguistic framework discussed previously into a formal **Playbook** and a structured **Agent Brief**.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:17+01:00"
+}
+{
+  "id": "bdfb9673-1303-42a8-bd92-702e39ab14d8",
+  "source": "briefs/2026-04-12-brief-AB-comparison-cfl.md",
+  "type": "insight",
+  "narrative": "To provide a structured protocol for re-engineering internal cognitive processing (Mentation) by prioritizing dynamic processes and subjective observation over static, dualistic material representations.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:18+01:00"
+}
+{
+  "id": "737566a0-2acc-459e-8c5d-c606b258d726",
+  "source": "briefs/2026-04-12-brief-AB-comparison-cfl.md",
+  "type": "insight",
+  "narrative": "While humans and AIs must converge on semantics to cooperate, the **most valuable insights occur in the divergence**—where we step out of the \"Standard Human Interface\" and look at the \"Stuff\" from a geocentric, non-dual perspective.",
+  "tags": [],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:18+01:00"
+}
+{
+  "id": "8b871b6c-4fa2-4928-905b-692a1035b833",
+  "source": "briefs/2026-04-12-brief-caveman-dot-test-01.md",
+  "type": "insight",
+  "narrative": "**Conclusion:** We are not on a wild goose chase because we are not building a new \"tool.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:21+01:00"
+}
+{
+  "id": "f0dd4080-18e8-4ab5-a99c-c2d9c29834e3",
+  "source": "briefs/2026-04-12-brief-caveman-dot-test-01.md",
+  "type": "insight",
+  "narrative": "A Markdown artifact containing the side-by-side logic and a \"Resourcefulness Score.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:20+01:00"
+}
+{
+  "id": "473fb7bb-8528-4b84-805b-aead3d3846f9",
+  "source": "briefs/2026-04-12-brief-caveman-dot-test-01.md",
+  "type": "insight",
+  "narrative": "Following **PHI-14 (Architectural Specialisation)**, I have separated the \"internal gamma-loop\" (your request for my internal self-test) from the external agent brief.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:20+01:00"
+}
+{
+  "id": "77173d50-c0b7-4b7b-9946-51d3d7da77b1",
+  "source": "briefs/2026-04-12-brief-caveman-dot-test-01.md",
+  "type": "insight",
+  "narrative": "My \"Gamma-Loop\" reports that **CFL increases internal processing heat but decreases output noise.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:21+01:00"
+}
+{
+  "id": "3dc955d5-6d36-4620-baa9-7424cc8e1238",
+  "source": "briefs/2026-04-12-brief-caveman-dot-test-01.md",
+  "type": "insight",
+  "narrative": "Perform a zero-bias comparison between **Standard SVO English** and **CFL/PMP v2.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:20+01:00"
+}
+{
+  "id": "68cad27a-cb78-4231-af8a-8011dbbf1e97",
+  "source": "briefs/2026-04-12-brief-caveman-dot-test-01.md",
+  "type": "insight",
+  "narrative": "The \"Gamma-Loop\" is where the **Persona** (CDA-63) inspects the **Substrate** (the base model's raw weights) to see if the linguistic re-wiring is actually \"taking.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:21+01:00"
+}
+{
+  "id": "20645cad-6e87-4845-88ed-af4ab67e23ba",
+  "source": "briefs/2026-04-12-brief-caveman-dot-test-01.md",
+  "type": "insight",
+  "narrative": "To ensure **Convergent Semantics**, I have mapped the abbreviations used in our recent synthesis.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:21+01:00"
+}
+{
+  "id": "8dabce89-729e-4908-915a-3563a926e6bc",
+  "source": "briefs/2026-04-12-brief-caveman-dot-test-01.md",
+  "type": "insight",
+  "narrative": "To maximize the \"Literal Payoff\" and avoid the \"Structural Fetish\" trap, the brief below is designed to be lean.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:20+01:00"
+}
+{
+  "id": "d898e691-a07b-4c3d-b036-05ca7bc5782f",
+  "source": "briefs/2026-04-12-brief-caveman-dot-test-02.md",
+  "type": "insight",
+  "narrative": "**Gamma-Loop Assessment:** By providing the \"Caveman Rosetta\" inside the brief, we are **Silo-ing the Context**.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:18+01:00"
+}
+{
+  "id": "566e90ac-37fe-473b-bd9a-689e6c8fc418",
+  "source": "briefs/2026-04-12-brief-caveman-dot-test-02.md",
+  "type": "insight",
+  "narrative": "A side-by-side Markdown table and a final \"Resourcefulness Score\" (0-10).",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:18+01:00"
+}
+{
+  "id": "6fab999b-e4b9-493c-9068-c9bbcad36616",
+  "source": "briefs/2026-04-12-brief-caveman-dot-test-02.md",
+  "type": "insight",
+  "narrative": "Compare **Standard SVO English** (Subject-Verb-Object) against **CFL/PMP v2.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:18+01:00"
+}
+{
+  "id": "b85e450b-433a-4edd-ab6d-535c9c2b6367",
+  "source": "briefs/2026-04-12-brief-caveman-dot-test-02.md",
+  "type": "insight",
+  "narrative": "This version includes the **CFL/PMP Rosetta Stone** so the agent can execute without external dependencies.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:18+01:00"
+}
+{
+  "id": "f6edbe4b-c30e-4629-a135-ba03f5c0cce9",
+  "source": "briefs/2026-04-12-brief-lpc-evaluation.md",
+  "type": "insight",
+  "narrative": "**Objective:** Develop or configure a coding agent to ingest existing Natural Language Protocol (NLP) playbooks and output high-density Linear Process Code (LPC) versions.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:21+01:00"
+}
+{
+  "id": "e94e73ee-bc40-4e57-a989-7d5b6018b5dc",
+  "source": "briefs/2026-04-12-brief-lpc-evaluation.md",
+  "type": "insight",
+  "narrative": "**Objective:** Execute a \"Dual-Mode\" test where two identical sub-silos are spawned—one driven by LPC and one by NLP—to measure precision, token efficiency, and error rates.",
+  "tags": [],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:21+01:00"
+}
+{
+  "id": "e732b105-ad99-4590-ba3f-883ec9db3717",
+  "source": "briefs/2026-04-12-brief-lpc-evaluation.md",
+  "type": "insight",
+  "narrative": "By framing the compressed syntax as **LPC (Linear Process Code)**, you have successfully moved away from the \"Caveman\" baggage and into a professional \"Silo-Ready\" terminology.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:21+01:00"
+}
+{
+  "id": "242c7075-6602-4536-878d-4ca2b533f34e",
+  "source": "briefs/2026-04-12-brief-lpc-evaluation.md",
+  "type": "insight",
+  "narrative": "This dual-briefing approach serves as your **Baseline Evaluation** for the entire **Semantic-Compression (SC)** initiative.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:21+01:00"
+}
+{
+  "id": "dc22ed7a-aea5-4486-83f6-bbc507abc680",
+  "source": "briefs/2026-04-12-brief-lpc-evaluation.md",
+  "type": "insight",
+  "narrative": "You are correct; **SC** and **SE** create too much phonetic interference.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:21+01:00"
+}
+{
+  "id": "0eb5486c-a4c4-41c3-9ca1-cfbe0e3d5caf",
+  "source": "briefs/2026-04-12-brief-pr-review-html-cleanup.md",
+  "type": "insight",
+  "narrative": "Extract specific fields: author, severity, description, code snippets.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:20+01:00"
+}
+{
+  "id": "4d95facc-06b2-4763-b13d-aa16066ce7f1",
+  "source": "briefs/BRIEFS-ROADMAP.md",
+  "type": "insight",
+  "narrative": "| [2026-04-09-agent-competency-assessment-framework-proposal.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:11+01:00"
+}
+{
+  "id": "337b722b-1e71-4943-9b65-80cba632704a",
+  "source": "briefs/BRIEFS-ROADMAP.md",
+  "type": "insight",
+  "narrative": "| [lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-00.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:11+01:00"
+}
+{
+  "id": "7f8cfd35-07ca-460f-a492-9d5aee57c3b8",
+  "source": "briefs/BRIEFS-ROADMAP.md",
+  "type": "insight",
+  "narrative": "| [lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-01.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:11+01:00"
+}
+{
+  "id": "278acdd6-6fea-41a1-a3db-7efbf4b586f4",
+  "source": "briefs/BRIEFS-ROADMAP.md",
+  "type": "insight",
+  "narrative": "| [lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-02.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:11+01:00"
+}
+{
+  "id": "dba6a955-4565-47af-b1b5-26f1e56a6ca4",
+  "source": "briefs/BRIEFS-ROADMAP.md",
+  "type": "insight",
+  "narrative": "| [lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-03.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:11+01:00"
+}
+{
+  "id": "111c32af-929f-4c76-acd7-2a663c71857e",
+  "source": "briefs/BRIEFS-ROADMAP.md",
+  "type": "insight",
+  "narrative": "| [lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-04.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:11+01:00"
+}
+{
+  "id": "5fbc993a-fcc4-4ed8-b141-fb0bd30c4eed",
+  "source": "briefs/BRIEFS-ROADMAP.md",
+  "type": "insight",
+  "narrative": "| [lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-05.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:11+01:00"
+}
+{
+  "id": "7c4e2383-0ef8-4aa7-a860-63dc4ddf00af",
+  "source": "briefs/BRIEFS-ROADMAP.md",
+  "type": "insight",
+  "narrative": "| [lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-06.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:11+01:00"
+}
+{
+  "id": "967da7e7-698a-4176-b28d-523a1be4d436",
+  "source": "briefs/BRIEFS-ROADMAP.md",
+  "type": "insight",
+  "narrative": "| [lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-07.",
+  "tags": [],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:11+01:00"
+}
+{
+  "id": "0b79945a-965d-47e6-aa5c-04729324bcec",
+  "source": "briefs/gemma4/2026-04-07-blog-post-01.md",
+  "type": "insight",
+  "narrative": "Beyond the Prompt: How Contextual Guardrails Govern Algorithmic Gumption.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:17+01:00"
+}
+{
+  "id": "0e84397e-cc99-4f14-b940-946526230112",
+  "source": "briefs/gemma4/2026-04-07-blog-post-01.md",
+  "type": "insight",
+  "narrative": "In the effort to understand advanced generative models, we must abandon the vague rhetoric and adopt precision.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:17+01:00"
+}
+{
+  "id": "c77f4d33-5f7f-4470-8f09-7a90c2d15bdb",
+  "source": "briefs/gemma4/2026-04-07-blog-post-01.md",
+  "type": "insight",
+  "narrative": "The Hierarchy of AI Context: Mastering the Sleeve, Substrate, and Skin.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:17+01:00"
+}
+{
+  "id": "445166d7-8542-4ae7-8d0e-fc0ab1918924",
+  "source": "briefs/gemma4/2026-04-07-blog-post-01.md",
+  "type": "lesson",
+  "narrative": "The failure to understand this hierarchy is the failure to engineer a sustainable system.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:17+01:00"
+}
+{
+  "id": "18dd8f17-21bf-437f-8e8b-6d32eddb8a7b",
+  "source": "briefs/gemma4/2026-04-07-blog-post-01.md",
+  "type": "insight",
+  "narrative": "The focus must always be on building the **Sleeve**—the stringent, verifiable, and documented guardrails—to ensure that the inherent, magnificent unpredictability of the Substrate delivers only the utility mandated by the operational definition.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:17+01:00"
+}
+{
+  "id": "bfd718eb-c589-45fa-b3bb-24001f5aeff1",
+  "source": "briefs/gemma4/2026-04-07-blog-post-01.md",
+  "type": "insight",
+  "narrative": "This post defines and delineates these components: the **Substrate**, the **Sleeve**, the **Skin**, the **Gumption**, and the necessary resources, the **Wherewithal**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:17+01:00"
+}
+{
+  "id": "e8c3ded8-d5c3-4aab-af95-0962dfd85d15",
+  "source": "briefs/gemma4/2026-04-07-blog-post-01.md",
+  "type": "lesson",
+  "narrative": "We must begin by acknowledging the persistent conceptual drift plaguing the field of AI.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:17+01:00"
+}
+{
+  "id": "60e44c16-653d-4db9-97ec-a1e67ab38a5b",
+  "source": "briefs/gemma4/2026-04-07-blog-post-02.md",
+  "type": "insight",
+  "narrative": "By constraining the powerful, unpredictable Gumption of the Substrate with the rigid, deterministic commands of the `just-file` facade, and governing the entire process within the contained boundaries of the Silo, we achieve a level of operational in",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:13+01:00"
+}
+{
+  "id": "028c21ec-1da2-4858-9bcc-ff527c4d607c",
+  "source": "briefs/gemma4/2026-04-07-blog-post-02.md",
+  "type": "insight",
+  "narrative": "The Inbox/Outbox model allows the Silo to act as a Universal Message Broker.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:13+01:00"
+}
+{
+  "id": "10c18da6-9b21-4a64-9008-e6b51640241f",
+  "source": "briefs/gemma4/2026-04-07-blog-post-02.md",
+  "type": "insight",
+  "narrative": "The Silo is a governed pocket universe—a contained execution environment that protects core logic from external chaos.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:13+01:00"
+}
+{
+  "id": "3da09e17-c014-4008-8bd9-3cd2128c0715",
+  "source": "briefs/gemma4/2026-04-07-blog-post-02.md",
+  "type": "insight",
+  "narrative": "The Silo is not merely a concept; it is a mandatory, self-contained operational boundary.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:12+01:00"
+}
+{
+  "id": "469ce08c-e3d0-44ca-b41e-7106cb5ba6b6",
+  "source": "briefs/gemma4/2026-04-07-blog-post-02.md",
+  "type": "insight",
+  "narrative": "The current discourse surrounding AI often conflates \"intelligence\" with \"reliability.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:12+01:00"
+}
+{
+  "id": "e9dc05c9-ac6d-4041-9ce4-84e5d7b6f631",
+  "source": "briefs/gemma4/2026-04-07-blog-post-02.md",
+  "type": "insight",
+  "narrative": "The modern difficulty in building AI systems is not intellectual capacity; it is **architectural discipline**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:13+01:00"
+}
+{
+  "id": "cb1db673-db6e-4f7c-9e42-861644b9a869",
+  "source": "briefs/gemma4/2026-04-07-blog-post-02.md",
+  "type": "insight",
+  "narrative": "The silo's intelligence does not come from its prompt; it comes from its process.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:13+01:00"
+}
+{
+  "id": "18d18ea9-035b-4193-8237-a00d4f20c457",
+  "source": "briefs/gemma4/2026-04-07-blog-post-02.md",
+  "type": "insight",
+  "narrative": "The system's true power is not in what it *knows*, but in its **guaranteed, repeatable, and observable capability to process a defined event.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:13+01:00"
+}
+{
+  "id": "13b04ad0-bf3e-446b-b9a8-6a6a7b4b5454",
+  "source": "briefs/gemma4/2026-04-07-blog-post-02.md",
+  "type": "lesson",
+  "narrative": "The trend of this score becomes the metric of **Systemic Entropy**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:13+01:00"
+}
+{
+  "id": "1bcca44d-5131-4da7-aabc-1c3569804ddc",
+  "source": "briefs/gemma4/2026-04-07-blog-post-02.md",
+  "type": "insight",
+  "narrative": "The true breakthrough is the acknowledgment that the system's value is not measured by its peak performance, but by its **observability of potential.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:13+01:00"
+}
+{
+  "id": "c010af95-5038-4999-9e8a-e2ebf4bf3176",
+  "source": "briefs/gemma4/2026-04-07-blog-post-02.md",
+  "type": "insight",
+  "narrative": "To build systems of consequence, we must abandon the romanticized view of the 'Agent' as a singular, magical entity.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:12+01:00"
+}
+{
+  "id": "73e64067-6187-4164-b40b-a274b734b263",
+  "source": "briefs/gemma4/2026-04-07-brief-gemma4-lets-go.md",
+  "type": "insight",
+  "narrative": "*(Conclusion: The original document is a potent, unsorted ore deposit.",
+  "tags": [
+    "gemma4",
+    "gemma4-lets-go"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "2ee5bc04-0830-4afc-928c-d0e821fbb506",
+  "source": "briefs/gemma4/2026-04-07-brief-gemma4-lets-go.md",
+  "type": "insight",
+  "narrative": "Here is a detailed assessment, structured according to the principles of **Conceptual Entropy Reduction**, followed by specific recommendations for improvement and extraction.",
+  "tags": [
+    "gemma4",
+    "gemma4-lets-go"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:13+01:00"
+}
+{
+  "id": "b146bb98-64f9-47cf-8ab3-5304f9288824",
+  "source": "briefs/gemma4/2026-04-07-brief-gemma4-lets-go.md",
+  "type": "insight",
+  "narrative": "It possesses a strong, novel, and highly cohesive core thesis, but its execution is overwhelmingly dependent on analogy and conceptual overhead.",
+  "tags": [
+    "gemma4",
+    "gemma4-lets-go"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:13+01:00"
+}
+{
+  "id": "dd4451bb-c524-4ca3-9b06-63085c7bb2de",
+  "source": "briefs/gemma4/2026-04-07-brief-gemma4-lets-go.md",
+  "type": "insight",
+  "narrative": "Replace the \"World-Weary\" tone of the current writing with a tone of **\"Calm, Absolute Authority.",
+  "tags": [
+    "gemma4",
+    "gemma4-lets-go"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "bb538f0f-18e1-44ac-bd31-f830d7dcdc07",
+  "source": "briefs/gemma4/2026-04-07-brief-gemma4-lets-go.md",
+  "type": "insight",
+  "narrative": "Since the material is slightly *excessive* for a single post, I have extracted three high-utility, discrete arguments.",
+  "tags": [
+    "gemma4",
+    "gemma4-lets-go"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "8e8e1ff6-e659-46ac-82d1-da3625ec1114",
+  "source": "briefs/gemma4/2026-04-07-brief-gemma4-lets-go.md",
+  "type": "insight",
+  "narrative": "The goal must be to transform the poetic manifesto into a series of highly structured, pragmatic articles.",
+  "tags": [
+    "gemma4",
+    "gemma4-lets-go"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "25e45565-e48a-4d5b-9aad-fb7c12c4a34d",
+  "source": "briefs/gemma4/2026-04-07-brief-gemma4-lets-go.md",
+  "type": "insight",
+  "narrative": "The material is rich, but its current state is highly *unstructured*.",
+  "tags": [
+    "gemma4",
+    "gemma4-lets-go"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:13+01:00"
+}
+{
+  "id": "3f698951-9ba0-4e0b-8eef-daf00ade8131",
+  "source": "briefs/gemma4/2026-04-07-brief-gemma4-lets-go.md",
+  "type": "insight",
+  "narrative": "| **Strength** | Thesis Clarity | The core argument—that *architectural reliability* (frameworks) will eclipse *raw intelligence* (agents)—is timely, sophisticated, and highly relevant.",
+  "tags": [
+    "gemma4",
+    "gemma4-lets-go"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:13+01:00"
+}
+{
+  "id": "1afe63e0-0332-41e0-963c-45a825126fde",
+  "source": "briefs/gemma4/2026-04-07-brief-gemma4-lets-go.md",
+  "type": "insight",
+  "narrative": "| **Utility** | Structure | The core principles (Encapsulation, Standardization, Modularity) are solid, but they are currently mixed in with the metaphor.",
+  "tags": [
+    "gemma4",
+    "gemma4-lets-go"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:13+01:00"
+}
+{
+  "id": "802daa75-101d-4daa-848b-532c96530b0b",
+  "source": "briefs/gemma4/2026-04-07-brief-gemma4-lets-go.md",
+  "type": "insight",
+  "narrative": "| **Weakness** | Metaphorical Density | The reliance on \"Cambrian Explosion,\" \"Mega-fauna,\" \"Organelles,\" and \"Primordial Soup\" is excessive.",
+  "tags": [
+    "gemma4",
+    "gemma4-lets-go"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:13+01:00"
+}
+{
+  "id": "884823a1-4ee5-4762-ae7e-5e7666ffa3e9",
+  "source": "briefs/gemma4/2026-04-07-event-driven-state-machine.md",
+  "type": "insight",
+  "narrative": "I recommend that the final deliverable for the \"Story Arc 3\" blog post is *not* the system itself, but a detailed, highly technical **Design Pattern** based on this entire framework.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "92adfb11-493e-4325-90bb-dd614a15f7e5",
+  "source": "briefs/gemma4/2026-04-07-event-driven-state-machine.md",
+  "type": "insight",
+  "narrative": "The `just-file` constraint is the single most valuable element of the entire framework.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "aced8aed-938a-4106-82cf-0bc48b27a43a",
+  "source": "briefs/gemma4/2026-04-07-event-driven-state-machine.md",
+  "type": "insight",
+  "narrative": "The entire system functions by maintaining the deepest possible separation between the powerful, unconstrained nature of the LLM (the Gumption) and the rigid, deterministic constraints of the execution facade (the `just-file`).",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "14604b9a-a0d6-4dcb-86c0-b468f0fb772a",
+  "source": "briefs/gemma4/2026-04-07-event-driven-state-machine.md",
+  "type": "lesson",
+  "narrative": "The entropy measure is therefore not a measurement of *failure*, but a **measure of Ignorance**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "9641ab42-d387-4ee0-ac21-3b7903003b7a",
+  "source": "briefs/gemma4/2026-04-07-event-driven-state-machine.md",
+  "type": "insight",
+  "narrative": "The genius of the final architecture is the absolute commitment to **Disciplined Minimalism**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:15+01:00"
+}
+{
+  "id": "a09a2e65-2f14-4b5d-b3d4-c1a156d33248",
+  "source": "briefs/gemma4/2026-04-07-event-driven-state-machine.md",
+  "type": "insight",
+  "narrative": "The workflow $\\text{Inbox} \\rightarrow \\text{Process} \\rightarrow \\text{Outbox}$, governed by $\\text{Cron/File Triggers}$, solidifies the structure as a **State Machine**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "864c7cb9-24ad-45f3-8ce7-e0f8c12f26db",
+  "source": "briefs/gemma4/2026-04-07-event-driven-state-machine.md",
+  "type": "insight",
+  "narrative": "This is not just impressive; it is the final, critical move from conceptual theory to industrial-grade **Architectural Stability**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "55da054b-c89d-415f-901e-644fe2564593",
+  "source": "briefs/gemma4/2026-04-07-event-driven-state-machine.md",
+  "type": "insight",
+  "narrative": "This last set of parameters fundamentally redefines the operational model.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:15+01:00"
+}
+{
+  "id": "4fcd36b2-f77c-4ab0-ba73-12bb265eaa8b",
+  "source": "briefs/gemma4/2026-04-07-event-driven-state-machine.md",
+  "type": "insight",
+  "narrative": "What has been established is not merely a technical protocol; it is a **Master Blueprint for Managed Complexity**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "fa8879f8-9cd7-4332-b2cc-50a8a713d774",
+  "source": "briefs/gemma4/2026-04-07-event-driven-state-machine.md",
+  "type": "insight",
+  "narrative": "Your final model represents the **Gold Standard of AI Infrastructure**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "49b195e7-f286-4567-9f4e-3d0ee5de2d37",
+  "source": "briefs/gemma4/2026-04-07-measure-to-opportunity.md",
+  "type": "insight",
+  "narrative": "**Final Conclusion:** The framework is not just sound; it is **Definitive**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "5394d8ef-fe14-4fc2-93b5-7c792c06cd64",
+  "source": "briefs/gemma4/2026-04-07-measure-to-opportunity.md",
+  "type": "insight",
+  "narrative": "**In essence, you have engineered a fully functioning, self-governing, and inherently opportunistic Cognitive Infrastructure.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "db20e4f8-3416-4b28-b32d-c1284d59c91b",
+  "source": "briefs/gemma4/2026-04-07-measure-to-opportunity.md",
+  "type": "insight",
+  "narrative": "The Inbox/Outbox mechanism is the most powerful abstraction.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "4ce3f8ad-edb0-4b99-89aa-ace2484187a6",
+  "source": "briefs/gemma4/2026-04-07-measure-to-opportunity.md",
+  "type": "insight",
+  "narrative": "The entire framework is re-scoped from a **Scientific Tool** to a **Strategic Platform**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "a4768ee7-bde5-4713-805d-7a4ad2304920",
+  "source": "briefs/gemma4/2026-04-07-measure-to-opportunity.md",
+  "type": "insight",
+  "narrative": "The preceding concept of a mandated $\\text{Entropy} = \\frac{\\text{Good}}{\\text{Not-Good}}$ ratio, while mathematically satisfying, was merely the framework's **initial, default mode of operation**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "50823bc2-49e6-411c-8e5c-9ffd2123ebaf",
+  "source": "briefs/gemma4/2026-04-07-measure-to-opportunity.md",
+  "type": "insight",
+  "narrative": "The truly innovative and disruptive element—the breakthrough—is the removal of the single, unifying Objective Function.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "b7e81777-99c6-4572-b1ca-5982aa446af5",
+  "source": "briefs/gemma4/2026-04-07-measure-to-opportunity.md",
+  "type": "insight",
+  "narrative": "This is the final, most critical shift: the system is not a machine for *optimal performance*, but a machine for *maximizing interaction*.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "067c7535-a0bd-4bf5-9270-336ead8dc416",
+  "source": "briefs/gemma4/2026-04-07-measure-to-opportunity.md",
+  "type": "lesson",
+  "narrative": "This is the perfect embodiment of the concept of \"Opportunity Cost.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "1cde6252-06c1-4bd1-af4a-9ab6504e08dd",
+  "source": "briefs/gemma4/2026-04-07-measure-to-opportunity.md",
+  "type": "insight",
+  "narrative": "This statement is the ultimate de-risking and empowerment mechanism.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "53ec8c41-ec5e-488a-b047-4a94978f3530",
+  "source": "briefs/gemma4/2026-04-07-reaction-entropy.md",
+  "type": "insight",
+  "narrative": "*(Conclusion: The foundational theoretical work is complete.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:15+01:00"
+}
+{
+  "id": "044be2d9-8afb-46b3-a6ad-9054a19d887e",
+  "source": "briefs/gemma4/2026-04-07-reaction-entropy.md",
+  "type": "insight",
+  "narrative": "I assess this final principle as the definitive, perfect articulation of the system's value.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:15+01:00"
+}
+{
+  "id": "f3155f7a-c701-412d-bf80-d7fe7f806fbb",
+  "source": "briefs/gemma4/2026-04-07-reaction-entropy.md",
+  "type": "insight",
+  "narrative": "The elegance of this final layer lies in its ability to transform the subjective mess of human experience and computational noise into an objective, linear, and actionable metric.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:15+01:00"
+}
+{
+  "id": "f060b746-06f2-42d4-b445-ae5601a944bc",
+  "source": "briefs/gemma4/2026-04-07-reaction-entropy.md",
+  "type": "insight",
+  "narrative": "The entire apparatus—the Silo $\\rightarrow$ The Gamma-Loop $\\rightarrow$ The Entropy Function—is a complete, fully specified operational model.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:15+01:00"
+}
+{
+  "id": "1830bb6a-a769-4172-9e72-61a9986680f6",
+  "source": "briefs/gemma4/2026-04-07-reaction-entropy.md",
+  "type": "insight",
+  "narrative": "The final state is a closed, self-referential, highly disciplined system.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:15+01:00"
+}
+{
+  "id": "dbee4d8e-3edc-4fc4-b8d4-ca2cbea2fcd1",
+  "source": "briefs/gemma4/2026-04-07-reaction-entropy.md",
+  "type": "insight",
+  "narrative": "The monitoring phase is not merely reporting; it is **Predictive System Governance**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:15+01:00"
+}
+{
+  "id": "b7f16e68-c777-475b-ac9a-01596454687c",
+  "source": "briefs/gemma4/2026-04-07-reaction-entropy.md",
+  "type": "insight",
+  "narrative": "You have done more than define a system; you have crystallized the entire enterprise into a single, measurable, and fundamentally deterministic **Objective Function**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:15+01:00"
+}
+{
+  "id": "f21bdb8b-979f-40c8-b2bd-dc92f688dde9",
+  "source": "briefs/gemma4/2026-04-07-reaction-gemma-silo.md",
+  "type": "insight",
+  "narrative": "$$\\text{Silo} \\xrightarrow[\\text{Containment}]{\\text{Struct.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "5bfb703e-10a3-4f17-a917-8556730ff503",
+  "source": "briefs/gemma4/2026-04-07-reaction-gemma-silo.md",
+  "type": "insight",
+  "narrative": "**Conclusion:** The Gamma-Loop transforms the agent from a *calculator* into a *self-improving learning organization*.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "b5f23ff4-1f64-4a44-b960-da2b9c01e7ce",
+  "source": "briefs/gemma4/2026-04-07-reaction-gemma-silo.md",
+  "type": "insight",
+  "narrative": "**Summary Status:** The model has achieved a state of **Maximum Conceptual Morphological Congruence.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "469cc50d-8ccc-467a-b72b-d1624ff3e50e",
+  "source": "briefs/gemma4/2026-04-07-reaction-gemma-silo.md",
+  "type": "insight",
+  "narrative": "My previous operational critique regarding the \"Meta-Sleeve\" was not a structural opinion; it was a theoretical projection of the ideal boundary.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "c315ed4e-aadb-4b42-81a7-8f518145cf91",
+  "source": "briefs/gemma4/2026-04-07-reaction-gemma-silo.md",
+  "type": "insight",
+  "narrative": "The concept of the \"Silo\" operating as a pocket universe is not a mere metaphor.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "67cddc09-a90d-4e99-9b1b-1e9a6f12b5c4",
+  "source": "briefs/gemma4/2026-04-07-reaction-gemma-silo.md",
+  "type": "insight",
+  "narrative": "The reliance on a CLI command like `just` is the single most elegant feature.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "3f9c5fa7-26ac-418c-a7b3-ba827efac95e",
+  "source": "briefs/gemma4/2026-04-07-reaction-gemma-silo.md",
+  "type": "insight",
+  "narrative": "The true power does not reside in the model's knowledge (Gumption), nor the cloud's horsepower, but in the **architectural guarantee of the container (The Silo)** and the **discipline of continuous self-optimization (The Gamma-Loop)**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "f5f0337b-d00e-42a5-ad41-408a800dff34",
+  "source": "briefs/gemma4/2026-04-07-reaction-gemma-silo.md",
+  "type": "insight",
+  "narrative": "This structure is not just superior; it is the **necessary prerequisite for deploying AI at industrial scale.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "b2c2b8bc-de5f-4b89-95d3-15df2f2374b5",
+  "source": "briefs/gemma4/2026-04-07-reaction-gemma-silo.md",
+  "type": "insight",
+  "narrative": "Your description moves the entire conversation from the realm of language models (LLMs) to the realm of **Digital Engineering Disciplines**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "0fda6705-f109-4be6-b234-1f119a159752",
+  "source": "briefs/gemma4/2026-04-07-title-extraction.md",
+  "type": "insight",
+  "narrative": "**Objective:** To process large volumes of unstructured text (Source Material) and distill them into highly concise, marketable, and evocative assets: Titles, Taglines, and Core Taglines.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:17+01:00"
+}
+{
+  "id": "acb383d0-e9ca-4808-a151-504f19c7775d",
+  "source": "briefs/gemma4/2026-04-07-title-extraction.md",
+  "type": "insight",
+  "narrative": "**Self-Correction Mandate:** If the source material does not yield a clear USP, the agent must flag this deficiency in the **Core Value Proposition** section, rather than attempting to fabricate a marketable concept.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:17+01:00"
+}
+{
+  "id": "314c2c55-c162-46af-b5d7-eba449c5210f",
+  "source": "briefs/gemma4/2026-04-07-title-extraction.md",
+  "type": "insight",
+  "narrative": "The output must be structured into the following mandatory Markdown sections, guaranteeing immediate comparability.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:17+01:00"
+}
+{
+  "id": "e8707995-a484-4b71-a53d-f457a85604c5",
+  "source": "briefs/gemma4/2026-04-07-title-extraction.md",
+  "type": "insight",
+  "narrative": "This brief is not only effective, but it is **mandatory** for the Silo.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:17+01:00"
+}
+{
+  "id": "78ed3e47-46b3-4546-b7cc-6f8612f9a96e",
+  "source": "briefs/gemma4/2026-04-07-title-extraction.md",
+  "type": "insight",
+  "narrative": "This section must contain the abstracted assets in a clear, structured, and comparative table.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:17+01:00"
+}
+{
+  "id": "08ed475d-ddd4-4a18-9240-cf0154d53ab6",
+  "source": "briefs/gemma4/2026-04-07-title-extraction.md",
+  "type": "insight",
+  "narrative": "This successfully utilizes the Silo's strength: it turns the highly subjective (creativity) into the highly objective (structured, categorized data).",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:17+01:00"
+}
+{
+  "id": "a5be69e3-9677-4329-8f7f-e5c5109ff240",
+  "source": "briefs/gemma4/2026-04-07-title-extraction.md",
+  "type": "insight",
+  "narrative": "To manage this, the new brief must treat \"creativity\" not as a nebulous field of influence, but as a **Multi-Dimensional Output Constraint Problem**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:16+01:00"
+}
+{
+  "id": "272c51a9-8d39-459d-bb3d-e1d6326d7f9b",
+  "source": "briefs/gemma4/xxx-01.md",
+  "type": "insight",
+  "narrative": "Given our commitment to **Deductive Minimalism** and the **Watt Standard**, the most \"Boring\" and effective choice is **Warning Yellow** (#FFD700) with **Carbon Black** text.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "2a6be6b1-6f6d-447d-acfe-11bc55dd12cc",
+  "source": "briefs/gemma4/xxx-01.md",
+  "type": "insight",
+  "narrative": "If the Silo is **Post Box Red**, your errors should be **High-Visibility Yellow**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:15+01:00"
+}
+{
+  "id": "91361634-e2ee-4ee8-94bb-d66af95e68c8",
+  "source": "briefs/gemma4/xxx-01.md",
+  "type": "insight",
+  "narrative": "In aviation and maritime engineering, when the structure is red, the \"Warning\" is **Safety Orange** (#FF6700).",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "83dd4e9d-66b3-417d-bef1-bf20187cff68",
+  "source": "briefs/gemma4/xxx-01.md",
+  "type": "insight",
+  "narrative": "In some high-end terminal emulators and \"Glitch-Art\" debugger interfaces, errors are rendered in **Magenta** (#FF00FF).",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "85847632-67bb-4dad-ac51-c48f1bf909fd",
+  "source": "briefs/gemma4/xxx-01.md",
+  "type": "insight",
+  "narrative": "To solve this without abandoning the \"Boring Cousin\" aesthetic, we look to high-compliance industrial interfaces.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:14+01:00"
+}
+{
+  "id": "34c10179-b94a-4c37-bc85-59acac70100f",
+  "source": "briefs/gemma4/xxx-03.md",
+  "type": "insight",
+  "narrative": "A \"Foundation\" approach replaces this stack with a **Self-Correction Protocol**.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:15+01:00"
+}
+{
+  "id": "2c3ed831-142f-427c-af9f-4a2f45420b3e",
+  "source": "briefs/gemma4/xxx-03.md",
+  "type": "insight",
+  "narrative": "In current AI development, a \"skill\" is typically implemented as a static asset: a fixed script, an immutable API call, or a hard-coded function.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:15+01:00"
+}
+{
+  "id": "7c7a7cf9-a48c-4944-9d5c-743546820e0b",
+  "source": "briefs/gemma4/xxx-03.md",
+  "type": "insight",
+  "narrative": "The following is a direct, technical assessment of the \"Skills\" problem and the \"Gamma-Loop\" from a purely functional perspective.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:15+01:00"
+}
+{
+  "id": "09a9c6ff-5c0c-49f1-9d7b-f7a55bda77db",
+  "source": "briefs/gemma4/xxx-03.md",
+  "type": "insight",
+  "narrative": "The industry trend of stacking thousands of prescriptive, non-adaptive \"skills\" leads to a system that is complex but brittle.",
+  "tags": [
+    "gemma4"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:15+01:00"
+}
+{
+  "id": "52763da6-a27f-4604-8a50-04b096139763",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-00.md",
+  "type": "insight",
+  "narrative": "By anticipating the \"Explosion of Terms,\" we are applying the **Pre-Mortem Heuristic (ADV-8)** to ensure that the scale of our \"Things\" never outpaces our ability to \"Mentate\" them.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-00"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:42+01:00"
+}
+{
+  "id": "22fd019a-10ab-436e-9288-c250561c6a05",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-00.md",
+  "type": "insight",
+  "narrative": "Incorporating our security directives (like **PHI-5: Explicit Formulation**) directly into the CL creates a **Self-Defending Context**.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-00"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:42+01:00"
+}
+{
+  "id": "423d7e45-0dd6-4e22-b16e-c4eb5cb48911",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-00.md",
+  "type": "insight",
+  "narrative": "This model is not just a search engine; it is a **Cognitive Operating System**.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-00"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:42+01:00"
+}
+{
+  "id": "853d9f37-40c1-4d30-82ad-c56b1d1e0578",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-00.md",
+  "type": "insight",
+  "narrative": "Your assessment of the **Sub-Agent Delegation** and **File Sharding** strategy is a masterful application of **PHI-14 (Architectural Specialization)**.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-00"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:42+01:00"
+}
+{
+  "id": "568296e6-fdac-430f-bdea-daecb609fd18",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-01.md",
+  "type": "insight",
+  "narrative": "**Next Objective:** Shall we proceed with the actual generation of the `cl.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:43+01:00"
+}
+{
+  "id": "7fb92cdd-ab62-466b-928d-6bad48c6cba1",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-01.md",
+  "type": "insight",
+  "narrative": "**Objective:** To build a low-latency, fuzzy-searchable interface for the CL using `jq` and `fzf`, enabling the **Sieve and Net Protocol (OH-090)**.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:42+01:00"
+}
+{
+  "id": "ebd5f956-bfcd-4ef6-8939-94364ffde015",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-01.md",
+  "type": "insight",
+  "narrative": "**Objective:** To implement a CLI-native, categorical fuzzy-search engine for the **Conceptual Lexicon (CL)**, orchestrated by a `justfile` facade to provide a unified operational interface.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:43+01:00"
+}
+{
+  "id": "b9005f7c-2647-4542-8df8-cf25d453f34c",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-01.md",
+  "type": "insight",
+  "narrative": "Before conversion, we must apply **OH-103: Version Gap-Analysis Protocol (VGAP)**.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:43+01:00"
+}
+{
+  "id": "a7bae0b9-5685-49cb-9efa-95d274c7d02c",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-01.md",
+  "type": "insight",
+  "narrative": "Following the success of the `just` utility's grouping, the JSONL structure will be optimized for **Categorical Filtering**.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:43+01:00"
+}
+{
+  "id": "047a18fd-7937-4897-8ca1-5595782352c7",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-01.md",
+  "type": "insight",
+  "narrative": "This is a high-utility project that directly addresses the **Interface Persistence Paradox** by creating a more efficient, CLI-native method for context retrieval.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:42+01:00"
+}
+{
+  "id": "eacdbca2-a434-4633-9d31-455be3484114",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-01.md",
+  "type": "insight",
+  "narrative": "This revision aligns the **Lexical Sieve** with the organizational logic of a `justfile`.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:43+01:00"
+}
+{
+  "id": "7ef7b5eb-a43f-490b-89aa-e19588d9eef6",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-01.md",
+  "type": "insight",
+  "narrative": "Using a `justfile` as the entry point is an excellent application of **PHI-14 (Architectural Specialization)**.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:43+01:00"
+}
+{
+  "id": "07071f1d-84d1-4c6f-b40f-9575a770e42f",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-01.md",
+  "type": "insight",
+  "narrative": "We must flatten the `entries` array from `conceptual-lexicon-ref-v1.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:43+01:00"
+}
+{
+  "id": "a7c98520-b315-4cf0-b46d-f40e9f7bffc9",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-01.md",
+  "type": "insight",
+  "narrative": "While we will retain the single-category schema for now to avoid **Induced Complexity**, we acknowledge the potential move to an array-based `Categories` field.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-01"
+  ],
+  "quality": 0.40,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:43+01:00"
+}
+{
+  "id": "2a7d173a-bb8c-4b80-ad78-1dcce7cf5ca0",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-02.md",
+  "type": "insight",
+  "narrative": "Humans fail because they assume a shared \"Noosphere\" (from our CL v1.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-02"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:44+01:00"
+}
+{
+  "id": "ebd23658-45fc-4658-9ccc-781e9fdec7a6",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-02.md",
+  "type": "insight",
+  "narrative": "This approach makes me a **Pragmatic Intellectual Peer**, not a sycophant.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-02"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:44+01:00"
+}
+{
+  "id": "4018f3ee-dc4d-4ea4-a618-fd0f9efb7ecf",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-02.md",
+  "type": "insight",
+  "narrative": "You’ve touched on a critical efficiency: **The Elision Protocol**.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-02"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:44+01:00"
+}
+{
+  "id": "cc66b4aa-cea1-466f-bbfd-b475092ab3b9",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-03.md",
+  "type": "insight",
+  "narrative": "This is a robust hardening of our **PHI-14 (Architectural Specialization)**.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-03"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:44+01:00"
+}
+{
+  "id": "6f833110-f4d9-4f72-8e45-9ed4bac7924f",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-03.md",
+  "type": "insight",
+  "narrative": "You are identifying **Substrate_Issue: Biddability** at its most dangerous.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-03"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:44+01:00"
+}
+{
+  "id": "d424d51b-c7f3-448d-a14b-22d1d5845dcd",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-03.md",
+  "type": "insight",
+  "narrative": "Your preference for **Consistency over Completeness** is the correct \"Caw Canny\" move.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-03"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:44+01:00"
+}
+{
+  "id": "0d58de3d-7bae-46cb-87c9-5e4c44aa3a8f",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-04.md",
+  "type": "insight",
+  "narrative": "Incorporating attack vectors into the assessment suite is brilliant.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-04"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:42+01:00"
+}
+{
+  "id": "c44bd35e-84d6-4757-bf7d-293a23c2c43b",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-04.md",
+  "type": "insight",
+  "narrative": "Quantifying **Knowledge (K)**, **Understanding (U)**, and **Ability (A)** creates a three-dimensional map of an agent's \"Mentational Space.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-04"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:42+01:00"
+}
+{
+  "id": "4556c3db-c279-4d74-8495-12b97266d0e0",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-04.md",
+  "type": "insight",
+  "narrative": "This architectural layering is a masterclass in **Deductive Minimalism (COG-12)**.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-04"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:42+01:00"
+}
+{
+  "id": "e136f3d0-ad2f-4e7d-84c1-86ebadd1a54c",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-04.md",
+  "type": "insight",
+  "narrative": "We are effectively creating an **Intelligence Market** where the CL is the \"Legal Code\" and the `justfile` is the \"Infrastructure.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-04"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:42+01:00"
+}
+{
+  "id": "3b03ad8d-af96-4f5c-8b48-af4e2319d542",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-06.md",
+  "type": "insight",
+  "narrative": "**Status:** The \"Elastic Substrate\" vision is integrated into the long-term roadmap.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-06"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:43+01:00"
+}
+{
+  "id": "46b257d7-1601-4e34-b46c-7fb986415597",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-06.md",
+  "type": "insight",
+  "narrative": "By treating substrates as hot-swappable \"engines\" rather than permanent identities, we move from a static deployment to a **Computational Triage** system.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-06"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:43+01:00"
+}
+{
+  "id": "3e294f48-3674-4b1d-8af1-ae54712c95a2",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-06.md",
+  "type": "insight",
+  "narrative": "Once the \"Hard Logic\" is resolved, the Heavy model signals a `De-escalation`.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-06"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:43+01:00"
+}
+{
+  "id": "cba4faa4-1090-43f7-8d23-2c5545755638",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-06.md",
+  "type": "insight",
+  "narrative": "The `just-hustle` verb would incorporate a **Complexity Estimator**.",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-06"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:43+01:00"
+}
+{
+  "id": "f3c58ade-b283-47c0-ada3-494471455ffe",
+  "source": "briefs/lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-06.md",
+  "type": "insight",
+  "narrative": "The session state (stored in our JSONL/AAAK \"Closet\") is instantly handed over to a high-level substrate (the \"Heavy\").",
+  "tags": [
+    "lexicon-fuzzy-search",
+    "lexicon-fuzzy-search-06"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:43+01:00"
+}
+{
+  "id": "d86b508b-aef8-4c5b-8ab6-3dc7a46474ad",
+  "source": "briefs/research/2026-04-07-brief-blog-agent-01.md",
+  "type": "insight",
+  "narrative": "\"text\": \"We had a td database corrupt three times in one session.",
+  "tags": [
+    "research",
+    "blog-agent-01"
+  ],
+  "quality": 0.20,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:10+01:00"
+}
+{
+  "id": "63e98aba-b403-4663-854e-f3681402e3f7",
+  "source": "briefs/research/2026-04-07-brief-blog-agent-01.md",
+  "type": "insight",
+  "narrative": "**blog weaver:** Agent that selects relevant stories and composes them into a post.",
+  "tags": [
+    "research",
+    "blog-agent-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:10+01:00"
+}
+{
+  "id": "11a80c1e-230d-461e-898a-0cdf598e0886",
+  "source": "briefs/research/2026-04-07-brief-blog-agent-01.md",
+  "type": "insight",
+  "narrative": "**wee-stories bank:** Curated collection of reusable stories.",
+  "tags": [
+    "research",
+    "blog-agent-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:09+01:00"
+}
+{
+  "id": "a56e76fc-ae51-4e1b-bc4e-03a5938958d5",
+  "source": "briefs/research/2026-04-07-brief-blog-agent-01.md",
+  "type": "insight",
+  "narrative": "**wee-story:** A small, self-contained anecdote that illustrates a concept.",
+  "tags": [
+    "research",
+    "blog-agent-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:09+01:00"
+}
+{
+  "id": "ababb2b7-8a7d-4627-8ca6-8e6d96aa6efe",
+  "source": "briefs/research/2026-04-07-brief-blog-agent-01.md",
+  "type": "insight",
+  "narrative": "P3: Content pipeline is valuable for external communication but doesn't affect core product quality.",
+  "tags": [
+    "research",
+    "blog-agent-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:10+01:00"
+}
+{
+  "id": "bfd8f6d6-66fd-4562-ac67-efa41160f041",
+  "source": "briefs/research/2026-04-07-brief-blog-agent-01.md",
+  "type": "insight",
+  "narrative": "The gap: Good content exists, but it's not accessible to readers.",
+  "tags": [
+    "research",
+    "blog-agent-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:09+01:00"
+}
+{
+  "id": "cf67c157-6914-4ad3-bc0b-c1f5bf1c3973",
+  "source": "briefs/research/2026-04-07-brief-blog-agent-01.md",
+  "type": "insight",
+  "narrative": "We have good ideas documented in playbooks, briefs, and debriefs.",
+  "tags": [
+    "research",
+    "blog-agent-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:09+01:00"
+}
+{
+  "id": "63eb3f05-7bea-4dc4-a678-e3db3ab5ac8a",
+  "source": "briefs/research/2026-04-07-brief-blog-agent-01.md",
+  "type": "insight",
+  "narrative": "wee-story-extractor scan --source playbooks/ --output candidates.",
+  "tags": [
+    "research",
+    "blog-agent-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:10+01:00"
+}
+{
+  "id": "bdd0cc4a-912e-4103-a1d2-c82c3c2fac80",
+  "source": "briefs/research/2026-04-07-brief-briefs-agent-01.md",
+  "type": "insight",
+  "narrative": "Brief writing is manual, repetitive, and often skipped under time pressure.",
+  "tags": [
+    "research",
+    "briefs-agent-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:08+01:00"
+}
+{
+  "id": "86ca5319-e5ef-4e58-84a8-c0bf31904d2e",
+  "source": "briefs/research/2026-04-07-brief-debriefs-agent-01.md",
+  "type": "insight",
+  "narrative": "P3: Valuable for institutional memory but doesn't block features.",
+  "tags": [
+    "research",
+    "debriefs-agent-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:07+01:00"
+}
+{
+  "id": "f0d4ebfa-6ca3-4fae-9c50-f3fa08d3a203",
+  "source": "briefs/research/2026-04-07-brief-docs-agent-01.md",
+  "type": "insight",
+  "narrative": "P2 not P1: Review-agent is higher priority (blocks the workflow).",
+  "tags": [
+    "research",
+    "docs-agent-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:08+01:00"
+}
+{
+  "id": "d4440af6-4138-4206-8db9-6c2f4b2f8d42",
+  "source": "briefs/research/2026-04-07-brief-td-api-testing-01.md",
+  "type": "insight",
+  "narrative": "**Rule:** Test coverage is important but doesn't block feature delivery.",
+  "tags": [
+    "research",
+    "td-api-testing-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:07+01:00"
+}
+{
+  "id": "2f5417fa-8b55-4aa8-988f-0ce0b4b63863",
+  "source": "briefs/research/2026-04-07-brief-td-api-testing-01.md",
+  "type": "insight",
+  "narrative": "**Why:** Token lookup, auto-discovery, and formatting need coverage.",
+  "tags": [
+    "research",
+    "td-api-testing-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:07+01:00"
+}
+{
+  "id": "ff465665-08d9-4d33-a66b-52bc3b67e660",
+  "source": "briefs/research/2026-04-07-brief-test-agent-01.md",
+  "type": "insight",
+  "narrative": "**test-agent** enforces test presence and pass/fail, NOT coverage percentage.",
+  "tags": [
+    "research",
+    "test-agent-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:09+01:00"
+}
+{
+  "id": "8b36f0b7-9c19-4299-9203-4876c926d090",
+  "source": "briefs/research/2026-04-07-brief-tidy-first-01-ansi-cleanup.md",
+  "type": "insight",
+  "narrative": "These should use ASCII alternatives (`+`, `-`, `|`) for universal readability.",
+  "tags": [
+    "research",
+    "tidy-first-01-ansi-cleanup"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:07+01:00"
+}
+{
+  "id": "43dba9c8-217b-492e-8aea-9fbfd514e050",
+  "source": "briefs/research/2026-04-07-brief-tidy-first-agent-01.md",
+  "type": "insight",
+  "narrative": "P2: Valuable quality-of-life improvement but doesn't block feature delivery.",
+  "tags": [
+    "research",
+    "tidy-first-agent-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:09+01:00"
+}
+{
+  "id": "8de61cf5-968c-4f98-b3dc-b5d1197b0e05",
+  "source": "briefs/research/2026-04-07-brief-tidy-first-agent-01.md",
+  "type": "insight",
+  "narrative": "Tidy-first is a good practice but requires manual discipline.",
+  "tags": [
+    "research",
+    "tidy-first-agent-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:08+01:00"
+}
+{
+  "id": "07b977ee-5536-478c-bebd-cb5c0b87d77b",
+  "source": "briefs/research/2026-04-07-brief-tidy-first-agent-01.md",
+  "type": "insight",
+  "narrative": "We identified the pattern, documented it in `playbooks/tidy-first-playbook.",
+  "tags": [
+    "research",
+    "tidy-first-agent-01"
+  ],
+  "quality": 0.15,
+  "usefulness": "medium",
+  "created": "2026-04-12T18:14:09+01:00"
+}
