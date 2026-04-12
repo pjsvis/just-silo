@@ -15,13 +15,31 @@ dev:
     @echo ""
     @echo "Commands:"
     @echo "  just verify   - Check parent resources"
-    @echo "  just stats   - Story statistics"
-    @echo "  just draft   - Create a draft (just draft TOPIC)"
+    @echo "  just stats    - Story statistics"
+    @echo "  just plans    - List all plans"
+    @echo "  just plan     - Show plan details"
+    @echo "  just draft    - Create a draft (just draft TOPIC)"
 
 verify:
     @echo "=== Parent Resources ==="
     @test -f "../../stories/stories.jsonl" && echo "✓ Stories" || echo "✗ No stories"
     @test -d "../../scripts" && echo "✓ Scripts" || echo "✗ No scripts"
+
+# ============================================================
+# PLANS
+# ============================================================
+
+plans:
+    @bash scripts/plans.sh list
+
+plan name:
+    @bash scripts/plans.sh show "{{name}}"
+
+create-plan name title topic:
+    @bash scripts/plans.sh create "{{name}}" "{{title}}" "{{topic}}"
+
+plan-status name status:
+    @bash scripts/plans.sh status "{{name}}" "{{status}}"
 
 # ============================================================
 # STORIES
@@ -70,11 +88,3 @@ publish draft:
 posts:
     @echo "=== Posts ==="
     @ls -la posts/ 2>/dev/null || echo "(none)"
-
-# ============================================================
-# TEMPLATES
-# ============================================================
-
-templates:
-    @echo "=== Templates ==="
-    @ls -la templates/

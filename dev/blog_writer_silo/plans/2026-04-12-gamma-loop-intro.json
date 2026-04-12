@@ -1,0 +1,28 @@
+{
+  "title": "The Gamma-Loop: How AI Systems Stay Steady",
+  "topic": "gamma-loop",
+  "status": "draft",
+  "created": "2026-04-12",
+  "updated": "2026-04-12",
+  "tags": ["gamma-loop", "agents", "efficiency", "feedback"],
+  "sections": [
+    "The Coffee Cup Problem",
+    "What is the Gamma-Loop?",
+    "Two Loops, One System",
+    "Why Both Loops Matter",
+    "Why Agents Like the Gamma-Loop",
+    "Why Humans Like the Gamma-Loop",
+    "The Efficiency Argument",
+    "The Key Realization",
+    "The Coffee Cup Doesn't Decide",
+    "Summary"
+  ],
+  "stories": [
+    "By accepting that there is 'nobody home' in the substrate, we are forced to build Better Loops",
+    "The reason people get 'grumpy' with AI is that they treat it like a person who should know better",
+    "If the coffee spills, we don't blame the agent's 'intelligence'; we blame the Tuning of the Loop"
+  ],
+  "notes": "Coffee cup as central metaphor throughout. No 'industry got it wrong' framing. Gamma-Loop + Learning-Loop distinction.",
+  "draft": "drafts/2026-04-12-gamma-loop-intro.md",
+  "post": null
+}
