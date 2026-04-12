@@ -169,6 +169,56 @@ status:
     @./<your-script>.sh
 ```
 
+## Creating New Silos
+
+**Policy: A new silo is a clone of just-silo, customized for a domain.**
+
+### The Simple Path: Clone
+
+```bash
+# Clone just-silo as your new silo
+git clone git@github.com:pjsvis/just-silo.git my-new-silo
+cd my-new-silo
+
+# Customize for your domain
+# 1. Edit .silo (name, domain, description)
+# 2. Edit justfile (your verbs)
+# 3. Edit schema.json (your data types)
+# 4. Edit silo-lexicon.jsonl (your vocabulary)
+
+# Verify it works
+just verify
+```
+
+### Sub-Silos
+
+**Not needed yet.** Defer until a concrete use case emerges.
+
+If you find yourself wanting sub-silos, ask:
+- Are they really separate domains?
+- Would copy-paste be simpler?
+- Do we need runtime coordination?
+
+Most "sub-silo" needs are better served by:
+- Multiple independent silos
+- A parent justfile that orchestrates children
+
+### Inter-Silo Communication
+
+**Future problem.** For now, silos are independent.
+
+Future strategies (not implemented):
+- Shared brief/debrief repository
+- Event bus between silos
+- "Super-silo" that spawns children
+
+### Focus
+
+Develop the current silo. Ship it. Learn from it.
+
+New silos = clone + customize.
+New patterns = emerge from use, don't preempt.
+
 ## Checklist
 
 - [ ] `.silo` manifest with domain name
@@ -211,6 +261,69 @@ just-silo is a **rapid prototyping tool for workflows**, not enterprise infrastr
 4. **Zero external dependencies** — Bun stdlib is your ceiling
 
 **The philosophy:** Make it work. Make it right. Make it fast. In that order, only when needed.
+
+## Justfile Patterns: Module vs Delegation
+
+**Question:** Should we split a large justfile into modules?
+
+### Option 1: Includes (Rejected)
+
+```justfile
+# NOT RECOMMENDED
+include agents.just
+include docs.just
+include api.just
+```
+
+**Problems:**
+- Additional complexity (per-file variables, cross-references)
+- Harder to grep/catalog commands
+- Just's include syntax is limited
+
+### Option 2: Delegation (Accepted)
+
+```justfile
+# RECOMMENDED: Registry pattern
+
+agents:
+    @echo "Delegating..."
+    @./scripts/run-agent.sh {{name}} {{cmd}}
+```
+
+**Benefits:**
+- Single source of truth (one justfile)
+- Easy to discover (`just --list`)
+- Easy to grep
+- Sub-justfiles are self-contained
+
+### The Pattern
+
+```
+just agents tidy run
+      ↓
+┌─────────────────────────────────┐
+│  justfile (registry/directory)  │
+└─────────────────────────────────┘
+      ↓ delegates
+┌─────────────────────────────────────┐
+│  agents/tidy-first-agent/justfile   │
+│  (self-contained execution)        │
+└─────────────────────────────────────┘
+```
+
+### When to Split
+
+**Keep one file if:**
+- < 500 lines
+- No namespace conflicts
+- Commands are related
+
+**Consider delegation if:**
+- Distinct sub-systems (agents, api, docs)
+- Different teams ownership
+- Sub-system has its own justfile anyway
+
+**Lesson:** The delegation pattern scales well. One file is easier to understand than hunting through modules.
 
 ## Anti-Patterns
 

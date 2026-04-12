@@ -1,0 +1,26 @@
+# tidy-first-agent justfile
+
+# Check workspace tidy status
+check:
+    @./src/tidy-first-agent check
+
+# Show detailed tidy status
+status:
+    @./src/tidy-first-agent status
+
+# Run auto-tidy
+run:
+    @./src/tidy-first-agent run
+
+# Run full tidy including brief-gen
+run-full:
+    @./src/tidy-first-agent run --full
+
+# Install cron schedules
+install-crons:
+    @echo "Daily (8am):" && echo "0 8 * * * cd {{justfile_directory()}} && ./src/tidy-first-agent run >> /tmp/tidy-first.log 2>&1"
+    @echo "Weekly (Monday 9am):" && echo "0 9 * * 1 cd {{justfile_directory()}} && ./src/tidy-first-agent run --full >> /tmp/tidy-first-weekly.log 2>&1"
+
+# Help
+help:
+    @./src/tidy-first-agent help

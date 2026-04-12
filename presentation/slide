@@ -1,0 +1,18 @@
+#!/bin/bash
+# slide — Push a slide by name
+# Usage: slide 01-title
+#   or:  slide 01
+
+SERVER="${SERVER:-localhost:8080}"
+NAME="$1"
+
+if [ -z "$NAME" ]; then
+  echo "Usage: slide <name>" >&2
+  echo "   e.g.: slide 01-title" >&2
+  echo "   e.g.: slide 03-definition" >&2
+  exit 1
+fi
+
+curl -s -X POST "http://${SERVER}/slide/${NAME}"
+
+echo ""

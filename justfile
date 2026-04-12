@@ -1,95 +1,87 @@
 # just-silo — Directory-based skill framework for AI agents
 # https://github.com/marcus-nicolaou/just-silo
-#
-# COMMANDS ARE NAMESPACE-PREFIXED (git model)
-#   silo-*   — Silo operations (what users run)
-#   dev-*    — Development on just-silo itself
-#   docs-*   — Documentation
-#   tests-*  — Testing
-#   lex-*    — Conceptual lexicon
-#
-# TWO CONTEXTS:
-#   1. Project (this file) — Develop just-silo
-#   2. Silo (template/) — Use just-silo
 
 set shell := ["bash", "-o", "pipefail", "-c"]
 set positional-arguments := true
 
 PROJECT_NAME := "just-silo"
-VERSION := "0.1.0"
+VERSION := "0.2.0"
 
-# === ENTRY POINT ===
+# ============================================================
+# ENTRY POINT
+# ============================================================
 
-# Show help with curated commands
 default:
-    @just help
+    @just --list
 
-# Show version
 version:
-    @echo "{{PROJECT_NAME}} v{{VERSION}}"
+    @echo "{{ PROJECT_NAME }} v{{ VERSION }}"
 
-# === HELP ===
+# ============================================================
+# HELP
+# ============================================================
 
-# Curated help for users
-help:
-    @echo "{{PROJECT_NAME}} v{{VERSION}}"
-    @echo ""
-    @echo "TWO CONTEXTS:"
-    @echo "  Project: just dev-* (develop just-silo)"
-    @echo "  Silo:    just silo-* (operate a silo)"
-    @echo ""
-    @echo "PROJECT (develop just-silo):"
-    @echo "  just dev-check      — Check prerequisites"
-    @echo "  just dev-tests      — Run all tests"
-    @echo "  just dev-new        — Create new silo"
-    @echo ""
-    @echo "SILO (operate a silo):"
-    @echo "  just silo-verify   — Check silo prerequisites"
-    @echo "  just silo-harvest   — Ingest data"
-    @echo "  just silo-flush    — Archive output"
-    @echo ""
-    @echo "DOCS:"
-    @echo "  just docs           — Browse docs/"
-    @echo "  just lex            — Show lexicon"
-    @echo ""
-    @echo "Full list: just --list"
+help topic:
+    @if [ -z "{{ topic }}" ]; then ./scripts/help.sh; else ./scripts/help.sh "{{ topic }}"; fi
 
-# === NAMESPACE: silo-* (user operations) ===
+# ============================================================
+# CONTENT (glow or cat)
+# ============================================================
 
-# Verify silo prerequisites
+about:
+    @./scripts/about.sh
+
+about-file file:
+    @./scripts/about.sh {{ file }}
+
+# ============================================================
+# SILO (delegated to template)
+# ============================================================
+
+# Verify prerequisites
+[group("silo")]
 silo-verify:
     @cd templates/basic && just verify
 
-# Harvest data into silo
+# Harvest data
+[group("silo")]
 silo-harvest:
     @cd templates/basic && just harvest
 
-# Process silo data
+# Process data
+[group("silo")]
 silo-process:
     @cd templates/basic && just process
 
-# Flush processed data to archive
+# Flush to archive
+[group("silo")]
 silo-flush:
     @cd templates/basic && just flush
 
-# Show silo status
+# Show status
+[group("silo")]
 silo-status:
     @cd templates/basic && just status
 
-# === NAMESPACE: td-* (task database) ===
+# ============================================================
+# TD (task database)
+# ============================================================
 
-# Set up td database on RAM disk
+# Setup RAM disk for td
+[group("td")]
 td-ramdisk:
     @./scripts/td-ramdisk-setup.sh .
 
-# Show td database status
+# Show td status
+[group("td")]
 td-status:
     @td status
     @echo ""
-    @echo "RAM disk usage:"
-    @df -h /Volumes/TD-RAMDisk 2>/dev/null | tail -1 || echo "  (RAM disk not mounted)"
+    @echo "RAM disk:"
+    @df -h /Volumes/TD-RAMDisk 2>/dev/null | tail -1 || echo "  Not mounted"
 
-# Restart td with fresh database
+# Reset td database
+[group("td")]
 td-reset:
     @echo "Resetting td database..."
     @rm -rf .todos
@@ -97,169 +89,409 @@ td-reset:
     @td usage --new-session
 
 # Run td smoke test
+[group("td")]
 td-test:
     @./scripts/td-smoke-test.sh
 
-# Generate markdown report of td tasks
+# Generate td report
+[group("td")]
 td-report:
     @./scripts/td-markdown-report.sh
     @echo ""
     @cat td-report.md
 
-# === NAMESPACE: dev-* (project development) ===
-
-# Check project prerequisites
-dev-check:
-    @echo "=== {{PROJECT_NAME}} Prerequisites ==="
-    @command -v just >/dev/null 2>&1 && echo "  just ok" || echo "  just MISSING"
-    @command -v jq >/dev/null 2>&1 && echo "  jq ok" || echo "  jq MISSING"
-    @command -v bun >/dev/null 2>&1 && echo "  bun ok" || echo "  bun MISSING"
-    @command -v glow >/dev/null 2>&1 && echo "  glow ok (optional)" || echo "  glow (optional)"
-    @command -v gum >/dev/null 2>&1 && echo "  gum ok (optional)" || echo "  gum (optional)"
-    @echo ""
-    @echo "=== Project Files ==="
-    @test -f justfile && echo "  justfile ok" || echo "  justfile MISSING"
-    @test -f template/justfile && echo "  template/justfile ok" || echo "  template/justfile MISSING"
-    @test -f scripts/silo-create && echo "  scripts/silo-create ok" || echo "  scripts/silo-create MISSING"
-    @test -d src && echo "  src/ ok" || echo "  src/ MISSING"
-    @test -f silo-lexicon.jsonl && echo "  silo-lexicon.jsonl ok" || echo "  silo-lexicon.jsonl MISSING"
-
-# Run all tests (integration + unit)
-dev-tests:
-    @echo "=== Integration Tests ===" && ./scripts/silo-integration-test
-    @echo ""
-    @echo "=== Unit Tests ===" && bun test
-
-# Create a new silo from template
-dev-new name:
-    @./scripts/silo-create {{name}}
-
-# List available templates
-dev-templates:
-    @echo "Available templates:"
-    @ls -1 templates/
-
-# === NAMESPACE: docs-* (documentation) ===
-
-# Browse docs folder with glow
-docs:
-    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow docs/; else ls -la docs/; fi
-
-# Show README
-docs-readme:
-    @command -v glow >/dev/null 2>&1 && glow -p README.md || cat README.md
-
-# Show Silo Manual
-docs-manual:
-    @if command -v glow >/dev/null 2>&1; then glow -p Silo-Manual.md 2>/dev/null || cat Silo-Manual.md; else cat Silo-Manual.md; fi
-
-# Show Silo Philosophy
-docs-philosophy:
-    @if command -v glow >/dev/null 2>&1; then glow -p Silo-Philosophy.md 2>/dev/null || cat Silo-Philosophy.md; else cat Silo-Philosophy.md; fi
-
-# Show AGENTS.md
-docs-agents:
-    @command -v glow >/dev/null 2>&1 && glow -p AGENTS.md || cat AGENTS.md
-
-# === NAMESPACE: lex-* (lexicon) ===
+# ============================================================
+# LEX (lexicon)
+# ============================================================
 
 # Show full lexicon
-lex:
+[group("lex")]
+lex-all:
     @./scripts/silo-lexicon
 
-# Show compact lexicon (single line)
+# Show compact lexicon
+[group("lex")]
 lex-short:
     @./scripts/silo-lexicon --short
 
-# Look up specific token
+# Find term in lexicon
+[group("lex")]
 lex-find term:
-    @./scripts/silo-lexicon "{{term}}"
+    @./scripts/silo-lexicon "{{ term }}"
 
-# Export lexicon as JSON
-lex-json:
+# Export lexicon to JSON
+[group("lex")]
+lex-export:
     @./scripts/silo-lexicon --json > lexicon.json
     @echo "Exported to lexicon.json"
 
-# Check if term exists in lexicon
-lex-check term:
-    @./scripts/silo-lexicon "{{term}}" 2>/dev/null || echo "'{{term}}' not found"
+# ============================================================
+# AGENTS (sub-agent management)
+# ============================================================
 
-# === NAMESPACE: browse-* (glow TUI for folders) ===
+# Show agents status
+[group("agents")]
+agent-status name="":
+    @./scripts/agent-status.sh {{ name }}
+
+# Create new agent from template
+[group("agents")]
+agent-create name type="mounted":
+    @./scripts/agent-create.sh {{ name }} {{ type }}
+
+# Invoke an agent with input
+[group("agents")]
+agent-invoke name input="-":
+    @./scripts/agent-invoke.sh {{ name }} {{ input }}
+
+# Show agent info
+[group("agents")]
+agents-show name:
+    @./scripts/show-agent.sh {{ name }}
+
+# Run agent command
+[group("agents")]
+agents-run name cmd:
+    @./scripts/run-agent.sh {{ name }} {{ cmd }}
+
+# Run tidy agent
+[group("agents")]
+agents-tidy cmd:
+    @./scripts/run-agent.sh tidy {{ cmd }}
+
+# Run code review agent
+[group("agents")]
+agents-cr cmd:
+    @./scripts/run-agent.sh cr {{ cmd }}
+
+# ============================================================
+# DOCS (documentation)
+# ============================================================
+
+# Show README
+[group("docs")]
+docs-readme:
+    @./scripts/about.sh README.md
+
+# Show Silo Manual
+[group("docs")]
+docs-manual:
+    @./scripts/about.sh Silo-Manual.md
+
+# Show Silo Philosophy
+[group("docs")]
+docs-philosophy:
+    @./scripts/about.sh Silo-Philosophy.md
+
+# Show AGENTS.md
+[group("docs")]
+docs-agents:
+    @./scripts/about.sh AGENTS.md
+
+# ============================================================
+# BROWSE (glow folders)
+# ============================================================
 
 # Browse docs folder
+[group("browse")]
 browse:
-    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow docs/; else ls -la docs/; fi
+    @./scripts/about.sh docs/
 
 # Browse briefs folder
-briefs:
-    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow briefs/; else ls -la briefs/; fi
+[group("browse")]
+browse-briefs:
+    @./scripts/about.sh briefs/
 
 # Browse playbooks folder
+[group("browse")]
 playbooks:
-    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow playbooks/; else ls -la playbooks/; fi
+    @./scripts/about.sh playbooks/
 
 # Browse debriefs folder
+[group("browse")]
 debriefs:
-    @if command -v glow >/dev/null 2>&1 && [ -t 0 ]; then glow debriefs/; else ls -la debriefs/; fi
+    @./scripts/about.sh debriefs/
 
-# === STATUS ===
+# Show debrief template
+[group("browse")]
+debrief-template:
+    @grep -A 30 "^#" debriefs/2026-04-07-td-ramdisk-sparklines.md 2>/dev/null | head -20
 
-# Show git status and recent commits
+# ============================================================
+# BRIEFS (brief management) - scripts/briefs.sh
+# ============================================================
+
+# Briefs entry point - shows help
+[group("briefs")]
+briefs:
+    @./scripts/briefs.sh help
+
+# Catalog all briefs
+[group("briefs")]
+briefs-catalog:
+    @./scripts/briefs.sh catalog
+
+# Archive old briefs
+[group("briefs")]
+briefs-archive:
+    @./scripts/briefs.sh archive
+
+# Process debriefs (extract lessons, archive)
+[group("briefs")]
+briefs-debriefs:
+    @./scripts/briefs.sh debriefs
+
+# Sync BRIEFS-ROADMAP from index
+[group("briefs")]
+briefs-sync:
+    @./scripts/briefs.sh sync
+
+# Generate workplan (sorted by epic + date)
+[group("briefs")]
+briefs-plan:
+    @./scripts/briefs.sh plan
+
+# Find briefs (interactive with fzf)
+[group("briefs")]
+briefs-find query="":
+    @./scripts/briefs.sh find "{{ query }}"
+
+# Full briefs maintenance
+[group("briefs")]
+briefs-maintain:
+    @SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh info "Starting briefs maintenance" action=briefs-maintain
+    @./scripts/briefs.sh catalog && ./scripts/briefs.sh debriefs && ./scripts/briefs.sh sync
+    @SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh info "Briefs maintenance complete" action=briefs-maintain status=success
+
+# Show briefs status
+[group("briefs")]
+briefs-status:
+    @./scripts/briefs.sh status
+
+# ============================================================
+# API (server) - Two-Tier Architecture
+# ============================================================
+
+# Start internal API (dev dashboard, port 3001)
+[group("api")]
+api-internal:
+    @echo "Starting internal API on http://127.0.0.1:3001"
+    @SILO_API_PORT=3001 bun run src/silo-api-internal.ts
+
+# Start external API (remote control, port 3000)
+[group("api")]
+api-external:
+    @echo "Starting external API on http://0.0.0.0:3000"
+    @SILO_API_PORT=3000 bun run src/silo-api-external.ts
+
+# Start both APIs (internal first, then external)
+# Uses subshell with trap to clean up background process on exit
+[group("api")]
+api-start:
+	@echo "Starting two-tier API..."
+	@(\
+		SILO_API_PORT=3001 bun run src/silo-api-internal.ts &\
+		INTERNAL_PID=$$!\
+		trap "kill $$INTERNAL_PID 2>/dev/null" EXIT INT TERM\
+		sleep 1\
+		SILO_API_PORT=3000 bun run src/silo-api-external.ts\
+	)
+
+# Start API on custom port (legacy, uses internal)
+[group("api")]
+api-port port:
+    @SILO_API_PORT={{ port }} bun run src/silo-api-internal.ts
+
+# Show API status
+[group("api")]
+api-status:
+    @echo "=== API Status ==="
+    @curl -s http://127.0.0.1:3001/health 2>/dev/null && echo " (internal OK)" || echo " (internal down)"
+    @curl -s http://127.0.0.1:3000/health 2>/dev/null && echo " (external OK)" || echo " (external down)"
+
+# ============================================================
+# TREND (sparklines)
+# ============================================================
+
+# Show ASCII sparklines
+[group("trend")]
+trend-show:
+    @./scripts/silo-trend 2>/dev/null || echo "No silos found"
+
+# Generate HTML dashboard
+[group("trend")]
+trend-dashboard:
+    @bun run src/silo-dashboard.ts
+
+# ============================================================
+# WATCH (file watchers)
+# ============================================================
+
+# Watch and run tests
+[group("watch")]
+watch-tests:
+    @watchexec -e ts,tsx,js,jsx -- bun test
+
+# Watch and show trends
+[group("watch")]
+watch-trend:
+    @watchexec -e jsonl -- just trend-show
+
+# Watch and update dashboard
+[group("watch")]
+watch-dashboard:
+    @watchexec -e jsonl -- just trend-dashboard
+
+# ============================================================
+# DEV (development)
+# ============================================================
+
+# Check prerequisites
+[group("dev")]
+dev-check:
+    @./scripts/dev-check.sh
+
+# Type-check all tiers (requires: npm install -g typescript)
+[group("dev")]
+dev-typecheck:
+    @if command -v tsc >/dev/null 2>&1; then \
+        echo "=== Type Check: Production (src/) ===" && \
+        tsc --project tsconfig.json --noEmit 2>&1 || true && \
+        echo "" && \
+        echo "=== Type Check: Scripts (scripts/) ===" && \
+        tsc --project tsconfig.scripts.json --noEmit 2>&1 || true; \
+    else \
+        echo "TypeScript not installed. Run: npm install -g typescript"; \
+    fi
+
+# Run tests (integration + unit)
+[group("dev")]
+dev-tests:
+    @echo "=== Integration Tests ===" && ./scripts/silo-integration-test
+    @INT_EXIT=$$?
+    @echo ""
+    @echo "=== Unit Tests ===" && bun test
+    @TEST_EXIT=$$?
+    @if [ "$$TEST_EXIT" = "0" ] && [ "$$INT_EXIT" = "0" ]; then \
+        SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh info "Tests passed" action=dev-tests status=success; \
+    else \
+        SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh error "Tests failed" action=dev-tests status=failure exit_code="$$TEST_EXIT"; \
+    fi
+
+# Full quality check (type + test)
+[group("dev")]
+dev-checkall: dev-typecheck dev-tests
+    @echo "=== Full Quality Check Complete ==="
+
+# Create new silo
+[group("dev")]
+dev-new name:
+    @./scripts/silo-create {{ name }}
+
+# List templates
+[group("dev")]
+dev-templates:
+    @echo "Templates:"
+    @ls -1 templates/ | sed 's/^/  /'
+
+# ============================================================
+# OPS (housekeeping)
+# ============================================================
+
+# Quick tidy check
+[group("ops")]
+tidy:
+    @./scripts/tidy.sh 2>/dev/null || echo "No tidy script"
+
+# Archive old briefs
+[group("ops")]
+archive-briefs:
+    @echo "Archiving briefs from previous sprints..."
+    @cd briefs && ls -t *.md | tail -n +10 | xargs -I{} mv {} archive/ 2>/dev/null; echo "Done"
+
+# Show git status
+[group("ops")]
 status:
     @echo "=== GIT ==="
     @git status --short 2>/dev/null || echo "(not a git repo)"
     @echo ""
-    @echo "=== COMMITS (last 5) ==="
-    @git log --oneline -5 2>/dev/null || echo "(not a git repo)"
-
-# === ALIASES (backward compat) ===
-
-verify: dev-check
-test: dev-tests
-templates: dev-templates
-readme: docs-readme
-manual: docs-manual
-philosophy: docs-philosophy
-lexicon: lex-json
-lex-show: lex
-unit-test: dev-tests
-
-# === NAMESPACE: debrief-* (retrospectives) ===
+    @echo "=== COMMITS ==="
+    @git log --oneline -3 2>/dev/null || echo "(not a git repo)"
 
 # Show agent ops playbook
+[group("ops")]
 agent-ops:
-    @command -v glow >/dev/null 2>&1 && glow -p playbooks/agent-ops-playbook.md || cat playbooks/agent-ops-playbook.md
+    @./scripts/about.sh playbooks/agent-ops-playbook.md
 
-# Show debrief template
-debrief-template:
-    @echo "# Debrief Template"
-    @echo ""
-    @echo "Location: debriefs/YYYY-MM-DD-session.md"
-    @echo ""
-    @grep -A 50 "^#" debriefs/2026-04-07-td-ramdisk-setup.md | head -30
+# ============================================================
+# REVIEW (PR Review Workflow)
+# ============================================================
+
+# Check PR review status
+# Usage: just pr-review [pr-number=2]
+[group("review")]
+pr-review pr="2":
+    @bash scripts/pr-review.sh {{pr}}
+
+# View PR comments
+# Usage: just pr-comments [pr-number=2]
+[group("review")]
+pr-comments pr="2":
+    @gh pr view {{pr}} --comments
+
+# View PR diff
+# Usage: just pr-diff [pr-number=2]
+[group("review")]
+pr-diff pr="2":
+    @gh pr diff {{pr}}
+
+# View PR reviews
+# Usage: just pr-reviews [pr-number=2]
+[group("review")]
+pr-reviews pr="2":
+    @gh pr view {{pr}} --json reviews
+
+# ============================================================
+# ALIASES
+# ============================================================
 
 
-# === NAMESPACE: trend-* (sparklines) ===
 
-# Show ASCII sparklines in terminal
-trend:
-    @./scripts/silo-trend 2>/dev/null || echo "No silos found. Run from mesh directory."
+# Write a log entry (Pino-compatible JSONL)
+# Usage: just log-info "Task completed"
+#        just log-info "Task completed" --action harvest --status success
+[group("ops")]
+log-info msg *args:
+    @SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh info "{{msg}}" {{args}}
 
-# Generate HTML dashboard with sparklines
-trend-dashboard:
-    @bun run src/silo-dashboard.ts
+# Write a warn log entry
+[group("ops")]
+log-warn msg *args:
+    @SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh warn "{{msg}}" {{args}}
 
-# Both trend and dashboard
-trend-all: trend
-    @./src/silo-dashboard.ts
-    @echo "Dashboard generated: dashboard.html"
+# Write an error log entry
+[group("ops")]
+log-error msg *args:
+    @SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh error "{{msg}}" {{args}}
 
-# === NAMESPACE: api-* (API server with SSE) ===
+# Query telemetry logs
+# Usage: just log-query              # Recent entries
+#        just log-query --errors     # Errors only
+#        just log-query --stats      # Statistics
+[group("ops")]
+log-query *args:
+    @bash scripts/silo-log-query.sh {{args}}
 
-# Start API server
-api:
-    @bun run src/silo-api-server.ts
+# Initialize logging directory
+[group("ops")]
+log-init:
+    @mkdir -p .silo/logs
+    @echo "Logging directory initialized: .silo/logs"
 
-# Start API server with custom port
-api-port port:
-    @SILO_API_PORT={{port}} bun run src/silo-api-server.ts
+# Entropy trend analysis
+# Usage: just log-trend           # Summary
+#        just log-trend --alerts  # High entropy alerts
+#        just log-trend --predict # Predictions
+[group("ops")]
+log-trend *args:
+    @bash scripts/silo-log-trend.sh {{args}}

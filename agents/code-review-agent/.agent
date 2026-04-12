@@ -26,6 +26,7 @@
     "required": true,
     "protocol": "markers"
   },
+  "peers": [],
   "fafcas": {
     "factual": "Claims backed by evidence",
     "accurate": "Correct technical assertions",
@@ -36,7 +37,7 @@
   },
   "resources": {
     "timeout": 300,
-    "memory": "512mb",
+    "memory": "256mb",
     "parallel": false
   }
 }

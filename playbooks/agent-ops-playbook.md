@@ -72,6 +72,60 @@ git commit -m "feat: ..."
 
 ---
 
+## Session Handoff
+
+**Tiered approach to transferring context between sessions.**
+
+### End of Session Checklist
+
+1. **Commit everything:** `git add -A && git commit -m "Session end: <summary>"`
+2. **Handoff active issues:** `td handoff <id> --done X --remaining Y`
+3. **Update debrief:** Add "For Next Session" section (1-5 lines)
+
+### Start of Session Checklist
+
+1. **Fresh session:** `td usage --new-session`
+2. **Check state:** `td status` + `git log --oneline -5`
+3. **Read bridge:** Check debrief "For Next Session" sections
+
+### The Bridge: "For Next Session"
+
+Every debrief should end with a bridge for the next session:
+
+```markdown
+## For Next Session
+
+- Read: `briefs/research/2026-04-07-brief-X.md`
+- Do: `td start td-XXXX`
+- Avoid: Known issue here
+```
+
+### What Transfers vs Reconstructs
+
+| Tier | What | Transfer | Reconstruct |
+|------|------|----------|-------------|
+| Must | Git position | ✅ Committed | git log |
+| Must | td state | ✅ Handoff | td status |
+| Should | Briefs/debriefs | ✅ Filesystem | ls briefs/ |
+| Nice | Recent decisions | ✅ Debrief | git log -p |
+| Free | "What were we doing" | | git log, td list |
+
+### Minimal Viable Handoff
+
+```bash
+# End: 3 commands
+git add -A && git commit -m "Session end: <summary>"
+td handoff <active-id> --done "X" --remaining "Y"
+# (Update debrief "For Next Session" if significant)
+
+# Start: 3 commands
+td usage --new-session
+td status
+git log --oneline -5
+```
+
+---
+
 ## Agent Operations
 
 ### Agent Entry Point

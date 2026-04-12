@@ -1,0 +1,11 @@
+{
+  "name": "AGENT_NAME",
+  "type": "mounted",
+  "role": "Agent role",
+  "version": "0.1.0",
+  "description": "Agent description",
+  "inputs": { "format": "json", "schema": null },
+  "outputs": { "format": "json", "path": "markers/done/output.json" },
+  "parent": { "required": true, "protocol": "markers" },
+  "resources": { "timeout": 60, "memory": "256mb", "parallel": false }
+}

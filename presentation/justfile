@@ -1,0 +1,95 @@
+# Presentation justfile
+# Usage: just <verb>
+
+# Default: list verbs
+default:
+    @just --list
+
+# Start the presentation server
+start:
+    #!/usr/bin/env bash
+    lsof -ti :8080 | xargs kill -9 2>/dev/null || true
+    sleep 1
+    bun run server-ws.ts &
+    sleep 1
+    echo "Server started on http://localhost:8080/"
+
+# Open display in browser
+display:
+    @open http://localhost:8080/
+
+# Push a slide by name or number
+# just push 01-title
+# just push 03-definition
+push SLIDE:
+    #!/usr/bin/env bash
+    ./slide {{SLIDE}}
+
+# Push raw markdown
+# just push-content "# Hello"
+push-content MARKDOWN:
+    #!/usr/bin/env bash
+    ./push "{{MARKDOWN}}"
+
+# Switch theme
+# just theme dark
+# just theme light
+theme THEME:
+    #!/usr/bin/env bash
+    ./push --theme {{THEME}}
+
+# List available slides
+slides:
+    #!/usr/bin/env bash
+    curl -s http://localhost:8080/slides | jq .
+
+# Self-test
+selftest:
+    #!/usr/bin/env bash
+    ./slide 02-selftest
+
+# Station ID
+grumpy:
+    ./slide 00-grumpy
+
+# Next slide (by number)
+next SLIDE="01":
+    #!/usr/bin/env bash
+    ./slide {{SLIDE}}
+
+# Theme toggle
+toggle-theme:
+    #!/usr/bin/env bash
+    curl -s http://localhost:8080/slides > /dev/null 2>&1 && \
+        (grep -q 'body.light' display.html && ./push --theme dark || ./push --theme light) || \
+        echo "Server not running. Run: just start"
+
+# Status check
+status:
+    #!/usr/bin/env bash
+    if lsof -ti :8080 > /dev/null 2>&1; then
+        echo "Server: Running on port 8080"
+        curl -s http://localhost:8080/slides | jq -r '.slides | length' | xargs -I{} echo "Slides: {} available"
+    else
+        echo "Server: Not running. Run: just start"
+    fi
+
+# Stop server
+stop:
+    #!/usr/bin/env bash
+    lsof -ti :8080 | xargs kill -9 2>/dev/null && echo "Server stopped" || echo "No server running"
+
+# Full presentation mode (just present)
+present: start
+    @echo ""
+    @echo "Presentation ready!"
+    @echo ""
+    @echo "Commands:"
+    @echo "  just display       # Open browser"
+    @echo "  just push <slide>  # Show slide"
+    @echo "  just theme dark    # Switch to dark theme"
+    @echo "  just theme light   # Switch to light theme"
+    @echo "  just slides        # List all slides"
+    @echo "  just stop          # Stop server"
+    @echo ""
+    @open http://localhost:8080/

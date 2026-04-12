@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html, body {
+      height: 100vh;
+      overflow: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+    
+    /* DARK THEME (default) */
+    body {
+      background: #0a0a0f;
+      color: #f0f0f5;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+    
+    /* LIGHT THEME - Dieter Rams */
+    body.light {
+      background: #F0EDE5;
+      color: #000000;
+    }
+    
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      padding: 20px 0;
+      overflow-y: auto;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    
+    body .sidebar {
+      background: #0d0d12;
+      border-right: 1px solid #222;
+    }
+    
+    body.light .sidebar {
+      background: #E8E5DE;
+      border-right: 1px solid #CCC;
+    }
+    
+    .sidebar-header {
+      padding: 0 20px 16px;
+      font-size: 0.7em;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid;
+      margin-bottom: 12px;
+    }
+    
+    body .sidebar-header {
+      color: #555;
+      border-color: #222;
+    }
+    
+    body.light .sidebar-header {
+      color: #8A8A87;
+      border-color: #CCC;
+    }
+    
+    .toc-item {
+      padding: 8px 20px;
+      font-size: 0.85em;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      gap: 10px;
+    }
+    
+    body .toc-item {
+      color: #666;
+    }
+    
+    body .toc-item:hover {
+      background: #151520;
+      color: #999;
+    }
+    
+    body.light .toc-item {
+      color: #8A8A87;
+    }
+    
+    body.light .toc-item:hover {
+      background: #DDD9D0;
+      color: #555;
+    }
+    
+    body .toc-item.active {
+      color: #ff6b4a;
+      background: rgba(255, 107, 74, 0.08);
+    }
+    
+    body.light .toc-item.active {
+      color: #C02820;
+      background: rgba(192, 40, 32, 0.08);
+    }
+    
+    .toc-num {
+      font-weight: 500;
+      min-width: 24px;
+    }
+    
+    body .toc-num {
+      color: #444;
+    }
+    
+    body.light .toc-num {
+      color: #AAA;
+    }
+    
+    body .toc-item.active .toc-num {
+      color: #ff6b4a;
+    }
+    
+    body.light .toc-item.active .toc-num {
+      color: #C02820;
+    }
+    
+    .toc-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
+    /* Content */
+    .content {
+      flex: 1;
+      padding: 5%;
+      overflow-y: auto;
+    }
+    
+    #c { max-width: 900px; }
+    
+    /* Slide indicator */
+    .slide-indicator {
+      position: fixed;
+      bottom: 20px;
+      right: 240px;
+      font-size: 0.8em;
+      padding: 6px 12px;
+      border-radius: 4px;
+      border: 1px solid;
+      transition: all 0.3s;
+    }
+    
+    body .slide-indicator {
+      color: #555;
+      background: #0a0a0f;
+      border-color: #222;
+    }
+    
+    body.light .slide-indicator {
+      color: #8A8A87;
+      background: #F0EDE5;
+      border-color: #CCC;
+    }
+    
+    /* Typography - Dark theme */
+    h1 {
+      font-size: 3em;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5em;
+      line-height: 1.1;
+    }
+    
+    h2 {
+      font-size: 2em;
+      font-weight: 500;
+      margin-bottom: 0.5em;
+    }
+    
+    body h2 { color: #888; }
+    body.light h2 { color: #666; }
+    
+    h3 {
+      font-size: 1.5em;
+      font-weight: 600;
+      margin: 1em 0 0.5em;
+    }
+    
+    p { 
+      font-size: 1.3em; 
+      margin-bottom: 0.8em; 
+      line-height: 1.6;
+    }
+    
+    em {
+      font-style: normal;
+      text-transform: uppercase;
+      font-size: 0.8em;
+      letter-spacing: 0.1em;
+    }
+    
+    body em { color: #ff6b4a; }
+    body.light em { color: #C02820; }
+    
+    ul, ol {
+      font-size: 1.2em;
+      line-height: 1.7;
+      margin-left: 1.5em;
+      margin-bottom: 1em;
+    }
+    
+    li { margin-bottom: 0.4em; }
+    
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 1.1em;
+      margin: 1em 0;
+    }
+    
+    th, td {
+      padding: 0.6em 1em 0.6em 0;
+      text-align: left;
+      border-bottom: 1px solid;
+    }
+    
+    th {
+      font-weight: 500;
+      font-size: 0.85em;
+      text-transform: uppercase;
+    }
+    
+    body th, body td { border-color: #333; color: #888; }
+    body.light th, body.light td { border-color: #DDD; color: #666; }
+    
+    td:first-child { font-weight: 500; }
+    
+    body.light td:first-child { color: #000; }
+    body td:first-child { color: #f0f0f5; }
+    
+    pre {
+      padding: 1em;
+      border-radius: 6px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 1em;
+      overflow-x: auto;
+      border: 1px solid;
+    }
+    
+    body pre { background: #141420; border-color: #222; }
+    body.light pre { background: #E8E5DE; border-color: #DDD; }
+    
+    code { font-family: inherit; }
+    
+    hr {
+      border: none;
+      border-top: 1px solid;
+      margin: 1.5em 0;
+    }
+    
+    body hr { border-color: #333; }
+    body.light hr { border-color: #DDD; }
+    
+    blockquote {
+      padding-left: 1em;
+      font-style: italic;
+    }
+    
+    body blockquote { 
+      border-left: 3px solid #ff6b4a;
+      color: #888;
+    }
+    body.light blockquote { 
+      border-left: 3px solid #C02820;
+      color: #666;
+    }
+    
+    strong { color: #ff6b4a; }
+    body.light strong { color: #C02820; }
+  </style>
+</head>
+<body class="dark">
+  <div class="container">
+    <div class="sidebar">
+      <div class="sidebar-header">Slides</div>
+      <div class="toc-item" onclick="window.location='?slide=00'">
+        <span class="toc-num">00</span>
+        <span class="toc-title">Grumpy</span>
+      </div>
+      <div class="toc-item" onclick="window.location='?slide=01'">
+        <span class="toc-num">01</span>
+        <span class="toc-title">Title</span>
+      </div>
+      <div class="toc-item" onclick="window.location='?slide=02'">
+        <span class="toc-num">02</span>
+        <span class="toc-title">Self-Test</span>
+      </div>
+      <div class="toc-item" onclick="window.location='?slide=03'">
+        <span class="toc-num">03</span>
+        <span class="toc-title">Definition</span>
+      </div>
+      <div class="toc-item" onclick="window.location='?slide=04'">
+        <span class="toc-num">04</span>
+        <span class="toc-title">Services</span>
+      </div>
+      <div class="toc-item" onclick="window.location='?slide=05'">
+        <span class="toc-num">05</span>
+        <span class="toc-title">Bestiary</span>
+      </div>
+      <div class="toc-item" onclick="window.location='?slide=06'">
+        <span class="toc-num">06</span>
+        <span class="toc-title">Code</span>
+      </div>
+      <div class="toc-item" onclick="window.location='?slide=07'">
+        <span class="toc-num">07</span>
+        <span class="toc-title">Costs</span>
+      </div>
+      <div class="toc-item" onclick="window.location='?slide=08'">
+        <span class="toc-num">08</span>
+        <span class="toc-title">Agenda</span>
+      </div>
+      <div class="toc-item" onclick="window.location='?slide=09'">
+        <span class="toc-num">09</span>
+        <span class="toc-title">Ask</span>
+      </div>
+      <div class="toc-item" onclick="window.location='?slide=10'">
+        <span class="toc-num">10</span>
+        <span class="toc-title">End</span>
+      </div>
+    </div>
+    <div class="content">
+      <div id="c">connecting...</div>
+    </div>
+  </div>
+  <div class="slide-indicator" id="indicator">00</div>
+  
+  <script>
+    const c = document.getElementById('c');
+    const indicator = document.getElementById('indicator');
+    let currentSlide = '00';
+    
+    // Theme toggle via keyboard (press 't' to switch)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 't') {
+        document.body.classList.toggle('light');
+        document.body.classList.toggle('dark');
+      }
+    });
+    
+    // Update indicator when content changes
+    const observer = new MutationObserver(() => {
+      const h1 = c.querySelector('h1');
+      if (h1) {
+        const text = h1.textContent;
+        const match = text.match(/^(\d+)/);
+        if (match) {
+          currentSlide = match[1].padStart(2, '0');
+          indicator.textContent = currentSlide;
+          highlightActiveSlide(currentSlide);
+        }
+      }
+    });
+    
+    function highlightActiveSlide(num) {
+      document.querySelectorAll('.toc-item').forEach(item => {
+        const itemNum = item.querySelector('.toc-num').textContent;
+        if (itemNum === num) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    }
+    
+    observer.observe(c, { childList: true, subtree: true });
+    
+    // WebSocket connection
+    const ws = new WebSocket('ws://' + location.host + '/ws');
+    ws.onopen = () => c.id = 'c';
+    ws.onmessage = e => {
+      // Check if it's a JSON message (theme switch)
+      if (e.data.startsWith('{')) {
+        const msg = JSON.parse(e.data);
+        if (msg.type === 'theme') {
+          document.body.classList.remove('dark', 'light');
+          document.body.classList.add(msg.theme);
+          return;
+        }
+      }
+      // Otherwise it's HTML content
+      c.innerHTML = e.data;
+      setTimeout(() => highlightActiveSlide(currentSlide), 50);
+    };
+    ws.onclose = () => { c.innerHTML = 'reconnecting...'; setTimeout(() => location.reload(), 1000); };
+    ws.onerror = () => c.innerHTML = 'error';
+  </script>
+</body>
+</html>

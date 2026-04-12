@@ -1,0 +1,9 @@
+{
+  "name": "tidy-first-agent",
+  "alias": "tidy",
+  "description": "Workspace hygiene gamma-loop",
+  "type": "gamma-loop",
+  "commands": ["check", "status", "run", "run-full", "install-crons"],
+  "constraints": "CSP.md",
+  "entry": "justfile"
+}

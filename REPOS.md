@@ -70,3 +70,40 @@ See `playbooks/td-playbook.md` for full details.
 
 - Check for updates periodically: `brew upgrade` or `go install @latest`
 - Report issues to respective repositories
+
+---
+
+## Watch Exec
+
+| Tool | Repository | Purpose | License |
+|------|------------|---------|---------|
+| **watchexec** | https://github.com/watchexec/watchexec | File watching | Apache 2.0 |
+
+### Installation
+
+```bash
+brew install watchexec
+```
+
+### Common Patterns
+
+```bash
+# Watch TypeScript files and run tests
+watchexec -e ts,tsx bun test
+
+# Watch data files and regenerate dashboard
+watchexec -e jsonl just trend-dashboard
+
+# Watch briefs and run tidy
+watchexec -e md --ignore 'briefs/archive/*' just agents tidy check
+
+# Restart server on change
+watchexec -r bun run src/silo-api-server.ts
+```
+
+### Why WatchExec?
+
+- **Fast**: Uses OS kernel events (inotify/FSEvents)
+- **Simple**: Single binary, sensible defaults
+- **Rust**: Native performance, small footprint
+- **Recommended**: Used by Marcus (td author)

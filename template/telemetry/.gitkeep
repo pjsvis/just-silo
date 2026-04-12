@@ -1,0 +1,44 @@
+# Telemetry Directory
+
+This directory stores entropy measurements and workflow telemetry.
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| `runs.jsonl` | Each workflow execution |
+| `entropy.jsonl` | Calculated entropy per run |
+| `adjustments.jsonl` | Threshold/config changes |
+| `events.jsonl` | High-entropy events |
+
+## Format: runs.jsonl
+
+```json
+{"ts":1699999999,"workflow":"harvest","duration_s":42,"status":"success","entries":150}
+{"ts":1700000000,"workflow":"process","duration_s":120,"status":"success","entries":150}
+```
+
+## Format: entropy.jsonl
+
+```json
+{"ts":1699999999,"workflow":"harvest","entropy":0.23,"outcomes":{"success":145,"partial":5,"failure":0}}
+```
+
+## Format: adjustments.jsonl
+
+```json
+{"ts":1699999999,"type":"threshold","field":"moisture","old":15,"new":18,"reason":"calibration"}
+```
+
+## Usage
+
+```bash
+# View entropy trend
+just entropy
+
+# Log a workflow run
+just telemetry-log workflow=harvest status=success duration_s=42
+
+# Check for high-entropy events
+just telemetry-alerts
+```

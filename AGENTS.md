@@ -1,163 +1,207 @@
-ind just-silo — AGENTS.md
+# just-silo — AGENTS.md
 
 ---
 
-## For Incoming Agents
+## Workflow
 
-**Entry point:** `cd` into a silo, `just --list`, read `README.md`
+### Local Development
 
-**The Reveal:** Don't pre-define the vocabulary. Say what you want. The silo emerges.
+Direct. No agents, no multiplexers.
 
-**Scout mindset:** Assess first. Don't assume. Start from what's there. Recon before you act.
+- **Editor:** Zed
+- **Terminal:** Built-in or standalone
+- **Run:** `bun run`, `just`, `bash`
+- **Test:** `bun test`
 
-**Philosophy docs:** `Silo-Philosophy.md` (why) → `Silo-Manual.md` (how)
+### Remote Development
+
+Monitoring only.
+
+- Watch: `git log`, `td status`, `bun test`
+- Act: Only when necessary
 
 ---
 
-## What Is This?
+## What Was Here
 
-A **directory-based skill framework** for AI agents. Mount a silo to get domain-specific capabilities without session context.
+This project previously had an agent orchestration layer. It's been decommissioned.
 
-**A silo is a scoped lexicon — vocabulary and grammar that lives in the filesystem.**
+**Removed:**
+- Sub-agent spawn governance
+- Agent trigger architecture
+- Multi-agent coordination via markers
+- test-agent, docs-agent, review-agent, etc.
 
-**Tagline:** *"just-silo it or just-forget it"*
+**Reason:** For local dev, direct terminal + editor is faster. Agents add complexity without value.
 
-**Core insight:** Agents lose context every turn. A "silo" persists domain knowledge in the filesystem.
+---
 
-## Quick Start
+## The Silo Framework (Still Active)
 
-```bash
-# Create a new silo from template
-cp -r template my-silo
-cd my-silo
-
-# Standard workflow
-just verify      # Check prerequisites
-just harvest     # Validate and ingest data
-just process     # Run domain script
-just alerts      # Surface critical items
-just flush       # Compact to final output
-```
-
-## Core Workflow
-
-```
-Mount → Sieve → Process → Observe → Flush
-```
-
-| Step | Command | Purpose |
-|------|---------|---------|
-| Mount | `cd my-silo/` | Agent reads rules from filesystem |
-| Sieve | `just harvest` | Validate data against schema.json |
-| Process | `just process` | Run domain script |
-| Observe | `just status` / `just who` | Monitor pipeline |
-| Flush | `just flush` | Compact processed items to output |
-
-## Anatomy of a Silo
+The **silo** framework for externalizing domain knowledge is still useful:
 
 ```
 my-silo/
-├── .silo              # Manifest (name, version, thresholds)
-├── README.md          # Domain rules and thresholds
-├── schema.json        # JSON Schema for validation
-├── queries.json       # Named jq filters (prevents ad-hoc jq)
-├── justfile           # Recipes (just --list)
-├── harvest.jsonl      # Raw input data
-├── data.jsonl         # Validated working set
-└── process.sh         # Domain logic script
+├── .silo              # Manifest
+├── README.md          # Domain rules
+├── schema.json        # Validation
+├── queries.json       # Named jq filters
+├── justfile           # Recipes
+├── harvest.jsonl      # Raw data
+└── process.sh        # Domain logic
 ```
 
-## Key Commands
+**When to use silos:**
+- Persisting domain knowledge across sessions
+- Structured data pipelines
+- Named query reuse
 
-| Command | Purpose |
-|---------|---------|
-| `just verify` | Check prerequisites and schema |
-| `just harvest` | Ingest + validate against schema |
-| `just process` | Run domain script |
-| `just alerts` | Surface critical items |
-| `just stats` | Show entry counts |
-| `just query <name>` | Run named filter from queries.json |
-| `just flush` | Move processed items to final_output.jsonl |
-| `just clean` | Reset state files |
-| `just self-test` | Smoke test |
-
-## Principles
-
-1. **Enough is enough.** Keep data lean. Flush often.
-2. **Trust the schema.** Validation at ingestion is cheap; debugging downstream is expensive.
-3. **Named filters over ad-hoc jq.** Use queries.json, not shell pipes.
-4. **Occupy the territory.** `cd` into the silo, don't install.
-
-## Multi-Agent Coordination
-
-Agents coordinate via marker files in `markers/`:
-
-```bash
-# Agent A
-just harvest
-just done harvest
-
-# Agent B  
-just wait harvest
-just process
-just done process
-```
-
-## Observe the Territory (Seriously Cool)
-
-**Your pipeline IS your dashboard.** No separate observability layer — the filesystem that runs the pipeline shows you what's happening.
-
-```bash
-cd my-silo/
-just status          # What's running, stuck, done
-just who             # Which agents on which stages
-just stuck 60        # Stages idle > 60 minutes
-just throughput      # Items/hour trend
-just audit           # Full pipeline history
-```
-
-> *"Observe the territory you occupy. Don't log into a separate dashboard."*
-
-See `briefs/2026-03-31-pipeline-observability-via-filesystem.md` for implementation plan.
-
-## File Structure
-
-```
-just-silo/
-├── README.md              # Project overview
-├── Silo-Manual.md         # Full philosophy + patterns
-├── Silo-Philosophy.md     # The why
-├── template/             # ⭐ Start here: copy to create new silos
-├── examples/silo_barley/  # Working example (grain moisture monitor)
-├── playbooks/             # How-tos: user, builder, agent, operator, scout
-
-├── briefs/                # Project briefs
-└── debriefs/              # Retrospectives
-```
-
-## Playbooks
-
-| Playbook | For |
-|----------|-----|
-| `playbooks/silo-user-playbook.md` | Using existing silos |
-| `playbooks/silo-builder-playbook.md` | Creating new silos |
-| `playbooks/silo-agent-playbook.md` | Mounting and using silos |
-| `playbooks/silo-operator-playbook.md` | Multi-agent coordination |
-| `playbooks/silo-scout-playbook.md` | Entering unknown silos |
-| `playbooks/jsonl-playbook.md` | JSONL patterns |
-| `playbooks/jq-playbook.md` | jq query patterns |
-
-## Prerequisites
-
-- `just` — `brew install just`
-- `jq` — `brew install jq`
-
-## Philosophy
-
-> "More context doesn't mean better results. Past a threshold, the noise drowns the signal."
-
-The silo externalizes domain knowledge into the filesystem. Hand an agent a silo and it acts without prior context.
+**When not to use silos:**
+- One-off scripts → just write the script
+- Simple tasks → direct terminal
+- Real-time interaction → direct terminal
 
 ---
 
-**Status:** Early-stage project. Template and example working. Distribution: copy template model.
+## Prerequisites
+
+- `bun` — runtime
+- `just` — task runner (`brew install just`)
+- `jq` — JSON processing (`brew install jq`)
+- `zed` — editor (optional)
+
+---
+
+## Quick Reference
+
+```bash
+# Run a script
+bun run server.ts
+
+# Test
+bun test
+
+# Watch mode
+bun --watch run server.ts
+
+# Task runner
+just --list
+
+# Watch tests
+bun test --watch
+```
+
+---
+
+## Experimental Tiers
+
+Scripts evolve through tiers as they mature:
+
+```
+@scripts/lab/     → scripts/  → src/
+  ↑                 ↑           ↑
+  Tier 0            Tier 1      Tier 2
+  (experimental)    (stable)   (production)
+```
+
+| Tier | Location | Rules |
+|------|----------|-------|
+| 0 | `@scripts/lab/` | Experimental. No review. Promote when stable. |
+| 1 | `scripts/` | Stable. Reviewed. Production-ready. |
+| 2 | `src/` | Full rigor. Types, tests, documentation. |
+
+### Tier 0: @scripts/lab/
+
+Experimental scripts with `@` prefix. Agents try ideas here:
+
+```bash
+scripts/lab/
+├── @entropy-viz.sh    # Trying visualization
+├── @jq-playground.sh  # Testing jq patterns
+└── @experiment.sh     # Wild idea
+```
+
+**Rules:**
+- No review required
+- Promote to `scripts/` when stable
+- Gamma-loop archives stale experiments
+
+### Tier 1: scripts/
+
+Stable, production scripts. Reviewed before promotion:
+
+```bash
+scripts/
+├── silo-create.sh       # Stable
+├── silo-ignite.sh      # Stable
+└── silo-log.sh        # Stable
+```
+
+### Tier 2: src/
+
+TypeScript/Production code. Full rigor:
+
+```bash
+src/
+├── silo-api-server.ts  # Types, tests, docs
+└── lib/
+    └── silo-logger.ts  # Full quality
+
+**TypeScript config tiers:**
+```json
+tsconfig.json          // Tier 2: strict, no implicit any
+tsconfig.scripts.json // Tier 1: relaxed, allowJs
+```
+
+**Commands:**
+```bash
+just dev-typecheck   # Check all tiers
+just dev-checkall   # Type + tests
+```
+
+
+---
+
+## Agent Scratchpad
+
+The **scratch/** directory is the agent's private workspace:
+
+```bash
+scratch/          # NOT COMMITTED
+├── draft-*.md     # Thinking out loud
+├── test-*.jsonl   # Playground data
+└── exploration/   # Free-form
+```
+
+**Rules:**
+- Never committed (in `.gitignore`)
+- Agent's private workspace
+- Gamma-loop archives stale scratch
+
+---
+
+## The Simplicity Rule
+
+> **Extract to scripts. Keep justfiles thin.**
+
+| Situation | Don't Do | Do |
+|-----------|----------|----|
+| Recipe > 80 chars | Inline jq | `scripts/process.sh` |
+| Data transformation | `jq` in justfile | `scripts/transform.sh` |
+| Multi-step logic | Long recipe with `\` | Call scripts |
+
+See: `playbooks/justfile-design-playbook.md`
+
+---
+
+## See Also
+
+- `playbooks/bestiary-human-tendencies.md` — Known failure modes
+- `playbooks/justfile-design-playbook.md` — Recipe design rules
+- `playbooks/gamma-loop-playbook.md` — Gamma-loop pattern
+- `briefs/` — Project briefs and research
+- `presentation/` — SSE presentation server
+
+---
+
+**Status:** Simplified. Local dev is direct. Remote is monitoring.

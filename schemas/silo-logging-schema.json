@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Silo Telemetry Log Entry",
+  "description": "Standard JSONL log entry format (Pino-compatible)",
+  "type": "object",
+  "required": ["level", "time", "msg"],
+  "properties": {
+    "level": {
+      "type": "integer",
+      "description": "Pino log level (20=debug, 30=info, 40=warn, 50=error, 60=fatal)",
+      "enum": [10, 20, 30, 40, 50, 60]
+    },
+    "time": {
+      "type": "integer",
+      "description": "Unix timestamp in milliseconds"
+    },
+    "msg": {
+      "type": "string",
+      "description": "Human-readable log message"
+    },
+    "pid": {
+      "type": "integer",
+      "description": "Process ID"
+    },
+    "hostname": {
+      "type": "string",
+      "description": "Host where the log was generated"
+    },
+    "silo": {
+      "type": "string",
+      "description": "Name of the silo"
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp"
+    },
+    "action": {
+      "type": "string",
+      "description": "The action/verb that was performed"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial", "failure", "skipped"],
+      "description": "Outcome of the action"
+    },
+    "duration_ms": {
+      "type": "integer",
+      "description": "Duration of the action in milliseconds"
+    },
+    "entropy": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Entropy measurement (0=stable, 1=chaotic)"
+    },
+    "session": {
+      "type": "string",
+      "description": "Session identifier for correlation"
+    },
+    "error": {
+      "type": "string",
+      "description": "Error message if status=failure"
+    }
+  },
+  "examples": [
+    {
+      "level": 30,
+      "time": 1712154000000,
+      "msg": "Harvest completed",
+      "pid": 12345,
+      "hostname": "arch-01",
+      "silo": "barley-v1",
+      "ts": "2026-04-11T10:00:00Z",
+      "action": "harvest",
+      "status": "success",
+      "duration_ms": 4200
+    },
+    {
+      "level": 40,
+      "time": 1712154005000,
+      "msg": "Threshold exceeded",
+      "pid": 12345,
+      "hostname": "arch-01",
+      "silo": "barley-v1",
+      "ts": "2026-04-11T10:00:05Z",
+      "action": "process",
+      "status": "partial",
+      "entropy": 0.65
+    },
+    {
+      "level": 50,
+      "time": 1712154010000,
+      "msg": "Process failed",
+      "pid": 12345,
+      "hostname": "arch-01",
+      "silo": "barley-v1",
+      "ts": "2026-04-11T10:00:10Z",
+      "action": "process",
+      "status": "failure",
+      "error": "Schema validation failed: missing required field 'moisture'"
+    }
+  ]
+}

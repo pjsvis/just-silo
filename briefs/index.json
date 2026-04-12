@@ -1,0 +1,648 @@
+{
+  "generated": "2026-04-10T12:39:06+01:00",
+  "total": 71,
+  "byStatus": {
+    "active": 71
+  },
+  "briefs": [
+    {
+      "file": "2026-04-06/2026-04-06-brief-active-documentation.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-agent-management.md",
+      "title": "Brief: Agent Management Pattern",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-code-review-agent.md",
+      "title": "Brief: Code Review Agent",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-compliance-agent.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-compliance-implementation.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-counter-blast.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-entropy-led-development.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-gamma-loop-01.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-gamma-loop-02.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-rate-limiting.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-silo-cadence.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-silo-competency.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-silo-conceptual-lexicon.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-silo-entropy.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-silo-prompt-comparision.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-silo-provisioning.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-silo-scaling-laws.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-sub-silo-documentation-01.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-sub-silo-documentation-02.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-sys2-prompt-strategy.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-task-types.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-brief-tidy-docs.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-06/2026-04-06-silo-gamma-loop-03.md",
+      "title": "",
+      "date": "2026-04-06",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-07/2026-04-07-brief-agent-lifecycle-tests.md",
+      "title": "Brief: Agent Lifecycle Testing",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-07/2026-04-07-brief-api-architecture-v2.md",
+      "title": "Brief: Two-Tier HTTP API Architecture",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-07/2026-04-07-brief-blog-workflow.md",
+      "title": "Brief: Blog Workflow - Story Extraction Pipeline",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-07/2026-04-07-brief-entropy-logging.md",
+      "title": "Brief: Entropy Logging System",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-07/2026-04-07-brief-gamma-loop-architecture.md",
+      "title": "Brief: Gamma Loop Architecture for just-silo",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-07/2026-04-07-brief-self-provisioning-silo.md",
+      "title": "Brief: Self-Provisioning Silo Template",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-07/2026-04-07-brief-two-tier-api.md",
+      "title": "Brief: Two-Tier API Implementation",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-07/2026-04-07-justfile-refactor.md",
+      "title": "Brief: Justfile Refactor",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-08/2026-04-08-bestiary-human-tendencies.md",
+      "title": "Brief: Bestiary of Unfortunate Human Tendencies — Blog Article",
+      "date": "2026-04-08",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-08/2026-04-08-blog-pi-subagents.md",
+      "title": "Brief: How to Wrangle pi Sub-Agents",
+      "date": "2026-04-08",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-08/2026-04-08-consulting-services.md",
+      "title": "Brief: AI Agent Workflow Consulting — Services and Positioning",
+      "date": "2026-04-08",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-08/2026-04-08-issue-subagent-persistence.md",
+      "title": "Brief: Raise GitHub Issue — Sub-Agent Outputs Not Persisted to Project Filesystem",
+      "date": "2026-04-08",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-08/2026-04-08-phone-voice-control-setup.md",
+      "title": "Phone Voice Control Setup",
+      "date": "2026-04-08",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-08/2026-04-08-pxy-presentation-brief.md",
+      "title": "Brief: PXY Presentation System — Investigation Continue",
+      "date": "2026-04-08",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-08/2026-04-08-pxy-presentation-workflow.md",
+      "title": "Brief: PXY Presentation Workflow — Live AI-Operated Slideshow",
+      "date": "2026-04-08",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-08/2026-04-08-sse-presentation-server.md",
+      "title": "Brief: SSE Presentation Server — Technical Implementation",
+      "date": "2026-04-08",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-08/2026-04-08-substrates-as-pattern-matchers.md",
+      "title": "Brief: Substrates as Pattern-Matching Devices — Talk or Short Article",
+      "date": "2026-04-08",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-09-agent-competency-assessment-framework-proposal.md",
+      "title": "Agent Competency Assessment Framework (ACAF)",
+      "date": "2026-04-09",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "2026-04-09-brief-agent-to-organise-briefs.md",
+      "title": "",
+      "date": "2026-04-09",
+      "status": "active",
+      "project": "v0.1",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "briefs-plan.md",
+      "title": "Briefs Workplan",
+      "date": "unknown",
+      "status": "active",
+      "project": "v0.2",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "briefs-queue.md",
+      "title": "Briefs Queue",
+      "date": "unknown",
+      "status": "active",
+      "project": "v0.2",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "gemma4/2026-04-07-blog-post-01.md",
+      "title": "",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": "v0.2",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "gemma4/2026-04-07-blog-post-02.md",
+      "title": "THE ARCHITECTURE OF RELIABILITY: Building the Cognitive Silo as a Deterministic Protocol",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "gemma4/2026-04-07-brief-gemma4-lets-go.md",
+      "title": "",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "gemma4/2026-04-07-event-driven-state-machine.md",
+      "title": "",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "gemma4/2026-04-07-measure-to-opportunity.md",
+      "title": "",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "gemma4/2026-04-07-reaction-entropy.md",
+      "title": "",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "gemma4/2026-04-07-reaction-gemma-silo.md",
+      "title": "",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "gemma4/2026-04-07-title-extraction.md",
+      "title": "",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "gemma4/xxx-01.md",
+      "title": "",
+      "date": "unknown",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "gemma4/xxx-03.md",
+      "title": "",
+      "date": "unknown",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-00.md",
+      "title": "",
+      "date": "2026-04-10",
+      "status": "active",
+      "project": "v1.79",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-01.md",
+      "title": " brief",
+      "date": "2026-04-10",
+      "status": "active",
+      "project": "v1.79",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-02.md",
+      "title": "",
+      "date": "2026-04-10",
+      "status": "active",
+      "project": "v1.79",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-03.md",
+      "title": "",
+      "date": "2026-04-10",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-04.md",
+      "title": "",
+      "date": "2026-04-10",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-05.md",
+      "title": "",
+      "date": "2026-04-10",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-06.md",
+      "title": "",
+      "date": "2026-04-10",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "lexicon-fuzzy-search/2026-04-10-brief-lexicon-fuzzy-search-07.md",
+      "title": "",
+      "date": "2026-04-10",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "research/2026-04-07-brief-blog-agent-01.md",
+      "title": "Brief: blog-agent — Content Pipeline from Docs",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "research/2026-04-07-brief-briefs-agent-01.md",
+      "title": "Brief: briefs-agent — Brief Generation",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "research/2026-04-07-brief-debriefs-agent-01.md",
+      "title": "Brief: debriefs-agent — Post-Merge Lessons Capture",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "research/2026-04-07-brief-docs-agent-01.md",
+      "title": "Brief: docs-agent — Documentation Sync",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "research/2026-04-07-brief-review-agent-01.md",
+      "title": "Brief: review-agent — Code Review & PR Management",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "research/2026-04-07-brief-td-api-testing-01.md",
+      "title": "Brief: td-v0.2 Testing & Coverage",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": "v0.2",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "research/2026-04-07-brief-test-agent-01.md",
+      "title": "Brief: test-agent — Test Coverage Enforcement",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": "v0.2",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "research/2026-04-07-brief-tidy-first-01-ansi-cleanup.md",
+      "title": "Brief: Tidy-First Agent — ASCII Cleanup Task",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "file": "research/2026-04-07-brief-tidy-first-agent-01.md",
+      "title": "Brief: tidy-first-agent — Workspace Hygiene Automation",
+      "date": "2026-04-07",
+      "status": "active",
+      "project": null,
+      "tags": [],
+      "summary": ""
+    }
+  ]
+}

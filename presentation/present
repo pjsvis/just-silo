@@ -1,0 +1,4 @@
+#!/bin/bash
+# present — Alias for push-content
+# Usage: present "<h1>Hello</h1>"
+exec "$(dirname "$0")/push-content" "$@"

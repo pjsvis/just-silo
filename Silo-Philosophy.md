@@ -377,6 +377,96 @@ An agent `cd`s into a silo and inherits the vocabulary. It doesn't need to *find
 
 ---
 
+## Resonance — The Communication Metaphor
+
+Communication is resonance engineering.
+
+```
+┌─────────────────────────────────────────────────────┐
+│                                                     │
+│   HUMAN          AGENT            SILO             │
+│                                                     │
+│  [intent]  ←→  [tuner]  ←→    [context]          │
+│     ↓            ↓              ↓                    │
+│  Dissonant    In-tune        In-tune                 │
+│  message      work           values                  │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+
+Circuit 1: Human → Agent (intent resonance)
+Circuit 2: Agent → Silo (work resonance)
+```
+
+### Two Resonance Circuits
+
+**Circuit 1: Human ↔ Agent**
+
+Human intent is a signal. The agent is a tuner. The silo provides the reference frequency.
+
+- Human: "I want X" (may be dissonant with silo context)
+- Agent: Calculates dissonance vs silo values
+- Agent: Applies correction (brief, question, reframing)
+- Output: Tuned request aligned with silo
+
+**Circuit 2: Agent ↔ Silo**
+
+Agent work is a signal. The silo is the resonance chamber. Agents tune their output against silo values.
+
+- Agent: Produces work (may be dissonant with patterns)
+- review-agent, docs-agent, test-agent: Detect dissonance
+- Corrections applied until resonant
+- Output: Work in harmony with silo
+
+### What Gets Tuned
+
+| Input | Dissonance | Tuner | Output |
+|-------|------------|-------|--------|
+| Human request | "I want X" vs silo context | briefs-agent | Brief aligned with values |
+| Agent work | Code vs patterns | review-agent | PR in-tune with project |
+| Old docs | Drift from code | docs-agent | Docs in resonance |
+| Stale state | Noise accumulation | tidy-first-agent | Clean workspace |
+| Experience | Lessons learned | debriefs-agent | Learnable patterns |
+
+### Resonance Indicators
+
+| Signal | Meaning |
+|--------|---------|
+| "I don't understand" | Human ↔ Agent dissonance |
+| "This doesn't fit our style" | Agent ↔ Silo dissonance |
+| Conflicting briefs | Brief ↔ Brief dissonance |
+| Stale docs | Doc ↔ Code dissonance |
+| Review rejections | Work ↔ Values dissonance |
+
+### The Agent's Role
+
+> The agent is a **resonance tuner** — a bridge that reduces dissonance between human intent and silo reality.
+
+The agent is not a messenger. It's a tuning fork.
+
+### The Physics of Entropy
+
+```
+Resonance   = Low entropy (things fit, align, work)
+Dissonance  = High entropy (things clash, contradict, confuse)
+```
+
+**Briefs and debriefs as tuning documents:**
+
+- **Brief:** Human intent → Silo-aligned proposal (reduces intent entropy)
+- **Debrief:** Work experience → Learnable pattern (reduces institutional entropy)
+
+Both are entropy-reduction devices. They tune the conceptual state.
+
+### Edinburgh Connection
+
+> Hume's skepticism → "Is this in tune?"
+> Smith's impartial spectator → "Does this resonate with the whole?"
+> Watt's pragmatism → "Tune it until it works."
+
+**Mentational humility** = Awareness that your current frequency might not match.
+
+---
+
 ## The Promise
 
 > *"Just do it."*
