@@ -2,7 +2,7 @@
 title: "The Gamma-Loop: How AI Systems Stay Steady"
 topic: gamma-loop
 date: 2026-04-12
-tags: [gamma-loop, agents, efficiency]
+tags: [gamma-loop, agents, efficiency, feedback]
 ---
 
 # The Gamma-Loop: How AI Systems Stay Steady
@@ -30,18 +30,45 @@ In the human body, the **Gamma-Loop** is the feedback mechanism between your ner
 In AI operations, the **Gamma-Loop** is the internal feedback mechanism that maintains process quality without conscious intervention.
 
 When you lift a coffee cup:
-- The Alpha motor neurons send commands
-- The Gamma motor neurons adjust sensitivity
+- The **Alpha** motor neurons send commands
+- The **Gamma** motor neurons adjust sensitivity
 - The muscle spindles provide feedback
 - Your hand stays steady
 
 When an AI agent processes a task:
-- The agent generates output
-- The Gamma-Loop compares against playbook
+- The **Alpha** (executor) generates output
+- The **Gamma-Loop** compares against playbook
 - Micro-adjustments happen automatically
 - Output stays within bounds
 
 **You don't think about holding the cup. Your nervous system does it. The Gamma-Loop does the same for AI operations.**
+
+---
+
+## The Architecture
+
+```
+┌─────────────────────────────────────────────────────┐
+│                      SILO                           │
+│                                                      │
+│   ┌─────────┐    ┌──────────────┐    ┌──────────┐  │
+│   │ Alpha   │───▶│ Gamma-Loop  │◀───│ Monitor  │  │
+│   │(Execute)│    │(Self-Tune) │    │ (Sense)  │  │
+│   │         │◀───│             │───▶│          │  │
+│   └─────────┘    └──────────────┘    └──────────┘  │
+│         ▲                  │                     │     │
+│         │                  ▼                     │     │
+│         │           ┌─────────────┐               │     │
+│         └──────────│ Escalate   │◀──────────────┘     │
+│                     │ (Human)   │                     │
+│                     └─────────────┘                     │
+└─────────────────────────────────────────────────────┘
+```
+
+- **Monitor** senses the state
+- **Gamma-Loop** tunes automatically
+- **Alpha** executes the task
+- **Escalate** triggers human intervention only when needed
 
 ---
 
@@ -90,6 +117,23 @@ Without a Learning-Loop, agents make the same mistakes. They don't improve. The 
 You hold the coffee steadily. When you do spill, you learn why — and your grip improves.
 
 With both loops, agents maintain quality automatically AND improve over time. The operations become effortless.
+
+---
+
+## A Real Example: The Tidy-First Agent
+
+The **tidy-first-agent** is the canonical implementation of the Gamma-Loop in just-silo:
+
+| Resource | Threshold | Action |
+|----------|-----------|--------|
+| Briefs | > 30 files | Archive oldest |
+| Debriefs | > 20 files | Archive oldest |
+| td issues | stale > 14 days | Flag for review |
+| Git branches | merged | Prune |
+
+The agent runs automatically, maintaining silo hygiene without human intervention. When it detects drift, it corrects. When it can't correct, it escalates.
+
+**This is what a Gamma-Loop looks like in practice.**
 
 ---
 
@@ -167,6 +211,13 @@ Neither should your AI.**
 ---
 
 ## Summary
+
+| Component | Role |
+|-----------|------|
+| **Monitor** | Senses state |
+| **Gamma-Loop** | Self-tunes |
+| **Alpha** | Executes |
+| **Escalate** | Human intervention |
 
 | Loop | Function | Frequency | Trigger |
 |------|----------|-----------|---------|

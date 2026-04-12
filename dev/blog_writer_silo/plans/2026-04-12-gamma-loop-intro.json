@@ -8,8 +8,10 @@
   "sections": [
     "The Coffee Cup Problem",
     "What is the Gamma-Loop?",
+    "The Architecture",
     "Two Loops, One System",
     "Why Both Loops Matter",
+    "A Real Example: The Tidy-First Agent",
     "Why Agents Like the Gamma-Loop",
     "Why Humans Like the Gamma-Loop",
     "The Efficiency Argument",
@@ -22,7 +24,22 @@
     "The reason people get 'grumpy' with AI is that they treat it like a person who should know better",
     "If the coffee spills, we don't blame the agent's 'intelligence'; we blame the Tuning of the Loop"
   ],
-  "notes": "Coffee cup as central metaphor throughout. No 'industry got it wrong' framing. Gamma-Loop + Learning-Loop distinction.",
+  "notes": "Coffee cup as central metaphor throughout. Gamma-Loop + Learning-Loop distinction. Added architecture diagram. Added tidy-first-agent as canonical example.",
   "draft": "drafts/2026-04-12-gamma-loop-intro.md",
-  "post": null
+  "post": null,
+  "sources": [
+    "briefs/2026-04-06/2026-04-06-brief-gamma-loop-01.md",
+    "briefs/2026-04-06/2026-04-06-brief-gamma-loop-02.md",
+    "briefs/2026-04-06/2026-04-06-silo-gamma-loop-03.md",
+    "briefs/2026-04-07/2026-04-07-brief-gamma-loop-architecture.md",
+    "playbooks/gamma-loop-playbook.md"
+  ],
+  "key_insights": [
+    "Gamma-Loop monitors state, tunes automatically, only escalates when needed",
+    "Tidy-first-agent is the canonical gamma-loop implementation",
+    "Alpha executes, Gamma monitors and self-tunes",
+    "Gamma-Loop accepts what AI is: a substrate, not a person",
+    "Coffee cup metaphor: don't think about it, it just works"
+  ],
+  "architecture_diagram": "Monitor → Gamma-Loop → Alpha → (loop) → Escalate (human)"
 }
