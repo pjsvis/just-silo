@@ -1,0 +1,10 @@
+{
+  "name": "blog-agent",
+  "version": "0.1.0",
+  "description": "Agent for assisted blog authoring",
+  "domain": "blog-authoring",
+  "parent": "blog-writer-silo",
+  "capabilities": ["weave", "select", "polish", "review"],
+  "created": "2026-04-12",
+  "status": "stub"
+}

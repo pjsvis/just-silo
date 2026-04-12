@@ -1,0 +1,17 @@
+{
+  "name": "blog-writer-silo",
+  "version": "0.1.0",
+  "description": "Silo for authoring blog posts from wee stories",
+  "domain": "blog-authoring",
+  "parent": "just-silo",
+  "deps": ["stories/stories.jsonl"],
+  "schema": "schema.json",
+  "queries": "queries.json",
+  "templates": "templates/",
+  "drafts": "drafts/",
+  "posts": "posts/",
+  "agents": "agents/",
+  "scripts": "scripts/",
+  "created": "2026-04-12",
+  "status": "active"
+}

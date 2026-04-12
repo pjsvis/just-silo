@@ -1,0 +1,33 @@
+{
+  "description": "Named jq queries for blog-writer-silo",
+  
+  "queries": {
+    "all-stories": "[inputs]",
+    
+    "high-quality": "[inputs | select(.quality >= 0.35)]",
+    
+    "by-type": "[inputs] | group_by(.type) | map({type: .[0].type, count: length, stories: .})",
+    
+    "by-topic": "[inputs | select(.tags | length > 0)] | group_by(.tags[0]) | map({topic: .[0].tags[0], count: length, stories: .})",
+    
+    "by-source": "[inputs] | group_by(.source) | map({source: .[0].source, count: length}) | sort_by(.count) | reverse",
+    
+    "balanced-set": "[inputs | select(.quality >= 0.2)] | {origins: (map(select(.type == \"origin\")) | .[0:2]), lessons: (map(select(.type == \"lesson\")) | .[0:3]), insights: (map(select(.type == \"insight\")) | .[0:5])}",
+    
+    "for-topic": "def filter_topic(t): [inputs | select(.tags | index(t) != null)]; filter_topic(\"{{topic}}\")",
+    
+    "quality-distribution": "{high: ([.[] | select(.quality >= 0.35)] | length), medium: ([.[] | select(.quality >= 0.2 and .quality < 0.35)] | length), low: ([.[] | select(.quality < 0.2)] | length)}",
+    
+    "type-counts": "[inputs] | {origin: (map(select(.type == \"origin\")) | length), lesson: (map(select(.type == \"lesson\")) | length), insight: (map(select(.type == \"insight\")) | length), anti: (map(select(.type == \"anti-pattern\")) | length)}",
+    
+    "topic-availability": "[inputs | select(.tags | length > 0)] | group_by(.tags[0]) | map({topic: .[0].tags[0], total: length, high_q: (map(select(.quality >= 0.35)) | length), types: (map(.type) | group_by(.) | map({type: .[0], count: length}))})",
+    
+    "random-sample": "def sample(n): [inputs | select(.quality >= 0.2)] | [.] | _nwise(length / n | floor) | .[0]; sample({{count}})"
+  },
+  
+  "templates": {
+    "default": "templates/default.md",
+    "technical": "templates/technical.md",
+    "reddit": "templates/reddit.md"
+  }
+}
