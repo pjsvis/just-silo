@@ -63,6 +63,100 @@ silo-flush:
 silo-status:
     @cd templates/basic && just status
 
+# Silo help - entry point for new agents
+[group("silo")]
+silo-help:
+    @echo "=== SILO ENTRY POINTS ==="
+    @echo ""
+    @echo "START HERE:"
+    @echo "  1. Read: START-HERE.md"
+    @echo "  2. Read: README.md"
+    @echo "  3. Run: just silo-help"
+    @echo ""
+    @echo "KEY COMMANDS:"
+    @echo "  just silo-help       - This help"
+    @echo "  just silo-verify     - Check invariants"
+    @echo "  just silo-status     - Show silo health"
+    @echo "  just td status       - Show tasks"
+    @echo "  just --list          - All recipes"
+    @echo ""
+    @echo "SILO STRUCTURE:"
+    @echo "  briefs/    - What we've been thinking"
+    @echo "  playbooks/ - Operational knowledge"
+    @echo "  scripts/   - Automation"
+    @echo "  template/  - Silo template"
+    @echo "  workflows/ - Named procedures (no recursion)"
+    @echo ""
+    @echo "INVARIANTS:"
+    @echo "  1. Filename uniqueness within silo"
+    @echo "  2. README.md per browsable directory"
+    @echo "  3. README is checksum of directory"
+    @echo "  4. Archive naming: FOLDERNAME_archive"
+    @echo "  5. No recursion: no nested silos"
+    @echo ""
+    @echo "═══════════════════════════════════════════"
+    @echo "⚠️  CAW CANNY: Before read-write, prompt for go/no-go."
+    @echo "   Directive: $(jq -r '.directive' .silo)"
+    @echo "═══════════════════════════════════════════"
+
+# Verify silo structure
+[group("silo")]
+silo-verify-structure:
+    @./scripts/silo-verify-structure.sh templates/basic
+
+# Watch mode (requires watchexec)
+[group("silo")]
+silo-watch:
+    @command -v watchexec >/dev/null 2>&1 && \
+        watchexec -e jsonl,sh -- just harvest || \
+        echo "watchexec not installed (brew install watchexec)"
+
+# Gate: Run before any write action
+[group("silo")]
+silo-gate:
+    @./scripts/silo-verify-structure.sh . || \
+        (echo "" && echo "⚠️ Gate failed. Fix invariants before proceeding." && exit 1)
+    @echo "✓ Gate passed - invariants hold"
+
+# Gate: Non-interactive (for scripts/CI)
+[group("silo")]
+silo-gate-quiet:
+    @./scripts/silo-verify-structure.sh . >/dev/null 2>&1 && \
+        echo "✓ Invariants hold" || \
+        (echo "✗ Invariants broken" && exit 1)
+
+
+# Production line: Put silo ON (costs money)
+[group("silo")]
+silo-on:
+    @echo "=== Silo ON Production Line ==="
+    @echo "Status: Active"
+    @echo "Cost: Tokens, compute, time"
+    @echo ""
+    @echo "To verify value: just silo-verify-value"
+    @echo "To take off: just silo-off"
+
+# Production line: Take silo OFF (no cost)
+[group("silo")]
+silo-off:
+    @echo "=== Silo OFF Production Line ==="
+    @echo "Status: Dormant"
+    @echo "Cost: None"
+    @echo ""
+    @echo "To put on: just silo-on"
+
+# Production line: Verify value (outbox entropy vs inbox entropy)
+[group("silo")]
+silo-verify-value:
+    @echo "=== Entropy Verification ==="
+    @echo ""
+    @echo "PROBLEM: No entropy metric defined."
+    @echo "You must implement your own measurement logic."
+    @echo ""
+    @echo "We provide: Constant environment, trend detection"
+    @echo "You provide: Entropy metric, thresholds"
+    @echo ""
+    @echo "To define your metric: Edit scripts/entropy-measure.sh"
 # ============================================================
 # TD (task database)
 # ============================================================
