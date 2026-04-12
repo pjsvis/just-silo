@@ -424,6 +424,34 @@ agent-ops:
     @./scripts/about.sh playbooks/agent-ops-playbook.md
 
 # ============================================================
+# REVIEW (PR Review Workflow)
+# ============================================================
+
+# Check PR review status
+# Usage: just pr-review [pr-number=2]
+[group("review")]
+pr-review pr="2":
+    @bash scripts/pr-review.sh {{pr}}
+
+# View PR comments
+# Usage: just pr-comments [pr-number=2]
+[group("review")]
+pr-comments pr="2":
+    @gh pr view {{pr}} --comments
+
+# View PR diff
+# Usage: just pr-diff [pr-number=2]
+[group("review")]
+pr-diff pr="2":
+    @gh pr diff {{pr}}
+
+# View PR reviews
+# Usage: just pr-reviews [pr-number=2]
+[group("review")]
+pr-reviews pr="2":
+    @gh pr view {{pr}} --json reviews
+
+# ============================================================
 # ALIASES
 # ============================================================
 
