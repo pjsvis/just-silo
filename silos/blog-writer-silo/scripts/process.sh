@@ -5,7 +5,7 @@
 set -euo pipefail
 
 SILO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-STORIES_FILE="${STORIES_FILE:-$SILO_DIR/../stories/stories.jsonl}"
+STORIES_FILE="${STORIES_FILE:-$SILO_DIR/../../stories/stories.jsonl}"
 
 # ============================================================
 # STORY QUERIES

@@ -1,0 +1,12 @@
+# Generated files
+*.md
+*.json
+*.jsonl
+
+# But keep structure
+!important/.silo
+!important/justfile
+!important/scripts/
+!important/templates/
+!/posts/.gitkeep
+!/drafts/.gitkeep

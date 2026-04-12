@@ -1,0 +1,83 @@
+{
+  "$schema": "https://github.com/marcus-nicolaou/just-silo/blob/main/schemas/silo-manifest.schema.json",
+  "name": "blog_writer_silo",
+  "version": "0.1.0",
+  "domain": "blog-authoring",
+  "parent": "just-silo",
+  "description": "Silo for authoring blog posts from wee stories",
+  "created": "2026-04-12",
+  "lexicon": {
+    "story": "A compact narrative element extracted from documentation. Has id, source, type, narrative, tags, quality score.",
+    "wee-story": "A small, self-contained anecdote (2-5 sentences) that illustrates a concept. The fundamental unit of content.",
+    "story-scan": "The process of extracting stories from documentation using pattern matching.",
+    "story-bank": "Collection of stories in stories.jsonl, tagged and scored by quality.",
+    "draft": "Working document with embedded story references and metadata. Status: draft → rendered → published.",
+    "render": "Convert draft to final post by removing metadata comments and TODOs.",
+    "publish": "Move rendered post from drafts/ to posts/ and archive the draft.",
+    "topic": "Subject area for a post, derived from story tags or source folder structure.",
+    "quality": "Narrative coherence score (0.0-1.0). Higher = better story structure.",
+    "template": "Markdown structure with {{placeholder}} syntax for sections.",
+    "section": "A named part of a post (How It Started, What We Learned, etc.)"
+  },
+  "phases": [
+    "scan - Extract stories from source docs",
+    "draft - Create draft from template + stories",
+    "review - Edit draft, swap stories",
+    "render - Convert to final post",
+    "publish - Archive and publish"
+  ],
+  "interface": {
+    "engine": "justfile",
+    "schema": "schema.json",
+    "queries": "queries.json",
+    "input": "../stories/stories.jsonl",
+    "drafts": "drafts/",
+    "posts": "posts/",
+    "audit": "audit.jsonl",
+    "status": "status.json"
+  },
+  "audit": {
+    "enabled": true,
+    "file": "audit.jsonl",
+    "events": [
+      "draft_created",
+      "draft_rendered",
+      "draft_published",
+      "draft_archived",
+      "error"
+    ]
+  },
+  "status": {
+    "draft_states": [
+      "draft",
+      "rendered",
+      "archived"
+    ],
+    "post_states": [
+      "published"
+    ],
+    "file": "status.json"
+  },
+  "toolchain": {
+    "runtime": "bash",
+    "shell": "bash",
+    "required": [
+      "jq",
+      "bc",
+      "uuidgen"
+    ]
+  },
+  "deps": [
+    "../stories/stories.jsonl"
+  ],
+  "agents": [
+    "agents/blog-agent/"
+  ],
+  "references": [
+    "story-scan.sh - Main scanning script",
+    "draft.sh - Draft creation",
+    "render.sh - Draft rendering",
+    "publish.sh - Publishing",
+    "README.md - Full domain rules"
+  ]
+}

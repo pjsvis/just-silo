@@ -10,7 +10,7 @@ set positional-arguments := true
 
 PROJECT_NAME := "blog-writer-silo"
 VERSION := "0.1.0"
-STORIES_FILE := "../stories/stories.jsonl"
+STORIES_FILE := "../../stories/stories.jsonl"
 
 # ============================================================
 # HELP
