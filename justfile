@@ -523,6 +523,55 @@ log-init:
     @mkdir -p .silo/logs
     @echo "Logging directory initialized: .silo/logs"
 
+# ============================================================
+# SILO BUILD (development workflow)
+# ============================================================
+
+# Start building a new silo
+# Usage: just silo-build blog_writer_silo
+[group("silo-build")]
+silo-build name:
+    @echo "=== Building Silo: {{name}} ==="
+    @bash scripts/silo-build.sh {{name}}
+    @echo ""
+    @echo "Next: cd dev/{{name}} && just dev"
+
+# Deploy silo from dev to silos/
+# Usage: just silo-deploy blog_writer_silo
+[group("silo-build")]
+silo-deploy name:
+    @echo "=== Deploying Silo: {{name}} ==="
+    @bash scripts/silo-deploy.sh {{name}}
+
+# Clean up dev workspace
+# Usage: just silo-clean blog_writer_silo
+[group("silo-build")]
+silo-clean name:
+    @echo "=== Cleaning Dev Workspace ==="
+    @bash scripts/silo-clean.sh {{name}}
+
+# List all silos (dev + deployed)
+[group("silo-build")]
+silo-list:
+    @echo "=== Silo Workspaces ==="
+    @echo ""
+    @echo "Development:"
+    @ls -la dev/*_silo 2>/dev/null || echo "  (none)"
+    @echo ""
+    @echo "Deployed:"
+    @ls -la silos/*_silo 2>/dev/null || echo "  (none)"
+    @echo ""
+    @echo "Templates:"
+    @ls -la dev/_template 2>/dev/null || echo "  (none)"
+
+# Test a silo
+# Usage: just silo-test blog_writer_silo
+[group("silo-build")]
+silo-test name:
+    @echo "=== Testing Silo: {{name}} ==="
+    @test -d "silos/{{name}}" && (cd "silos/{{name}}" && just verify) || echo "Not deployed"
+    @test -d "dev/{{name}}" && (cd "dev/{{name}}" && just verify) || echo "Not in dev"
+
 # Entropy trend analysis
 # Usage: just log-trend           # Summary
 #        just log-trend --alerts  # High entropy alerts
