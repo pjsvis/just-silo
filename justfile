@@ -424,6 +424,41 @@ agent-ops:
     @./scripts/about.sh playbooks/agent-ops-playbook.md
 
 # ============================================================
+# BLOG (Wee Stories)
+# ============================================================
+
+# Scan docs for stories (wee stories)
+# Usage: just blog-scan [path=briefs]
+[group("blog")]
+blog-scan path=("briefs"):
+    @echo "=== Scanning for stories ==="
+    @bash scripts/story-scan.sh "{{path}}"
+    @echo ""
+    @bash scripts/story-list.sh
+
+# List all stories
+# Usage: just blog-list
+[group("blog")]
+blog-list:
+    @bash scripts/story-list.sh --all
+
+# Search stories by tag
+# Usage: just blog-search [tag=gamma-loop]
+[group("blog")]
+blog-search tag=(""):
+    @if [ -z "{{tag}}" ]; then \
+        echo "Usage: just blog-search <tag>"; \
+    else \
+        bash scripts/story-list.sh --tag "{{tag}}"; \
+    fi
+
+# Generate blog post from stories
+# Usage: just blog-generate [--tag TAG] [--type TYPE] [--count N]
+[group("blog")]
+blog-generate *args:
+    @bash scripts/blog-generate.sh {{args}}
+
+# ============================================================
 # REVIEW (PR Review Workflow)
 # ============================================================
 
