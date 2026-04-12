@@ -5,6 +5,8 @@
 set -euo pipefail
 
 SILO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+AUDIT_SCRIPT="$SILO_DIR/scripts/audit.sh"
+STATUS_SCRIPT="$SILO_DIR/scripts/status.sh"
 
 DRAFT="${1:-}"
 if [ -z "$DRAFT" ]; then
@@ -74,7 +76,7 @@ OUTPUT_FILE="$OUTPUT_DIR/${DATE}-${SLUG}.md"
         fi
         
         # Skip TODOs
-        if [[ "$line" =~ ^\*Add\ your|TODO|FIXME ]]; then
+        if [[ "$line" == "*Add your"* ]] || [[ "$line" == *TODO* ]] || [[ "$line" == *FIXME* ]]; then
             continue
         fi
         
@@ -112,3 +114,13 @@ echo ""
 echo "Next steps:"
 echo "  cat $OUTPUT_FILE          - Preview post"
 echo "  just list-posts           - See all posts"
+echo ""
+
+# Track status and audit
+if [ -x "$STATUS_SCRIPT" ]; then
+    "$STATUS_SCRIPT" add-post "$DRAFT" "$OUTPUT_FILE" 2>/dev/null || true
+fi
+
+if [ -x "$AUDIT_SCRIPT" ]; then
+    "$AUDIT_SCRIPT" draft_published "{\"draft\": \"$(basename "$DRAFT")\", \"post\": \"$(basename "$OUTPUT_FILE")\", \"topic\": \"$TOPIC\"}" 2>/dev/null || true
+fi

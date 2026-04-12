@@ -6,6 +6,8 @@ set -euo pipefail
 
 SILO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 STORIES_FILE="${STORIES_FILE:-$SILO_DIR/../stories/stories.jsonl}"
+AUDIT_SCRIPT="$SILO_DIR/scripts/audit.sh"
+STATUS_SCRIPT="$SILO_DIR/scripts/status.sh"
 
 TOPIC="${1:-}"
 STORIES="${2:-6}"
@@ -159,8 +161,19 @@ TITLE=$(echo "$TOPIC" | sed -e 's/-/ /g' -e 's/\b\w/\U&/g')
 
 rm -f "$TMPFILE"
 
+# Audit and status tracking
 echo "Created: $OUTPUT"
 echo ""
 echo "Next steps:"
 echo "  just render drafts/$(basename "$OUTPUT")   - Render to final post"
 echo "  vim $OUTPUT           - Edit draft"
+echo ""
+
+# Track status and audit
+if [ -x "$STATUS_SCRIPT" ]; then
+    "$STATUS_SCRIPT" add-draft "$OUTPUT" "$TOPIC" 2>/dev/null || true
+fi
+
+if [ -x "$AUDIT_SCRIPT" ]; then
+    "$AUDIT_SCRIPT" draft_created "{\"topic\": \"$TOPIC\", \"file\": \"$(basename "$OUTPUT")\", \"stories_available\": $STORY_COUNT}" 2>/dev/null || true
+fi

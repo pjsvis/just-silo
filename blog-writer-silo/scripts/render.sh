@@ -5,6 +5,8 @@
 set -euo pipefail
 
 SILO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+AUDIT_SCRIPT="$SILO_DIR/scripts/audit.sh"
+STATUS_SCRIPT="$SILO_DIR/scripts/status.sh"
 
 FILE="${1:-}"
 if [ -z "$FILE" ]; then
@@ -107,3 +109,13 @@ echo ""
 echo "Next steps:"
 echo "  just publish $FILE   - Move to posts/ and clean up"
 echo "  cat $OUTPUT_FILE    - Preview the post"
+echo ""
+
+# Track status and audit
+if [ -x "$STATUS_SCRIPT" ]; then
+    "$STATUS_SCRIPT" update-state "$FILE" rendered 2>/dev/null || true
+fi
+
+if [ -x "$AUDIT_SCRIPT" ]; then
+    "$AUDIT_SCRIPT" draft_rendered "{\"draft\": \"$(basename "$FILE")\", \"post\": \"$(basename "$OUTPUT_FILE")\"}" 2>/dev/null || true
+fi

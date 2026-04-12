@@ -100,11 +100,16 @@ list-drafts:
     @echo "=== Drafts ==="
     @ls -la drafts/ 2>/dev/null || echo "No drafts directory"
 
+# Show status
+status:
+    @bash scripts/status.sh list
+
 # Remove draft
 # Usage: just rm-draft FILE
 rm-draft file:
     @echo "Removing: drafts/{{file}}"
     @rm -f "drafts/{{file}}"
+    @bash scripts/status.sh rm-draft "drafts/{{file}}" 2>/dev/null || true
 
 # ============================================================
 # MAINTENANCE
@@ -121,6 +126,14 @@ backup:
 purge days=("7"):
     @echo "=== Purging Drafts Older Than {{days}} Days ==="
     @find drafts/ -name "*.md" -mtime +{{days}} -exec rm -v {} \; 2>/dev/null || echo "Nothing to purge"
+
+# Show audit log
+audit limit=("20"):
+    @bash scripts/audit.sh stats || echo "No audit log"
+
+# List audit events
+audit-log limit=("20"):
+    @bash scripts/audit.sh read "" "{{limit}}" || echo "No audit log"
 
 # ============================================================
 # PROVISIONING
