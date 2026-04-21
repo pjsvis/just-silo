@@ -152,3 +152,43 @@ Local:    skate get <key>
 ```
 
 **Key principle: Retrieve at runtime, never hardcode.**
+
+---
+
+## Known Issue: Badger Lock Contention on Shell Init
+
+### Symptom
+
+```
+Cannot acquire directory lock on "~/Library/Application Support/charm/kv/default".
+Another process is using this Badger database. error: resource temporarily unavailable
+```
+
+Appears on reboot or when multiple shell sessions start simultaneously. API keys silently fail to load, requiring manual `source ~/.zshrc` to recover.
+
+### Root Cause
+
+Skate uses Badger (an embedded KV store) with an exclusive file lock. Multiple `skate get` calls in `.zshrc` race for the lock when parallel shells initialize — the losers get empty values.
+
+This affects any embedded database (Badger, BoltDB, LevelDB, SQLite) used from shell init where concurrent process spawning is common (multiple tabs, tmux panes, login shells on boot).
+
+### Fix: Cache Skate Keys to File
+
+Replace individual `skate get` calls in `.zshrc` with a cached read:
+
+```bash
+# api keys are stored in Charm's Skate (cached to avoid Badger lock contention)
+SKATE_CACHE="$HOME/.skate_env"
+if [[ ! -f "$SKATE_CACHE" || $(find "$SKATE_CACHE" -mmin +60 -print) ]]; then
+  skate list 2>/dev/null | sed 's/\t/=/' | sed 's/^/export /' > "$SKATE_CACHE"
+fi
+source "$SKATE_CACHE"
+```
+
+This reads from skate at most once per hour and sources a flat file on every shell init — no lock contention, no race conditions.
+
+### Maintenance
+
+- **After adding/changing a key:** `rm ~/.skate_env` then open a new shell
+- **Force refresh:** `rm ~/.skate_env && source ~/.zshrc`
+- **Cache lifetime:** 60 minutes (adjust `-mmin +60` as needed)

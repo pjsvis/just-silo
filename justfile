@@ -673,3 +673,62 @@ silo-test name:
 [group("ops")]
 log-trend *args:
     @bash scripts/silo-log-trend.sh {{args}}
+
+# ============================================================
+# QMD (volatile collection refresh)
+# ============================================================
+
+# Refresh volatile QMD collections (briefs/debriefs + archives) and embed changes
+[group("qmd")]
+qmd-refresh:
+    @./scripts/qmd-refresh.sh
+
+# Refresh selected QMD collections (comma-separated)
+[group("qmd")]
+qmd-refresh-collections collections:
+    @./scripts/qmd-refresh.sh --collections "{{ collections }}"
+
+# Refresh volatile QMD collections without embedding
+[group("qmd")]
+qmd-refresh-no-embed:
+    @./scripts/qmd-refresh.sh --no-embed
+
+# Dry-run QMD refresh (show commands only)
+[group("qmd")]
+qmd-refresh-dry-run:
+    @./scripts/qmd-refresh.sh --dry-run
+
+# Show QMD index and collection status
+[group("qmd")]
+qmd-status:
+    @qmd status
+
+# Watch volatile markdown and refresh QMD index/embeddings
+[group("watch")]
+watch-qmd:
+    @./scripts/watch-qmd.sh
+
+# Run QMD health check (collections + sentinel queries)
+[group("qmd")]
+qmd-health-check:
+    @./scripts/qmd-health-check.sh
+
+# Run QMD health check as JSON
+[group("qmd")]
+qmd-health-check-json:
+    @./scripts/qmd-health-check.sh --json
+
+# Sync Google Docs from Drive into local volatile folders and refresh QMD
+[group("qmd")]
+gdocs-sync:
+    @./scripts/google-docs-sync.sh --config scripts/google-docs-sync.env
+
+# Dry-run Google Docs sync
+[group("qmd")]
+gdocs-sync-dry-run:
+    @./scripts/google-docs-sync.sh --config scripts/google-docs-sync.env --dry-run
+
+# Print resolved Google Docs sync config
+[group("qmd")]
+gdocs-sync-config:
+    @./scripts/google-docs-sync.sh --config scripts/google-docs-sync.env --print-config

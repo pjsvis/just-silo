@@ -89,3 +89,50 @@ flush:
 
 ---
 
+## Lesson: GUI Tools That Hold Git Locks
+
+*Source: 2026-04-10 — GitHub Desktop causing persistent `index.lock` in worktree*
+
+### The Problem
+
+`git add` and `git commit` fail with exit code 137 (SIGKILL) or `fatal: Unable to create index.lock: File exists`. Deleting the lock file doesn't help — it reappears within seconds.
+
+### Why It Happens
+
+GitHub Desktop runs a file watcher that continuously indexes git repos. When it holds `index.lock`, any CLI git command gets blocked or killed. The lock file reappears immediately after deletion because the watcher recreates it.
+
+This is worse with **worktrees** — GUI tools don't always understand worktree semantics, so they may lock the parent repo's index too.
+
+### The Fix
+
+1. Quit the GUI tool
+2. `rm -f .git/worktrees/<name>/index.lock`
+3. Use `git` from the terminal
+
+Better yet: don't run GUI git watchers alongside CLI git workflows.
+
+### The Deeper Lesson
+
+> **Tools that silently consume resources are the worst kind of problem.** They don't crash — they just make everything else slightly intolerable until you snap.
+
+This is not new. The author once fled to Prague after a VS Code SQL Server add-in silently consumed all available RAM, making the entire development experience progressively worse over days. The add-in didn't error — it just made life unbearable.
+
+These problems share a pattern:
+- **Silent resource consumption** — RAM, file locks, CPU, file descriptors
+- **Gradual degradation** — not a crash, just slowly worse
+- **Blame misdirection** — you blame your code, your tools, your OS — not the quiet background process
+- **Relief on removal** — everything works again and you feel slightly foolish
+
+### Rule of Thumb
+
+> If a tool runs a background watcher on your project, it has to coexist with your terminal workflow. If it can't, it has to go.
+
+### Prevention
+
+1. **Don't install GUI git tools on dev machines** — terminal git is sufficient
+2. **Check `ps aux | grep git`** when locks appear — something's watching
+3. **Add large binaries to `.gitignore`** — GUI indexers choke on 77MB files and get kill-happy
+4. **Prague is lovely in spring** — but preferably as a choice, not an escape
+
+---
+
