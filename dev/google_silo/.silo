@@ -1,0 +1,51 @@
+{
+  "name": "google_silo",
+  "version": "0.1.0",
+  "domain": "google-docs-ingestion",
+  "parent": "just-silo",
+  "created": "2026-04-21",
+  "status": "development",
+  "dev_path": "../../../",
+  "deps": [
+    {
+      "name": "rclone",
+      "type": "external-cli",
+      "required": true,
+      "purpose": "Google Drive listing and file export/download"
+    },
+    {
+      "name": "gum",
+      "type": "external-cli",
+      "required": true,
+      "purpose": "Interactive filtering and multi-select UX"
+    },
+    {
+      "name": "jq",
+      "type": "external-cli",
+      "required": true,
+      "purpose": "Manifest/cache shaping and JSON transforms"
+    },
+    {
+      "name": "qmd",
+      "type": "external-cli",
+      "required": false,
+      "purpose": "Optional post-import indexing and search refresh"
+    },
+    {
+      "name": "just",
+      "type": "external-cli",
+      "required": true,
+      "purpose": "Task orchestration for silo recipes"
+    }
+  ],
+  "interfaces": {
+    "inbox": "scratch/google-docs-imports/",
+    "outbox": "scratch/google-docs-imports/",
+    "state": "scratch/cache/google-docs-picker/"
+  },
+  "intent": {
+    "scope": "DOCX-first selection with Markdown output and downloaded tracking",
+    "separation": "Native Google Docs workflow remains a separate capability",
+    "target": "Promote to self-sufficient sub-silo with isolated scripts, recipes, and manifest governance"
+  }
+}

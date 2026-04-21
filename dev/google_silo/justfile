@@ -1,0 +1,109 @@
+# google_silo - focused capability runner
+# Local-first: thin orchestration, scripts hold implementation details.
+
+set shell := ["bash", "-o", "pipefail", "-c"]
+set positional-arguments := true
+
+SILO_NAME := "google_silo"
+ROOT := "../../../"
+
+# Defaults (override inline: just pull-docx-md "src" "dest" remote=gdrive)
+
+remote := "gdrive"
+path := ""
+dest_dir := "scratch/google-docs-imports"
+
+default:
+    @just --list
+
+# ============================================================
+# CORE
+# ============================================================
+
+# Show silo status and key paths
+status:
+    @echo "=== google_silo status ==="
+    @echo "root:         {{ ROOT }}"
+    @echo "remote:       {{ remote }}"
+    @echo "path:         {{ path }}"
+    @echo "dest_dir:     {{ dest_dir }}"
+    @echo "scripts:"
+    @echo "  {{ ROOT }}/scripts/google-docs-pick-docx-md.sh"
+    @echo "  {{ ROOT }}/scripts/google-docs-pull.sh"
+    @echo "  {{ ROOT }}/scripts/markdown-sanitize.sh"
+
+# Validate required parent capabilities are available
+verify:
+    @echo "=== verify google_silo dependencies ==="
+    @command -v rclone >/dev/null 2>&1 && echo "✓ rclone" || (echo "✗ rclone missing" && exit 1)
+    @command -v gum >/dev/null 2>&1 && echo "✓ gum" || (echo "✗ gum missing" && exit 1)
+    @command -v jq >/dev/null 2>&1 && echo "✓ jq" || (echo "✗ jq missing" && exit 1)
+    @test -x "{{ ROOT }}/scripts/google-docs-pick-docx-md.sh" && echo "✓ picker script" || (echo "✗ picker script missing" && exit 1)
+    @test -x "{{ ROOT }}/scripts/google-docs-pull.sh" && echo "✓ pull script" || (echo "✗ pull script missing" && exit 1)
+    @test -x "{{ ROOT }}/scripts/markdown-sanitize.sh" && echo "✓ sanitize script" || (echo "✗ sanitize script missing" && exit 1)
+    @echo "✓ google_silo verify complete"
+
+# ============================================================
+# DOCX -> MARKDOWN INGEST
+# ============================================================
+
+# Interactive multi-select: DOCX source, Markdown output, hide downloaded by default
+pick-docx-md remote=remote path=path:
+    @cd "{{ ROOT }}" && ./scripts/google-docs-pick-docx-md.sh --remote "{{ remote }}" {{ if path != "" { "--path \"" + path + "\"" } else { "" } }}
+
+# Same picker, but include already-downloaded files
+pick-docx-md-all remote=remote path=path:
+    @cd "{{ ROOT }}" && ./scripts/google-docs-pick-docx-md.sh --remote "{{ remote }}" --show-downloaded {{ if path != "" { "--path \"" + path + "\"" } else { "" } }}
+
+# Top-up listing cache from a narrower subpath
+pick-docx-md-topup topup_subpath remote=remote path=path:
+    @cd "{{ ROOT }}" && ./scripts/google-docs-pick-docx-md.sh --remote "{{ remote }}" --topup "{{ topup_subpath }}" {{ if path != "" { "--path \"" + path + "\"" } else { "" } }}
+
+# Pull one specific source file as Markdown
+pull-docx-md source dest:
+    @cd "{{ ROOT }}" && ./scripts/google-docs-pull.sh --source "{{ source }}" --dest "{{ dest }}" --output-ext md
+
+# Dry-run one specific source pull as Markdown
+pull-docx-md-dry source dest:
+    @cd "{{ ROOT }}" && ./scripts/google-docs-pull.sh --source "{{ source }}" --dest "{{ dest }}" --output-ext md --dry-run
+
+# ============================================================
+# QUALITY / INDEX
+# ============================================================
+
+# Sanitize imported markdown (default import dir)
+sanitize-imports dir=dest_dir:
+    @cd "{{ ROOT }}" && ./scripts/markdown-sanitize.sh --dir "{{ dir }}" --write
+
+# Check-only sanitizer pass
+sanitize-check dir=dest_dir:
+    @cd "{{ ROOT }}" && ./scripts/markdown-sanitize.sh --dir "{{ dir }}" --check
+
+# Refresh qmd indexes/embeddings for volatile collections
+qmd-refresh:
+    @cd "{{ ROOT }}" && just qmd-refresh
+
+# Health-check qmd retrieval pipeline
+qmd-health:
+    @cd "{{ ROOT }}" && just qmd-health-check
+
+# ============================================================
+# OPERATOR RUNBOOKS
+# ============================================================
+# Recommended daily flow:
+# 1) ingest docx -> md
+# 2) sanitize
+# 3) refresh index
+
+# 4) health-check
+runbook-ingest remote=remote path=path dir=dest_dir:
+    @echo "=== runbook: ingest ==="
+    @echo "1) pick docx -> md"
+    @cd "{{ ROOT }}" && ./scripts/google-docs-pick-docx-md.sh --remote "{{ remote }}" {{ if path != "" { "--path \"" + path + "\"" } else { "" } }}
+    @echo "2) sanitize"
+    @cd "{{ ROOT }}" && ./scripts/markdown-sanitize.sh --dir "{{ dir }}" --write
+    @echo "3) qmd refresh"
+    @cd "{{ ROOT }}" && just qmd-refresh
+    @echo "4) qmd health"
+    @cd "{{ ROOT }}" && just qmd-health-check
+    @echo "✓ runbook complete"

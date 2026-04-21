@@ -732,3 +732,43 @@ gdocs-sync-dry-run:
 [group("qmd")]
 gdocs-sync-config:
     @./scripts/google-docs-sync.sh --config scripts/google-docs-sync.env --print-config
+
+# Pull one file and force markdown output (.md)
+[group("qmd")]
+gdocs-pull-md source dest:
+    @./scripts/google-docs-pull.sh --source "{{ source }}" --dest "{{ dest }}" --output-ext md
+
+# Dry-run markdown-focused pull
+[group("qmd")]
+gdocs-pull-md-dry-run source dest:
+    @./scripts/google-docs-pull.sh --source "{{ source }}" --dest "{{ dest }}" --output-ext md --dry-run
+
+# Pull one file as markdown and refresh QMD
+[group("qmd")]
+gdocs-pull-md-refresh source dest:
+    @./scripts/google-docs-pull.sh --source "{{ source }}" --dest "{{ dest }}" --output-ext md --refresh-qmd
+
+# Interactive multi-select DOCX picker -> pull as Markdown
+[group("qmd")]
+gdocs-pick-docx-md:
+    @./scripts/google-docs-pick-docx-md.sh
+
+# Same as above but include already-downloaded files in picker
+[group("qmd")]
+gdocs-pick-docx-md-all:
+    @./scripts/google-docs-pick-docx-md.sh --show-downloaded
+
+# Scope DOCX->MD picker to a remote subpath
+[group("qmd")]
+gdocs-pick-docx-md-path remote_subpath:
+    @./scripts/google-docs-pick-docx-md.sh --path "{{ remote_subpath }}"
+
+# Check imported markdown for control-character/sanitization issues
+[group("qmd")]
+md-sanitize-check path="scratch/google-docs-imports":
+    @./scripts/markdown-sanitize.sh --dir "{{ path }}" --check
+
+# Apply markdown sanitizer fixes in-place
+[group("qmd")]
+md-sanitize-fix path="scratch/google-docs-imports":
+    @./scripts/markdown-sanitize.sh --dir "{{ path }}" --write
