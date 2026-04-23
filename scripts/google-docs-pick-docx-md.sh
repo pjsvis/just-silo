@@ -467,7 +467,11 @@ main() {
   gum style "  • If no rows are marked, we'll ask for a single selection next"
   local selected_lines
   set +e
-  selected_lines="$(gum choose --no-limit <<< "$display")"
+  local term_height pick_height
+  term_height="$(tput lines 2>/dev/null || echo 24)"
+  pick_height=$(( term_height - 6 ))   # leave room for header text + prompt
+  [[ $pick_height -lt 5 ]] && pick_height=5
+  selected_lines="$(gum choose --no-limit --height "$pick_height" <<< "$display")"
   local choose_status=$?
   set -e
 
