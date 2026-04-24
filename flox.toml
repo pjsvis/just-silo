@@ -1,0 +1,153 @@
+# ============================================================
+# just-silo Flox Environment Manifest
+# ============================================================
+# Target: Replicate just-silo dev environment on Arch Linux
+# using Flox (Nix-based) instead of pacman/yay.
+#
+# Tool inventory derived from: `grep command -v` + `require_cmd`
+# across all scripts in scripts/, justfile, and AGENTS.md.
+#
+# Usage:
+#   flox init                          # Initialize in project root
+#   flox install                       # Install packages from manifest
+#   flox activate                      # Enter environment
+#   flox run -- just verify            # One-shot run without shell
+# ============================================================
+
+version = 1
+
+# ============================================================
+# [install] — Packages from nixpkgs
+# ============================================================
+
+# ---- CORE (required for just-silo to function) ----
+[install]
+jq.pkg-path = "jq"
+just.pkg-path = "just"
+watchexec.pkg-path = "watchexec"
+nodejs.pkg-path = "nodejs"
+
+# ---- CHARM STACK (TUI rendering + interaction) ----
+glow.pkg-path = "glow"
+glow.optional = true
+
+gum.pkg-path = "gum"
+gum.optional = true
+
+# ---- FUZZY FINDER + MODERN UNIX (scripts: briefs-find, etc.) ----
+fzf.pkg-path = "fzf"
+fzf.optional = true
+
+ripgrep.pkg-path = "ripgrep"
+ripgrep.optional = true
+
+bat.pkg-path = "bat"
+bat.optional = true
+
+fd.pkg-path = "fd"
+fd.optional = true
+
+tree.pkg-path = "tree"
+tree.optional = true
+
+# ---- SHELL + LINTING (scripts: shell linting, agent shell work) ----
+shellcheck.pkg-path = "shellcheck"
+shellcheck.optional = true
+
+# ---- CLOUD SYNC (scripts: google-docs-sync, google-docs-pull, google-docs-pick) ----
+rclone.pkg-path = "rclone"
+rclone.optional = true
+
+# ---- GITHUB CLI (scripts: pr-review) ----
+gh.pkg-path = "gh"
+gh.optional = true
+
+# ---- PYTHON (scripts: markdown-sanitize uses python3 inline scripts) ----
+python3.pkg-path = "python3"
+python3.optional = true
+
+# ---- DOCUMENTATION + EXTRAS ----
+man.pkg-path = "man"
+man.optional = true
+
+# ---- GO (for marcus ecosystem: td + sidecar built from source) ----
+go.pkg-path = "go"
+go.optional = true
+
+# ============================================================
+# [vars] — Environment variables
+# ============================================================
+[vars]
+# bun install path (not in nixpkgs — installed via official script)
+BUN_INSTALL = "$HOME/.bun"
+
+# ============================================================
+# [profile] — Shell scripts on activation
+# ============================================================
+[profile]
+common = '''
+# Add bun to PATH (installed via official script, not in nixpkgs)
+if [ -f "$BUN_INSTALL/bun" ]; then
+  [ -d "$BUN_INSTALL/bin" ] && export PATH="$BUN_INSTALL/bin:$PATH"
+fi
+
+# fzf integration — used in briefs-find, briefs-plan, and interactive scripts
+if command -v fzf >/dev/null 2>&1; then
+  export FZF_DEFAULT_COMMAND="fd --type f"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
+'''
+
+# ============================================================
+# [options] — Environment behaviour
+# ============================================================
+[options]
+systems = [
+  "x86_64-linux",
+  "aarch64-linux",
+  "x86_64-darwin",
+  "aarch64-darwin",
+]
+
+# ============================================================
+# NOTES — Tool availability map
+# ============================================================
+# Package availability across package managers:
+#
+# Tool             nixpkgs  Arch pacman  Brew      Arch AUR  Install method
+# ---------------    -------  ------------ --------  --------  -------------------------------
+# just             ✅       ✅           ✅        yay      flox
+# jq               ✅       ✅           ✅        ✅       flox
+# watchexec        ✅       ❌           ✅        yay      flox
+# nodejs           ✅       ✅           ✅        ✅       flox
+# glow             ✅       GitHub       ✅        GitHub   flox
+# gum              ✅       GitHub       ✅        GitHub   flox
+# fzf              ✅       ✅           ✅        ✅       flox
+# ripgrep          ✅       ✅           ✅        ✅       flox
+# bat              ✅       ✅           ✅        ✅       flox
+# fd               ✅       ✅           ✅        ✅       flox
+# tree             ✅       ✅           ✅        ✅       flox
+# shellcheck       ✅       ✅           ✅        ✅       flox
+# rclone           ✅       ✅           ✅        ✅       flox
+# gh               ✅       ✅           ✅        ✅       flox
+# python3          ✅       ✅           ✅        ✅       flox
+# man              ✅       ✅           ✅        ✅       flox
+# git              ✅       ✅           ✅        ✅       system
+# go               ✅       ✅           ✅        ✅       flox
+# bun              ❌       ❌           ✅        script   curl -fsSL https://bun.sh/install | bash
+# td               ❌       ❌           ❌        ❌       marcus setup script
+# sidecar          ❌       ❌           ✅        ❌       marcus setup script
+# pi-coding-agent  ❌       ❌           ❌        ❌       npm install -g @mariozechner/pi-coding-agent
+# uv               ❌       ❌           ✅        pip      curl -LsSf https://astral.sh/uv/install.sh | sh
+# skate            ❌       ❌           ❌        ❌       system binary (macOS/Linux)
+#
+# marcus ecosystem (td + sidecar):
+#   Linux:   curl -fsSL https://raw.githubusercontent.com/marcus/sidecar/main/scripts/setup.sh | bash
+#   macOS:   brew install marcus/tap/sidecar
+#   Both:    go install github.com/marcus/td@latest github.com/marcus/sidecar/cmd/sidecar@latest
+#
+# Recommended post-activate setup:
+#   curl -fsSL https://raw.githubusercontent.com/marcus/sidecar/main/scripts/setup.sh | bash
+#   curl -fsSL https://bun.sh/install | bash
+#   curl -LsSf https://astral.sh/uv/install.sh | sh
+#   npm install -g @mariozechner/pi-coding-agent

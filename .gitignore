@@ -37,6 +37,7 @@ silo_launch/
 .sidecar-start.sh
 .sidecar-base
 .td-root
+.flox/
 node_modules/
 td-report.md
 

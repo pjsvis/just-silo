@@ -252,7 +252,20 @@ cd just-silo
 ./scripts/provision.sh
 ```
 
-Or manually:
+**On Arch Linux with Flox (recommended):**
+
+```bash
+flox init
+flox install
+curl -fsSL https://raw.githubusercontent.com/marcus/sidecar/main/scripts/setup.sh | bash
+curl -fsSL https://bun.sh/install | bash
+npm install -g @mariozechner/pi-coding-agent
+flox run -- just verify
+```
+
+See [FLOX.md](FLOX.md) for the full tool inventory and platform availability map.
+
+**Or manually:**
 
 | Tool | Install |
 |------|---------|
@@ -260,8 +273,8 @@ Or manually:
 | `jq` | `brew install jq` |
 | `glow` | `brew install glow` |
 | `gum` | `brew install gum` |
+| `td` + `sidecar` | `curl -fsSL https://raw.githubusercontent.com/marcus/sidecar/main/scripts/setup.sh \| bash` |
 | `pi` | `npm install -g @mariozechner/pi-coding-agent` |
-| `agent-browser` | `npm install -g agent-browser` |
 
 ---
 

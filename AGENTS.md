@@ -7,6 +7,12 @@ Use td usage -q for subsequent reads.
 
 ---
 
+## MANDATORY: Use tree-sitter for Code Audit
+
+For code analysis and refactoring tasks, the agent shall perform a structural audit via Tree-sitter before executing any text-based (grep/regex) searches. This protocol requires: 1) Identification of the relevant grammar; 2) Execution of structural queries to map function definitions, dependencies, and type-hierarchies; 3) Conversion of this map into DOT notation for planning. Text-based search is permitted only for non-code assets (comments, documentation)
+
+---
+
 ## Workflow
 
 ### Local Development
@@ -27,21 +33,7 @@ Monitoring only.
 
 ---
 
-## What Was Here
-
-This project previously had an agent orchestration layer. It's been decommissioned.
-
-**Removed:**
-- Sub-agent spawn governance
-- Agent trigger architecture
-- Multi-agent coordination via markers
-- test-agent, docs-agent, review-agent, etc.
-
-**Reason:** For local dev, direct terminal + editor is faster. Agents add complexity without value.
-
----
-
-## The Silo Framework (Still Active)
+## The Silo Framework 
 
 The **silo** framework for externalizing domain knowledge is still useful:
 
