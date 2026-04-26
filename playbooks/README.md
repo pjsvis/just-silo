@@ -1,98 +1,30 @@
-# Playbooks Directory
+# Playbooks
 
-**Purpose:** Domain knowledge and operational procedures for just-silo.
+Operational procedures for the just-silo framework.
 
-## Structure
-
-```
-playbooks/
-├── *.md              # Active playbooks (canonical)
-└── archive/          # Superseded, drafts, experimental
-    ├── drafts/       # Incomplete, not for use
-    ├── superseded/   # Replaced by newer versions
-    └── experimental/ # Untested, use with caution
-```
-
-## Categories
-
-### SILO (14 files)
-Lifecycle and operational playbooks for silo management.
-
-| Playbook | Purpose |
-|----------|---------|
-| `silo-builder-playbook.md` | Creating new silos |
-| `silo-operator-playbook.md` | Running silos |
-| `silo-agent-*.md` | Agent integration |
-| `silo-logging-*.md` | Entropy logging |
-| `silo-security-*.md` | Security considerations |
-| `silo-clean-room.md` | Clean workspace patterns |
-
-### TOOLS (7 files)
-Reference documentation for CLI/tools.
-
-| Playbook | Tool |
-|---------|------|
-| `just-playbook.md` | just (task runner) |
-| `jq-playbook.md` | jq (JSON processor) |
-| `jsonl-playbook.md` | JSON Lines format |
-| `watchexec-playbook.md` | watchexec (file watcher) |
-| `td-playbook.md` | td (task database) |
-| `tsconfig-tiered-playbook.md` | TypeScript config |
-
-### PROCESS (8 files)
-Workflow and methodology playbooks.
-
-| Playbook | Purpose |
-|----------|---------|
+| Playbook | Topic |
+|----------|-------|
+| `blast-radius-playbook.md` | Security isolation levels |
+| `bun-playbook.md` | JavaScript runtime |
+| `debriefs-playbook.md` | Session reflection |
 | `entropy-management-playbook.md` | THINK FAST → ARCHIVE → GAP FILL |
+| `filename-uniqueness-invariant.md` | Naming rules |
 | `gamma-loop-playbook.md` | Self-improvement cycle |
-| `debriefs-playbook.md` | Post-session reflection |
+| `git-workflow-playbook.md` | Two-worktree development |
+| `google-docs-playbook.md` | Document sync |
+| `harden-and-flense-playbook.md` | Iterative improvement |
+| `jq-playbook.md` | JSON processor |
+| `jsonl-playbook.md` | JSON Lines format |
+| `just-playbook.md` | Task runner |
+| `justfile-design-playbook.md` | Recipe design rules |
+| `lessons-learned.md` | Collected wisdom |
+| `qmd-agent-playbook.md` | Semantic search (agent) |
+| `qmd-user-playbook.md` | Semantic search (user) |
+| `secrets-playbook.md` | Credential management |
+| `silo-anatomy-playbook.md` | Four-layer model |
+| `td-playbook.md` | Task database |
 | `tidy-first-playbook.md` | Workspace hygiene |
-| `dev-cycle-playbook.md` | Development workflow |
+| `tsconfig-tiered-playbook.md` | TypeScript configs |
+| `watchexec-playbook.md` | File watcher |
 
-### REFERENCE (15 files)
-Agent patterns, security, and domain-specific.
-
-| Playbook | Purpose |
-|----------|---------|
-| `edinburgh-protocol-playbook.md` | Scottish Enlightenment agent |
-| `reliability-playbook.md` | System reliability |
-| `caveman-ultra-playbook.md` | Cognitive optimization |
-| `semantic-compression-playbook.md` | Dense communication |
-
-## Archive
-
-Archived playbooks are in `playbooks/archive/`:
-- `drafts/` — Incomplete, experimental
-- `superseded/` — Replaced versions
-- `experimental/` — Untested patterns
-
-**Rule:** Never delete. Archive and retrieve if needed.
-
-## Usage
-
-```bash
-# Browse playbooks
-just playbooks
-
-# Read specific playbook
-just about-file playbooks/silo-builder-playbook.md
-```
-
-## Adding Playbooks
-
-1. Create in `playbooks/` with frontmatter:
-```markdown
----
-date: 2026-04-12
-tags: [playbook, category]
-agent: any
-environment: local
----
-
-# My Playbook
-```
-
-2. Run `just silo-verify-structure` to validate
-3. If superseded, move to `archive/superseded/`
-
+Superseded playbooks are in `archive/superseded/`.
