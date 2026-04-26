@@ -5,6 +5,8 @@ tags: [playbook, silo, anatomy, layers, just, flox]
 
 # Silo Anatomy Playbook
 
+> **Note:** This playbook supersedes earlier documentation that referenced an `engage` toolbelt concept. `engage` was never implemented. `flox` (declarative environment management) provides the same capability: scoped tool provisioning, reproducible environments, and auditability via manifest. See `briefs/2026-04-26-engage-to-flox-pivot.md`.
+
 ## The Four Layers
 
 Every silo has four layers. Know which layer you're touching before you write code.
