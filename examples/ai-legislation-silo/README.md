@@ -2,10 +2,6 @@
 
 A working example of the **silo framework**.
 
-## What It Is
-
-A filesystem pipeline that turns raw AI legislation into structured compliance artifacts.
-
 ## Workflow
 
 ```dot
@@ -55,18 +51,6 @@ ai-legislation-silo/
 │   (flox, jq, pandoc — LAYER 1: Environment — declared in Flox)
 ```
 
-## The Three Questions
-
-Every silo answers these before it runs:
-
-| Question | Answer (for this silo) |
-|----------|-------------------------|
-| **What do we get?** | Raw legislation provisions (EU AI Act, NIST AI RMF, etc.) as JSONL entries |
-| **When do we get it?** | Up front — placed in `inbox/harvest.jsonl` or `inbox/inputs/` |
-| **What do we do with it?** | Validate, extract, organize, interview the user, construct tailored directives |
-| **What is the end result?** | `outbox/core-directives.md` and `outbox/conceptual-lexicon.md` |
-| **How do we know we have it?** | Files exist, non-empty, validated against schema |
-
 ## Documentation
 
 | Folder | Purpose |
@@ -77,20 +61,6 @@ Every silo answers these before it runs:
 
 These folders keep the silo's thinking durable. The agent (and human) can read them to resume work without context loss.
 
-## Tools
-
-This silo requires:
-
-| Tool | Managed By | Purpose |
-|------|------------|---------|
-| `just` | Flox | Task runner |
-| `jq` | Flox | JSON processing |
-| `pdftotext` | Flox (poppler-utils) | PDF → text |
-| `pandoc` | Flox | HTML/Markdown conversion |
-| `nodejs` | Flox | Script runtime |
-
-Add to the Flox environment: `flox install pandoc poppler-utils`
-
 ## Running the Silo
 
 ```bash
@@ -100,15 +70,6 @@ just run             # Execute full pipeline
 just status          # Check pipeline state
 just audit           # Cost and coverage report
 ```
-
-## Validation
-
-A silo is "done" when:
-
-1. `outbox/core-directives.md` exists and is non-empty
-2. `outbox/conceptual-lexicon.md` exists and is non-empty
-3. Both files validate against the conceptual schema
-4. Telemetry shows the pipeline completed all phases
 
 ## Using as a Template
 
