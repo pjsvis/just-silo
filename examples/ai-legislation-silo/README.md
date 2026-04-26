@@ -38,6 +38,12 @@ ai-legislation-silo/
 ├── outbox/            # Deliverables
 │   ├── core-directives.md
 │   └── conceptual-lexicon.md
+├── briefs/            # What we've been thinking
+│   └── (research, plans, open questions)
+├── debriefs/          # What we learned
+│   └── (retrospectives, decisions, lessons)
+├── playbooks/         # How we operate
+│   └── (procedures, patterns, tool configs)
 ├── markers/           # Checkpoint system
 └── telemetry/         # Cost/token logs
 ```
@@ -53,6 +59,30 @@ Every silo answers these before it runs:
 | **What do we do with it?** | Validate, extract, organize, interview the user, construct tailored directives |
 | **What is the end result?** | `outbox/core-directives.md` and `outbox/conceptual-lexicon.md` |
 | **How do we know we have it?** | Files exist, non-empty, validated against schema |
+
+## Documentation
+
+| Folder | Purpose |
+|--------|---------|
+| `briefs/` | Active research, plans, open questions about this domain |
+| `debriefs/` | Retrospectives, decisions, lessons learned per session |
+| `playbooks/` | Operational procedures: how to convert PDFs, how to tag provisions, how to interview |
+
+These folders keep the silo's thinking durable. The agent (and human) can read them to resume work without context loss.
+
+## Tools
+
+This silo requires:
+
+| Tool | Managed By | Purpose |
+|------|------------|---------|
+| `just` | Flox | Task runner |
+| `jq` | Flox | JSON processing |
+| `pdftotext` | Flox (poppler-utils) | PDF → text |
+| `pandoc` | Flox | HTML/Markdown conversion |
+| `nodejs` | Flox | Script runtime |
+
+Add to the Flox environment: `flox install pandoc poppler-utils`
 
 ## Running the Silo
 

@@ -70,6 +70,14 @@ python3.optional = true
 man.pkg-path = "man"
 man.optional = true
 
+# ---- DOCUMENT CONVERSION (silo: ai-legislation, general PDF/HTML→text) ----
+pandoc.pkg-path = "pandoc"
+pandoc.optional = true
+
+# ---- PDF EXTRACTION (Poppler utils for pdftotext, pdfinfo) ----
+poppler-utils.pkg-path = "poppler-utils"
+poppler-utils.optional = true
+
 # ---- GO (for marcus ecosystem: td + sidecar built from source) ----
 go.pkg-path = "go"
 go.optional = true
