@@ -193,6 +193,7 @@ See: `playbooks/justfile-design-playbook.md`
 
 ## See Also
 
+- `playbooks/git-workflow-playbook.md` — Git workflow with two worktrees
 - `playbooks/bestiary-human-tendencies.md` — Known failure modes
 - `playbooks/justfile-design-playbook.md` — Recipe design rules
 - `playbooks/gamma-loop-playbook.md` — Gamma-loop pattern
