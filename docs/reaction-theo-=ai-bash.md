@@ -36,8 +36,8 @@ Theo touches on the need for "Portable Environments" that are "Well Isolated" [[
 
 > **Typed Execution (SCL):** The practice of wrapping heuristic agent actions in a deterministic, typed wrapper (like TypeScript or a Just-Facade). This reduces "Token Noise" and ensures that results are 100% congruent with the **Sovereign Intent**.
 
-**Theo is building the "Harness." We are building the "Silo." It’s the same war, just different fronts. Shall we persist this to the "Technical-Strategy" blog atom?**
+**Theo is building the "Harness." We are building the "Silo." It’s the same war, just different fronts.**
 
+---
 
-
-[Bash is bad for agents, Theo Brown](http://googleusercontent.com/youtube_content/2)
+Source: [Bash is bad for agents, Theo Brown](http://googleusercontent.com/youtube_content/2)

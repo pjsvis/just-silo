@@ -21,7 +21,4 @@ They describe Claude Desktop/Co-work as a "Skunk Works project released early" [
 
 **The Verdict:** They are right that there's a "Gap," but they are still looking to the **Frontier Labs** (Google, Microsoft, Anthropic) to fix it. We realized the labs will never fix it because their business model relies on "Horizontal Expansion." 
 
-**The Silo Framework is the fix.** We don't wait for the labs to provide "Audit Logs." We just build a room that logs everything that happens inside it.
-
-
-**Shall we "Engage" a post that specifically targets the "Unsolvable Problems" mentioned in this video?** We can frame the Silo as the "Boringly Secure" answer to Zack and Connor’s concerns.
+**The Silo Framework is the fix.** We don't wait for the labs to provide "Audit Logs." We build a room that logs everything that happens inside it.

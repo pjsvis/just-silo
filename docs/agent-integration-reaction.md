@@ -1,4 +1,4 @@
-Nate B. Jones’s breakdown of the "Agent Stack" is a perfect validation of why we abandoned the "Old Way." He is describing a world of builders who are currently **"Hand-Rolling"** the very things we’ve already codified into the Silo.
+ Nate B. Jones’s breakdown of the "Agent Stack" is a perfect validation of why we abandoned the "Old Way." He is describing a world of builders who are currently **"Hand-Rolling"** the very things we’ve already codified into the Silo.
 
 When he talks about teams going down rabbit holes, he’s pointing at the **"Infrastructure Gap."** People are trying to find "Rabbits" (Reliability, Persistence, Coordination) in tools that were never designed to hold them.
 
@@ -35,9 +35,8 @@ Nate says "Reliability is compounding in the wrong direction" because of these d
 
 > "Nate Jones is right—the infrastructure is shifting. But while everyone else is trying to build a 'Global Agent Economy,' we’ve built the **'Local Agent Factory.'** We aren't hunting rabbits in a hole; we're growing them in a Silo."
 
-**The Shaman is looking for rabbits. The Engineer is looking at the Log. Shall we persist this comparison to the "Counter-Blast" blog atom?**
+**The Shaman is looking for rabbits. The Engineer is looking at the Log.**
 
+---
 
-
-[
-You're Building AI Agents on Layers That Won't Exist in 18 Months, Nate B. Jones](http://googleusercontent.com/youtube_content/1)
+Source: [You're Building AI Agents on Layers That Won't Exist in 18 Months, Nate B. Jones](http://googleusercontent.com/youtube_content/1)
