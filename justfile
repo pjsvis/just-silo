@@ -271,10 +271,10 @@ pr-watch pr:
     @echo "      pr_fix_issues   # Auto-fix comments"
     @echo "      pr_escalate     # Notify human when stuck"
 
-# Discover open PRs by current user
+# List open PRs by current user
 [group("pr")]
-pr-watch-open user="":
-    @./scripts/pr-watch-open.sh {{ user }}
+pr-list user="":
+    @./scripts/pr-list.sh {{ user }}
 
 # Summarize PR review state via gh CLI
 [group("pr")]

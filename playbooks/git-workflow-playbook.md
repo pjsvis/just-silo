@@ -127,8 +127,8 @@ pr_escalate
 ### Via just recipes
 
 ```bash
-# Discover your open PRs and prepare to watch them
-just pr-watch-open
+# List your open PRs
+just pr-list [user]
 
 # Watch a specific PR
 just pr-watch <pr-number>

@@ -1,5 +1,5 @@
 #!/bin/bash
-# pr-watch-open - Discover open PRs by current user and start monitoring
+# pr-list - List open PRs by current user
 # Usage: ./scripts/pr-watch-open.sh [user]
 
 set -euo pipefail
