@@ -64,6 +64,7 @@ function ghFetch(endpoint: string): any {
     if (json.message) {
       if (json.message.includes('Bad')) throw new Error('Invalid GitHub token')
       if (json.message.includes('rate')) throw new Error('Rate limited')
+      throw new Error(json.message)
     }
     
     return json
@@ -80,28 +81,16 @@ function getRepo(): string {
   return match[1]
 }
 
-function getPRInfo(prNumber: number): PRInfo {
+function getPRInfo(prNumber: number): PRInfo | null {
   try {
     const repo = getRepo()
     const response = ghFetch(`/repos/${repo}/pulls/${prNumber}`)
     if (response && response.number) return response as PRInfo
   } catch (e) {
+    if ((e as Error).message.includes('Not Found')) return null
     console.error('Could not fetch PR info:', (e as Error).message)
   }
-  return {
-    number: prNumber,
-    title: 'PR #' + prNumber,
-    state: 'open',
-    head: { sha: 'unknown' },
-    base: { ref: 'main' }
-  }
-}
-
-function getRepo(): string {
-  const output = execSync('git remote get-url origin', { encoding: 'utf-8' }).trim()
-  const match = output.match(/github\.com[:/](.+?)(?:\.git)?$/)
-  if (!match) throw new Error('Could not determine repo from git remote')
-  return match[1]
+  return null
 }
 
 function getComments(prNumber: number): PRComment[] {
@@ -191,11 +180,17 @@ async function attemptFix(comment: PRComment): Promise<{ fixed: boolean; reason:
   return { fixed: false, reason: 'Fix not yet implemented - manual review needed' }
 }
 
-async function poll(prNumber: number): Promise<void> {
+async function poll(prNumber: number): Promise<boolean> {
+  const pr = getPRInfo(prNumber)
+  if (!pr) {
+    console.log(`PR #${prNumber} not found — may be merged or closed`)
+    return false
+  }
   console.log(`\n=== Polling PR #${prNumber} ===`)
   
   const comments = getComments(prNumber)
   console.log(`Found ${comments.length} total comments`)
+  return true
   
   // Filter for AI reviewer comments
   const aiReviewers = ['qodo-pr[bot]', 'coderabbitai[bot]', 'qodo[bot]']
@@ -274,7 +269,11 @@ async function watch(prNumber: number): Promise<void> {
   
   while (true) {
     try {
-      await poll(prNumber)
+      const prExists = await poll(prNumber)
+      if (!prExists) {
+        console.log(`\n=== PR #${prNumber} no longer available — stopping watch ===`)
+        break
+      }
       
       // Check stop condition
       const comments = getComments(prNumber)
@@ -312,6 +311,10 @@ function sleep(ms: number): Promise<void> {
 
 async function status(prNumber: number): Promise<void> {
   const pr = getPRInfo(prNumber)
+  if (!pr) {
+    console.log(`PR #${prNumber} not found`)
+    return
+  }
   const comments = getComments(prNumber)
   
   const aiReviewers = ['qodo-pr[bot]', 'coderabbitai[bot]', 'qodo[bot]']
