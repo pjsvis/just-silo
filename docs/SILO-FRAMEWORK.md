@@ -1,102 +1,115 @@
-# Silo Framework — Technical Documentation
+# Silo Framework — Internal Structure
 
 **Version:** 0.2.0
 
 ---
 
-## Overview
+## What a Silo Is
 
-A directory-based skill and data pipeline system for AI agents. Domain knowledge externalized into self-contained, versionable directories.
+A directory with a contract. The agent reads the contract, does the work.
 
 ```
 silo/
-├── .silo              # Manifest (name, version, workflow)
-├── justfile           # Task recipes (interface)
+├── .silo              # Manifest: name, version, workflow
+├── README.md          # What, why, how
+├── justfile           # Task recipes (the interface)
+│
 ├── inbox/             # Raw inputs
 ├── process/           # Transformation scripts
 ├── outbox/            # Deliverables
-├── briefs/            # Active research, plans
-├── debriefs/          # Session records
-├── playbooks/         # Operational procedures
+│
+├── briefs/            # What we're considering
+├── debriefs/          # What we learned
+├── playbooks/         # How we operate
+│
 ├── markers/           # Checkpoint system
 └── telemetry/         # Cost/token logs
 ```
 
 ---
 
-## Lifecycle
+## The Three Questions
 
-```
-┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐
-│ CREATE  │───▶│ BUILD   │───▶│ DEPLOY  │───▶│ OPERATE │
-│         │    │         │    │         │    │         │
-│ template│    │ dev/    │    │ silos/  │    │ just <cmd>│
-└─────────┘    └─────────┘    └─────────┘    └─────────┘
-```
+Every silo answers these:
 
-| Phase | Command | Location |
-|-------|---------|----------|
-| Create | `silo-create <name>` | From `template/` |
-| Build | `silo-build <name>` | `dev/<name>/` workspace |
-| Deploy | `silo-deploy <name>` | `silos/<name>/` runtime |
-| Operate | `just <verb>` | Within silo directory |
+| Question | Where |
+|----------|-------|
+| What do we get? | `inbox/` — raw data, documents |
+| What do we do with it? | `process/` — scripts, justfile recipes |
+| What is the end result? | `outbox/` — deliverables |
+| How do we know we have it? | `markers/`, `telemetry/` — state, costs |
 
 ---
 
-## Phase Workflow (Justfile)
+## Workflow
 
-| Phase | Command | Purpose |
-|-------|---------|---------|
-| **Gate** | `just silo-gate` | Verify invariants before any write |
-| **Ingest** | `just ingest` (or `just get`) | Load raw data into inbox |
-| **Transform** | `just transform` (or `just process`) | Apply transformations |
-| **Deliver** | `just deliver` (or `just flush`) | Write outputs to outbox |
-| **Status** | `just status` | Pipeline observability |
+```
+inbox/ ──→ process/ ──→ outbox/
+   │          │            │
+   │          │            │
+   └─ briefs/             └─ debriefs/
+      playbooks/
+```
 
-**Gate is orthogonal.** It runs before writes, not as part of the pipeline flow.
+**`process/` does the work.** `briefs/` and `playbooks/` feed decisions into `process/`. `debriefs/` capture what happened.
 
 ---
 
-## Gamma Loop
+## The Four Layers
 
-Self-improvement mechanism:
-
-```
-┌─────────────────────────────────────┐
-│  DO → LEARN → DEBRIEF → IMPROVE    │
-│                                     │
-│  • playbooks/ — captured knowledge │
-│  • debriefs/  — post-mortems       │
-│  • telemetry/ — metrics/logs       │
-└─────────────────────────────────────┘
-```
+| Layer | Contents | Managed By |
+|-------|----------|------------|
+| **Thinking** | `briefs/`, `debriefs/`, `playbooks/` | Human + Agent, via Git |
+| **Our Code** | `justfile`, `process/*.sh`, `src/` | Agent, via just |
+| **Runtime** | bun, TypeScript, hono | Assumed present |
+| **Environment** | flox, jq, pandoc, pdftotext | `flox.toml` |
 
 ---
 
-## Quick Start
+## Justfile
+
+The interface. Thin recipes that delegate to `process/` scripts.
 
 ```bash
-# Create from template
-./scripts/silo-create my-silo
+just status          # Pipeline state
+just run             # Execute workflow
+just <verb>          # Domain-specific action
+```
 
-# Build in dev workspace
-./scripts/silo-build.sh my-silo
+**Rule:** No inline logic beyond simple delegation (`echo`, `cd`, `./scripts/foo.sh`). Logic lives in `process/`.
 
-# Deploy to runtime
-./scripts/silo-deploy.sh my-silo
+---
 
-# Operate
-cd silos/my-silo
-just status
-just ingest
-just transform
-just deliver
+## Manifest
+
+`.silo` — JSON manifest:
+
+```json
+{
+  "name": "ai-legislation-silo",
+  "version": "0.1.0",
+  "workflow": "inbox → process → outbox",
+  "layers": {
+    "environment": { "manager": "flox", "tools": ["just", "jq"] },
+    "runtime": { "languages": ["bash", "TypeScript"] },
+    "code": { "engine": "justfile", "scripts_dir": "process/" },
+    "thinking": { "briefs_dir": "briefs/", "playbooks_dir": "playbooks/" }
+  }
+}
 ```
 
 ---
 
-## Related
+## Observability
 
-- `template/` — The template itself
-- `playbooks/silo-anatomy-playbook.md` — Four-layer model
-- `examples/ai-legislation-silo/` — Working example
+| System | File | Purpose |
+|--------|------|---------|
+| Checkpoints | `markers/*.jsonl` | Phase completion, agent assignments |
+| Costs | `telemetry/costs.jsonl` | Per-phase token/cost tracking |
+| State | `markers/acquisition-state.jsonl` | Document pipeline state |
+
+---
+
+## Example
+
+See `examples/ai-legislation-silo/` — a working silo with inbox, process, outbox, and full documentation structure.
