@@ -33,6 +33,31 @@ run:
     @echo "✓ Pipeline complete. Check outbox/"
 
 # ============================================================
+# ACQUISITION (inbox/raw/ → inbox/harvest.jsonl)
+# ============================================================
+
+# Download document to inbox/raw/ (stub — not yet implemented)
+# Usage: just acquire <doc-id>
+acquire id:
+    @echo "  [acquire] {{ id }} — Placeholder"
+    @echo "  See: playbooks/acquisition-pipeline-playbook.md"
+
+# Validate downloaded document (stub — not yet implemented)
+# Usage: just validate <doc-id>
+validate id:
+    @echo "  [validate] {{ id }} — Placeholder"
+
+# Extract document to harvest.jsonl (stub — not yet implemented)
+# Usage: just extract-doc <doc-id>
+extract-doc id:
+    @echo "  [extract] {{ id }} — Placeholder"
+
+# Run acquisition pipeline for all pending documents (stub)
+pipeline-run:
+    @echo "  [pipeline-run] Processing all pending acquisitions..."
+    @echo "  See: playbooks/acquisition-pipeline-playbook.md"
+
+# ============================================================
 # OBSERVABILITY
 # ============================================================
 
