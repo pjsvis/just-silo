@@ -8,7 +8,7 @@ Filesystem-based skill framework for AI agents.
 
 ## What It Is
 
-A directory that defines **verbs** for an agent. The agent reads the rules, does the work.
+A pattern for directories that define **verbs** for an agent. The agent reads the rules, does the work.
 
 ```
 STUFF ──→ [ SILO ] ──→ THINGS
@@ -36,18 +36,22 @@ just help          → what verbs exist?
 just status        → pipeline health
 ```
 
-## Anatomy
+## What's In A Silo
+
+Each silo is a directory with a contract. The agent reads the contract, does the work.
 
 ```
 my-silo/
-├── justfile           # Vocabulary (verbs)
+├── justfile           # Vocabulary (verbs you define)
 ├── schema.json        # Grammar (validation)
 ├── queries.json       # Named transforms
 ├── pipeline.json      # Stage definitions
 ├── scripts/           # Observability
 ├── .silo              # Manifest
-└── README.md          # Domain rules
+└── README.md          # Domain rules (specific to this silo)
 ```
+
+(The file you're reading now is the framework overview. The `README.md` inside each silo describes that silo's specific domain.)
 
 ## Core Verbs
 
