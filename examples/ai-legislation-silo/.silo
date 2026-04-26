@@ -1,0 +1,16 @@
+{
+  "name": "ai-legislation-silo",
+  "version": "0.1.0",
+  "description": "AI legislation compliance — inbox to outbox workflow",
+  "created": "2026-04-26",
+  "silo_type": "example",
+  "workflow": "inbox → process → outbox",
+  "interface": {
+    "engine": "justfile",
+    "inbox": "inbox/",
+    "process": "process/",
+    "outbox": "outbox/"
+  },
+  "markers_dir": "markers",
+  "telemetry_dir": "telemetry"
+}

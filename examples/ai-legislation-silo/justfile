@@ -1,0 +1,56 @@
+# AI Legislation Silo — Inbox to Outbox Workflow
+
+set shell := ["bash", "-o", "pipefail", "-c"]
+set export := true
+
+# ============================================================
+# ENTRY POINT
+# ============================================================
+
+default:
+    @echo "AI Legislation Silo"
+    @echo ""
+    @echo "Workflow: inbox → process → outbox"
+    @echo ""
+    @echo "just run      — Execute full pipeline"
+    @echo "just status   — Check pipeline state"
+    @echo "just audit    — Cost and coverage report"
+    @echo ""
+    @echo "just --list   — All recipes"
+
+# ============================================================
+# WORKFLOW
+# ============================================================
+
+# Run the full pipeline: inbox → process → outbox
+run:
+    @echo "=== RUN: Inbox → Process → Outbox ==="
+    @echo ""
+    @./process/ingest.sh     || { echo "INGEST failed"; exit 1; }
+    @./process/transform.sh   || { echo "TRANSFORM failed"; exit 1; }
+    @./process/deliver.sh   || { echo "DELIVER failed"; exit 1; }
+    @echo ""
+    @echo "✓ Pipeline complete. Check outbox/"
+
+# ============================================================
+# OBSERVABILITY
+# ============================================================
+
+# Show pipeline status
+status:
+    @./process/status.sh
+
+# Audit: cost report, coverage, confidence
+audit:
+    @echo "=== Audit ==="
+    @echo ""
+    @if [ -f "telemetry/costs.jsonl" ]; then \
+        echo "  Telemetry: $$(wc -l < telemetry/costs.jsonl | tr -d ' ') entries"; \
+    else \
+        echo "  Telemetry: none"; \
+    fi
+    @echo ""
+    @echo "Done criteria:"
+    @echo "  1. outbox/core-directives.md exists and non-empty"
+    @echo "  2. outbox/conceptual-lexicon.md exists and non-empty"
+    @echo "  3. All process phases logged to telemetry"
