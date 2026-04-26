@@ -236,25 +236,7 @@ agent-create name type="mounted":
 agent-invoke name input="-":
     @./scripts/agent-invoke.sh {{ name }} {{ input }}
 
-# Show agent info
-[group("agents")]
-agents-show name:
-    @./scripts/show-agent.sh {{ name }}
 
-# Run agent command
-[group("agents")]
-agents-run name cmd:
-    @./scripts/run-agent.sh {{ name }} {{ cmd }}
-
-# Run tidy agent
-[group("agents")]
-agents-tidy cmd:
-    @./scripts/run-agent.sh tidy {{ cmd }}
-
-# Run code review agent
-[group("agents")]
-agents-cr cmd:
-    @./scripts/run-agent.sh cr {{ cmd }}
 
 # ============================================================
 # PR REVIEW (harness-integrated monitoring)
