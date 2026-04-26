@@ -25,27 +25,34 @@ digraph silo {
 
 ## Directory Structure
 
+This silo follows the four-layer model:
+
 ```
 ai-legislation-silo/
-├── .silo              # Manifest
+│
+├── .silo              # Manifest (layer references)
 ├── README.md          # This file
-├── justfile           # Workflow recipes
-├── inbox/             # Raw inputs
-│   ├── harvest.jsonl  # Legislation provisions (JSONL)
-│   └── inputs/        # Documents, PDFs, profiles
-├── process/           # Transformation scripts
-│   └── (scripts that read inbox/ → write outbox/)
-├── outbox/            # Deliverables
+│
+├── justfile           # LAYER 3: Our Code — task facade
+├── process/           # LAYER 3: Our Code — transformation scripts
+├── inbox/             # LAYER 3: Our Code — raw inputs
+│   ├── harvest.jsonl
+│   └── inputs/
+├── outbox/            # LAYER 3: Our Code — deliverables
 │   ├── core-directives.md
 │   └── conceptual-lexicon.md
-├── briefs/            # What we've been thinking
-│   └── (research, plans, open questions)
-├── debriefs/          # What we learned
-│   └── (retrospectives, decisions, lessons)
-├── playbooks/         # How we operate
-│   └── (procedures, patterns, tool configs)
-├── markers/           # Checkpoint system
-└── telemetry/         # Cost/token logs
+├── scripts/           # LAYER 3: Our Code — (optional, not yet used)
+├── src/               # LAYER 3: Our Code — (optional, not yet used)
+│
+├── briefs/            # LAYER 4: Thinking — what we're considering
+├── debriefs/          # LAYER 4: Thinking — what we learned
+├── playbooks/         # LAYER 4: Thinking — how we operate
+│
+├── markers/           # LAYER 3: checkpoint system
+├── telemetry/         # LAYER 3: cost/token logs
+│
+│   (bun, TypeScript, hono — LAYER 2: Runtime — assumed present)
+│   (flox, jq, pandoc — LAYER 1: Environment — declared in Flox)
 ```
 
 ## The Three Questions

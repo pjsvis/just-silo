@@ -5,6 +5,28 @@
   "created": "2026-04-26",
   "silo_type": "example",
   "workflow": "inbox → process → outbox",
+  "layers": {
+    "environment": {
+      "manager": "flox",
+      "tools": ["just", "jq", "poppler-utils", "pandoc"],
+      "manifest": "../../flox.toml"
+    },
+    "runtime": {
+      "manager": "bun",
+      "languages": ["bash", "TypeScript"],
+      "framework": "hono (when API needed)"
+    },
+    "code": {
+      "engine": "justfile",
+      "scripts_dir": "process/",
+      "src_dir": "(not yet used)"
+    },
+    "thinking": {
+      "briefs_dir": "briefs/",
+      "debriefs_dir": "debriefs/",
+      "playbooks_dir": "playbooks/"
+    }
+  },
   "interface": {
     "engine": "justfile",
     "inbox": "inbox/",
