@@ -104,6 +104,47 @@ git worktree remove "$TMP"
 - `just-silo-dev/` — human workspace
 - All other worktrees are **temporary** and must be removed after use
 
+## Invoking the PR Review Agent
+
+The harness has built-in PR review tools. The deprecated `agents/pr-review-agent/` script has been removed.
+
+### Via the agent harness (preferred)
+
+```
+# Start monitoring a PR for review comments
+pr_watch <pr-number>
+
+# Check monitoring status
+pr_status
+
+# Auto-fix review issues
+pr_fix_issues
+
+# Escalate to human when auto-fix fails
+pr_escalate
+```
+
+### Via just recipes
+
+```bash
+# Discover your open PRs and prepare to watch them
+just pr-watch-open
+
+# Watch a specific PR
+just pr-watch <pr-number>
+
+# Summarize review state via gh CLI
+just pr-review <pr-number>
+```
+
+### What the agent does
+
+1. Polls GitHub for new review comments on the PR
+2. Categorizes by severity: `MUST_FIX`, `SHOULD_FIX`, `SUGGESTION`, `NOISE`
+3. Attempts auto-fix for `MUST_FIX` and `SHOULD_FIX`
+4. Pushes fixes back to the PR branch
+5. Stops cleanly if the PR is merged/closed (404 handling)
+
 ## Common Commands
 
 ```bash

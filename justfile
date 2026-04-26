@@ -259,6 +259,29 @@ agents-cr cmd:
     @./scripts/run-agent.sh cr {{ cmd }}
 
 # ============================================================
+# PR REVIEW (harness-integrated monitoring)
+# ============================================================
+
+# Watch a specific PR for AI reviewer comments
+[group("pr")]
+pr-watch pr:
+    @echo "Starting PR watch on #{{ pr }}"
+    @echo "In the agent harness: pr_watch {{ pr }}"
+    @echo "Then: pr_status       # Check status"
+    @echo "      pr_fix_issues   # Auto-fix comments"
+    @echo "      pr_escalate     # Notify human when stuck"
+
+# Discover open PRs by current user
+[group("pr")]
+pr-watch-open user="":
+    @./scripts/pr-watch-open.sh {{ user }}
+
+# Summarize PR review state via gh CLI
+[group("pr")]
+pr-review pr="2":
+    @./scripts/pr-review.sh {{ pr }}
+
+# ============================================================
 # DOCS (documentation)
 # ============================================================
 
