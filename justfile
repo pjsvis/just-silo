@@ -12,7 +12,11 @@ VERSION := "0.2.0"
 # ============================================================
 
 default:
-    @just --list
+    @./scripts/just-user-help.sh
+
+# Show agent commands
+agent:
+    @./scripts/just-agent-help.sh
 
 version:
     @echo "{{ PROJECT_NAME }} v{{ VERSION }}"
@@ -22,7 +26,7 @@ version:
 # ============================================================
 
 help topic:
-    @if [ -z "{{ topic }}" ]; then ./scripts/help.sh; else ./scripts/help.sh "{{ topic }}"; fi
+    @./scripts/help-topic.sh "{{ topic }}"
 
 # ============================================================
 # CONTENT (glow or cat)
@@ -107,23 +111,17 @@ silo-verify-structure:
 # Watch mode (requires watchexec)
 [group("silo")]
 silo-watch:
-    @command -v watchexec >/dev/null 2>&1 && \
-        watchexec -e jsonl,sh -- just harvest || \
-        echo "watchexec not installed (brew install watchexec)"
+    @./scripts/silo-watch.sh
 
 # Gate: Run before any write action
 [group("silo")]
 silo-gate:
-    @./scripts/silo-verify-structure.sh . || \
-        (echo "" && echo "⚠️ Gate failed. Fix invariants before proceeding." && exit 1)
-    @echo "✓ Gate passed - invariants hold"
+    @./scripts/silo-gate.sh .
 
 # Gate: Non-interactive (for scripts/CI)
 [group("silo")]
 silo-gate-quiet:
-    @./scripts/silo-verify-structure.sh . >/dev/null 2>&1 && \
-        echo "✓ Invariants hold" || \
-        (echo "✗ Invariants broken" && exit 1)
+    @./scripts/silo-gate-quiet.sh .
 
 
 # Production line: Put silo ON (costs money)
@@ -376,9 +374,7 @@ briefs-find query="":
 # Full briefs maintenance
 [group("briefs")]
 briefs-maintain:
-    @SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh info "Starting briefs maintenance" action=briefs-maintain
-    @./scripts/briefs.sh catalog && ./scripts/briefs.sh debriefs && ./scripts/briefs.sh sync
-    @SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh info "Briefs maintenance complete" action=briefs-maintain status=success
+    @PROJECT_NAME="{{PROJECT_NAME}}" ./scripts/briefs-maintain.sh
 
 # Show briefs status
 [group("briefs")]
@@ -471,29 +467,12 @@ dev-check:
 # Type-check all tiers (requires: npm install -g typescript)
 [group("dev")]
 dev-typecheck:
-    @if command -v tsc >/dev/null 2>&1; then \
-        echo "=== Type Check: Production (src/) ===" && \
-        tsc --project tsconfig.json --noEmit 2>&1 || true && \
-        echo "" && \
-        echo "=== Type Check: Scripts (scripts/) ===" && \
-        tsc --project tsconfig.scripts.json --noEmit 2>&1 || true; \
-    else \
-        echo "TypeScript not installed. Run: npm install -g typescript"; \
-    fi
+    @./scripts/dev-typecheck.sh
 
 # Run tests (integration + unit)
 [group("dev")]
 dev-tests:
-    @echo "=== Integration Tests ===" && ./scripts/silo-integration-test
-    @INT_EXIT=$$?
-    @echo ""
-    @echo "=== Unit Tests ===" && bun test
-    @TEST_EXIT=$$?
-    @if [ "$$TEST_EXIT" = "0" ] && [ "$$INT_EXIT" = "0" ]; then \
-        SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh info "Tests passed" action=dev-tests status=success; \
-    else \
-        SILO_LOG_DIR=".silo/logs" SILO_NAME="{{PROJECT_NAME}}" bash scripts/silo-log.sh error "Tests failed" action=dev-tests status=failure exit_code="$$TEST_EXIT"; \
-    fi
+    @PROJECT_NAME="{{PROJECT_NAME}}" ./scripts/dev-tests.sh
 
 # Full quality check (type + test)
 [group("dev")]
@@ -524,16 +503,12 @@ tidy:
 [group("ops")]
 archive-briefs:
     @echo "Archiving briefs from previous sprints..."
-    @cd briefs && ls -t *.md | tail -n +10 | xargs -I{} mv {} archive/ 2>/dev/null; echo "Done"
+    @./scripts/briefs-archive-old.sh
 
 # Show git status
 [group("ops")]
 status:
-    @echo "=== GIT ==="
-    @git status --short 2>/dev/null || echo "(not a git repo)"
-    @echo ""
-    @echo "=== COMMITS ==="
-    @git log --oneline -3 2>/dev/null || echo "(not a git repo)"
+    @./scripts/git-status-summary.sh
 
 # Show agent ops playbook
 [group("ops")]
@@ -563,45 +538,13 @@ blog-list:
 # Usage: just blog-search [tag=gamma-loop]
 [group("blog")]
 blog-search tag=(""):
-    @if [ -z "{{tag}}" ]; then \
-        echo "Usage: just blog-search <tag>"; \
-    else \
-        bash scripts/story-list.sh --tag "{{tag}}"; \
-    fi
+    @./scripts/blog-search.sh "{{tag}}"
 
 # Generate blog post from stories
 # Usage: just blog-generate [--tag TAG] [--type TYPE] [--count N]
 [group("blog")]
 blog-generate *args:
     @bash scripts/blog-generate.sh {{args}}
-
-# ============================================================
-# REVIEW (PR Review Workflow)
-# ============================================================
-
-# Check PR review status
-# Usage: just pr-review [pr-number=2]
-[group("review")]
-pr-review pr="2":
-    @bash scripts/pr-review.sh {{pr}}
-
-# View PR comments
-# Usage: just pr-comments [pr-number=2]
-[group("review")]
-pr-comments pr="2":
-    @gh pr view {{pr}} --comments
-
-# View PR diff
-# Usage: just pr-diff [pr-number=2]
-[group("review")]
-pr-diff pr="2":
-    @gh pr diff {{pr}}
-
-# View PR reviews
-# Usage: just pr-reviews [pr-number=2]
-[group("review")]
-pr-reviews pr="2":
-    @gh pr view {{pr}} --json reviews
 
 # ============================================================
 # ALIASES
@@ -686,8 +629,7 @@ silo-list:
 [group("silo-build")]
 silo-test name:
     @echo "=== Testing Silo: {{name}} ==="
-    @test -d "silos/{{name}}" && (cd "silos/{{name}}" && just verify) || echo "Not deployed"
-    @test -d "dev/{{name}}" && (cd "dev/{{name}}" && just verify) || echo "Not in dev"
+    @./scripts/silo-test.sh "{{name}}"
 
 # Entropy trend analysis
 # Usage: just log-trend           # Summary
