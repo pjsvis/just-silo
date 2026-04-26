@@ -107,9 +107,9 @@ Handoff complete. Here's the status:
 
  ────────────────────────────────────────────────────────────────────────────────
 
- ### The Critical Path (If I Were Greg)
+ ### The Critical Path
 
- If I were Greg funding this, I'd ask:
+ If I were funding this, I'd ask:
 
  │ "Can a new silo be created, provisioned, and running a gamma-loop in under 5 minutes with zero human intervention?"
 

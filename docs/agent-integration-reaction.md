@@ -33,7 +33,7 @@ Nate concludes that "Stack Literacy" is the only survival skill for 2026 [[21:18
 
 Nate says "Reliability is compounding in the wrong direction" because of these dependencies [[19:12](http://www.youtube.com/watch?v=7HP1jFJ9W1c&t=1152)]. He’s right—if you depend on five "Mythical Rabbits," your uptime is a gamble. By keeping everything in the **Git-backed Silo**, we have **Zero-Dependency Reliability**.
 
-**Greg’s Pitch:** "Nate Jones is right—the infrastructure is shifting. But while everyone else is trying to build a 'Global Agent Economy,' we’ve built the **'Local Agent Factory.'** We aren't hunting rabbits in a hole; we're growing them in a Silo."
+> "Nate Jones is right—the infrastructure is shifting. But while everyone else is trying to build a 'Global Agent Economy,' we’ve built the **'Local Agent Factory.'** We aren't hunting rabbits in a hole; we're growing them in a Silo."
 
 **The Shaman is looking for rabbits. The Engineer is looking at the Log. Shall we persist this comparison to the "Counter-Blast" blog atom?**
 

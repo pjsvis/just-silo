@@ -23,7 +23,7 @@ Full screen: ⌘⇧F
 ### iPhone: Open PXY Voice Session
 Load context:
 ```
-Station ID: Grumpy
+Station ID: default
 Slides: presentation/slides/
 Commands: ./slide <name>, ./push "<markdown>", ./push --theme dark|light
 ```
@@ -90,7 +90,7 @@ Presenter: "PXY, back to slides." / "PXY, show slide N."
 ```bash
 ./slide 01-title     # Show slide by name
 ./slide 03-definition
-./slide grumpy       # Station ID
+./slide default      # Station ID
 ```
 
 ### Content Push

@@ -30,7 +30,7 @@ Theo touches on the need for "Portable Environments" that are "Well Isolated" [[
 * He’s describing the **Sovereign Perimeter**. 
 * Whether it's a V8 Isolate or a Docker container, the **Silo** is the logical unit of that isolation. It’s the "Small Box" where the agent is allowed to be "Autonomous" without risking the host system.
 
-**Greg’s Pitch:** "Theo is right—Bash is too messy for industrial AI. That’s why our Silos use **`just`** as a 'Hardened Interface.' We give the agent the safety of TypeScript-level types with the raw power of the Unix file system. We aren't giving them a terminal; we're giving them a **Cockpit**."
+> "Theo is right—Bash is too messy for industrial AI. That’s why our Silos use **`just`** as a 'Hardened Interface.' We give the agent the safety of TypeScript-level types with the raw power of the Unix file system. We aren't giving them a terminal; we're giving them a **Cockpit**."
 
 ### **5. Final Lexicon Addition: "Typed Execution (TE)"**
 
