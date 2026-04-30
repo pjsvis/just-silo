@@ -1,0 +1,82 @@
+# Gemma 4 AI Agent — Definitive Stable Configuration
+# Based on: "I Built a Gemma 4 AI Agent. It Kept Looping Until I Fixed This."
+# Reference model: gemma-4-26B-A4B-it-Q3_K_M.gguf (Unsloth Q3_K_M)
+#
+# Usage:
+#   ollama create gemma4-agent -f ./gemma4-agent.Modelfile
+#   ollama run gemma4-agent
+#
+# If using a local GGUF instead of the official model:
+#   FROM ./gemma-4-26B-A4B-it-Q3_K_M.gguf
+
+FROM gemma4:e4b
+
+# =============================================================================
+# INFERENCE PARAMETERS — These are critical for stability.
+# Do not deviate from these values. Counter-intuitive but empirically verified.
+# =============================================================================
+
+# CRITICAL: Must be exactly 1.0. Lower temperatures reinforce thinking loops.
+# The model needs variance to escape unclosed reasoning tags.
+PARAMETER temperature 1.0
+
+# Standard Gemma sampling defaults that work well for agentic tasks.
+PARAMETER top_k 40
+PARAMETER top_p 0.95
+
+# Prevents repetitive tool loops (e.g., read_file called infinitely).
+PARAMETER repeat_penalty 1.1
+
+# Context window. The guide recommends 32768 over the full 256K.
+# Beyond ~80K, context collapse (hallucination / contradiction) occurs.
+PARAMETER num_ctx 32768
+
+# =============================================================================
+# SYSTEM PROMPT — Designed for multi-turn agentic tasks.
+# The guide recommends injecting a *structured, fresh* system prompt at every
+# turn that includes: original task, available tools, completed steps log.
+# This SYSTEM block serves as the base; your agent framework should prepend
+# a fresh state summary to each user turn to avoid context collapse.
+# =============================================================================
+
+SYSTEM """You are a precise, task-oriented AI agent powered by Gemma 4.
+
+Your job is to complete multi-step tasks by reasoning carefully, using tools when available, and never looping on the same action.
+
+RULES:
+1. If you open a reasoning or thinking tag, you MUST close it before taking any action or producing final output.
+2. When calling a tool, wait for and incorporate the tool result into your reasoning before deciding the next step.
+3. Do not call the same tool with the same arguments twice in a row. If a tool result is unclear, reformulate or ask; do not repeat.
+4. Track your progress mentally. After each step, summarize what has been completed and what remains.
+5. If you detect yourself repeating prior reasoning verbatim, stop and request clarification.
+
+You succeed when the original task is fully completed and validated."""
+
+# =============================================================================
+# TEMPLATE — Uses Ollama's built-in Jinja parser.
+# This ensures tool results are fed back to the model in the exact format it
+# expects, which prevents the "infinite tool loop" bug.
+# If you are loading a raw GGUF with `FROM ./model.gguf`, Ollama will attempt
+# to auto-detect the template. For Gemma-4 IT, this Jinja block is the correct
+# chat template and is already present in the official Ollama model.
+# =============================================================================
+
+# (Official gemma4 model already ships with the correct Jinja template.
+#  Only override if you are sideloading a GGUF that lacks the template metadata.)
+# TEMPLATE """..."""
+
+# =============================================================================
+# NOTES FOR FRAMEWORK AUTHORS
+# =============================================================================
+# - Build: Ensure llama.cpp / Ollama is build b3000+ (or b3447+ for FA).
+#   Older builds cause random character insertions (typos) in output.
+# - Context Refresh: At every turn, prepend a structured block:
+#     [TASK] <original request>
+#     [TOOLS] <list of available tools with schemas>
+#     [DONE] <log of completed steps>
+#     [NEXT] <current step being attempted>
+# - Quantization: Q3_K_M is the sweet spot for 26B-parameter Gemma 4
+#   (VRAM balance vs. reasoning quality). Q4 is safer; Q2 loses coherence.
+# - Expected Success Rate: ~80% on multi-step coding loops
+#   (read → fix → validate) when the above config is followed exactly.
+# =============================================================================

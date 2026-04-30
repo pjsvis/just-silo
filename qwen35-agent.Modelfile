@@ -1,0 +1,104 @@
+# Qwen 3.5 AI Agent — Empirically-Tuned Configuration
+# IMPORTANT: Qwen 3.5 behaves very differently from Gemma 4. Do not copy
+# the Gemma 4 parameters (especially temperature) onto this model.
+#
+# Usage:
+#   ollama create qwen35-agent -f ./qwen35-agent.Modelfile
+#   ollama run qwen35-agent
+#
+# Replace the FROM line below with your actual local model tag.
+
+FROM qwen3.5:latest
+
+# =============================================================================
+# INFERENCE PARAMETERS — Qwen 3.5 specific.
+# These differ significantly from Gemma 4. Source: community testing + docs.
+# =============================================================================
+
+# Qwen 3.5 does NOT need temperature 1.0. That was a Gemma 4 quirk.
+# For agentic coding with thinking mode enabled, 0.6 gives deterministic,
+# reproducible reasoning chains. For general agent tasks, 0.7 is safer.
+# Never use greedy decoding (temp 0.0) — output quality degrades badly.
+PARAMETER temperature 0.7
+
+# Higher top_p for thinking mode (0.95). Lower for non-thinking (0.8).
+# If your framework disables thinking, drop this to 0.8.
+PARAMETER top_p 0.95
+
+# Qwen 3.5 default. Community consensus: leave at 20.
+PARAMETER top_k 20
+
+# Lower than Gemma 4's 1.1. Qwen 3.5 is more sensitive to repeat penalty.
+# 1.0 lets the model repeat when necessary (tool schemas, reasoning steps).
+# 1.05 is the max for coding agents without breaking coherence.
+PARAMETER repeat_penalty 1.0
+
+# Qwen 3.5 has a 262K native context window but Ollama performance is poor
+# at full length. 24GB VRAM → 16384. 32GB+ → 32768. 48GB+ → 65536.
+# Do not blindly set 262K — you will OOM or hit the thinking-loop bug.
+PARAMETER num_ctx 32768
+
+# =============================================================================
+# SYSTEM PROMPT — INTENTIONALLY LEFT EMPTY
+# =============================================================================
+#
+# WARNING: Do NOT add a fixed SYSTEM prompt here.
+# Qwen 3.5's native chat template handles thinking mode, tool calling,
+# and reasoning structure. Overriding the template or hardcoding a SYSTEM
+# block breaks tool calling and can trigger infinite chain-of-thought loops
+# in Ollama (issue #14493, #14809).
+#
+# Let your agent framework inject the system prompt dynamically per-turn.
+# This is the exact opposite of the Gemma 4 strategy, where the fixed SYSTEM
+# prompt helped prevent context collapse.
+#
+# If you need a no-think variant, see:
+#   https://ollama.com/frob/qwen3.5-instruct
+# (Ollama does not yet support PARAMETER think false natively.)
+
+# =============================================================================
+# TEMPLATE — INTENTIONALLY NOT OVERRIDDEN
+# =============================================================================
+#
+# Do NOT add a custom TEMPLATE block. Qwen 3.5's GGUF contains the correct
+# Jinja template with thinking-mode tags and tool-calling XML formatting.
+# Ollama's template override has been the root cause of broken tool use.
+#
+# If you are sideloading a raw GGUF that lacks template metadata, pull the
+# official Ollama model first and diff the templates, or use llama.cpp directly.
+
+# =============================================================================
+# KNOWN OLLAMA ISSUES (as of early 2026)
+# =============================================================================
+# - Tool calling is broken in Ollama for Qwen 3.5 (issue #14493).
+#   If your agent relies on native Ollama tool_call, use llama.cpp server
+#   or vLLM instead until patches land (typically 2-4 weeks post-release).
+# - Thinking mode cannot be disabled via Modelfile (issue #14809).
+#   Workaround: pass "think: false" in the API request body, or use the
+#   frob/qwen3.5-instruct community model.
+# - Speed: Ollama is 5-7x slower than llama.cpp for the same Qwen 3.5 GGUF.
+# - Vision (mmproj) files are not bundled in Ollama releases.
+#
+# Recommended inference backends for Qwen 3.5 agents:
+#   1. llama.cpp server (best single-GPU stability)
+#   2. vLLM (best for serving / multi-user)
+#   3. MLX (best for Apple Silicon)
+#
+# If you must use Ollama, keep the Modelfile minimal (like this one)
+# and handle all tool orchestration in your application layer.
+# =============================================================================
+
+# =============================================================================
+# WHEN TO ADJUST PARAMETERS
+# =============================================================================
+# | Mode           | Temperature | Top_P | Repeat Penalty | Notes          |
+# |----------------|-------------|-------|----------------|----------------|
+# | Thinking/Coding| 0.6         | 0.95  | 1.0            | Deterministic  |
+# | General Agent  | 0.7         | 0.95  | 1.0            | Balanced       |
+# | Non-thinking   | 0.7         | 0.8   | 1.05           | Faster, direct |
+# | Creative       | 1.0         | 0.95  | 1.5            | Exploration    |
+#
+# If you need a dual-mode setup, create two model variants:
+#   ollama create qwen35-agent-think  -f ./qwen35-agent.Modelfile
+#   ollama create qwen35-agent-fast   -f ./qwen35-agent-fast.Modelfile
+# =============================================================================

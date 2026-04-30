@@ -719,3 +719,42 @@ md-sanitize-check path="scratch/google-docs-imports":
 [group("qmd")]
 md-sanitize-fix path="scratch/google-docs-imports":
     @./scripts/markdown-sanitize.sh --dir "{{ path }}" --write
+
+# ============================================================
+# LLAMA.CPP (local inference for Gemma 4 & Qwen 3.5)
+# ============================================================
+
+# Launch Gemma 4 agent server (definitive stable config)
+[group("llama")]
+llama-gemma4:
+    @./scripts/llama-launch.sh gemma4
+
+# Launch Qwen 3.5 with thinking mode (deep reasoning / coding)
+[group("llama")]
+llama-qwen35-think:
+    @./scripts/llama-launch.sh qwen35-think
+
+# Launch Qwen 3.5 without thinking mode (fast direct responses)
+[group("llama")]
+llama-qwen35-fast:
+    @./scripts/llama-launch.sh qwen35-fast
+
+# Show llama launch usage
+[group("llama")]
+llama-help:
+    @./scripts/llama-launch.sh
+
+# Download known-good GGUFs for llama.cpp (Qwen 3.5, Gemma 4)
+[group("llama")]
+llama-fetch model="all":
+    @./scripts/llama-fetch-models.sh {{ model }}
+
+# Wire pi coding agent to use llama.cpp local models (Gemma 4 / Qwen 3.5)
+[group("pi")]
+pi-llama:
+    @./scripts/pi-configure-llama.sh
+
+# Restore pi config from pre-llama backup (undo pi-llama)
+[group("pi")]
+pi-llama-restore:
+    @./scripts/pi-restore-llama.sh

@@ -1,6 +1,11 @@
 # just-silo
 
-Filesystem-based skill framework for AI agents.
+just-silo is a software dewvelopment kit for silos.
+
+A silo is:
+
+- a container for context
+- contains blast radius 
 
 **New here?** Read [START-HERE.md](START-HERE.md) or run `just silo-help`.
 
