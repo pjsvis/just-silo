@@ -60,34 +60,35 @@ git pull origin main
 - If main diverges from origin, reset it to match origin first, then re-create your feature branch.
 - Force-push is acceptable **only** for feature branches you own and no one else has checked out.
 
-## Branch Protection (Enforced)
+## Branch Protection (Solo Contributor)
 
-`main` has server-side branch protection. **Direct pushes are rejected.**
+`main` has server-side branch protection, tuned for a single contributor.
 
 | Rule | Setting |
 |------|---------|
-| Require PR before merging | ✓ |
-| Require 1 review approval | ✓ |
 | Require status checks (quality, lint-markdown) | ✓ |
 | Branch must be up-to-date before merge | ✓ |
 | Block force pushes | ✓ |
 | Block deletions | ✓ |
 | Enforce on admins | ✓ |
+| Require review approval | ✗ (solo — no one else to approve) |
 
 ### What this means for agents
 
 ```bash
-# BLOCKED — will be rejected by GitHub
-git checkout main && git commit -m "..." && git push origin main
-
-# REQUIRED — branch-first workflow
+# REQUIRED — branch-first workflow (process discipline, not enforced)
 git checkout -b tidy/what-you-fixed
 git commit -m "..."
 git push origin tidy/what-you-fixed
 gh pr create --base main
+# Status checks must pass before merge
+# PRs are process discipline — use them for review trail
+
+# BLOCKED
+force push to main  # hard block
 ```
 
-No force-pushes to main. No revert dances. No direct commits. The branch exists to catch mistakes before they land.
+No review approvals needed — you can merge your own PR once status checks pass. No force-pushes to main. The PR workflow exists for review trail and server-side AI feedback, not as an approval gate.
 
 ## Why This Works
 

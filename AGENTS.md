@@ -7,18 +7,22 @@ Use td usage -q for subsequent reads.
 
 ---
 
-## MANDATORY: Branch-First Git Workflow
+## MANDATORY: Branch-First Git Workflow (Solo Contributor)
 
-`main` has **server-side branch protection**. Direct pushes are rejected.
+`main` has server-side branch protection: status checks required, force pushes blocked.
+No review approval is required (solo contributor — no one else to approve).
 
-**Never commit to main.** Always:
+**Process discipline:** Always work on a feature branch, create a PR for review trail.
+Server-side AI reviewers (Qodo, CodeRabbit) will comment on your PR — fix their findings.
+
+**Always:**
 1. `git checkout -b <prefix>/description` (feat/, fix/, docs/, tidy/, refactor/)
 2. Commit to the branch
 3. `git push origin <branch>`
 4. `gh pr create --base main`
-5. Monitor reviews, approve, merge
+5. Monitor reviews (`pr_watch <number>`), fix findings, merge when checks pass
 
-Force pushes to main are blocked. The revert dance is not possible.
+Force pushes to main are blocked. Direct pushes to main bypass PR review trail — don't.
 
 See: `playbooks/git-workflow-playbook.md`
 
