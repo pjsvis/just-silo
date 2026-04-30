@@ -45,68 +45,37 @@ about-file file:
 # Verify prerequisites
 [group("silo")]
 silo-verify:
-    @cd templates/basic && just verify
+    @cd template && just verify
 
 # Harvest data
 [group("silo")]
 silo-harvest:
-    @cd templates/basic && just harvest
+    @cd template && just harvest
 
 # Process data
 [group("silo")]
 silo-process:
-    @cd templates/basic && just process
+    @cd template && just process
 
 # Flush to archive
 [group("silo")]
 silo-flush:
-    @cd templates/basic && just flush
+    @cd template && just flush
 
 # Show status
 [group("silo")]
 silo-status:
-    @cd templates/basic && just status
+    @cd template && just status
 
 # Silo help - entry point for new agents
 [group("silo")]
 silo-help:
-    @echo "=== SILO ENTRY POINTS ==="
-    @echo ""
-    @echo "START HERE:"
-    @echo "  1. Read: START-HERE.md"
-    @echo "  2. Read: README.md"
-    @echo "  3. Run: just silo-help"
-    @echo ""
-    @echo "KEY COMMANDS:"
-    @echo "  just silo-help       - This help"
-    @echo "  just silo-verify     - Check invariants"
-    @echo "  just silo-status     - Show silo health"
-    @echo "  just td status       - Show tasks"
-    @echo "  just --list          - All recipes"
-    @echo ""
-    @echo "SILO STRUCTURE:"
-    @echo "  briefs/    - What we've been thinking"
-    @echo "  playbooks/ - Operational knowledge"
-    @echo "  scripts/   - Automation"
-    @echo "  template/  - Silo template"
-    @echo "  workflows/ - Named procedures (no recursion)"
-    @echo ""
-    @echo "INVARIANTS:"
-    @echo "  1. Filename uniqueness within silo"
-    @echo "  2. README.md per browsable directory"
-    @echo "  3. README is checksum of directory"
-    @echo "  4. Archive naming: FOLDERNAME_archive"
-    @echo "  5. No recursion: no nested silos"
-    @echo ""
-    @echo "═══════════════════════════════════════════"
-    @echo "⚠️  CAW CANNY: Before read-write, prompt for go/no-go."
-    @echo "   Directive: $(jq -r '.directive' .silo)"
-    @echo "═══════════════════════════════════════════"
+    @./scripts/silo-help.sh
 
 # Verify silo structure
 [group("silo")]
 silo-verify-structure:
-    @./scripts/silo-verify-structure.sh templates/basic
+    @./scripts/silo-verify-structure.sh template
 
 # Watch mode (requires watchexec)
 [group("silo")]
@@ -149,12 +118,9 @@ silo-verify-value:
     @echo "=== Entropy Verification ==="
     @echo ""
     @echo "PROBLEM: No entropy metric defined."
-    @echo "You must implement your own measurement logic."
-    @echo ""
-    @echo "We provide: Constant environment, trend detection"
-    @echo "You provide: Entropy metric, thresholds"
-    @echo ""
-    @echo "To define your metric: Edit scripts/entropy-measure.sh"
+    @echo "Implement silo-specific measurement in your justfile."
+    @echo "We provide: trend detection, log queries"
+    @echo "You provide: domain metric, thresholds"
 # ============================================================
 # TD (task database)
 # ============================================================
@@ -622,7 +588,11 @@ log-trend *args:
     @bash scripts/silo-log-trend.sh {{args}}
 
 # ============================================================
-# QMD (volatile collection refresh)
+# SILO BUILD (development workflow)
+# ============================================================
+
+# ============================================================
+# QMD (core: index, health, watch)
 # ============================================================
 
 # Refresh volatile QMD collections (briefs/debriefs + archives) and embed changes
@@ -665,57 +635,100 @@ qmd-health-check:
 qmd-health-check-json:
     @./scripts/qmd-health-check.sh --json
 
+# ============================================================
+# GDOCS (Google Docs sync and import)
+# ============================================================
+
 # Sync Google Docs from Drive into local volatile folders and refresh QMD
-[group("qmd")]
+[group("gdocs")]
 gdocs-sync:
     @./scripts/google-docs-sync.sh --config scripts/google-docs-sync.env
 
 # Dry-run Google Docs sync
-[group("qmd")]
+[group("gdocs")]
 gdocs-sync-dry-run:
     @./scripts/google-docs-sync.sh --config scripts/google-docs-sync.env --dry-run
 
 # Print resolved Google Docs sync config
-[group("qmd")]
+[group("gdocs")]
 gdocs-sync-config:
     @./scripts/google-docs-sync.sh --config scripts/google-docs-sync.env --print-config
 
 # Pull one file and force markdown output (.md)
-[group("qmd")]
+[group("gdocs")]
 gdocs-pull-md source dest:
     @./scripts/google-docs-pull.sh --source "{{ source }}" --dest "{{ dest }}" --output-ext md
 
 # Dry-run markdown-focused pull
-[group("qmd")]
+[group("gdocs")]
 gdocs-pull-md-dry-run source dest:
     @./scripts/google-docs-pull.sh --source "{{ source }}" --dest "{{ dest }}" --output-ext md --dry-run
 
 # Pull one file as markdown and refresh QMD
-[group("qmd")]
+[group("gdocs")]
 gdocs-pull-md-refresh source dest:
     @./scripts/google-docs-pull.sh --source "{{ source }}" --dest "{{ dest }}" --output-ext md --refresh-qmd
 
 # Interactive multi-select DOCX picker -> pull as Markdown
-[group("qmd")]
+[group("gdocs")]
 gdocs-pick-docx-md:
     @./scripts/google-docs-pick-docx-md.sh
 
 # Same as above but include already-downloaded files in picker
-[group("qmd")]
+[group("gdocs")]
 gdocs-pick-docx-md-all:
     @./scripts/google-docs-pick-docx-md.sh --show-downloaded
 
 # Scope DOCX->MD picker to a remote subpath
-[group("qmd")]
+[group("gdocs")]
 gdocs-pick-docx-md-path remote_subpath:
     @./scripts/google-docs-pick-docx-md.sh --path "{{ remote_subpath }}"
 
 # Check imported markdown for control-character/sanitization issues
-[group("qmd")]
+[group("gdocs")]
 md-sanitize-check path="scratch/google-docs-imports":
     @./scripts/markdown-sanitize.sh --dir "{{ path }}" --check
 
 # Apply markdown sanitizer fixes in-place
-[group("qmd")]
+[group("gdocs")]
 md-sanitize-fix path="scratch/google-docs-imports":
     @./scripts/markdown-sanitize.sh --dir "{{ path }}" --write
+
+# ============================================================
+# LLAMA.CPP (local inference for Gemma 4 & Qwen 3.5)
+# ============================================================
+
+# Launch Gemma 4 agent server (definitive stable config)
+[group("llama")]
+llama-gemma4:
+    @./scripts/llama-launch.sh gemma4
+
+# Launch Qwen 3.5 with thinking mode (deep reasoning / coding)
+[group("llama")]
+llama-qwen35-think:
+    @./scripts/llama-launch.sh qwen35-think
+
+# Launch Qwen 3.5 without thinking mode (fast direct responses)
+[group("llama")]
+llama-qwen35-fast:
+    @./scripts/llama-launch.sh qwen35-fast
+
+# Show llama launch usage
+[group("llama")]
+llama-help:
+    @./scripts/llama-launch.sh
+
+# Download known-good GGUFs for llama.cpp (Qwen 3.5, Gemma 4)
+[group("llama")]
+llama-fetch model="all":
+    @./scripts/llama-fetch-models.sh {{ model }}
+
+# Wire pi coding agent to use llama.cpp local models (Gemma 4 / Qwen 3.5)
+[group("pi")]
+pi-llama:
+    @./scripts/pi-configure-llama.sh
+
+# Restore pi config from pre-llama backup (undo pi-llama)
+[group("pi")]
+pi-llama-restore:
+    @./scripts/pi-restore-llama.sh

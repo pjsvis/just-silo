@@ -1,20 +1,13 @@
 # briefs/
 
-## Contents
-- 2026-04-11-brief-gitnexus-tryout.md
-- 2026-04-11-brief-sub-silo-deployment-01.md
-- 2026-04-11-brief-sub-silo-deployment-02.md
-- 2026-04-12-brief-AB-comparison-cfl.md
-- 2026-04-12-brief-base-framework-plan.md
-- 2026-04-12-brief-caveman-dot-test-01.md
-- 2026-04-12-brief-caveman-dot-test-02.md
-- 2026-04-12-brief-lpc-evaluation.md
-- 2026-04-12-brief-pr-review-html-cleanup.md
-- 2026-04-12-brief-triggers-system.md
+Current working briefs — the project's "thinking layer."
 
+## Active Briefs
 
-## Subdirectories
-- archive
+- **2026-04-26-silo-anatomy-concurrence.md** — Four-layer silo model (Thinking → Code → Runtime → Environment)
+- **2026-04-12-brief-silo-philosophy.md** — Core silo philosophy
+- **2026-04-12-brief-triggers-system.md** — Trigger system (implemented, reference)
 
----
+## Archive
 
+Completed and stale briefs moved to `archive/`.

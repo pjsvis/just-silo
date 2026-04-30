@@ -48,16 +48,16 @@ watchexec -e jsonl -- just harvest
 
 ---
 
-## Gap
+## Gap — RESOLVED
 
-No `just watch` recipe in justfile. Could add:
+The original gap was: no `just watch` recipe. Now filled:
 
-```just
-# Watch mode
-[group("silo")]
-silo-watch:
-    @watchexec -e jsonl,sh -- just harvest
-```
+| Recipe | Purpose |
+|--------|---------|
+| `just silo-watch` | File-change harvest trigger |
+| `just watch-tests` | TypeScript test watcher |
+| `just watch-trend` | Trend log watcher |
+| `just watch-dashboard` | Trend dashboard watcher |
+| `just watch-qmd` | QMD file watcher |
 
-**Priority:** MEDIUM  
-**Est:** 15min
+All implemented as of 2026-04-30.
