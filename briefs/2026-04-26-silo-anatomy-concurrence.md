@@ -65,3 +65,9 @@ The example silo should show all four layers:
 - `justfile` — inbox → process → outbox workflow
 - `process/` — scripts that implement the workflow
 - `.silo` manifest — references Flox for tools, not inline installation
+
+## See Also
+
+- `2026-04-12-brief-silo-philosophy.md` — Core philosophy: invariants, gamma loop, CAW CANNY, decision loop
+- `playbooks/silo-anatomy-playbook.md` — Detailed anatomy playbook
+- `AGENTS.md` — Agent operational context
