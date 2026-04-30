@@ -7,6 +7,23 @@ Use td usage -q for subsequent reads.
 
 ---
 
+## MANDATORY: Branch-First Git Workflow
+
+`main` has **server-side branch protection**. Direct pushes are rejected.
+
+**Never commit to main.** Always:
+1. `git checkout -b <prefix>/description` (feat/, fix/, docs/, tidy/, refactor/)
+2. Commit to the branch
+3. `git push origin <branch>`
+4. `gh pr create --base main`
+5. Monitor reviews, approve, merge
+
+Force pushes to main are blocked. The revert dance is not possible.
+
+See: `playbooks/git-workflow-playbook.md`
+
+---
+
 ## MANDATORY: Use tree-sitter for Code Audit
 
 For code analysis and refactoring tasks, the agent shall perform a structural audit via Tree-sitter before executing any text-based (grep/regex) searches. This protocol requires: 1) Identification of the relevant grammar; 2) Execution of structural queries to map function definitions, dependencies, and type-hierarchies; 3) Conversion of this map into DOT notation for planning. Text-based search is permitted only for non-code assets (comments, documentation)

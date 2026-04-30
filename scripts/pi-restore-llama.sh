@@ -15,7 +15,7 @@ PI_DIR="${HOME}/.pi/agent"
 
 for base in models.json settings.json; do
   file="${PI_DIR}/${base}"
-  backup=$(ls -1t "${PI_DIR}/${base}".pre-llama-* 2>/dev/null | head -1)
+  backup=$(ls -1t "${PI_DIR}/${base}".pre-llama-* 2>/dev/null | head -1 || true)
 
   if [[ -z "$backup" ]]; then
     echo "Warning: no pre-llama backup found for ${base}" >&2

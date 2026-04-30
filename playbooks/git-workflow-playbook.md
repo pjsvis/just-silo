@@ -60,6 +60,35 @@ git pull origin main
 - If main diverges from origin, reset it to match origin first, then re-create your feature branch.
 - Force-push is acceptable **only** for feature branches you own and no one else has checked out.
 
+## Branch Protection (Enforced)
+
+`main` has server-side branch protection. **Direct pushes are rejected.**
+
+| Rule | Setting |
+|------|---------|
+| Require PR before merging | ✓ |
+| Require 1 review approval | ✓ |
+| Require status checks (quality, lint-markdown) | ✓ |
+| Branch must be up-to-date before merge | ✓ |
+| Block force pushes | ✓ |
+| Block deletions | ✓ |
+| Enforce on admins | ✓ |
+
+### What this means for agents
+
+```bash
+# BLOCKED — will be rejected by GitHub
+git checkout main && git commit -m "..." && git push origin main
+
+# REQUIRED — branch-first workflow
+git checkout -b tidy/what-you-fixed
+git commit -m "..."
+git push origin tidy/what-you-fixed
+gh pr create --base main
+```
+
+No force-pushes to main. No revert dances. No direct commits. The branch exists to catch mistakes before they land.
+
 ## Why This Works
 
 The previous failure mode: a long-lived `pr/two-tier-api-agents-gamma` branch was merged via PR #2, then kept alive with 82 more commits. This created a merge-history fork that could not be fast-forwarded and required force-pushing main.

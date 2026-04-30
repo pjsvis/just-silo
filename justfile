@@ -45,27 +45,27 @@ about-file file:
 # Verify prerequisites
 [group("silo")]
 silo-verify:
-    @cd templates/basic && just verify
+    @cd template && just verify
 
 # Harvest data
 [group("silo")]
 silo-harvest:
-    @cd templates/basic && just harvest
+    @cd template && just harvest
 
 # Process data
 [group("silo")]
 silo-process:
-    @cd templates/basic && just process
+    @cd template && just process
 
 # Flush to archive
 [group("silo")]
 silo-flush:
-    @cd templates/basic && just flush
+    @cd template && just flush
 
 # Show status
 [group("silo")]
 silo-status:
-    @cd templates/basic && just status
+    @cd template && just status
 
 # Silo help - entry point for new agents
 [group("silo")]
@@ -75,7 +75,7 @@ silo-help:
 # Verify silo structure
 [group("silo")]
 silo-verify-structure:
-    @./scripts/silo-verify-structure.sh templates/basic
+    @./scripts/silo-verify-structure.sh template
 
 # Watch mode (requires watchexec)
 [group("silo")]

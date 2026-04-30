@@ -158,9 +158,14 @@ fi
 
 # Lazy model resolution — only detect when the profile actually needs it
 gemma4_model() {
-  # Gemma 4 E4B (~4.6 GB Q4_K_M) — efficient variant, sufficient for most tasks
-  # Falls back to 26B A4B (~16 GB) if E4B not available
-  detect_model GEMMA4_MODEL registry.ollama.ai library gemma4 e4b gemma-4-E4B-it-Q4_K_M.gguf gemma-4-E4B-it-Q4_K_M.gguf
+  # Gemma 4 — try 26B A4B first (what llama-fetch downloads), then E4B
+  local f
+  f="${HOME}/models/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf"
+  if [[ -f "$f" ]]; then echo "$f"; return 0; fi
+  f="${HOME}/models/gemma-4-E4B-it-Q4_K_M.gguf"
+  if [[ -f "$f" ]]; then echo "$f"; return 0; fi
+  # Fall through to detect_model for env var / Ollama / working dir
+  detect_model GEMMA4_MODEL registry.ollama.ai library gemma4 26b gemma-4-26B-A4B-it-UD-Q4_K_M.gguf gemma-4-26B-A4B-it-UD-Q4_K_M.gguf
 }
 qwen35_model() {
   detect_model QWEN35_MODEL registry.ollama.ai library qwen3.5 latest Qwen3.5-27B-Q4_K_M.gguf Qwen3.5-27B-Q4_K_M.gguf
