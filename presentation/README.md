@@ -87,7 +87,5 @@ just theme light
 | `just push-content <md>` | Push raw markdown |
 | `just theme <dark\|light>` | Switch theme |
 | `just slides` | List available slides |
-| `just selftest` | Push self-test slide |
-| `just grumpy` | Push station ID |
 | `just presentation-stop` | Stop server |
 | `just presentation-status` | Check server status |

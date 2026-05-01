@@ -13,26 +13,17 @@ environment: local
 - **Workflow Tracing:** Agent designation helps track which agent created which briefs
 
 ## File Naming
-- **Format:** `brief-[slug].md`
-- **Location:** `briefs/` directory
-- **Example:** `briefs/brief-sidebar-refinements.md`
-
-### Brief Naming Convention
-- **Format:** `brief-[slug].md` or `brief-[topic]-[YYYY-MM-DD].md`
+- **Format:** `YYYY-MM-DD-brief-[topic].md`
 - **Location:** `briefs/` directory
 - **Slug Format:** lowercase, hyphens instead of spaces, no special chars
 - **Examples:**
-  - `briefs/brief-sidebar-refinements.md`
-  - `briefs/brief-phase1-cleanup.md`
-  - `briefs/brief-mcp-server-optimization.md`
+  - `briefs/2026-05-01-brief-python-sse-to-bun.md`
+  - `briefs/2026-04-12-brief-silo-philosophy.md`
 
-### Date-Prefix Naming (Recommended)
-- **Format:** `brief-[topic]-[YYYY-MM-DD].md`
-- **Benefits:** 
-  - Automatic chronological sorting
-  - Easy identification of recent work
-  - Prevents naming collisions
-- **Example:** `brief-phase1-cleanup-2026-01-09.md`
+### Why Date-Prefix
+- Automatic chronological sorting
+- Easy identification of recent work
+- Prevents naming collisions
 
 ### Avoid These Names
 - ❌ Generic names like `brief.md` or `task.md`
