@@ -732,3 +732,47 @@ pi-llama:
 [group("pi")]
 pi-llama-restore:
     @./scripts/pi-restore-llama.sh
+
+# ============================================================
+# PRESENTATION (live slides via bun/hono)
+# ============================================================
+
+# Start the presentation server (WebSocket)
+[group("presentation")]
+presentation-start:
+    @cd presentation && just start
+
+# Open display in browser
+[group("presentation")]
+presentation-display:
+    @open http://localhost:8080/
+
+# Push a slide by name
+[group("presentation")]
+push name:
+    @cd presentation && ./slide {{ name }}
+
+# Push raw markdown
+[group("presentation")]
+push-content markdown:
+    @cd presentation && ./push "{{ markdown }}"
+
+# Switch theme (dark/light)
+[group("presentation")]
+theme name:
+    @cd presentation && ./push --theme {{ name }}
+
+# List available slides
+[group("presentation")]
+slides:
+    @cd presentation && curl -s http://localhost:8080/slides | jq .
+
+# Stop the presentation server
+[group("presentation")]
+presentation-stop:
+    @cd presentation && just stop
+
+# Check presentation server status
+[group("presentation")]
+presentation-status:
+    @cd presentation && just status
