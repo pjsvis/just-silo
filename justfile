@@ -24,13 +24,7 @@ version:
 # Orient: current state + canon consistency check (run this first, every session)
 [group("startup")]
 orient:
-    @echo "=== Branch ===" && git branch --show-current
-    @echo "=== Git status ===" && git status --short
-    @echo "=== Last commit ===" && git log -1 --oneline 2>/dev/null || echo "(no commits)"
-    @echo "=== Canon ===" && just canon-list 2>/dev/null || echo "(canon bundle missing or empty)"
-    @echo ""
-    @echo "=== Canon consistency check ==="
-    @just canon-check
+    @./scripts/orient.sh
 
 # ============================================================
 # HELP
