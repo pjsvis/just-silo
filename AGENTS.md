@@ -7,22 +7,32 @@ Use td usage -q for subsequent reads.
 
 ---
 
-## MANDATORY: Branch-First Git Workflow (Solo Contributor)
+## Git Workflow (Solo Contributor)
 
-`main` has server-side branch protection: status checks required, force pushes blocked.
-No review approval is required (solo contributor — no one else to approve).
+**Direct push to `main` is allowed.** Branch protection is off.
 
-**Process discipline:** Always work on a feature branch, create a PR for review trail.
-Server-side AI reviewers (Qodo, CodeRabbit) will comment on your PR — fix their findings.
+**Branch when it earns it, push directly when it doesn't.** The decision is
+size and reversibility, not policy:
 
-**Always:**
-1. `git checkout -b <prefix>/description` (feat/, fix/, docs/, tidy/, refactor/)
-2. Commit to the branch
-3. `git push origin <branch>`
-4. `gh pr create --base main`
-5. Monitor reviews (`pr_watch <number>`), fix findings, merge when checks pass
+- **Direct push to main:** small, self-contained changes (a single playbook,
+  a doc edit, a fix). One logical change per commit. Run `just canon-check`
+  first when touching `canon/`.
+- **Feature branch + PR:** larger work, multi-step changes, anything that
+  benefits from CI running on a branch before merge. The PR is a review
+  trail and a CI gate, not a permission gate.
 
-Force pushes to main are blocked. Direct pushes to main bypass PR review trail — don't.
+**Why no branch protection** (recorded so this doesn't regenerate as a
+barnacle): branch protection's main value is the peer-review gate, and this
+is a solo repo — there are no peers. CI gates (`quality`, `lint-markdown`)
+still run on branches and PRs regardless. The friction-to-utility ratio
+failed the Watt test for a repo whose work is mostly meta-text (playbooks,
+briefs, decisions, AGENTS.md edits). Removed 2026-07-05.
+
+**Server-side AI reviewers** (CodeRabbit, Qodo) run **advisory**, not gating.
+They are strong on code (smells, missing tests, type errors, security) and
+near-zero on meta-text (they can't judge whether a playbook embodies its
+discipline). Read their findings on code PRs; discount them on prose PRs.
+Do not block on them.
 
 See: `playbooks/git-workflow-playbook.md`
 
@@ -38,7 +48,7 @@ For code analysis and refactoring tasks, the agent shall perform a structural au
 
 The `canon/` bundle at repo root holds curated, portable method playbooks (OKF-conformant). It is operational only when self-consistent — when `INDEX.jsonl` (source of truth) matches the files on disk, and every entry carries OKF frontmatter.
 
-**Before doing anything in this repo — reading, editing, or pulling from canon — run:**
+**Before reading, editing, or pulling from canon — run:**
 
 ```bash
 just orient        # ends with a canon consistency check
