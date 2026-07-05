@@ -189,6 +189,10 @@ cmd_check() {
   ok "Registry present: $INDEX_JSONL"
 
   # 3. Every INDEX.jsonl line is valid JSON
+  # Parse first, refuse to continue if malformed — downstream steps (4-7)
+  # call jq again on the same lines, and with `set -e -o pipefail` those
+  # calls abort the script before the summary report prints. Detect JSON
+  # errors here, report line numbers, exit cleanly.
   local lineno=0
   while IFS= read -r line; do
     lineno=$((lineno + 1))
@@ -198,7 +202,12 @@ cmd_check() {
       problems=$((problems + 1))
     fi
   done < "$INDEX_JSONL"
-  if [[ $problems -eq 0 ]]; then ok "All INDEX.jsonl lines parse as JSON"; fi
+  if [[ $problems -gt 0 ]]; then
+    echo ""
+    err "Fix INDEX.jsonl JSON parse errors first, then re-run canon-check"
+    exit 1
+  fi
+  ok "All INDEX.jsonl lines parse as JSON"
 
   # 4. Every registry entry has required fields (file, type, title)
   while IFS= read -r line; do
