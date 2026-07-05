@@ -330,6 +330,25 @@ briefs-status:
     @./scripts/briefs.sh status
 
 # ============================================================
+# CANON (curated, portable, OKF-conformant method playbooks)
+# ============================================================
+
+# Regenerate canon/index.md from canon/INDEX.jsonl (source of truth)
+[group("canon")]
+canon-index:
+    @./scripts/canon.sh index
+
+# Validate canon bundle: OKF frontmatter + INDEX.jsonl <-> filesystem sync
+[group("canon")]
+canon-check:
+    @./scripts/canon.sh check
+
+# List canon entries (human-readable)
+[group("canon")]
+canon-list:
+    @./scripts/canon.sh list
+
+# ============================================================
 # API (server) - Two-Tier Architecture
 # ============================================================
 
