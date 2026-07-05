@@ -34,6 +34,22 @@ For code analysis and refactoring tasks, the agent shall perform a structural au
 
 ---
 
+## MANDATORY: Canon Consistency on Startup
+
+The `canon/` bundle at repo root holds curated, portable method playbooks (OKF-conformant). It is operational only when self-consistent — when `INDEX.jsonl` (source of truth) matches the files on disk, and every entry carries OKF frontmatter.
+
+**Before doing anything in this repo — reading, editing, or pulling from canon — run:**
+
+```bash
+just orient        # ends with a canon consistency check
+```
+
+`just orient` runs `just canon-check` as its last step. If the canon check fails, **do not proceed** with other work — fix the drift first (`canon/INDEX.jsonl` is the source of truth; regenerate with `just canon-index`). Do not build on an inconsistent foundation.
+
+**Adding to canon:** one entry per commit, branch off main, update `INDEX.jsonl` then `just canon-index` then append to `canon/log.md`, `just canon-check` must pass before commit. See `canon/index.md` for the full protocol.
+
+---
+
 ## Workflow
 
 ### Local Development
